@@ -1,4 +1,4 @@
-package SpriteSheetTester.SpriteSheetTest;
+package SpriteSheetTest;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.imageio.ImageIO;
