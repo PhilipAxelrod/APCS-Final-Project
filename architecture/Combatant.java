@@ -1,8 +1,9 @@
 package architecture;
 
 import java.util.HashMap;
+import java.util.TimerTask;
 
-public abstract class Combatant
+public abstract class Combatant extends TimerTask
 {
 
     int health, mana, level;
@@ -16,6 +17,4 @@ public abstract class Combatant
         this.level = level;
         this.stats = stats;
     }
-    
-
 }
