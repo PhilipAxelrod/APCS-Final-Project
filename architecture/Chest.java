@@ -14,7 +14,7 @@ public class Chest extends ArrayList<Item>
      */
     public Chest()
     {
-        new Chest( new ArrayList<>() );
+        new Chest( new ArrayList<Item>() );
     }
 
 
