@@ -1,4 +1,4 @@
-package SpriteSheetTest;
+package graphicsUtils;
 
 import java.awt.image.BufferedImage;
 

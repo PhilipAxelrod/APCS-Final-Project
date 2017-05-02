@@ -1,4 +1,4 @@
-package SpriteSheetTest;
+package graphicsUtils;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -71,6 +71,14 @@ public class GraphicsInterface extends Canvas
     public void setSprite(BufferedImage newSprite) {
         this.sprite = newSprite;
     }
+
+    public void loadSprite(String absolutePath) {
+        try {
+            this.sprite = ImageUtils.loadBufferedImage(absolutePath);
+        } catch (IOException e) {
+            throw new RuntimeException("image loadig failed");
+        }
+    }
     
     public void paint(BufferedImage sprite, int x, int y, int width, int height, Graphics g)
     {       
@@ -82,15 +90,17 @@ public class GraphicsInterface extends Canvas
      * @param width
      * @param height
      * @param blockSize the length in pixels of each individual block
+     * @param xTopLeftCorner
+     * @param yTopLeftConer
      */
-    public void drawFloor(int width, int height, int blockSize)
+    public void drawFloor(int width, int height, int blockSize, int xTopLeftCorner, int yTopLeftConer)
     {
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 paint(
                     sprite,
-                    blockSize * row,
-                    blockSize * col,
+                    xTopLeftCorner + blockSize * row,
+                    yTopLeftConer + blockSize * col,
                     blockSize,
                     blockSize,
                     graphic);
@@ -108,6 +118,6 @@ public class GraphicsInterface extends Canvas
         } catch (IOException e) {
             throw new RuntimeException("Image failed to load");
         }
-        graphicsInterface.drawFloor(1, 1, 100);
+        graphicsInterface.drawFloor(1, 1, 100, 0, 0);
     }
 }
