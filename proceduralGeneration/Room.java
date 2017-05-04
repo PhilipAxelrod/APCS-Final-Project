@@ -3,8 +3,28 @@ package proceduralGeneration;
 import graphicsUtils.GraphicsInterface;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import architecture.Chest;
+import architecture.Combatant;
+
 
 public class Room extends Rectangle {
+    ArrayList<Combatant> enemies;
+    ArrayList<Chest> chests;
+    
+    public Room(ArrayList<Combatant> enemies)
+    {
+        this.enemies = enemies;
+    }
+    
+    public void update(  )
+    {
+       for(Combatant c : enemies) {
+           c.run();
+       }
+    }
+  
     private static int randomInt(int min, int max) {
         int range = max - min + 1;
         return min + (int)(range * Math.random());

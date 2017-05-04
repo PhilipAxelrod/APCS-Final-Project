@@ -1,24 +1,36 @@
 package architecture;
 
+import java.awt.Robot;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import proceduralGeneration.Room;
 
 public class GameLoop {
 
     public static void main(String[] args) {
         Timer timer = new Timer();
-        long startTime = System.currentTimeMillis();
-
-        TimerTask runnable = new Combatant(0, 0, 0, null) {
-            @Override
-            public void run() {
-                System.out.println("I'm bob!");
-                timer.schedule(this, 1000);
-            }
-        };
+        
+        ArrayList<Chest> chests = new ArrayList<Chest>();
+        ArrayList<Combatant> figheters = new ArrayList<Combatant>();
+        
+        Room room = new Room(figheters);
 
         System.out.println("just scheduled!");
-
-        timer.schedule(runnable, 10000);
+           
+        TimerTask task = new TimerTask()
+        {
+            
+            @Override
+            public void run()
+            {
+                room.update();
+                
+            }
+        };
+        
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 }
