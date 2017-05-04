@@ -1,10 +1,8 @@
 package proceduralGeneration;
 
 import graphicsUtils.GraphicsInterface;
-
 import java.awt.*;
 import java.util.ArrayList;
-
 import architecture.Chest;
 import architecture.Combatant;
 
@@ -12,6 +10,10 @@ import architecture.Combatant;
 public class Room extends Rectangle {
     ArrayList<Combatant> enemies;
     ArrayList<Chest> chests;
+       
+    Cell[][] cells;
+    static final int rows = 1000;
+    static final int cols = rows;
     
     public Room(ArrayList<Combatant> enemies)
     {
@@ -29,8 +31,9 @@ public class Room extends Rectangle {
         int range = max - min + 1;
         return min + (int)(range * Math.random());
     }
-
-    public static void main(String[] args) {
+    
+    public void render(  )
+    {
         GraphicsInterface graphicsInterface = new GraphicsInterface();
         graphicsInterface.loadSprite("Dirt_Floor.png");
 
@@ -58,5 +61,10 @@ public class Room extends Rectangle {
 
             graphicsInterface.drawFloor(1, 1, side, x, y);
         }
+    }
+    
+    public static void main(String[] args) {
+        Room room = new Room( null);
+        room.render();
     }
 }
