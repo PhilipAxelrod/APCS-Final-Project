@@ -19,14 +19,14 @@ public class Skeleton extends Monster
     @Override
     public double defenseFactor()
     {
-        return 2;
+        return 3.0;
     }
 
 
     @Override
     public double[] attributeDistribution()
     {
-        double[] distribution = { 20, 3, 15, 15, 10, 3, 5 };
+        double[] distribution = { 20, 2, 15, 15, 10, 3, 5 };
         return distribution.clone();
     }
 
@@ -35,6 +35,14 @@ public class Skeleton extends Monster
     public String type()
     {
         return "Skeleton";
+    }
+
+
+    @Override
+    public void run()
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

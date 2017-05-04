@@ -1,10 +1,12 @@
 package architecture;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
-public class Chest extends ArrayList<Item>
+public class Chest
 {
+    List<Item> contents;
 
     boolean isOpened = false;
 
@@ -14,7 +16,7 @@ public class Chest extends ArrayList<Item>
      */
     public Chest()
     {
-        new Chest( new ArrayList<Item>() );
+        this.contents = new LinkedList<Item>();
     }
 
 
@@ -24,16 +26,62 @@ public class Chest extends ArrayList<Item>
      * @param items
      *            Items to add
      */
-    public Chest( ArrayList<Item> items )
+    public Chest( List<Item> contents )
     {
-        this.addAll( items );
+        this.contents = contents;
     }
 
 
-    public Item get( int index )
+    /**
+     * Gets the contents of the chest.
+     * 
+     * @return a List<Item> of the chests's contents
+     */
+    public List<Item> getContents()
     {
         isOpened = true;
-        return super.get( index );
+        return contents;
+    }
+
+
+    /**
+     * Adds the Item, item, to Player's inventory, if item is present.
+     * 
+     * @param item
+     *            item to add
+     * @return true if successful, false if unsuccessful
+     */
+    public boolean acquire( Item item )
+    {
+        if ( contents.remove( item ) )
+        {
+            // Player.acquire(item);
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Adds all items to Player's inventory.
+     */
+    public void acquireAll()
+    {
+        for ( Item item : contents )
+        { // Player.acquire(item);
+        }
+        contents.clear();
+    }
+
+
+    /**
+     * Checks if chest has contents by calling the isEmpty() method of contents.
+     * 
+     * @return whether or not contents is empty
+     */
+    public boolean isEmpty()
+    {
+        return contents.isEmpty();
     }
 
 

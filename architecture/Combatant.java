@@ -1,18 +1,21 @@
 package architecture;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.TimerTask;
-
 
 
 public abstract class Combatant extends TimerTask
 {
 
-    int level, health, mana;
+    private int level, health, mana;
 
-    int[] attributes = new int[7]; // [STR, INT, DEX, SPD, VIT, WIS, LUK]
+    // [STR, INT, DEX, SPD, VIT, WIS, LUK]
+    private int[] attributes = new int[7];
 
-    int[] stats = new int[8]; // [HP, MP, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
+    // [HP, MP, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
+    private int[] stats = new int[8];
+
+    private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
 
     public static final String[] attributeNames = { "STR", "INT", "DEX", "SPD",
         "VIT", "WIS", "LUK" };
@@ -20,21 +23,34 @@ public abstract class Combatant extends TimerTask
     public static final String[] statNames = { "HP", "MP", "ATK", "DEF", "ACC",
         "AVO", "CRIT", "CRITAVO" };
 
-    static final int healthFactor = 4;
+    // Constants used to calculate stats from attributes.
+    private static final double healthFactor = 4, manaFactor = 3,
+                    accuracyFactor = 5, critFactor = 5, baseCrit = 5,
+                    damageFactor = .332;
 
-    static final int manaFactor = 3;
+    /**
+     * Expected raise in each attribute per level for a generic monster
+     * (Skeleton).
+     */
+    public static final double[] attributePerLevel = { 2.0, 0.2, 1.5, 1.5, 1.0,
+        0.3, 0.5 };
 
-    static final int accuracyFactor = 5;
+    // Constants used to calculate damage.
+    private static final double damageBase = Math.pow( 3, 1 / 10 );
 
-    static final int critFactor = 5;
+    // Constants used to calculate variation in damage dealt.
+    private static final double varFactor = 1.23;
 
-    static final int baseCrit = 5;
+    private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    static final double damageBase = Math.pow( 3, 1 / 10 );
 
-    static final double varFactor = 1.23;
+    public void run()
+    {
+        for ( VolatileEffect effect : getTempEffects() )
+            if ( effect.tick() )
+                removeEffect( effect );
 
-    static final double inverseVar = Math.pow( varFactor, -1 );
+    }
 
 
     /**
@@ -48,13 +64,22 @@ public abstract class Combatant extends TimerTask
      *            accuracy value of attacker
      * @param crit
      *            critical value of attacker
-     * @return nominal damage dealt to this object
+     * @return an array consisting of damage dealt in the first index and a code
+     *         in the second index corresponding to special cases (0 for normal,
+     *         1 for miss, 2 for critical hit).
      */
-    public int receiveAttack( int atk, int acc, int crit )
+    public int[] receiveAttack( int atk, int acc, int crit )
     {
+        int[] information = new int[2];
+        information[1] = 0;
+
         // Test for miss
-        if ( Math.random() * 100 < acc - stats[5] )
-            return 0;
+        if ( Math.random() * 100 > acc - getStats()[5] )
+        {
+            information[0] = 0;
+            information[1] = 1;
+            return information;
+        }
 
         // Calculate damage
         int diff = atk - stats[3];
@@ -64,24 +89,56 @@ public abstract class Combatant extends TimerTask
         double var = Math.random() * ( varFactor - inverseVar ) + inverseVar;
 
         int damage = (int)Math
-            .round( Math.pow( damageBase, diff - 2 ) / 3 * var );
+            .round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
 
         // Test for critical hit.
-        if ( Math.random() * 100 >= crit - stats[7] )
+        if ( Math.random() * 100 <= crit - stats[7] )
+        {
             damage *= 2;
+            information[1] = 2;
+        }
 
         healthLoss( damage );
 
-        return damage;
+        information[0] = damage;
+        return information;
     }
 
 
     /**
-     * Method called when health of Combatant reaches zero. Death of monster
-     * removes it from the game and awards exp/items to player, while death of
-     * player ends the game.
+     * Combatant receives a volatile effect and stats are accordingly updated by
+     * calling updateStats().
+     * 
+     * @param effect
+     *            reveived effect
      */
-    public abstract void death();
+    public void receiveEffect( VolatileEffect effect )
+    {
+        volatileEffects.add( effect );
+        updateStats();
+    }
+
+
+    /**
+     * Removes all VolatileEffects.
+     */
+    public void removeAllEffects()
+    {
+        volatileEffects = new LinkedList<VolatileEffect>();
+    }
+
+
+    /**
+     * Removes given VolatileEffect.
+     * 
+     * @param effect
+     *            VolatileEffect to remove
+     * @return true if VolatileEffect removed, false if no changes made
+     */
+    public boolean removeEffect( VolatileEffect effect )
+    {
+        return volatileEffects.remove( effect );
+    }
 
 
     /**
@@ -90,21 +147,38 @@ public abstract class Combatant extends TimerTask
     public void updateStats()
     {
         // HP = VIT * healthFactor
-        stats[0] = attributes[4] * healthFactor;
+        stats[0] = (int)Math.round( attributes[4] * healthFactor );
 
         // MP = WIS * manaFactor
-        stats[1] = attributes[5] * manaFactor;
+        stats[1] = (int)Math.round( attributes[5] * manaFactor );
 
         // ATK, DEF, ACC are calculated differently for monsters and players.
 
         // AVO = SPD * speedFactor
-        stats[5] = attributes[3] * accuracyFactor;
+        stats[5] = (int)Math.round( attributes[3] * accuracyFactor );
 
         // CRIT = LUK * critFactor + baseCrit
-        stats[6] = attributes[6] * critFactor + baseCrit;
+        stats[6] = (int)Math.round( attributes[6] * critFactor + baseCrit );
 
         // CRITAVO = LUK * critFactor
-        stats[7] = attributes[6] * critFactor;
+        stats[7] = (int)Math.round( attributes[6] * critFactor );
+
+        // Factor in buffs/debuffs
+        for ( VolatileEffect effect : volatileEffects )
+        {
+            if ( effect instanceof ChangeEffect )
+            {
+                if ( ( (ChangeEffect)effect ).isAttribute() )
+                    getAttributes()[( (ChangeEffect)effect )
+                        .getValueIndex()] += ( (ChangeEffect)effect )
+                            .getNetChange();
+
+                else
+                    getStats()[( (ChangeEffect)effect )
+                        .getValueIndex()] += ( (ChangeEffect)effect )
+                            .getNetChange();
+            }
+        }
     }
 
 
@@ -116,7 +190,7 @@ public abstract class Combatant extends TimerTask
      *            health to restore
      * @return actual health restored
      */
-    public int healthRestore( int value )
+    public int restoreHealth( int value )
     {
         int missingHealth = stats[0] - health;
 
@@ -127,9 +201,20 @@ public abstract class Combatant extends TimerTask
         }
         else
         {
-            health = stats[0];
+            setHealthFull();
             return missingHealth;
         }
+    }
+
+
+    /**
+     * Restores combatant health to full (HP stat).
+     * 
+     * @return health restored
+     */
+    public int setHealthFull()
+    {
+        return health = stats[0];
     }
 
 
@@ -140,7 +225,7 @@ public abstract class Combatant extends TimerTask
      *            mana to restore
      * @return actual mana restored
      */
-    public int manaRestore( int value )
+    public int restoreMana( int value )
     {
         int missingMana = stats[1] - mana;
 
@@ -151,9 +236,20 @@ public abstract class Combatant extends TimerTask
         }
         else
         {
-            mana = stats[1];
+            setManaFull();
             return missingMana;
         }
+    }
+
+
+    /**
+     * Restores combatant mana to full (MP stat).
+     * 
+     * @return mana restored
+     */
+    public int setManaFull()
+    {
+        return mana = stats[1];
     }
 
 
@@ -167,11 +263,12 @@ public abstract class Combatant extends TimerTask
      */
     public int healthLoss( int value )
     {
+        int originalHealth = health;
         if ( health <= value )
         {
             health = 0;
             death();
-            return health;
+            return originalHealth;
         }
         else
         {
@@ -200,11 +297,29 @@ public abstract class Combatant extends TimerTask
 
 
     /**
+     * Method called when health of Combatant reaches zero. Death of monster
+     * removes it from the game and awards exp/items to player, while death of
+     * player ends the game.
+     */
+    public abstract void death();
+
+
+    /**
      * @return Returns the level.
      */
     public int getLevel()
     {
         return level;
+    }
+
+
+    /**
+     * @param level
+     *            The level to set.
+     */
+    public void setLevel( int level )
+    {
+        this.level = level;
     }
 
 
@@ -218,11 +333,31 @@ public abstract class Combatant extends TimerTask
 
 
     /**
+     * @param health
+     *            The health to set.
+     */
+    public void setHealth( int health )
+    {
+        this.health = health;
+    }
+
+
+    /**
      * @return Returns the mana.
      */
     public int getMana()
     {
         return mana;
+    }
+
+
+    /**
+     * @param mana
+     *            The mana to set.
+     */
+    public void setMana( int mana )
+    {
+        this.mana = mana;
     }
 
 
@@ -237,11 +372,30 @@ public abstract class Combatant extends TimerTask
 
 
     /**
+     * @param attributes
+     *            The attributes to set.
+     */
+    public void setAttributes( int[] attributes )
+    {
+        this.attributes = attributes;
+    }
+
+
+    /**
      * @return Returns the stats in array form. Stats are (in order): [HP, MP,
      *         ATK, DEF, ACC, AVO, CRIT, CRITAVO].
      */
     public int[] getStats()
     {
         return stats;
+    }
+
+
+    /**
+     * @return Returns the tempEffects.
+     */
+    public LinkedList<VolatileEffect> getTempEffects()
+    {
+        return volatileEffects;
     }
 }

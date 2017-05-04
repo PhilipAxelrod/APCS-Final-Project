@@ -2,11 +2,11 @@ package architecture;
 
 public class MonsterDistributionTester
 {
-    static final int count = 20;
+    private static final int count = 20;
 
-    static final int level = 1;
+    private static final int level = 5;
 
-    static Monster monster;
+    private static Monster monster;
 
 
     public static void main( String[] args )
@@ -38,8 +38,9 @@ public class MonsterDistributionTester
         // System.out.print( Combatant.attributeNames[i] + " "
         // + Math.round( monster.distributionRatios()[i] * 100 ) + "% " );
         // }
-        for ( int i = 1; i < count; i++ )
-            new Skeleton( i ).printStatus();
+        for ( int i = 0; i < count; i++ )
+            new Skeleton( 5 ).printStatus();
+        new Skeleton( 5 ).printDistributionRatios();
     }
 
 }
