@@ -9,16 +9,16 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RoomGenerator
 {
-    Cell[][] cells;
-    static final int rows = 1000;
+    final Cell[][] cells = new Cell[rows][cols];
+    static final int rows = 10;
     static final int cols = rows;
     
     private void initCells(  )
     {
-        cells = new Cell[rows][cols];
         for ( int i = 0; i < cells.length; i++ )
         {
-            for(int j = 0; i < cells[0].length; j++) {
+            for(int j = 0; j < cells[0].length; j++) {
+//                System.out.println( "i " + i + " j" + j  );
                 cells[i][j] = new Cell();
             }
         }
@@ -38,9 +38,15 @@ public class RoomGenerator
      * @param numAlive
      * @return
      */
-    private boolean simulationRule( int numAlive )
+    private boolean simulationRule( int numAlive, Cell currCell )
     {
-        throw new NotImplementedException();
+        return Math.random() < 0.5;
+    }
+    
+    public void update(  )
+    {
+        updateFutureRoomCellStates();
+        updateQeuedStates();
     }
     
     private void updateFutureRoomCellStates()
@@ -48,7 +54,7 @@ public class RoomGenerator
         for (int r = 0; r < cols; r++) {
             for(int c = 0; c < rows; c++) {
                 int aliveNeighbors = getNeighborsAlive( r, c );
-                cells[r][c].willBeAlive = simulationRule( aliveNeighbors );
+                cells[r][c].willBeAlive = simulationRule( aliveNeighbors, cells[r][c]);
             }
         }
     }
@@ -69,7 +75,7 @@ public class RoomGenerator
     private int getNeighborsAlive(int x, int y )
     {
         int toRet = 0;
-        Iterator<Optional<Cell>> neighbors =  getNeighbors( x, y );
+        Iterator<Optional<Cell>> neighbors = getNeighbors( x, y );
         while ( neighbors.hasNext() )
         {
             Optional<Cell> currCell = neighbors.next();
@@ -107,11 +113,11 @@ public class RoomGenerator
     
     private boolean withinWidth( int tocheck )
     {
-        return tocheck >= 0 && tocheck <= cols;
+        return tocheck >= 0 && tocheck < cols;
     }
     
     private boolean withinHeight( int toCheck )
     {
-        return toCheck >= 0 && toCheck <= rows;
+        return toCheck >= 0 && toCheck < rows;
     }
 }

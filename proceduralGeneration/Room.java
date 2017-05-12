@@ -63,8 +63,31 @@ public class Room extends Rectangle {
         }
     }
     
+    public static void render( Cell[][] cell)
+    {
+        GraphicsInterface graphicsInterface = new GraphicsInterface();
+        graphicsInterface.loadSprite("Dirt_Floor.png");
+
+        int side = 100;
+        
+        for ( int i = 0; i < cell.length; i++ )
+        {
+            for ( int j = 0; j < cell[0].length; j++ )
+            {
+                if(cell[i][j].isAlive) {
+                    graphicsInterface.drawFloor( 1, 1, side, i * side, j * side );
+                }
+            }
+        }
+    }
+    
     public static void main(String[] args) {
-        Room room = new Room( null);
-        room.render();
+//        Room room = new Room( null);
+        RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
+        for(int i = 0;  i < 50; i++) {
+            room.update();
+        }
+        
+        render(room.cells);
     }
 }
