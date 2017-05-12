@@ -1,5 +1,18 @@
 package architecture;
 
+/**
+ * A class to model attribute and stat-changing VolatileEffects. Each
+ * ChangeEffect object modifies one attribute or stat by a nominal
+ * (non-proportional) value and expires after a fixed number of turns or the
+ * ending of the battle.
+ *
+ * @author Kevin Liu
+ * @version May 5, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class ChangeEffect extends VolatileEffect
 {
 
@@ -10,16 +23,39 @@ public class ChangeEffect extends VolatileEffect
     private int netChange;
 
 
+    /**
+     * @param isAttribute
+     *            true if instantiated ChangeEffect modifies attributes, false
+     *            if modifies stats
+     * @param valueIndex
+     *            the index of the modified type (see Combatant class for
+     *            details)
+     * @param netChange
+     *            the change (positive or negative) applied to the modified
+     *            value
+     * @param duration
+     *            how long the ChangeEffect lasts
+     * @param combatant
+     *            the target of the effect
+     */
     public ChangeEffect(
         boolean isAttribute,
         int valueIndex,
         int netChange,
-        int turnsRemaining )
+        int duration,
+        Combatant combatant )
     {
-        super( turnsRemaining );
+        super( duration, combatant );
         this.isAttribute = isAttribute;
         this.valueIndex = valueIndex;
         this.netChange = netChange;
+    }
+
+
+    @Override
+    public void clear()
+    {
+        getCombatant().updateAttributes();
     }
 
 

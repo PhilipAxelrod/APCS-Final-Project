@@ -26,6 +26,7 @@ public class GameLoop
         Room room = new Room(figheters);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.println("just scheduled!");
            
         TimerTask task = new TimerTask()
@@ -42,6 +43,9 @@ public class GameLoop
         timer.scheduleAtFixedRate(task, 0, 1000);
 =======
         TimerTask runnable = new Skeleton( 1 )
+=======
+        TimerTask runnable = new Skeleton( 5, null )
+>>>>>>> everything
         {
             @Override
             public void run()

@@ -4,6 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * A container for items which can be looted by the player.
+ *
+ * @author Kevin Liu
+ * @version May 11, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class Chest
 {
     List<Item> contents;
@@ -23,7 +33,7 @@ public class Chest
     /**
      * Creates a chest with a list of Items.
      * 
-     * @param items
+     * @param contents
      *            Items to add
      */
     public Chest( List<Item> contents )
@@ -49,13 +59,15 @@ public class Chest
      * 
      * @param item
      *            item to add
+     * @param player
+     *            the player
      * @return true if successful, false if unsuccessful
      */
-    public boolean acquire( Item item )
+    public boolean acquire( Item item, Player player )
     {
         if ( contents.remove( item ) )
         {
-            // Player.acquire(item);
+            player.acquire( item );
             return true;
         }
         return false;
@@ -64,12 +76,13 @@ public class Chest
 
     /**
      * Adds all items to Player's inventory.
+     * 
+     * @param player
+     *            the player
      */
-    public void acquireAll()
+    public void acquireAll( Player player )
     {
-        for ( Item item : contents )
-        { // Player.acquire(item);
-        }
+        player.acquire( contents );
         contents.clear();
     }
 

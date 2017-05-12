@@ -1,9 +1,12 @@
-package architecture;
+package testClasses;
+
+import architecture.Monster;
+import architecture.Skeleton;
 
 public class CombatSimulationTester
 {
     // Defender information
-    private static final Monster target = new Skeleton( 20 );
+    private static final Monster target = new Skeleton( 20, null );
 
     // Attacker information
     private static final int atk = 70, acc = 240, crit = 20, attacks = 10;

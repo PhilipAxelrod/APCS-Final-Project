@@ -1,57 +1,71 @@
 package architecture;
 
+/**
+ * Represents all potions (recover, buffing, etc.). This class only handles
+ * calculation of variability factor.
+ *
+ * @author Kevin Liu
+ * @version May 7, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public abstract class Potion implements Consumable
 {
-    protected int type;
 
-    protected double var = 1;
-
-    private static final double[] typeDistribution = { 40, 40, 20 };
+    private double var = 1;
 
     private static final double varFactor = 1.5;
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    protected static final int[] vitalFactors = { 4, 3, 2 };
 
-
-    public Potion()
+    /**
+     * Instantiates a Potion of random variability factor.
+     */
+    protected Potion()
     {
-        // Assigns random multiplier with bell-curve distribution around 1;
-        for ( int i = 0; i < 2; i++ )
-            var *= Math.random() * ( varFactor - inverseVar ) + inverseVar;
-
-        // Determines potion type based on type distributions
-        double point = Math.random() * sumOf( typeDistribution );
-        double range = 0;
-
-        for ( int j = 0; j < 3; j++ )
-        {
-            range += typeDistribution[j];
-            if ( point < range )
-            {
-                type = j;
-                break;
-            }
-        }
-
+        var = randomVar();
     }
 
 
     /**
-     * Calculates the sum of a double[].
+     * Instantiates a Potion with given variability factor.
      * 
-     * @param array
-     *            double[] in question
-     * @return
+     * @param var
+     *            variability factor
      */
-    private static double sumOf( double[] array )
+    protected Potion( double var )
     {
-        double sum = 0;
-        for ( double i : array )
-            sum += i;
-        return sum;
+        this.var = var;
+    }
 
+
+    /**
+     * Generates a random variation (var) factor of pseudo-bell-curve
+     * distribution of median 1 between varFactor ^-2 to varFactor^2.
+     * 
+     * @return a random variation factor
+     */
+    private static double randomVar()
+    {
+        double var = 1;
+        for ( int i = 0; i < 2; i++ )
+            var *= Math.random() * ( varFactor - inverseVar ) + inverseVar;
+
+        return var;
+    }
+
+
+    /**
+     * Getter for variability factor.
+     * 
+     * @return variability factor
+     */
+    protected double getVar()
+    {
+        return var;
     }
 
 }

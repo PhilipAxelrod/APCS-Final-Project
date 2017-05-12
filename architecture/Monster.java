@@ -1,5 +1,20 @@
 package architecture;
 
+import java.util.LinkedList;
+import java.util.List;
+
+
+/**
+ * Represents monsters, Combatant enemies of the game. Specific traits of each
+ * monster (name, attribute distribution, etc.) are handled by children classes.
+ *
+ * @author Kevin Liu
+ * @version May 8, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public abstract class Monster extends Combatant
 {
     /**
@@ -8,32 +23,65 @@ public abstract class Monster extends Combatant
      */
     private static final double expPerLevel = 1.0 / 6.0;
 
-    int exp;
+    // [nominal potion, armor, weapon, accessory]
+    /**
+     * The relative probabilities of the type of item appearing on a monster.
+     * Expressed in the order: [potion, armor, weapon, accessory].
+     */
+    private static final double[] itemDistribution = { 12, 5, 1, 2 };
 
-    Item item;
-    Player player;
+    /**
+     * The probability that another item is added to the items of the Monster.
+     */
+    private static final double dropVariable = 2.0 / 3.0;
+
+    private int exp;
+
+    private List<Item> items;
+
+    private Player player;
 
 
-    public Monster( int level, Item item )
+    /**
+     * @param level
+     *            level of monster
+     * @param player
+     *            the Player
+     */
+    public Monster( int level, Player player )
     {
+        this( level, generateItems( level ), player );
+    }
 
-        if ( level < 5 )
-            throw new InstantiationError( "Level at least 5" );
+
+    /**
+     * @param level
+     *            level of monster
+     * @param items
+     *            items dropped upon death
+     * @param player
+     *            the Player
+     */
+    public Monster( int level, List<Item> items, Player player )
+    {
+        if ( level < 1 )
+            throw new InstantiationError( "Level must be at least 1" );
 
         setLevel( level );
-        this.item = item;
+        this.items = items;
+        this.player = player;
 
         exp = (int)Math.round( Player.baseExp * expPerLevel
-            * Math.pow( Player.expGrowth, level - 5 ) );
+            * Math.pow( Player.expGrowth, level - 1 ) );
 
         // Assigns fixed attributes based on Monster type and level
         for ( int i = 0; i < attributeDistribution().length; i++ )
-            getAttributes()[i] += Math
+            getBaseAttributes()[i] += Math
                 .round( distributionRatios()[i] * ( getLevel() - 2 ) * 7 );
 
-        // Assigns 14 points based on the probability of the Monster's attribute
+        // Assigns 42 points based on the probability of the Monster's attribute
         // distribution
-        for ( int i = 0; i < ( 2 ) * 7; i++ )
+        for ( int i = 0; i < ( 6 ) * 7; i++ )
         {
             double point = Math.random() * sumOf( attributeDistribution() );
             double range = 0;
@@ -43,13 +91,13 @@ public abstract class Monster extends Combatant
                 range += attributeDistribution()[j];
                 if ( point < range )
                 {
-                    getAttributes()[j]++;
+                    getBaseAttributes()[j]++;
                     break;
                 }
             }
         }
 
-        updateStats();
+        updateAttributes();
 
         // Sets health and mana to be full
         setHealthFull();
@@ -57,28 +105,94 @@ public abstract class Monster extends Combatant
     }
 
 
+    /**
+     * Generates the list of items Monster drops upon dying.
+     * 
+     * @param level
+     *            relative strength of items
+     * @return List<Item> of items
+     */
+    public static List<Item> generateItems( int level )
+    {
+        List<Item> items = new LinkedList<Item>();
+        while ( Math.random() < dropVariable )
+        {
+            double point = Math.random() * sumOf( itemDistribution );
+            double range = 0;
+
+            for ( int j = 0; j < itemDistribution.length; j++ )
+            {
+                range += itemDistribution[j];
+                if ( point < range )
+                {
+                    switch ( j )
+                    {
+                        case 0:
+                            items.add( new NominalPotion( level ) );
+                            break;
+
+                        case 1:
+                            items.add( new Armor( level ) );
+                            break;
+
+                        case 2:
+                            items.add( new Weapon( level ) );
+                            break;
+
+                        case 3:
+                            items.add( new Ring( level ) );
+                            break;
+
+                    }
+                    break;
+                }
+            }
+
+        }
+        return items;
+    }
+
+
+    @Override
+    public void run()
+    {
+        super.run();
+        if (true)
+        {
+            player.receiveAttack( getStats()[2], getStats()[4], getStats()[6] );
+        }
+    }
+
+
     @Override
     public void death()
     {
         // System.out.println( type() + " Lv. " + getLevel() + " is dead." );
-        // TODO Auto-generated method stub
         // Awards exp to the player equal to 100 / 6 * (1.5 ^ level)
-
+        player.acquire( items );
         player.gainExp( exp );
     }
 
 
     @Override
-    public void updateStats()
+    public void updateAttributes()
     {
-        super.updateStats();
+        resetAttributes();
+        updateVolatileBoosts();
+        updateStats();
+    }
+
+
+    @Override
+    protected void updateStats()
+    {
 
         // ATK = (STR or INT) + level
         if ( !isMagicDamage() )
-            getStats()[2] = getAttributes()[0] + getLevel();
+            getStats()[2] = getModifiedAttributes()[0] + getLevel();
 
         else // (isMagicDamage())
-            getStats()[2] = getAttributes()[1] + getLevel();
+            getStats()[2] = getModifiedAttributes()[1] + getLevel();
 
         // DEF = (level + 2) * defenseFactor
         getStats()[3] = (int)Math
@@ -86,11 +200,13 @@ public abstract class Monster extends Combatant
 
         // ACC = ((DEX or WIS) + level) * 4 + LUK + 75
         if ( !isMagicDamage() )
-            getStats()[4] = ( getAttributes()[3] + getLevel() ) * 4
-                + getAttributes()[6] + 75;
+            getStats()[4] = ( getModifiedAttributes()[3] + getLevel() ) * 4
+                + getBaseAttributes()[6] + 75;
         else // (isMagicDamage())
-            getStats()[4] = ( getAttributes()[5] + getLevel() ) * 4
-                + getAttributes()[6] + 75;
+            getStats()[4] = ( getModifiedAttributes()[5] + getLevel() ) * 4
+                + getModifiedAttributes()[6] + 75;
+
+        super.updateStats();
     }
 
 
@@ -99,7 +215,7 @@ public abstract class Monster extends Combatant
      * 
      * @param array
      *            double[] in question
-     * @return
+     * @return the sum of elements of array
      */
     protected static double sumOf( double[] array )
     {
@@ -176,8 +292,8 @@ public abstract class Monster extends Combatant
         System.out.println( "Attributes" );
         for ( int j = 0; j < 7; j++ )
         {
-            System.out.print(
-                Combatant.attributeNames[j] + " " + getAttributes()[j] + " " );
+            System.out.print( Combatant.attributeNames[j] + " "
+                + getBaseAttributes()[j] + " " );
         }
 
         System.out.println( "\nStats" );
@@ -191,6 +307,9 @@ public abstract class Monster extends Combatant
     }
 
 
+    /**
+     * For testing. Prints out the average increase in each stat per level.
+     */
     public void printDistributionRatios()
     {
         for ( int i = 0; i < 7; i++ )
@@ -202,6 +321,9 @@ public abstract class Monster extends Combatant
     }
 
 
+    /**
+     * For testing. Prints out the current type, level, health, and mana.
+     */
     public void printVitals()
     {
         String divider = "~~~~~~~~~~~";

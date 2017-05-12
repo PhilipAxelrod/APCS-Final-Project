@@ -1,11 +1,28 @@
 package architecture;
 
+/**
+ * A balanced, physical monster. All stat assumptions are based on this
+ * monster's scaling.
+ *
+ * @author Kevin Liu
+ * @version May 11, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class Skeleton extends Monster
 {
 
-    public Skeleton( int level )
+    /**
+     * @param level
+     *            level of Skeleton
+     * @param player
+     *            the player
+     */
+    public Skeleton( int level, Player player )
     {
-        super( level );
+        super( level, player );
     }
 
 
@@ -35,14 +52,6 @@ public class Skeleton extends Monster
     public String type()
     {
         return "Skeleton";
-    }
-
-
-    @Override
-    public void run()
-    {
-        // TODO Auto-generated method stub
-        
     }
 
 }

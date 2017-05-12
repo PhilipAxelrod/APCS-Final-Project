@@ -1,4 +1,7 @@
-package architecture;
+package testClasses;
+
+import architecture.Monster;
+import architecture.Skeleton;
 
 public class MonsterDistributionTester
 {
@@ -39,8 +42,8 @@ public class MonsterDistributionTester
         // + Math.round( monster.distributionRatios()[i] * 100 ) + "% " );
         // }
         for ( int i = 0; i < count; i++ )
-            new Skeleton( 5 ).printStatus();
-        new Skeleton( 5 ).printDistributionRatios();
+            new Skeleton( 5, null ).printStatus();
+        new Skeleton( 5, null ).printDistributionRatios();
     }
 
 }

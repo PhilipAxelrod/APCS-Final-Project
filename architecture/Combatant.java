@@ -4,22 +4,42 @@ import java.util.LinkedList;
 import java.util.TimerTask;
 
 
+/**
+ * The abstract class for all objects which engage in battle. Combatant handles
+ * attribute and stats (numerical values relevant to calculating various aspects
+ * of battle), storage of volatile effects, changes in health and mana, etc.
+ *
+ * @author Kevin Liu
+ * @version May 8, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public abstract class Combatant extends TimerTask
 {
 
     private int level, health, mana;
 
     // [STR, INT, DEX, SPD, VIT, WIS, LUK]
-    private int[] attributes = new int[7];
+    private int[] baseAttributes = new int[7];
+
+    private int[] modifiedAttributes = new int[7];
 
     // [HP, MP, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
     private int[] stats = new int[8];
 
     private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
 
+    /**
+     * Abbreviated codes for each attribute, in order of storage.
+     */
     public static final String[] attributeNames = { "STR", "INT", "DEX", "SPD",
         "VIT", "WIS", "LUK" };
 
+    /**
+     * Abbreviated codes for each stat, in order of storage.
+     */
     public static final String[] statNames = { "HP", "MP", "ATK", "DEF", "ACC",
         "AVO", "CRIT", "CRITAVO" };
 
@@ -32,7 +52,8 @@ public abstract class Combatant extends TimerTask
      * Expected raise in each attribute per level for a generic monster
      * (Skeleton).
      */
-    public static final double[] attributePerLevel = { 2.0, 0.2, 1.5, 1.5, 1.0,
+    @SuppressWarnings("unused")
+    private static final double[] attributePerLevel = { 2.0, 0.2, 1.5, 1.5, 1.0,
         0.3, 0.5 };
 
     // Constants used to calculate damage.
@@ -49,7 +70,6 @@ public abstract class Combatant extends TimerTask
         for ( VolatileEffect effect : getTempEffects() )
             if ( effect.tick() )
                 removeEffect( effect );
-
     }
 
 
@@ -106,8 +126,8 @@ public abstract class Combatant extends TimerTask
 
 
     /**
-     * Combatant receives a volatile effect and stats are accordingly updated by
-     * calling updateStats().
+     * Combatant receives a volatile effect and attributes are accordingly
+     * updated by calling updateAttributes().
      * 
      * @param effect
      *            reveived effect
@@ -115,7 +135,7 @@ public abstract class Combatant extends TimerTask
     public void receiveEffect( VolatileEffect effect )
     {
         volatileEffects.add( effect );
-        updateStats();
+        updateAttributes();
     }
 
 
@@ -129,7 +149,7 @@ public abstract class Combatant extends TimerTask
 
 
     /**
-     * Removes given VolatileEffect.
+     * Removes given VolatileEffect and calls the clear() method of the effect.
      * 
      * @param effect
      *            VolatileEffect to remove
@@ -137,44 +157,77 @@ public abstract class Combatant extends TimerTask
      */
     public boolean removeEffect( VolatileEffect effect )
     {
+        effect.clear();
         return volatileEffects.remove( effect );
     }
 
 
     /**
-     * Updates the stats of the combatant based purely on attributes.
+     * Updates the attributes of the Combatant, which in turn updates the stats.
+     * Method is called whenever equipment or volatile effects change.
      */
-    public void updateStats()
+    public abstract void updateAttributes();
+
+
+    /**
+     * Resets attribute to their base values. To be called only when updating
+     * attributes.
+     */
+    protected void resetAttributes()
     {
-        // HP = VIT * healthFactor
-        stats[0] = (int)Math.round( attributes[4] * healthFactor );
+        modifiedAttributes = baseAttributes;
+    }
 
-        // MP = WIS * manaFactor
-        stats[1] = (int)Math.round( attributes[5] * manaFactor );
 
-        // ATK, DEF, ACC are calculated differently for monsters and players.
-
-        // AVO = SPD * speedFactor
-        stats[5] = (int)Math.round( attributes[3] * accuracyFactor );
-
-        // CRIT = LUK * critFactor + baseCrit
-        stats[6] = (int)Math.round( attributes[6] * critFactor + baseCrit );
-
-        // CRITAVO = LUK * critFactor
-        stats[7] = (int)Math.round( attributes[6] * critFactor );
-
-        // Factor in buffs/debuffs
+    /**
+     * Calculates attribute changes of VolatileEffects. Stat changes are handled
+     * by updateStats().
+     */
+    protected void updateVolatileBoosts()
+    {
         for ( VolatileEffect effect : volatileEffects )
         {
             if ( effect instanceof ChangeEffect )
             {
                 if ( ( (ChangeEffect)effect ).isAttribute() )
-                    getAttributes()[( (ChangeEffect)effect )
+                    modifiedAttributes[( (ChangeEffect)effect )
                         .getValueIndex()] += ( (ChangeEffect)effect )
                             .getNetChange();
+            }
+        }
+    }
 
-                else
-                    getStats()[( (ChangeEffect)effect )
+
+    /**
+     * Updates the stats of the combatant based purely on attributes and
+     * volatile effects.
+     */
+    protected void updateStats()
+    {
+        // HP = VIT * healthFactor
+        stats[0] = (int)Math.round( baseAttributes[4] * healthFactor );
+
+        // MP = WIS * manaFactor
+        stats[1] = (int)Math.round( baseAttributes[5] * manaFactor );
+
+        // ATK, DEF, ACC are calculated differently for monsters and players.
+
+        // AVO = SPD * speedFactor
+        stats[5] = (int)Math.round( baseAttributes[3] * accuracyFactor );
+
+        // CRIT = LUK * critFactor + baseCrit
+        stats[6] = (int)Math.round( baseAttributes[6] * critFactor + baseCrit );
+
+        // CRITAVO = LUK * critFactor
+        stats[7] = (int)Math.round( baseAttributes[6] * critFactor );
+
+        // Factor in stat buffs/debuffs
+        for ( VolatileEffect effect : volatileEffects )
+        {
+            if ( effect instanceof ChangeEffect )
+            {
+                if ( !( (ChangeEffect)effect ).isAttribute() )
+                    stats[( (ChangeEffect)effect )
                         .getValueIndex()] += ( (ChangeEffect)effect )
                             .getNetChange();
             }
@@ -365,19 +418,28 @@ public abstract class Combatant extends TimerTask
      * @return Returns the attributes in array form. Attributes are (in order):
      *         [STR, INT, DEX, SPD, VIT, WIS, LUK].
      */
-    public int[] getAttributes()
+    public int[] getBaseAttributes()
     {
-        return attributes;
+        return baseAttributes;
     }
 
 
     /**
-     * @param attributes
-     *            The attributes to set.
+     * @param baseAttributes
+     *            The baseAttributes to set.
      */
-    public void setAttributes( int[] attributes )
+    public void setBaseAttributes( int[] baseAttributes )
     {
-        this.attributes = attributes;
+        this.baseAttributes = baseAttributes;
+    }
+
+
+    /**
+     * @return Returns the modifiedAttributes.
+     */
+    public int[] getModifiedAttributes()
+    {
+        return modifiedAttributes;
     }
 
 
