@@ -1,10 +1,10 @@
 package proceduralGeneration;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
+import com.sun.javafx.geom.Line2D;
+import com.sun.javafx.geom.Point2D;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RoomGenerator
@@ -18,8 +18,7 @@ public class RoomGenerator
         for ( int i = 0; i < cells.length; i++ )
         {
             for(int j = 0; j < cells[0].length; j++) {
-//                System.out.println( "i " + i + " j" + j  );
-                cells[i][j] = new Cell();
+                cells[i][j] = new Cell(i, j);
             }
         }
     }
@@ -119,5 +118,40 @@ public class RoomGenerator
     private boolean withinHeight( int toCheck )
     {
         return toCheck >= 0 && toCheck < rows;
+    }
+
+    public Optional<Cell> above(int r, int c) {
+        throw new NotImplementedException();
+    }
+
+    public Optional<Cell> right(int r, int c) {
+        throw new NotImplementedException();
+    }
+
+    public Optional<Cell> below(int r, int c) {
+        throw new NotImplementedException();
+    }
+
+    public Optional<Cell> left(int r, int c) {
+        throw new NotImplementedException();
+    }
+
+    public Hashtable<Point, List<Wall>> getWalls(final int width) {
+        ArrayList<Line2D> walls = new ArrayList<Line2D>();
+        for (int r = 0; r < cells.length; r++) {
+            for (int c = 0; c < cells[0].length; c++) {
+                above(r, c).ifPresent(cell -> {
+                    int height = cell.y * width;
+                    Point2D leftCorner = new Point2D(
+                            cell.x * width,
+                            height);
+                    Point2D rightCorner = new Point2D(
+                            cell.x * width + width,
+                            height);
+
+                    walls.add(new Line2D(leftCorner, rightCorner));
+                });
+            }
+        }
     }
 }

@@ -4,8 +4,13 @@ public class Cell
 {
     Boolean isAlive;
     Boolean willBeAlive = null;
-    
-    public Cell() {
-        this.isAlive = false;
+
+    final int x;
+    final int y;
+
+    public Cell(int x, int y) {
+        this();
+        this.x = x;
+        this.y = y;
     }
 }
