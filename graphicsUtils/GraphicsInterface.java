@@ -8,19 +8,36 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.*;
 
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GraphicsInterface extends Canvas
+import keyboardInputs.KeyEventDemo;
+
+public class GraphicsInterface extends Canvas implements KeyListener,
+ActionListener
 {
     private BufferedImage sprite;
 
     private Graphics graphic;
 
     private JFrame frame;
+    
+    
+    KeyEvent e;
+    
+    public boolean arUp, arRight, arLeft, arDown;
+    
+    KeyEventDemo testKey;
     
     public GraphicsInterface()
     {
@@ -32,7 +49,7 @@ public class GraphicsInterface extends Canvas
         frame.setLayout( new BorderLayout() );
         frame.add( this, BorderLayout.CENTER );
         frame.pack();
-        
+        frame.addKeyListener( this );
         JPanel panel = new JPanel();
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +83,7 @@ public class GraphicsInterface extends Canvas
         sprite = ss.grabSprite( 0, 0, 48, 48 );
         paint(graphic);
         System.out.println("graphics interface initGraphics() finished!");
+        
     }
 
     public void setSprite(BufferedImage newSprite) {
@@ -83,6 +101,7 @@ public class GraphicsInterface extends Canvas
     public void paint(BufferedImage sprite, int x, int y, int width, int height, Graphics g)
     {       
         g.drawImage(sprite, x, y, width, height, frame);
+ 
     }
 
     /**
@@ -108,6 +127,8 @@ public class GraphicsInterface extends Canvas
         }
         System.out.println("Draw floor finished!");
     }
+    
+    
 
     public static void main (String[] args)
     {
@@ -119,5 +140,70 @@ public class GraphicsInterface extends Canvas
             throw new RuntimeException("Image failed to load");
         }
         graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+
+    }
+
+    @Override
+    public void actionPerformed( ActionEvent e )
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed( KeyEvent e)
+    {
+        int keyCode = e.getKeyCode();
+        if (KeyEvent.getKeyText(keyCode).equals( "Left" ))
+        {
+            arLeft=true;
+            System.out.println( "leftPress" );
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Up" ))
+        {
+            arUp=true;
+            System.out.println( "upPress" );
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Right" ))
+        {
+            arRight=true;
+            System.out.println( "rightPress" );
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Down" ))
+        {
+            arDown=true;
+            System.out.println( "down" );
+        }
+        
+    }
+
+    @Override
+    public void keyReleased( KeyEvent e)
+    {
+        int keyCode = e.getKeyCode();
+        if (KeyEvent.getKeyText(keyCode).equals( "Left" ))
+        {
+            arLeft=false;
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Up" ))
+        {
+            arUp=false;
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Right" ))
+        {
+            arRight=false;
+        }
+        if (KeyEvent.getKeyText(keyCode).equals( "Down" ))
+        {
+            arDown=false;
+        }
+        
+    }
+
+    @Override
+    public void keyTyped( KeyEvent arg0 )
+    {
+        // TODO Auto-generated method stub
+        
     }
 }
