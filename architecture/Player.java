@@ -50,18 +50,23 @@ public class Player extends Combatant
         super();
         // Set starting level and attributes
         setLevel( 1 );
-        setBaseAttributes( startingAttributes );
-//        updateAttributes(); TODO: fix null pointer exceptions
-        setExpLimit();
+        // Set starting equipment
 
-        // TODO Set starting equipment
+        equippedWeapon = new Weapon( 1 );
+
+        setBaseAttributes( startingAttributes );
+        // updateAttributes(); TODO: fix null pointer exceptions
+        setExpLimit();
 
     }
 
-    public Player(Point2D startPose) {
+
+    public Player( Point2D startPose )
+    {
         this();
         this.topLeftCorner = startPose;
     }
+
 
     /**
      * Adds exp to the Player and calls levelUp() if exp exceeds limit.
@@ -140,13 +145,16 @@ public class Player extends Combatant
     {
         resetAttributes();
         // Add equippedWeapon boost
-        for ( int i = 0; i < 7; i++ )
-            getModifiedAttributes()[i] += equippedWeapon.getTotalBoosts()[i];
+        if ( equippedWeapon != null )
+            for ( int i = 0; i < 7; i++ )
+                getModifiedAttributes()[i] += equippedWeapon
+                    .getTotalBoosts()[i];
 
         // Add equippedArmor boosts
         for ( Armor armor : equippedArmor )
-            for ( int i = 0; i < 7; i++ )
-                getModifiedAttributes()[i] += armor.getTotalBoosts()[i];
+            if ( armor != null )
+                for ( int i = 0; i < 7; i++ )
+                    getModifiedAttributes()[i] += armor.getTotalBoosts()[i];
 
         // Add ring boosts
 
