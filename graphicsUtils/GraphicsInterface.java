@@ -12,195 +12,216 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import javax.swing.*;
-
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import keyboardInputs.KeyEventDemo;
 
+
 public class GraphicsInterface extends Canvas implements KeyListener, ActionListener
+
 {
+    //current sprite to be loaded
     private BufferedImage sprite;
-
+    //graphics class, dictated from java.awt.graphics
     private Graphics graphic;
-
+    //individual JFrame for the game
     private JFrame frame;
-    
-    
+    //KeyEvent object
     KeyEvent e;
-    
+    // KeyPress Booleans. Pressed down=True, Not Pressed=False
     public boolean arUp, arRight, arLeft, arDown;
-    
-    KeyEventDemo testKey;
-    
+
+    //Create the GUI
     public GraphicsInterface()
     {
-        setMinimumSize( new Dimension(700,700) );
-        setMaximumSize( new Dimension(700,700) );
-        setPreferredSize( new Dimension(700,700) );
+        
+        //Fix the size of the JFrame
+        setMinimumSize( new Dimension( 700, 700 ) );
+        setMaximumSize( new Dimension( 700, 700 ) );
+        setPreferredSize( new Dimension( 700, 700 ) );
 
-        frame = new JFrame();
-        frame.setLayout( new BorderLayout() );
-        frame.add( this, BorderLayout.CENTER );
-        frame.pack();
-        frame.addKeyListener( this );
+        //Add components to the JFrame
+        frame = new JFrame();        
+        frame.setLayout( new BorderLayout() );        
+        frame.add( this, BorderLayout.CENTER );        
+        frame.pack();        
+        frame.addKeyListener( this );        
         JPanel panel = new JPanel();
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);        
+        frame.setResizable( false );
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frame.setLocationRelativeTo( null );
         Container c = frame.getContentPane();
-        c.add(panel);
+        c.add( panel );
         graphic = getGraphics();
-        frame.setVisible(true);
+        frame.setVisible( true );
         init();
     }
 
+
     private void init()
     {
-        
+        //Load the sprite into the BufferedImage, to paint.
         BufferedImage spriteSheet = null;
+        //Try Catch if you can't find file
         try
         {
-            spriteSheet = ImageUtils.loadBufferedImage("Dirt_Floor.png");
+            spriteSheet = ImageUtils.loadBufferedImage( "Dirt_Floor.png" );
         }
-        catch (IOException ex)
+        catch ( IOException ex )
         {
-            Logger.getLogger(
-                    GraphicsInterface.class.getName() ).log(Level.SEVERE,
-                    null,
-                    ex);
+            Logger.getLogger( GraphicsInterface.class.getName() ).log( Level.SEVERE, null, ex );
         }
 
-        SpriteSheet ss = new SpriteSheet(spriteSheet);
+        SpriteSheet ss = new SpriteSheet( spriteSheet );
 
-        // TODO: take as constructor paramter
+        // Get the sprite at said coordinates (x upper, y upper, x lower, y lower)
         sprite = ss.grabSprite( 0, 0, 48, 48 );
-        paint(graphic);
-        System.out.println("graphics interface initGraphics() finished!");
-        
+        paint( graphic );
+        System.out.println( "graphics interface initGraphics() finished!" );
+
     }
 
-    public void setSprite(BufferedImage newSprite) {
+    //Set the sprite to the BufferedImage
+    public void setSprite( BufferedImage newSprite )
+    {
         this.sprite = newSprite;
     }
 
-    public void loadSprite(String absolutePath) {
-        try {
-            this.sprite = ImageUtils.loadBufferedImage(absolutePath);
-        } catch (IOException e) {
-            throw new RuntimeException("image loadig failed");
+    //Load the Sprite into the sprite sheet
+    public void loadSprite( String absolutePath )
+    {
+        try
+        {
+            this.sprite = ImageUtils.loadBufferedImage( absolutePath );
+        }
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "image loading failed" );
         }
     }
-    
-    public void paint(BufferedImage sprite, int x, int y, int width, int height, Graphics g)
-    {       
-        g.drawImage(sprite, x, y, width, height, frame);
- 
+
+    //draw the image onto the JFrame
+    public void paint( BufferedImage sprite, int x, int y, int width, int height, Graphics g )
+    {
+        g.drawImage( sprite, x, y, width, height, frame );
+
     }
+
 
     /**
      * TODO: take image as parameter
+     * 
      * @param width
      * @param height
-     * @param blockSize the length in pixels of each individual block
+     * @param blockSize
+     *            the length in pixels of each individual block
      * @param xTopLeftCorner
      * @param yTopLeftConer
      */
-    public void drawFloor(int width, int height, int blockSize, int xTopLeftCorner, int yTopLeftConer)
+    public void drawFloor( int width, int height, int blockSize, int xTopLeftCorner, int yTopLeftConer )
     {
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                paint(
-                    sprite,
+        for ( int row = 0; row < height; row++ )
+        {
+            for ( int col = 0; col < width; col++ )
+            {
+                paint( sprite,
                     xTopLeftCorner + blockSize * row,
                     yTopLeftConer + blockSize * col,
                     blockSize,
                     blockSize,
-                    graphic);
+                    graphic );
             }
         }
-        System.out.println("Draw floor finished!");
+        System.out.println( "Draw floor finished!" );
     }
-    
-    
 
-    public static void main (String[] args)
+
+    public static void main( String[] args )
     {
         GraphicsInterface graphicsInterface = new GraphicsInterface();
-        try {
-            graphicsInterface.setSprite(
-                    ImageUtils.loadBufferedImage("Dirt_Floor.png"));
-        } catch (IOException e) {
-            throw new RuntimeException("Image failed to load");
+        try
+        {
+            graphicsInterface.setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
         }
-        graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "Image failed to load" );
+        }
+        graphicsInterface.drawFloor( 1, 1, 100, 0, 0 );
 
     }
 
+    //change the booleans based on KeyEvents
     @Override
-    public void actionPerformed( ActionEvent e )
-    {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void keyPressed( KeyEvent e)
+    public void keyPressed( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
-        if (KeyEvent.getKeyText(keyCode).equals( "Left" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
-            arLeft=true;
-            System.out.println( "leftPress" );
+            arLeft = true;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Up" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Up" ) )
         {
-            arUp=true;
-            System.out.println( "upPress" );
+            arUp = true;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Right" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Right" ) )
         {
-            arRight=true;
-            System.out.println( "rightPress" );
+            arRight = true;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Down" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
-            arDown=true;
-            System.out.println( "down" );
+            arDown = true;
+
         }
-        
+
     }
 
+    //change the booleans based on KeyEvents
     @Override
-    public void keyReleased( KeyEvent e)
+    public void keyReleased( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
-        if (KeyEvent.getKeyText(keyCode).equals( "Left" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
-            arLeft=false;
+            arLeft = false;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Up" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Up" ) )
         {
-            arUp=false;
+            arUp = false;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Right" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Right" ) )
         {
-            arRight=false;
+            arRight = false;
+
         }
-        if (KeyEvent.getKeyText(keyCode).equals( "Down" ))
+        if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
-            arDown=false;
+            arDown = false;
+
         }
-        
+
     }
+
 
     @Override
     public void keyTyped( KeyEvent arg0 )
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+
+    @Override
+    public void actionPerformed( ActionEvent arg0 )
     {
         // TODO Auto-generated method stub
         
