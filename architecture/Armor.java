@@ -5,16 +5,14 @@ import java.util.List;
 
 
 /**
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * Represents armors
  *
  * @author Kevin Liu
  * @version May 11, 2017
  * @author Period: 5
  * @author Assignment: APCS Final
  *
- * @author Sources: TODO
+ * @author Sources: none
  */
 public class Armor extends Equipment
 {
@@ -63,43 +61,20 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * @param level
+     *            relative strength
+     * @param type
+     *            helmet, chestpiece, etc.
+     * @param material
+     *            the material with which the armor is made
+     */
     public Armor( int level, int type, int material )
     {
         this.type = type;
         this.material = material;
         defense = generateDefense( level, type, material );
         defenseBoosts = generateDefenseBoosts( level );
-
-        setNormalBoosts( generateNormalBoosts( level, material ) );
-        setSpecialBoosts( generateSpecialBoosts( level ) );
-
-        initializeBoosts();
-
-    }
-
-
-    /**
-     * For testing. Do NOT implement in final version.
-     * 
-     * @param level
-     * @param type
-     * @param material
-     * @param defense
-     * @param defenseBoosts
-     * @param boosts
-     */
-    public Armor(
-        int level,
-        int type,
-        int material,
-        int defense,
-        List<Integer> defenseBoosts,
-        List<AttributeBoost> boosts )
-    {
-        this.type = type;
-        this.material = material;
-        this.defense = defense;
-        this.defenseBoosts = defenseBoosts;
 
         setNormalBoosts( generateNormalBoosts( level, material ) );
         setSpecialBoosts( generateSpecialBoosts( level ) );

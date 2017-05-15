@@ -56,37 +56,11 @@ public class Weapon extends Equipment
         might = generateMight( level, type );
         accuracy = generateAccuracy( level );
         mightBoosts = generateMightBoosts( level );
+        
         setNormalBoosts( generateNormalBoosts( level, isMagicDamage ) );
         setSpecialBoosts( generateSpecialBoosts( level ) );
+        
         initializeBoosts();
-    }
-
-
-    /**
-     * For testing. Do NOT implement in final version.
-     * 
-     * @param level
-     *            relative strength of weapon
-     * @param type
-     *            damage type and weapon type
-     * @param might
-     *            strength of weapon
-     * @param accuracy
-     *            accuracy of weapon
-     * @param boosts
-     *            any bonuses to weapon; to add no boosts, pass an empty List
-     */
-    public Weapon(
-        int level,
-        int[] type,
-        int might,
-        int accuracy,
-        List<AttributeBoost> boosts )
-    {
-        this.type = type;
-        this.might = might;
-        this.accuracy = accuracy;
-        setNormalBoosts( boosts );
     }
 
 
