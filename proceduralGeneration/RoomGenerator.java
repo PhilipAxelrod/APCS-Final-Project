@@ -42,7 +42,7 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        return Math.random() < 0.5;
+        return false;//Math.random() < 0.5;
     }
     
     public void update(  )
@@ -180,6 +180,14 @@ public class RoomGenerator
         return ret;
     }
 
+    private boolean alive(Optional<Cell> toCheck) {
+        if (toCheck.isPresent()) {
+            return toCheck.get().isAlive;
+        } else {
+            return false;
+        }
+    }
+
     public Hashtable<Point2D, List<Line2D>> getWalls(final int length) {
         ArrayList<Line2D> walls = new ArrayList<Line2D>();
 
@@ -190,7 +198,7 @@ public class RoomGenerator
 
                 // TODO: change to use r and c instead of cell.x. (see
                 // TODO: above TODO first)
-                if (!above(r, c).isPresent()){
+                if (cell.isAlive && !alive(above(r, c))){
                     int height = cell.y * length;
                     Point2D leftCorner = new Point2D(cell.x * length, height);
                     Point2D rightCorner = new Point2D(cell.x * length + length, height);
@@ -198,7 +206,7 @@ public class RoomGenerator
                     walls.add(new Line2D(leftCorner, rightCorner));
                 }
 
-                if (!below(r, c).isPresent()) {
+                if (cell.isAlive && !alive(below(r, c))) {
                     int y = cell.y * length + length;
                     Point2D leftCorner = new Point2D(cell.x * length, y);
                     Point2D rightCorner = new Point2D(cell.x * length + length, y);
@@ -206,7 +214,7 @@ public class RoomGenerator
                     walls.add(new Line2D(leftCorner, rightCorner));
                 }
 
-                if (!left(r, c).isPresent()){
+                if (cell.isAlive && !alive(left(r, c))){
                     int x = cell.x * length;
                     Point2D topCorner = new Point2D(x, cell.y * length);
                     Point2D bottomCorner = new Point2D(x, cell.y * length + length);
@@ -214,7 +222,7 @@ public class RoomGenerator
                     walls.add(new Line2D(topCorner, bottomCorner));
                 }
 
-                if (!right(r, c).isPresent()) {
+                if (cell.isAlive && !alive(right(r, c))) {
                     int x = cell.x * length + length;
                     Point2D topCorner = new Point2D(x, cell.y * length);
                     Point2D bottomCorner = new Point2D(x, cell.y * length + length);

@@ -55,7 +55,7 @@ public class Player extends Combatant
         equippedWeapon = new Weapon( 1 );
 
         setBaseAttributes( startingAttributes );
-        // updateAttributes(); TODO: fix null pointer exceptions
+        updateAttributes();
         setExpLimit();
 
     }
