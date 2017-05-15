@@ -13,7 +13,7 @@ public class KeyEventDemo extends JFrame
     JTextArea displayArea;
     JTextField typingArea;
     static final String newline = System.getProperty("line.separator");
-    public boolean arUp, arRight,arLeft, arDown;
+    public boolean arUp, arRight, arLeft, arDown;
 
     private static void GUI() 
     {

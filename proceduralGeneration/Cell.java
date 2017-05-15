@@ -9,7 +9,7 @@ public class Cell
     final int y;
 
     public Cell(int x, int y) {
-        this();
+        isAlive = false;
         this.x = x;
         this.y = y;
     }

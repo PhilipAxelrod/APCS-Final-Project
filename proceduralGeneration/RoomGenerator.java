@@ -1,14 +1,17 @@
 package proceduralGeneration;
 
-import java.awt.Point;
+//import java.awt.Point;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RoomGenerator
 {
+    private final static int HashTileGridLength = 10;
+
     final Cell[][] cells = new Cell[rows][cols];
     static final int rows = 10;
     static final int cols = rows;
@@ -110,9 +113,9 @@ public class RoomGenerator
         return ret.iterator();
     }
     
-    private boolean withinWidth( int tocheck )
+    private boolean withinWidth( int toCheck )
     {
-        return tocheck >= 0 && tocheck < cols;
+        return toCheck >= 0 && toCheck < cols;
     }
     
     private boolean withinHeight( int toCheck )
@@ -120,38 +123,107 @@ public class RoomGenerator
         return toCheck >= 0 && toCheck < rows;
     }
 
+    private Optional<Cell> cellAt(int r, int c) {
+        if (withinHeight(r) && withinWidth(c)) {
+            return Optional.of(cells[r][c]);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public Optional<Cell> above(int r, int c) {
-        throw new NotImplementedException();
+        return cellAt(r - 1, c);
     }
 
     public Optional<Cell> right(int r, int c) {
-        throw new NotImplementedException();
+        return cellAt(r, c + 1);
     }
 
     public Optional<Cell> below(int r, int c) {
-        throw new NotImplementedException();
+        return cellAt(r + 1, c);
     }
 
     public Optional<Cell> left(int r, int c) {
-        throw new NotImplementedException();
+        return cellAt(r, c - 1);
     }
 
-    public Hashtable<Point, List<Wall>> getWalls(final int width) {
-        ArrayList<Line2D> walls = new ArrayList<Line2D>();
-        for (int r = 0; r < cells.length; r++) {
-            for (int c = 0; c < cells[0].length; c++) {
-                above(r, c).ifPresent(cell -> {
-                    int height = cell.y * width;
-                    Point2D leftCorner = new Point2D(
-                            cell.x * width,
-                            height);
-                    Point2D rightCorner = new Point2D(
-                            cell.x * width + width,
-                            height);
+    public static float roundToLowestMultiple(float toRound, int nearest) {
+        return (float) ((int) toRound / nearest) * nearest;
+    }
 
-                    walls.add(new Line2D(leftCorner, rightCorner));
-                });
+    /**
+     * split a list of walls into a hashtable of point keys and walls of the
+     * "tile"
+     * @param walls
+     * @return
+     */
+    private Hashtable<Point2D, List<Line2D>> segment(ArrayList<Line2D> walls, int gridLengthByTiles, int width) {
+        Hashtable<Point2D, List<Line2D>> ret = new Hashtable<>();
+        int tileWidth = cells.length * width / gridLengthByTiles;
+        for (Line2D wall : walls) {
+            // hella sketch rounding going on here. Bascially round down to the
+            // nearest multiple of tileWidth
+            float x = roundToLowestMultiple(wall.x1, tileWidth);
+            float y = roundToLowestMultiple(wall.y1, tileWidth);
+
+            Point2D point2D = new Point2D(x, y);
+
+            if (ret.containsKey(point2D)) {
+                ret.get(point2D).add(wall);
+            } else {
+                ArrayList<Line2D> initWallList = new ArrayList<>();
+                initWallList.add(wall);
+                ret.put(point2D, initWallList);
             }
         }
+
+        return ret;
+    }
+
+    public Hashtable<Point2D, List<Line2D>> getWalls(final int length) {
+        ArrayList<Line2D> walls = new ArrayList<Line2D>();
+
+        // TODO: 1) use foreach 2) include above, below, etc into Cell
+        for (int r = 0; r < cells.length; r++) {
+            for (int c = 0; c < cells[0].length; c++) {
+                Cell cell = cells[r][c];
+
+                // TODO: change to use r and c instead of cell.x. (see
+                // TODO: above TODO first)
+                if (!above(r, c).isPresent()){
+                    int height = cell.y * length;
+                    Point2D leftCorner = new Point2D(cell.x * length, height);
+                    Point2D rightCorner = new Point2D(cell.x * length + length, height);
+
+                    walls.add(new Line2D(leftCorner, rightCorner));
+                }
+
+                if (!below(r, c).isPresent()) {
+                    int y = cell.y * length + length;
+                    Point2D leftCorner = new Point2D(cell.x * length, y);
+                    Point2D rightCorner = new Point2D(cell.x * length + length, y);
+
+                    walls.add(new Line2D(leftCorner, rightCorner));
+                }
+
+                if (!left(r, c).isPresent()){
+                    int x = cell.x * length;
+                    Point2D topCorner = new Point2D(x, cell.y * length);
+                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
+
+                    walls.add(new Line2D(topCorner, bottomCorner));
+                }
+
+                if (!right(r, c).isPresent()) {
+                    int x = cell.x * length + length;
+                    Point2D topCorner = new Point2D(x, cell.y * length);
+                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
+
+                    walls.add(new Line2D(topCorner, bottomCorner));
+                }
+            }
+        }
+
+        return segment(walls, HashTileGridLength, length);
     }
 }

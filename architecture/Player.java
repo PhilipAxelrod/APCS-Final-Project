@@ -1,5 +1,7 @@
 package architecture;
 
+import com.sun.javafx.geom.Point2D;
+
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,16 +47,21 @@ public class Player extends Combatant
      */
     public Player()
     {
+        super();
         // Set starting level and attributes
         setLevel( 1 );
         setBaseAttributes( startingAttributes );
-        updateAttributes();
+//        updateAttributes(); TODO: fix null pointer exceptions
         setExpLimit();
 
         // TODO Set starting equipment
 
     }
 
+    public Player(Point2D startPose) {
+        this();
+        this.topLeftCorner = startPose;
+    }
 
     /**
      * Adds exp to the Player and calls levelUp() if exp exceeds limit.

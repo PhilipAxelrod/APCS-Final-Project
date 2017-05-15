@@ -1,5 +1,8 @@
 package architecture;
 
+import com.sun.javafx.geom.Point2D;
+
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.TimerTask;
 
@@ -18,6 +21,37 @@ import java.util.TimerTask;
  */
 public abstract class Combatant extends TimerTask
 {
+    protected Point2D previousTopLeftCorner;
+    protected Point2D topLeftCorner;
+    public int WIDTH = 10;
+    public int HEIGHT = 30;
+
+    public Combatant(Point2D initPose) {
+        this.topLeftCorner = initPose;
+    }
+
+    public Combatant() {
+        this(new Point2D(0, 0));
+    }
+    public Point2D getPose() {
+        return topLeftCorner;
+    }
+
+    protected Point2D bottomRightCorner() {
+        return new Point2D(
+                topLeftCorner.x + WIDTH,
+                topLeftCorner.y + HEIGHT);
+    }
+
+    public void resetPoseToPrevios() {
+        topLeftCorner = previousTopLeftCorner;
+        previousTopLeftCorner = null;
+    }
+
+    protected void move(float x, float y) {
+        previousTopLeftCorner = topLeftCorner;
+        topLeftCorner = new Point2D(topLeftCorner.x + x, topLeftCorner.y + y);
+    }
 
     private int level, health, mana;
 
@@ -40,8 +74,9 @@ public abstract class Combatant extends TimerTask
     /**
      * Abbreviated codes for each stat, in order of storage.
      */
-    public static final String[] statNames = { "HP", "MP", "ATK", "DEF", "ACC",
-        "AVO", "CRIT", "CRITAVO" };
+    public static final String[] statNames = { "" +
+            "HP", "MP", "ATK", "DEF", "ACC",
+            "AVO", "CRIT", "CRITAVO" };
 
     // Constants used to calculate stats from attributes.
     private static final double healthFactor = 4, manaFactor = 3,

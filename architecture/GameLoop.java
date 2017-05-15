@@ -1,17 +1,14 @@
 package architecture;
 
-import java.awt.Robot;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-<<<<<<< HEAD
+import com.sun.javafx.geom.Point2D;
 import proceduralGeneration.Room;
-
-public class GameLoop {
-=======
->>>>>>> Monster v1.0 commit
+import proceduralGeneration.RoomGenerator;
 
 public class GameLoop
 {
@@ -22,13 +19,22 @@ public class GameLoop
         
         ArrayList<Chest> chests = new ArrayList<Chest>();
         ArrayList<Combatant> figheters = new ArrayList<Combatant>();
-        
-        Room room = new Room(figheters);
+        Player player = new Player(new Point2D(0, 0));
+        figheters.add(new Skeleton( 5, null ));
+        figheters.add(player);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+        ArrayList<Point> emptyList = new ArrayList<>();
+        RoomGenerator roomGenerator = new RoomGenerator(emptyList);
+
+        for(int i = 0; i < 50; i++) {
+            roomGenerator.update();
+        }
+
+        Room room = new Room(figheters, roomGenerator.getWalls(10), 10);
+
         System.out.println("just scheduled!");
-           
+
+
         TimerTask task = new TimerTask()
         {
             
@@ -36,27 +42,11 @@ public class GameLoop
             public void run()
             {
                 room.update();
-                
+                player.move(10, 10);
+                System.out.println("player " + player.getPose());
             }
         };
         
-        timer.scheduleAtFixedRate(task, 0, 1000);
-=======
-        TimerTask runnable = new Skeleton( 1 )
-=======
-        TimerTask runnable = new Skeleton( 5, null )
->>>>>>> everything
-        {
-            @Override
-            public void run()
-            {
-                System.out.println( "I'm bob!" );
-            }
-        };
-
-        System.out.println( "just scheduled!" );
-
-        timer.schedule( runnable, 10000 );
->>>>>>> Monster v1.0 commit
+        timer.scheduleAtFixedRate(task, 0, 100);
     }
 }

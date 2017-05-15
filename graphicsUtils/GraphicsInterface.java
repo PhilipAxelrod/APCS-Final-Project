@@ -65,7 +65,7 @@ public class GraphicsInterface extends Canvas
         // TODO: take as constructor paramter
         sprite = ss.grabSprite( 0, 0, 48, 48 );
         paint(graphic);
-        System.out.println("graphics interface init() finished!");
+        System.out.println("graphics interface initGraphics() finished!");
     }
 
     public void setSprite(BufferedImage newSprite) {

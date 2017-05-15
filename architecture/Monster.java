@@ -64,6 +64,7 @@ public abstract class Monster extends Combatant
      */
     public Monster( int level, List<Item> items, Player player )
     {
+        super();
         if ( level < 1 )
             throw new InstantiationError( "Level must be at least 1" );
 
@@ -157,7 +158,7 @@ public abstract class Monster extends Combatant
     public void run()
     {
         super.run();
-        if (true)
+        if (false) // true
         {
             player.receiveAttack( getStats()[2], getStats()[4], getStats()[6] );
         }
