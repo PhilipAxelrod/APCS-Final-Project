@@ -178,6 +178,10 @@ public class Weapon extends Equipment
         return boosts;
     }
 
+    private static boolean returnFalse() {
+        return false;
+    }
+
 
     private static List<AttributeBoost> generateSpecialBoosts( int level )
     {

@@ -46,13 +46,15 @@ public class Room extends Rectangle {
 
          List<Line2D> tileWalls = walls.get(tileKey);
 
-         tileWalls.forEach(wall -> {
-             // Sketch af collision detection
-             if (wall.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
-                 combatant.resetPoseToPrevios();
-                 System.out.println("lol, it actually worked");
-             }
-         });
+         if (tileWalls != null) {
+             tileWalls.forEach(wall -> {
+                 // Sketch af collision detection
+                 if (wall.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
+                     combatant.resetPoseToPrevios();
+                     System.out.println("lol, it actually worked");
+                 }
+             });
+         }
        });
     }
   

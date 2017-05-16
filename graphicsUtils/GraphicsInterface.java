@@ -23,8 +23,7 @@ import javax.swing.JPanel;
 
 import keyboardInputs.KeyEventDemo;
 
-public class GraphicsInterface extends Canvas implements KeyListener,
-ActionListener
+public class GraphicsInterface extends Canvas implements KeyListener, ActionListener
 {
     private BufferedImage sprite;
 
