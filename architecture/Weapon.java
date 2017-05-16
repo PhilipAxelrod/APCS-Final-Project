@@ -24,7 +24,7 @@ public class Weapon extends Equipment
 
     private boolean isMagicDamage;
 
-    private int might, accuracy;
+    private int might, accuracy, range;
 
     private List<Integer> mightBoosts;
 
@@ -56,10 +56,16 @@ public class Weapon extends Equipment
         might = generateMight( level, type );
         accuracy = generateAccuracy( level );
         mightBoosts = generateMightBoosts( level );
-        
+
         setNormalBoosts( generateNormalBoosts( level, isMagicDamage ) );
         setSpecialBoosts( generateSpecialBoosts( level ) );
+
+        if ( type[0] == 0 )
+            range = 1;
         
+        else
+            range = 2;
+
         initializeBoosts();
     }
 
@@ -153,8 +159,9 @@ public class Weapon extends Equipment
         final int boostLimit = 5, boostRadius = 1, startingLevel = 1;
 
         double factor = generateFactor( boostLimit, level, startingLevel );
-        
+
         List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
+        
 
         int[] atr;
         if ( !isMagicDamage )
@@ -180,6 +187,9 @@ public class Weapon extends Equipment
 
         List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
 
+        if (level < startingLevel)
+            return boosts;
+        
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost( (int)Math.random() * 7,
                 (int)Math.round( level / 4 + generateVar( boostRadius ) ) ) );
@@ -236,6 +246,15 @@ public class Weapon extends Equipment
     public List<Integer> getMightBoosts()
     {
         return mightBoosts;
+    }
+
+
+    /**
+     * @return Returns the range.
+     */
+    public int getRange()
+    {
+        return range;
     }
 
 }

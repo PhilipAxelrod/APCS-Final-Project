@@ -3,6 +3,8 @@ package architecture;
 import java.util.LinkedList;
 import java.util.List;
 
+import sun.applet.Main;
+
 
 /**
  * A class to describe general equipment. Equipment stores and calculates boost
@@ -96,6 +98,12 @@ public abstract class Equipment implements Item
                 - 2 * boostLimit * Math.log( boostLimit ) )
                 / ( 2 * boostLimit ) );
         return 1 - 1 / ( 1 + temp );
+    }
+    
+    public static void main( String[] args )
+    {
+        for(int i = 0; i < 20; i++)
+            System.out.println( generateFactor(3, 3, 3) );
     }
 
 

@@ -171,6 +171,9 @@ public class Armor extends Equipment
 
         List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
 
+        if ( level < startingLevel )
+            return boosts;
+
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost( (int)Math.random() * 7,
                 (int)Math.round( level / 10 + generateVar( boostRadius ) ) ) );

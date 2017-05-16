@@ -167,15 +167,24 @@ public class Player extends Combatant
     @Override
     protected void updateStats()
     {
-
-        super.updateStats();
         // TODO finish
 
         // ATK = (STR or INT) + MT
+        if ( equippedWeapon != null )
+            getStats()[2] += equippedWeapon.getMight();
 
         // DEF = sumOf(defense of equippedArmor)
+        for (Armor armor : equippedArmor)
+            getStats()[3] += armor.getDefense();
 
         // ACC = (DEX or WIS) * accuracyFactor + ACC(equippedWeapon)
+        getStats()[4] = 0;
+        if (equippedWeapon != null)
+            getStats()[4] = equippedWeapon.getAccuracy();
+        else
+            getStats()[4] += 70;
+        
+        super.updateStats();
 
     }
 
@@ -350,6 +359,17 @@ public class Player extends Combatant
     {
         // TODO Auto-generated method stub
 
+    }
+
+
+    @Override
+    public int getRange()
+    {
+        if ( equippedWeapon == null )
+            return 1;
+
+        else
+            return equippedWeapon.getRange();
     }
 
 }

@@ -22,35 +22,49 @@ import java.util.TimerTask;
 public abstract class Combatant extends TimerTask
 {
     protected Point2D previousTopLeftCorner;
+
     protected Point2D topLeftCorner;
+
     public int WIDTH = 10;
+
     public int HEIGHT = 30;
 
-    public Combatant(Point2D initPose) {
+
+    public Combatant( Point2D initPose )
+    {
         this.topLeftCorner = initPose;
     }
 
-    public Combatant() {
-        this(new Point2D(0, 0));
+
+    public Combatant()
+    {
+        this( new Point2D( 0, 0 ) );
     }
-    public Point2D getPose() {
+
+
+    public Point2D getPose()
+    {
         return topLeftCorner;
     }
 
-    protected Point2D bottomRightCorner() {
-        return new Point2D(
-                topLeftCorner.x + WIDTH,
-                topLeftCorner.y + HEIGHT);
+
+    protected Point2D bottomRightCorner()
+    {
+        return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
     }
 
-    public void resetPoseToPrevios() {
+
+    public void resetPoseToPrevios()
+    {
         topLeftCorner = previousTopLeftCorner;
         previousTopLeftCorner = null;
     }
 
-    protected void move(float x, float y) {
+
+    protected void move( float x, float y )
+    {
         previousTopLeftCorner = topLeftCorner;
-        topLeftCorner = new Point2D(topLeftCorner.x + x, topLeftCorner.y + y);
+        topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
     }
 
     private int level, health, mana;
@@ -65,6 +79,8 @@ public abstract class Combatant extends TimerTask
 
     private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
 
+    private int actionBar = 0;
+
     /**
      * Abbreviated codes for each attribute, in order of storage.
      */
@@ -74,9 +90,8 @@ public abstract class Combatant extends TimerTask
     /**
      * Abbreviated codes for each stat, in order of storage.
      */
-    public static final String[] statNames = { "" +
-            "HP", "MP", "ATK", "DEF", "ACC",
-            "AVO", "CRIT", "CRITAVO" };
+    public static final String[] statNames = { "HP", "MP", "ATK", "DEF",
+        "ACC", "AVO", "CRIT", "CRITAVO" };
 
     // Constants used to calculate stats from attributes.
     private static final double healthFactor = 4, manaFactor = 3,
@@ -99,9 +114,17 @@ public abstract class Combatant extends TimerTask
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
+    private static final int actionLimit = 10000;
+
 
     public void run()
     {
+        actionBar += stats[3];
+        if ( actionBar >= actionLimit )
+        {
+            actionBar -= actionLimit;
+            // act();
+        }
         for ( VolatileEffect effect : getTempEffects() )
             if ( effect.tick() )
                 removeEffect( effect );
@@ -202,6 +225,12 @@ public abstract class Combatant extends TimerTask
      * Method is called whenever equipment or volatile effects change.
      */
     public abstract void updateAttributes();
+
+
+    /**
+     * @return attack range
+     */
+    public abstract int getRange();
 
 
     /**
