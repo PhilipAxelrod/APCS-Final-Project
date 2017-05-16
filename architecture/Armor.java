@@ -156,7 +156,7 @@ public class Armor extends Equipment
 
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost(
-                attributes[(int)Math.random() * attributes.length],
+                attributes[(int)(Math.random() * attributes.length)],
                 (int)Math.round( level / 10 + generateVar( boostRadius ) ) ) );
 
         return boosts;

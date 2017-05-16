@@ -171,7 +171,7 @@ public class Weapon extends Equipment
 
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost(
-                atr[(int)Math.random() * atr.length],
+                atr[(int)(Math.random() * atr.length)],
                 (int)Math.round( level / 4 + generateVar( boostRadius ) ) ) );
 
         return boosts;
