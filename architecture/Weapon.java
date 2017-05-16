@@ -62,7 +62,7 @@ public class Weapon extends Equipment
 
         if ( type[0] == 0 )
             range = 1;
-        
+
         else
             range = 2;
 
@@ -161,7 +161,6 @@ public class Weapon extends Equipment
         double factor = generateFactor( boostLimit, level, startingLevel );
 
         List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
-        
 
         int[] atr;
         if ( !isMagicDamage )
@@ -191,12 +190,17 @@ public class Weapon extends Equipment
 
         List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
 
-        if (level < startingLevel)
+        if ( level < startingLevel )
             return boosts;
-        
+
         while ( Math.random() < factor )
-            boosts.add( new AttributeBoost( (int)Math.random() * 7,
-                (int)Math.round( level / 4 + generateVar( boostRadius ) ) ) );
+        {
+            int value = (int)Math
+                .round( level / 4 + generateVar( boostRadius ) );
+            if ( value > 0 )
+                boosts.add(
+                    new AttributeBoost( (int)( Math.random() * 7 ), value ) );
+        }
 
         return boosts;
     }

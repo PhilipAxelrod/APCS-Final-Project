@@ -100,12 +100,6 @@ public abstract class Equipment implements Item
         return 1 - 1 / ( 1 + temp );
     }
     
-    public static void main( String[] args )
-    {
-        for(int i = 0; i < 20; i++)
-            System.out.println( generateFactor(3, 3, 3) );
-    }
-
 
     /**
      * @return Returns the normalBoosts.
