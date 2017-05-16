@@ -55,10 +55,27 @@ public class GameLoop
                 public void run()
                 {
                     room.update();
+                    int xToMoveBy = 0;
+                    int yToMoveBy = 0;
                     if (graphicsInterface.arDown) {
-                        player.move(10, 10);
+                        yToMoveBy += 10;
                         System.out.println("player " + player.getPose());
                     }
+                    if (graphicsInterface.arUp) {
+                        yToMoveBy += -10;
+                        System.out.println("player " + player.getPose());
+                    }
+                    if (graphicsInterface.arLeft) {
+                        xToMoveBy += -10;
+                        System.out.println("player " + player.getPose());
+                    }
+                    if (graphicsInterface.arRight) {
+                        xToMoveBy += 10;
+                        System.out.println("player " + player.getPose());
+                    }
+
+                    player.move(xToMoveBy, yToMoveBy);
+
                 }
             };
 

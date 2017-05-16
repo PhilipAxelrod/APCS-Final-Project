@@ -145,8 +145,7 @@ public class Weapon extends Equipment
         List<Integer> boosts = new LinkedList<Integer>();
 
         while ( Math.random() < factor )
-            boosts.add( new Integer(
-                (int)Math.round( level / 3 + generateVar( boostRadius ) ) ) );
+            boosts.add((int) Math.round(level / 3 + generateVar(boostRadius)));
 
         return boosts;
     }
