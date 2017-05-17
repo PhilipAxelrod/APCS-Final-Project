@@ -33,7 +33,11 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     //KeyEvent object
     KeyEvent e;
     // KeyPress Booleans. Pressed down=True, Not Pressed=False
-    public boolean arUp, arRight, arLeft, arDown;
+    
+    
+    public boolean arUp=false, arRight=false, arLeft=false, arDown=false;
+    
+    public int currX=0, currY=0;
 
     //Create the GUI
     public GraphicsInterface()
@@ -122,18 +126,13 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
      * @param xTopLeftCorner
      * @param yTopLeftConer
      */
-    public void drawFloor( int width, int height, int blockSize, int xTopLeftCorner, int yTopLeftConer )
+    public void drawFloor( int width, int height, int blockSize)
     {
         for ( int row = 0; row < height; row++ )
         {
             for ( int col = 0; col < width; col++ )
             {
-                paint( sprite,
-                    xTopLeftCorner + blockSize * row,
-                    yTopLeftConer + blockSize * col,
-                    blockSize,
-                    blockSize,
-                    graphic );
+                paint( sprite, 100 * row, 100 * col, blockSize, blockSize, graphic );
             }
         }
         System.out.println( "Draw floor finished!" );
@@ -151,8 +150,9 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         {
             throw new RuntimeException( "Image failed to load" );
         }
-        graphicsInterface.drawFloor( 1, 1, 100, 0, 0 );
-
+        graphicsInterface.drawFloor( 100, 100, 100 );
+        
+  
     }
 
     //change the booleans based on KeyEvents
@@ -162,25 +162,21 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         int keyCode = e.getKeyCode();
         if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
-            arLeft = true;
-
+            currX-=100;
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Up" ) )
         {
-            arUp = true;
-
+            currY-=100;
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Right" ) )
         {
-            arRight = true;
-
+            currX+=100; 
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
-            arDown = true;
-
+            currY+=100; 
         }
-
+        movePiece();
     }
 
     //change the booleans based on KeyEvents
@@ -220,10 +216,42 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     }
 
 
+
     @Override
     public void actionPerformed( ActionEvent arg0 )
     {
         // TODO Auto-generated method stub
-        
     }
+
+    public void movePiece ()
+    {
+        if (currX<0)
+        {
+            currX=0;
+        }
+        if (currY<0)
+        {
+            currY=0;
+        }
+        if (currX>700)
+        {
+            currX=700;
+        }
+        if (currY>700)
+        {
+            currY=700;
+        }
+        
+        try
+        {
+            this.setSprite( ImageUtils.loadBufferedImage( "ConcretePowderMagenta.png" ) );
+        }
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "Image failed to load" );
+        }
+        paint(sprite, currX, currY, 100, 100, graphic);
+        System.out.println( currX+" "+currY );               
+     }
+     
 }
