@@ -3,6 +3,8 @@ package architecture;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sun.javafx.geom.Point2D;
+
 
 /**
  * Represents monsters, Combatant enemies of the game. Specific traits of each
@@ -333,6 +335,14 @@ public abstract class Monster extends Combatant
         System.out.println( "HP: " + getHealth() + "/" + getStats()[0] + " MP: "
             + getMana() + "/" + getStats()[1] );
         System.out.println( divider );
+    }
+    
+    public void intellegence()
+    {
+        Point2D pPos = player.getPose();
+        Point2D ePos = getPose();
+        if (pPos.getX()>ePos.getY())
+        
     }
 
 }

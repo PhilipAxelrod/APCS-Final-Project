@@ -142,14 +142,6 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public static void main( String[] args )
     {
         GraphicsInterface graphicsInterface = new GraphicsInterface();
-        try
-        {
-            graphicsInterface.setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
         graphicsInterface.drawFloor( 100, 100, 100 );
         
   
