@@ -53,11 +53,9 @@ public class Player extends Combatant
         // Set starting equipment
 
         equippedWeapon = new Weapon();
-        
-        for (int i = 0; i < equippedArmor.length; i++)
-        {
-        }
-   
+
+        for ( int i = 0; i < equippedArmor.length; i++ )
+            equippedArmor[i] = new Armor( 1, i );
 
         setBaseAttributes( startingAttributes );
         updateAttributes();
