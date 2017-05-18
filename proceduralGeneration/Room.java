@@ -2,6 +2,7 @@ package proceduralGeneration;
 
 import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
+
 import graphicsUtils.GraphicsInterface;
 import java.awt.*;
 import java.util.*;
