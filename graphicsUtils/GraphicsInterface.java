@@ -123,8 +123,6 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
      * @param height
      * @param blockSize
      *            the length in pixels of each individual block
-     * @param xTopLeftCorner
-     * @param yTopLeftConer
      */
     public void drawFloor( int width, int height, int blockSize)
     {
@@ -138,7 +136,16 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         System.out.println( "Draw floor finished!" );
     }
 
-    public void drawFloor(int startX, int startY, int width, int height)
+    public void drawFloor(int startX, int startY, int width, int height, int blockSize) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                paint(  sprite,
+                        startX + 100 * row,
+                        startY + 100 * col,
+                        blockSize, blockSize, graphic );
+            }
+        }
+    }
 
 
     public static void main( String[] args )
@@ -154,6 +161,7 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public void keyPressed( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
+        System.out.println("this pressed: " + keyCode);
         if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
             currX-=100;
@@ -178,6 +186,7 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public void keyReleased( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
+        System.out.println("this released: " + e.getKeyCode());
         if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
             arLeft = false;

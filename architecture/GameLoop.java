@@ -46,7 +46,8 @@ public class GameLoop
                 throw new RuntimeException("Image failed to load");
             }
 
-            //graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+            graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+
 
             TimerTask task = new TimerTask()
             {
@@ -54,9 +55,11 @@ public class GameLoop
                 @Override
                 public void run()
                 {
+//                    System.out.println("in run");
                     room.update();
                     int xToMoveBy = 0;
                     int yToMoveBy = 0;
+
                     if (graphicsInterface.arDown) {
                         yToMoveBy += 10;
                         System.out.println("player " + player.getPose());

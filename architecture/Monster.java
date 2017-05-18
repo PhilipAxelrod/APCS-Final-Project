@@ -1,6 +1,5 @@
 package architecture;
 
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -351,7 +350,9 @@ public abstract class Monster extends Combatant
     {
         Point2D pPos = player.getPose();
         Point2D ePos = getPose();
-        if (pPos.getX()>ePos.getY())
+        if (pPos.x>ePos.y) {
+            
+        }
         
     }
 
