@@ -241,7 +241,15 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         {
             currY=700;
         }
-        
+        try
+        {
+            this.setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
+        }
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "Image failed to load" );
+        }
+        drawFloor( 100, 100, 100 );
         try
         {
             this.setSprite( ImageUtils.loadBufferedImage( "ConcretePowderMagenta.png" ) );
