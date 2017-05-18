@@ -58,13 +58,13 @@ public class Weapon extends Equipment
 
         setNormalBoosts( new LinkedList<AttributeBoost>() );
         setSpecialBoosts( new LinkedList<AttributeBoost>() );
-        
+
         if ( type[0] == 0 )
-            range = 3;
+            range = 100;
 
         else
-            range = 10;
-        
+            range = 300;
+
         initializeBoosts();
     }
 
@@ -86,10 +86,10 @@ public class Weapon extends Equipment
         setSpecialBoosts( generateSpecialBoosts( level ) );
 
         if ( type[0] == 0 )
-            range = 3;
+            range = 100;
 
         else
-            range = 10;
+            range = 300;
 
         initializeBoosts();
     }
@@ -170,7 +170,8 @@ public class Weapon extends Equipment
         List<Integer> boosts = new LinkedList<Integer>();
 
         while ( Math.random() < factor )
-            boosts.add((int) Math.round(level / 3 + generateVar(boostRadius)));
+            boosts.add(
+                (int)Math.round( level / 3 + generateVar( boostRadius ) ) );
 
         return boosts;
     }
@@ -199,12 +200,6 @@ public class Weapon extends Equipment
                 (int)Math.round( level / 4 + generateVar( boostRadius ) ) ) );
 
         return boosts;
-    }
-
-
-    private static boolean returnFalse()
-    {
-        return false;
     }
 
 
