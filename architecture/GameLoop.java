@@ -46,7 +46,7 @@ public class GameLoop
                 throw new RuntimeException("Image failed to load");
             }
 
-            graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+            //graphicsInterface.drawFloor(1, 1, 100, 0, 0);
 
             TimerTask task = new TimerTask()
             {

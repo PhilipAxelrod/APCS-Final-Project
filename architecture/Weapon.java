@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Weapon extends Equipment
 {
-    private int[] type;
+    private int[] type = new int[2];
 
     private boolean isMagicDamage;
 

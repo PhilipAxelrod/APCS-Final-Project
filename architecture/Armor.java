@@ -66,6 +66,18 @@ public class Armor extends Equipment
      *            relative strength
      * @param type
      *            helmet, chestpiece, etc.
+     */
+    public Armor( int level, int type )
+    {
+        this( level, type, generateMaterial() );
+    }
+
+
+    /**
+     * @param level
+     *            relative strength
+     * @param type
+     *            helmet, chestpiece, etc.
      * @param material
      *            the material with which the armor is made
      */
@@ -156,7 +168,7 @@ public class Armor extends Equipment
 
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost(
-                attributes[(int)(Math.random() * attributes.length)],
+                attributes[(int)( Math.random() * attributes.length )],
                 (int)Math.round( level / 10 + generateVar( boostRadius ) ) ) );
 
         return boosts;
