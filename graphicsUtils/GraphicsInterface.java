@@ -138,6 +138,8 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         System.out.println( "Draw floor finished!" );
     }
 
+    public void drawFloor(int startX, int startY, int width, int height)
+
 
     public static void main( String[] args )
     {

@@ -69,9 +69,8 @@ public class Room extends Rectangle {
             graphicsInterface = new GraphicsInterface();
         }
     }
-    public void render(  )
+    public void render(  GraphicsInterface graphicsInterface)
     {
-        GraphicsInterface graphicsInterface = new GraphicsInterface();
         graphicsInterface.loadSprite("Dirt_Floor.png");
 
         int side = 100;
