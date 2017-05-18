@@ -170,8 +170,6 @@ public class Player extends Combatant
     @Override
     protected void updateStats()
     {
-        // TODO finish
-
         // ATK = (STR or INT) + MT
         if ( equippedWeapon != null )
             getStats()[2] += equippedWeapon.getMight();
@@ -189,7 +187,6 @@ public class Player extends Combatant
             getStats()[4] += 70;
 
         super.updateStats();
-
     }
 
 
@@ -354,7 +351,7 @@ public class Player extends Combatant
     public void run()
     {
         // TODO Auto-generated method stub
-
+        super.run();
     }
 
 
