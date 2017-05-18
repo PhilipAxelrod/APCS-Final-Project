@@ -10,9 +10,9 @@ import com.sun.javafx.geom.Point2D;
 
 public class RoomGenerator
 {
-    private final static int HashTileGridLength = 10;
+    private final static int HashTileGridLength = 5;
 
-    final Cell[][] cells = new Cell[rows][cols];
+    final public Cell[][] cells = new Cell[rows][cols];
     static final int rows = 10;
     static final int cols = rows;
     
@@ -30,7 +30,7 @@ public class RoomGenerator
         initCells();
         for ( Point point : initAlive )
         {
-            cells[point.x][point.y].isAlive = true;
+            cells[point.x][point.y].isAlive = false;
         }
     }
     
@@ -42,7 +42,7 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        return false;//Math.random() < 0.5;
+        return Math.random() < 0.5;
     }
     
     public void update(  )

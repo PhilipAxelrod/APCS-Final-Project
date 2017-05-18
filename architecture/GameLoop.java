@@ -3,7 +3,6 @@ package architecture;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,7 +22,7 @@ public class GameLoop
             ArrayList<Chest> chests = new ArrayList<Chest>();
             ArrayList<Combatant> figheters = new ArrayList<Combatant>();
             final Player player = new Player(new Point2D(0, 0));
-            figheters.add(new Skeleton( 5, null ));
+            figheters.add(new Skeleton( 5, player ));
             figheters.add(player);
 
             ArrayList<Point> emptyList = new ArrayList<>();
@@ -46,7 +45,7 @@ public class GameLoop
                 throw new RuntimeException("Image failed to load");
             }
 
-            graphicsInterface.drawFloor(1, 1, 100, 0, 0);
+//            graphicsInterface.drawFloor(1, 1, 100, 0, 0);
 
 
             TimerTask task = new TimerTask()
@@ -77,12 +76,14 @@ public class GameLoop
                         System.out.println("player " + player.getPose());
                     }
 
-                    player.move(xToMoveBy, yToMoveBy);
+                    graphicsInterface.renderGrid(roomGenerator.cells);
+
+//                    player.move(xToMoveBy, yToMoveBy);
 
                 }
             };
 
-            timer.scheduleAtFixedRate(task, 0, 100);
+            timer.scheduleAtFixedRate(task, 0, 10000);
 
     }
 }

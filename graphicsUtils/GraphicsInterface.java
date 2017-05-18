@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import keyboardInputs.KeyEventDemo;
+import proceduralGeneration.Cell;
+import proceduralGeneration.Room;
+import proceduralGeneration.RoomGenerator;
 
 
 public class GraphicsInterface extends Canvas implements KeyListener, ActionListener
@@ -178,7 +181,6 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         {
             currY+=100; 
         }
-        movePiece();
     }
 
     //change the booleans based on KeyEvents
@@ -226,42 +228,42 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         // TODO Auto-generated method stub
     }
 
-    public void movePiece ()
+    public void render( Cell[][] cell)
     {
-        if (currX<0)
+        loadSprite("Dirt_Floor.png");
+
+        int side = 100;
+
+        for ( int i = 0; i < cell.length; i++ )
         {
-            currX=0;
+            for ( int j = 0; j < cell[0].length; j++ )
+            {
+                if(cell[i][j].isAlive()) {
+                    drawFloor( i * side, j * side, 1, 1, side );
+                }
+            }
         }
-        if (currY<0)
-        {
-            currY=0;
-        }
-        if (currX>700)
-        {
-            currX=700;
-        }
-        if (currY>700)
-        {
-            currY=700;
-        }
-        try
-        {
-            this.setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
-        drawFloor( 100, 100, 100 );
-        try
-        {
-            this.setSprite( ImageUtils.loadBufferedImage( "ConcretePowderMagenta.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
-        paint(sprite, currX, currY, 100, 100, graphic);
+    }
+
+    public void renderGrid(Cell[][] cells)
+    {
+//        if (currX<0)
+//        {
+//            currX=0;
+//        }
+//        if (currY<0)
+//        {
+//            currY=0;
+//        }
+//        if (currX>700)
+//        {
+//            currX=700;
+//        }
+//        if (currY>700)
+//        {
+//            currY=700;
+//        }
+        render(cells);
         System.out.println( currX+" "+currY );               
      }
      

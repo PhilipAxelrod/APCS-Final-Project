@@ -109,7 +109,7 @@ public class Room extends Rectangle {
         {
             for ( int j = 0; j < cell[0].length; j++ )
             {
-                if(cell[i][j].isAlive) {
+                if(cell[i][j].isAlive()) {
                     graphicsInterface.drawFloor( 1, 1, side, i * side, j * side );
                 }
             }

@@ -29,10 +29,12 @@
       <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
+            <state relative-caret-position="1976">
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#505#512#0" expanded="true" />
+                <element signature="e#574#585#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,15 +43,11 @@
       <file leaf-file-name="Skeleton.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/Skeleton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
               <folding>
-                <element signature="e#472#473#0" expanded="false" />
-                <element signature="e#510#511#0" expanded="false" />
-                <element signature="e#894#895#0" expanded="false" />
-                <element signature="e#927#928#0" expanded="false" />
-                <element signature="e#975#976#0" expanded="false" />
-                <element signature="e#999#1000#0" expanded="false" />
+                <element signature="e#472#473#0" expanded="true" />
+                <element signature="e#510#511#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,94 +56,71 @@
       <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="59" column="2" selection-start-line="59" selection-start-column="2" selection-end-line="59" selection-end-column="2" />
+            <state relative-caret-position="185">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GraphicsInterface.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/architecture/Monster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GraphicsInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="194" column="5" selection-start-line="194" selection-start-column="5" selection-end-line="194" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/architecture/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="177" column="22" selection-start-line="177" selection-start-column="22" selection-end-line="177" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Weapon.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/architecture/Weapon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4350">
-              <caret line="147" column="33" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="33" />
+            <state relative-caret-position="6212">
+              <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#4263#4272#0" expanded="false" />
-                <element signature="e#4749#4765#0" expanded="false" />
-                <element signature="e#5201#5202#0" expanded="false" />
-                <element signature="e#5229#5230#0" expanded="false" />
-                <element signature="e#5514#5530#0" expanded="false" />
-                <element signature="e#5963#5964#0" expanded="false" />
-                <element signature="e#5997#5998#0" expanded="false" />
-                <element signature="e#6081#6082#0" expanded="false" />
-                <element signature="e#6108#6109#0" expanded="false" />
-                <element signature="e#6209#6210#0" expanded="false" />
-                <element signature="e#6245#6246#0" expanded="false" />
-                <element signature="e#6329#6330#0" expanded="false" />
-                <element signature="e#6357#6358#0" expanded="false" />
-                <element signature="e#6447#6448#0" expanded="false" />
-                <element signature="e#6478#6479#0" expanded="false" />
-                <element signature="e#6584#6585#0" expanded="false" />
-                <element signature="e#6618#6619#0" expanded="false" />
-                <element signature="e#6702#6703#0" expanded="false" />
-                <element signature="e#6730#6731#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AttributeBoost.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/architecture/AttributeBoost.java">
+      <file leaf-file-name="Cell.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proceduralGeneration/Cell.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
               <folding>
-                <element signature="e#657#658#0" expanded="false" />
-                <element signature="e#689#690#0" expanded="false" />
-                <element signature="e#773#774#0" expanded="false" />
-                <element signature="e#801#802#0" expanded="false" />
+                <element signature="e#273#274#0" expanded="true" />
+                <element signature="e#303#304#0" expanded="true" />
+                <element signature="e#339#340#0" expanded="true" />
+                <element signature="e#373#374#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Equipment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/architecture/Equipment.java">
+      <file leaf-file-name="Canvas.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/Dropbox/jdk1.8.0_111/src.zip!/java/awt/Canvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4560">
-              <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+            <state relative-caret-position="197">
+              <caret line="120" column="16" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#678#694#0" expanded="false" />
-                <element signature="e#829#845#0" expanded="false" />
-                <element signature="e#2959#2960#0" expanded="false" />
-                <element signature="e#2994#2995#0" expanded="false" />
-                <element signature="e#3325#3326#0" expanded="false" />
-                <element signature="e#3361#3362#0" expanded="false" />
-                <element signature="e#3707#3708#0" expanded="false" />
-                <element signature="e#3741#3742#0" expanded="false" />
+                <element signature="e#3139#3140#0" expanded="true" />
+                <element signature="e#3187#3188#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpriteSheet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graphicsUtils/SpriteSheet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="412">
+              <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+              <folding>
+                <element signature="e#174#175#0" expanded="true" />
+                <element signature="e#211#212#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,11 +129,9 @@
       <file leaf-file-name="RoomGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2790">
-              <caret line="98" column="36" selection-start-line="98" selection-start-column="34" selection-end-line="98" selection-end-column="36" />
-              <folding>
-                <element signature="e#5351#5359#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -166,11 +139,15 @@
       <file leaf-file-name="Combatant.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="784">
+              <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
               <folding>
-                <element signature="e#10908#10909#0" expanded="true" />
-                <element signature="e#10942#10943#0" expanded="true" />
+                <element signature="e#754#755#0" expanded="true" />
+                <element signature="e#799#800#0" expanded="true" />
+                <element signature="e#830#831#0" expanded="true" />
+                <element signature="e#873#874#0" expanded="true" />
+                <element signature="e#910#911#0" expanded="true" />
+                <element signature="e#946#947#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -202,18 +179,18 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/proceduralGeneration/Cell.java" />
         <option value="$PROJECT_DIR$/proceduralGeneration/Wall.java" />
         <option value="$PROJECT_DIR$/keyboardInputs/KeyEventDemo.java" />
         <option value="$PROJECT_DIR$/keyboardInputs/KeyboardInputs.java" />
-        <option value="$PROJECT_DIR$/architecture/Monster.java" />
         <option value="$PROJECT_DIR$/architecture/Combatant.java" />
-        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
         <option value="$PROJECT_DIR$/architecture/Weapon.java" />
-        <option value="$PROJECT_DIR$/proceduralGeneration/Room.java" />
         <option value="$PROJECT_DIR$/architecture/Player.java" />
-        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
+        <option value="$PROJECT_DIR$/architecture/Monster.java" />
+        <option value="$PROJECT_DIR$/proceduralGeneration/Room.java" />
+        <option value="$PROJECT_DIR$/proceduralGeneration/Cell.java" />
         <option value="$PROJECT_DIR$/architecture/GameLoop.java" />
+        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
+        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
       </list>
     </option>
   </component>
@@ -269,10 +246,12 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20592593" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;room&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Room.java&#10;roomGe&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;weap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/architecture/Weapon.java&#10;comb&#9;PSI&#9;JAVA://architecture.Combatant&#10;roomG&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;gamel&#9;PSI&#9;JAVA://architecture.GameLoop&#10;Room&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator" />
+    <property name="SearchEverywhereHistoryKey" value="Cel&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Cell.java&#10;Room&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Room.java&#10;gra&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;grap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;room&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Room.java&#10;roomGe&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;weap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/architecture/Weapon.java&#10;comb&#9;PSI&#9;JAVA://architecture.Combatant&#10;roomG&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;gamel&#9;PSI&#9;JAVA://architecture.GameLoop" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.GraphicsInterface">
+  <component name="RunManager" selected="Application.GameLoop">
     <configuration default="false" name="Room" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -774,10 +753,10 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.GraphicsInterface" />
-        <item index="1" class="java.lang.String" itemvalue="Application.GameLoop" />
-        <item index="2" class="java.lang.String" itemvalue="Application.KeyEventDemo" />
-        <item index="3" class="java.lang.String" itemvalue="Application.Room" />
+        <item index="0" class="java.lang.String" itemvalue="Application.GameLoop" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Room" />
+        <item index="2" class="java.lang.String" itemvalue="Application.GraphicsInterface" />
+        <item index="3" class="java.lang.String" itemvalue="Application.KeyEventDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -813,7 +792,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16482000" />
+    <option name="totallyTimeSpent" value="19170000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -826,7 +805,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -835,7 +814,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32900432" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2572973" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -903,39 +882,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
-          <line>20</line>
+          <line>19</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
-          <line>24</line>
+          <url>file://$PROJECT_DIR$/architecture/Monster.java</url>
+          <line>161</line>
           <properties />
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
-          <line>35</line>
-          <properties />
-          <option name="timeStamp" value="14" />
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java</url>
-          <line>47</line>
+          <line>249</line>
           <properties />
-          <option name="timeStamp" value="15" />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
+          <line>34</line>
+          <properties />
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="17" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="tileKey" language="JAVA" />
-        <watch expression="factor" language="JAVA" />
-        <watch expression="walls.get(tileKey).get(0).x1" language="JAVA" />
-        <watch expression="walls.get(tileKey).get(0).y1" language="JAVA" />
-        <watch expression="walls.get(tileKey).get(0).x2" language="JAVA" />
-        <watch expression="walls.get(tileKey).get(0).y2" language="JAVA" />
+        <watch expression="getPose()" language="JAVA" />
+        <watch expression="cell[0][0].isAlive" language="JAVA" />
+        <watch expression="cell.length" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -944,14 +926,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
@@ -964,9 +938,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1950">
           <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
-          <folding>
-            <element signature="e#3172#3178#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -975,8 +947,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#10908#10909#0" expanded="true" />
-            <element signature="e#10942#10943#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+            <element signature="e#799#800#0" expanded="true" />
+            <element signature="e#830#831#0" expanded="true" />
+            <element signature="e#873#874#0" expanded="true" />
+            <element signature="e#910#911#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -985,9 +961,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4230">
           <caret line="146" column="22" selection-start-line="146" selection-start-column="22" selection-end-line="146" selection-end-column="22" />
-          <folding>
-            <element signature="e#5351#5359#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -997,6 +971,8 @@
           <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#505#512#0" expanded="true" />
+            <element signature="e#574#585#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1013,9 +989,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#5351#5359#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1164,13 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proceduralGeneration/Cell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/Wall.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1196,16 +1163,6 @@
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/javafx-src.zip!/com/sun/javafx/geom/Point2D.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/javafx-src.zip!/com/sun/javafx/geom/Line2D.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/javafx-src.zip!/com/sun/javafx/geom/Shape.java" />
-    <entry file="file://$PROJECT_DIR$/architecture/Monster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1950">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="e#3172#3178#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/Armor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -1214,54 +1171,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/Skeleton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <element signature="e#472#473#0" expanded="false" />
-            <element signature="e#510#511#0" expanded="false" />
-            <element signature="e#894#895#0" expanded="false" />
-            <element signature="e#927#928#0" expanded="false" />
-            <element signature="e#975#976#0" expanded="false" />
-            <element signature="e#999#1000#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Dropbox/jdk1.8.0_111/src.zip!/java/awt/Canvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-95">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/Weapon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4350">
-          <caret line="147" column="33" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="33" />
+        <state relative-caret-position="5190">
+          <caret line="175" column="22" selection-start-line="175" selection-start-column="22" selection-end-line="175" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#4263#4272#0" expanded="false" />
-            <element signature="e#4749#4765#0" expanded="false" />
-            <element signature="e#5201#5202#0" expanded="false" />
-            <element signature="e#5229#5230#0" expanded="false" />
-            <element signature="e#5514#5530#0" expanded="false" />
-            <element signature="e#5963#5964#0" expanded="false" />
-            <element signature="e#5997#5998#0" expanded="false" />
-            <element signature="e#6081#6082#0" expanded="false" />
-            <element signature="e#6108#6109#0" expanded="false" />
-            <element signature="e#6209#6210#0" expanded="false" />
-            <element signature="e#6245#6246#0" expanded="false" />
-            <element signature="e#6329#6330#0" expanded="false" />
-            <element signature="e#6357#6358#0" expanded="false" />
-            <element signature="e#6447#6448#0" expanded="false" />
-            <element signature="e#6478#6479#0" expanded="false" />
-            <element signature="e#6584#6585#0" expanded="false" />
-            <element signature="e#6618#6619#0" expanded="false" />
-            <element signature="e#6702#6703#0" expanded="false" />
-            <element signature="e#6730#6731#0" expanded="false" />
+            <element signature="e#5716#5717#0" expanded="false" />
+            <element signature="e#6001#6017#0" expanded="false" />
+            <element signature="e#6450#6451#0" expanded="false" />
+            <element signature="e#6484#6485#0" expanded="false" />
+            <element signature="e#6568#6569#0" expanded="false" />
+            <element signature="e#6595#6596#0" expanded="false" />
+            <element signature="e#6696#6697#0" expanded="false" />
+            <element signature="e#6732#6733#0" expanded="false" />
+            <element signature="e#6816#6817#0" expanded="false" />
+            <element signature="e#6844#6845#0" expanded="false" />
+            <element signature="e#6934#6935#0" expanded="false" />
+            <element signature="e#6965#6966#0" expanded="false" />
+            <element signature="e#7071#7072#0" expanded="false" />
+            <element signature="e#7105#7106#0" expanded="false" />
+            <element signature="e#7189#7190#0" expanded="false" />
+            <element signature="e#7217#7218#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1284,17 +1215,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding>
-            <element signature="e#10908#10909#0" expanded="true" />
-            <element signature="e#10942#10943#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/AttributeBoost.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
@@ -1308,46 +1228,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
+    <entry file="file://$PROJECT_DIR$/architecture/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2790">
-          <caret line="98" column="36" selection-start-line="98" selection-start-column="34" selection-end-line="98" selection-end-column="36" />
+        <state relative-caret-position="4362">
+          <caret line="186" column="57" selection-start-line="186" selection-start-column="57" selection-end-line="186" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
           <folding>
-            <element signature="e#5351#5359#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+            <element signature="e#799#800#0" expanded="true" />
+            <element signature="e#830#831#0" expanded="true" />
+            <element signature="e#873#874#0" expanded="true" />
+            <element signature="e#910#911#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/Player.java">
+    <entry file="file://$PROJECT_DIR$/graphicsUtils/SpriteSheet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="177" column="22" selection-start-line="177" selection-start-column="22" selection-end-line="177" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="412">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+          <folding>
+            <element signature="e#174#175#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Dropbox/jdk1.8.0_111/src.zip!/java/awt/Canvas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="120" column="16" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
+          <folding>
+            <element signature="e#3139#3140#0" expanded="true" />
+            <element signature="e#3187#3188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proceduralGeneration/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+          <folding>
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#303#304#0" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#373#374#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/architecture/Skeleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+          <folding>
+            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#510#511#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="59" column="2" selection-start-line="59" selection-start-column="2" selection-end-line="59" selection-end-column="2" />
+        <state relative-caret-position="185">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
+        <state relative-caret-position="1976">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#505#512#0" expanded="true" />
+            <element signature="e#574#585#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="194" column="5" selection-start-line="194" selection-start-column="5" selection-end-line="194" selection-end-column="5" />
+        <state relative-caret-position="6212">
+          <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/architecture/Monster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding />
         </state>
       </provider>
