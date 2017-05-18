@@ -58,7 +58,7 @@ public class Skeleton extends Monster
     @Override
     public int getRange()
     {
-        return 1;
+        return 3;
     }
 
 }

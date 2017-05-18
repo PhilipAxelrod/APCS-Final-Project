@@ -174,16 +174,17 @@ public class Player extends Combatant
             getStats()[2] += equippedWeapon.getMight();
 
         // DEF = sumOf(defense of equippedArmor)
-        for (Armor armor : equippedArmor)
-            getStats()[3] += armor.getDefense();
+        for ( Armor armor : equippedArmor )
+            if ( armor != null )
+                getStats()[3] += armor.getDefense();
 
         // ACC = (DEX or WIS) * accuracyFactor + ACC(equippedWeapon)
         getStats()[4] = 0;
-        if (equippedWeapon != null)
+        if ( equippedWeapon != null )
             getStats()[4] = equippedWeapon.getAccuracy();
         else
             getStats()[4] += 70;
-        
+
         super.updateStats();
 
     }

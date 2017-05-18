@@ -20,18 +20,16 @@ import architecture.Weapon;
 public class WeaponGenerationTester
 {
 
-    private static final int count = 20, level = 10;
+    private static final int count = 20, level = 1;
+
+    private static final int[] type = { 0, 0 };
 
 
     public static void main( String[] args )
     {
-//        for ( int i = 0; i < count; i++ )
-//        {
-//            for ( AttributeBoost boost : Weapon.generateSpecialBoosts( level ) )
-//                System.out.print( Combatant.attributeNames[boost.getAttribute()]
-//                    + " " + boost.getValue() + ";" );
-//            System.out.println( ";" );
-//        }
+        for ( int i = 0; i < count; i++ )
+        {
+        }
     }
 
 }

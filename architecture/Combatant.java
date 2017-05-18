@@ -80,6 +80,8 @@ public abstract class Combatant extends TimerTask
     private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
 
     private int actionBar = 0;
+    
+    protected boolean canAttack = false;
 
     /**
      * Abbreviated codes for each attribute, in order of storage.
@@ -119,12 +121,13 @@ public abstract class Combatant extends TimerTask
 
     public void run()
     {
-        actionBar += stats[3];
+        
         if ( actionBar >= actionLimit )
-        {
-            actionBar -= actionLimit;
-            // act();
-        }
+            canAttack = true;
+        
+        else
+            actionBar += stats[3];
+        
         for ( VolatileEffect effect : getTempEffects() )
             if ( effect.tick() )
                 removeEffect( effect );
@@ -523,5 +526,14 @@ public abstract class Combatant extends TimerTask
     public LinkedList<VolatileEffect> getTempEffects()
     {
         return volatileEffects;
+    }
+
+
+    /**
+     * @return Returns the canAttack.
+     */
+    public boolean isCanAttack()
+    {
+        return canAttack;
     }
 }

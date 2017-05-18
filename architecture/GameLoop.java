@@ -22,7 +22,7 @@ public class GameLoop
 
             ArrayList<Chest> chests = new ArrayList<Chest>();
             ArrayList<Combatant> figheters = new ArrayList<Combatant>();
-            Player player = new Player(new Point2D(0, 0));
+            final Player player = new Player(new Point2D(0, 0));
             figheters.add(new Skeleton( 5, null ));
             figheters.add(player);
 
@@ -33,11 +33,11 @@ public class GameLoop
                 roomGenerator.update();
             }
 
-            Room room = new Room(figheters, roomGenerator.getWalls(10), 10);
+            final Room room = new Room(figheters, roomGenerator.getWalls(10), 10);
 
             System.out.println("just scheduled!");
 
-            GraphicsInterface graphicsInterface = new GraphicsInterface();
+            final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
             try {
                 graphicsInterface.setSprite(

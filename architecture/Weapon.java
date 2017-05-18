@@ -45,6 +45,31 @@ public class Weapon extends Equipment
 
 
     /**
+     * Constructs the default (starter) weapon.
+     */
+    public Weapon()
+    {
+        type[0] = 0;
+        type[1] = 1;
+        isMagicDamage = ( type[0] == 1 );
+        might = 3;
+        accuracy = 70;
+        mightBoosts = new LinkedList<Integer>();
+
+        setNormalBoosts( new LinkedList<AttributeBoost>() );
+        setSpecialBoosts( new LinkedList<AttributeBoost>() );
+        
+        if ( type[0] == 0 )
+            range = 3;
+
+        else
+            range = 10;
+        
+        initializeBoosts();
+    }
+
+
+    /**
      * Constructs a random weapon of given level.
      * 
      * @param level
@@ -61,10 +86,10 @@ public class Weapon extends Equipment
         setSpecialBoosts( generateSpecialBoosts( level ) );
 
         if ( type[0] == 0 )
-            range = 1;
+            range = 3;
 
         else
-            range = 2;
+            range = 10;
 
         initializeBoosts();
     }
@@ -170,13 +195,15 @@ public class Weapon extends Equipment
 
         while ( Math.random() < factor )
             boosts.add( new AttributeBoost(
-                atr[(int)(Math.random() * atr.length)],
+                atr[(int)( Math.random() * atr.length )],
                 (int)Math.round( level / 4 + generateVar( boostRadius ) ) ) );
 
         return boosts;
     }
 
-    private static boolean returnFalse() {
+
+    private static boolean returnFalse()
+    {
         return false;
     }
 
