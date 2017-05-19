@@ -21,4 +21,9 @@ public class Cell
     public boolean willBeAlive() {
         return willBeAlive;
     }
+
+    @Override
+    public String toString() {
+        return "x "  + x  + " y " + y + " " + isAlive;
+    }
 }

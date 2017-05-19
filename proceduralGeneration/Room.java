@@ -37,6 +37,7 @@ public class Room extends Rectangle {
        for(Combatant c : enemies) {
            c.run();
        }
+
        enemies.forEach(combatant -> {
          Point2D currPose = combatant.getPose();
 
@@ -95,7 +96,7 @@ public class Room extends Rectangle {
                     x = x - side;
             }
 
-            graphicsInterface.drawFloor(1, 1, side, x, y);
+            graphicsInterface.drawFloor_1(1, 1, side, x, y);
         }
     }
     
@@ -110,7 +111,7 @@ public class Room extends Rectangle {
             for ( int j = 0; j < cell[0].length; j++ )
             {
                 if(cell[i][j].isAlive()) {
-                    graphicsInterface.drawFloor( 1, 1, side, i * side, j * side );
+                    graphicsInterface.drawFloor_1( 1, 1, side, i * side, j * side );
                 }
             }
         }

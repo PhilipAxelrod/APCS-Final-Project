@@ -10,11 +10,12 @@ import com.sun.javafx.geom.Point2D;
 
 public class RoomGenerator
 {
-    private final static int HashTileGridLength = 5;
+    private final static int HashTileGridLength = 4;
 
     final public Cell[][] cells = new Cell[rows][cols];
     static final int rows = 10;
     static final int cols = rows;
+    static final Point center = new Point(rows / 2, cols/ 2);
     
     private void initCells(  )
     {
@@ -26,12 +27,27 @@ public class RoomGenerator
         }
     }
     
-    public RoomGenerator(ArrayList<Point> initAlive) {
+    public RoomGenerator(List<Point> initAlive) {
         initCells();
         for ( Point point : initAlive )
         {
-            cells[point.x][point.y].isAlive = false;
+            cells[point.x][point.y].isAlive = true;
         }
+    }
+
+
+    public RoomGenerator() {
+        this(Arrays.<Point>asList(
+                new Point(
+                        center.x - 1,
+                        center.y
+                ),
+                center,
+                new Point(
+                        center.x + 1,
+                        center.y
+                )
+        ));
     }
     
     /**
@@ -42,26 +58,32 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        return Math.random() < 0.5;
+        if (numAlive == 3 && !currCell.isAlive) {
+            return true;
+        }
+        if (currCell.isAlive && numAlive <= 6 && numAlive >= 1) {
+            return true;
+        }
+        return false;
     }
     
     public void update(  )
     {
         updateFutureRoomCellStates();
-        updateQeuedStates();
+        updateQueuedStates();
     }
     
     private void updateFutureRoomCellStates()
     {
-        for (int r = 0; r < cols; r++) {
-            for(int c = 0; c < rows; c++) {
-                int aliveNeighbors = getNeighborsAlive( r, c );
-                cells[r][c].willBeAlive = simulationRule( aliveNeighbors, cells[r][c]);
+        for (int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                int aliveNeighbors = getNeighborsAlive( row, col);
+                cells[row][col].willBeAlive = simulationRule( aliveNeighbors, cells[row][col]);
             }
         }
     }
     
-    public void updateQeuedStates(  )
+    public void updateQueuedStates(  )
     {
         for ( int i = 0; i < cells.length; i++ )
         {
@@ -95,11 +117,11 @@ public class RoomGenerator
     {
         ArrayList<Optional<Cell>> ret = new ArrayList<Optional<Cell>>();
         for(int i = -1; i <= 1; i++) {
-            for(int j = -1; j <= -1; j++) {
+            for(int j = -1; j <= 1; j++) {
                 // Don't count current cell
                 if(!(i == 0 && j == 0)) {
                     int neighborX = x + i;
-                    int neighborY = y + i;
+                    int neighborY = y + j;
                     
                     if(withinWidth( neighborX ) && withinHeight( neighborY )) {
                         ret.add(Optional.of(cells[neighborX][neighborY]));

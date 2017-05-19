@@ -25,9 +25,9 @@ public abstract class Combatant extends TimerTask
 
     protected Point2D topLeftCorner;
 
-    public int WIDTH = 10;
+    public int WIDTH = 100;
 
-    public int HEIGHT = 30;
+    public int HEIGHT = 300;
 
 
     public Combatant( Point2D initPose )
