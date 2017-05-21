@@ -16,7 +16,9 @@ import javax.swing.JPanel;
 
 import architecture.Combatant;
 import architecture.GameState;
+import architecture.Weapon;
 import proceduralGeneration.Cell;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 public class GraphicsInterface extends JPanel implements KeyListener, ActionListener
@@ -33,7 +35,27 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
     // KeyPress Booleans. Pressed down=True, Not Pressed=False
     
     
-    public boolean arUp = false, arRight=false, arLeft=false, arDown=false;
+    private boolean arUp, arRight, arLeft, arDown, qKey = false;
+
+    public boolean isArUp() {
+        return arUp;
+    }
+
+    public boolean isArRight() {
+        return arRight;
+    }
+
+    public boolean isArLeft() {
+        return arLeft;
+    }
+
+    public boolean isArDown() {
+        return arDown;
+    }
+
+    public boolean isQPressed() {
+        return qKey;
+    }
 
     //Create the GUI
     public GraphicsInterface()
@@ -169,6 +191,9 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
         {
             arDown = true;
         }
+        if (KeyEvent.getKeyText(keyCode).equals("Q")) {
+            qKey = true;
+        }
     }
 
     //change the booleans based on KeyEvents
@@ -192,6 +217,9 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
         if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
             arDown = false;
+        }
+        if (KeyEvent.getKeyText(keyCode).equals("Q")) {
+            qKey = false;
         }
 
     }
@@ -232,8 +260,7 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
     public void renderGrid(Cell[][] cells)
     {
         render(cells);
-//        System.out.println( currX+" "+currY );
-     }
+    }
 
     public void renderCharacter(Combatant combatant) {
         loadSprite("ConcretePowderMagenta.png");
@@ -248,6 +275,21 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
 
     }
 
+    public void renderWeapon(Weapon weapon, Combatant combatant) {
+        // TODO: Remove hard coding of weapon size
+        if (weapon.getType()[0] == 0) {
+            loadSprite("default_sword.png");
+            drawFloor_1(
+                    (int)(combatant.getPose().x + 2D / 3 * combatant.WIDTH),
+                    (int) (combatant.getPose().y + 2D / 3 * combatant.HEIGHT),
+                    1,
+                    1,
+                    100
+            );
+        } else {
+            throw new NotImplementedException();
+        }
+    }
      public void clearGrid() {
          graphic.clearRect(0, 0, frame.getWidth(), frame.getHeight());
      }
@@ -259,13 +301,19 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
      @Override
      public void paint(Graphics g) {
         // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE super.paint(g);
-         this.graphic = g;
-         super.paint(g);
-//         System.out.println("in repaint");
-        if (gameState != null) {
-            renderGrid(gameState.cells);
-            gameState.combatants.forEach(this::renderCharacter);
-        }
+        this.graphic = g;
+         try {
+             super.paint(g);
+             if (gameState != null) {
+                 renderGrid(gameState.cells);
+                 gameState.combatants.forEach(this::renderCharacter);
+                 renderWeapon(gameState.player.getWeapon(), gameState.player);
+             }
+         } catch (Exception e1) {
+             e1.printStackTrace();
+         }
+
+
      }
 
      public void clear() {
@@ -280,6 +328,4 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
      public void requestFocus() {
         frame.requestFocus();
      }
-
-//     public void addCharacter()
 }

@@ -74,13 +74,11 @@ public abstract class Monster extends Combatant
         this.items = items;
         this.player = player;
 
-        exp = (int)Math.round( Player.baseExp * expPerLevel
-            * Math.pow( Player.expGrowth, level - 1 ) );
+        exp = (int)Math.round( Player.baseExp * expPerLevel * Math.pow( Player.expGrowth, level - 1 ) );
 
         // Assigns fixed attributes based on Monster type and level
         for ( int i = 0; i < attributeDistribution().length; i++ )
-            getBaseAttributes()[i] += Math
-                .round( distributionRatios()[i] * ( getLevel() - 2 ) * 7 );
+            getBaseAttributes()[i] += Math.round( distributionRatios()[i] * ( getLevel() - 2 ) * 7 );
 
         // Assigns 42 points based on the probability of the Monster's attribute
         // distribution
@@ -162,16 +160,18 @@ public abstract class Monster extends Combatant
         super.run();
 
         // Calculate range
-        player.getPose();
-        double distance = Point2D.distance( player.getPose().x,
-            player.getPose().y,
+        Point2D playerPose = player.getPose();
+        double distance = Point2D.distance(
+            playerPose.x,
+            playerPose.y,
             getPose().x,
             getPose().y );
 
-        if ( canAttack && distance < getRange() )
+        if ( canAttack && distance <= getRange() && !player.isDead() )
         {
+            System.out.println("player attacked!");
             player.receiveAttack( getStats()[2], getStats()[4], getStats()[6] );
-            canAttack = false;
+//            canAttack = false;
         }
     }
 
@@ -179,7 +179,6 @@ public abstract class Monster extends Combatant
     @Override
     public void death()
     {
-        // System.out.println( type() + " Lv. " + getLevel() + " is dead." );
         // Awards exp to the player equal to 100 / 6 * (1.5 ^ level)
         player.acquire( items );
         player.gainExp( exp );

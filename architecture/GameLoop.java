@@ -31,18 +31,21 @@ public class GameLoop
 
             ArrayList<Chest> chests = new ArrayList<Chest>();
             ArrayList<Combatant> figheters = new ArrayList<Combatant>();
-            final Player player = new Player(new Point2D(0, 0));
+            final Player player = new Player(new Point2D(0, 0), 100);
             figheters.add(new Skeleton( 5, player ));
             figheters.add(player);
 
             ArrayList<Point> emptyList = new ArrayList<>();
             RoomGenerator roomGenerator = new RoomGenerator();
 
-            for(int i = 0; i < 80; i++) {
+            for(int i = 0; i < 10; i++) {
                 roomGenerator.update();
             }
 
-            final Room room = new Room(figheters, roomGenerator.getWalls(10), 10);
+            final Room room = new Room(
+                    figheters,
+                    roomGenerator.getWalls(player.WIDTH),
+                    player.WIDTH * 3);
 
             System.out.println("just scheduled!");
 
@@ -55,8 +58,6 @@ public class GameLoop
                 throw new RuntimeException("Image failed to load");
             }
 
-//            graphicsInterface.drawFloor(1, 1, 100, 0, 0);
-
 
 
             TimerTask task = new TimerTask()
@@ -65,39 +66,53 @@ public class GameLoop
                 @Override
                 public void run()
                 {
-                    incrementTickNum();
+//                    incrementTickNum();
                     graphicsInterface.requestFocus();
-//                    System.out.println("in run");
-                    room.update();
                     int xToMoveBy = 0;
                     int yToMoveBy = 0;
 
-                    if (graphicsInterface.arDown) {
+                    if (graphicsInterface.isArDown()) {
                         yToMoveBy += 10;
-//                        System.out.println("player " + player.getPose());
                     }
-                    if (graphicsInterface.arUp) {
+                    if (graphicsInterface.isArUp()) {
                         yToMoveBy += -10;
-//                        System.out.println("player " + player.getPose());
                     }
-                    if (graphicsInterface.arLeft) {
+                    if (graphicsInterface.isArLeft()) {
                         xToMoveBy += -10;
-//                        System.out.println("player " + player.getPose());
                     }
-                    if (graphicsInterface.arRight) {
+                    if (graphicsInterface.isArRight()) {
                         xToMoveBy += 10;
-//                        System.out.println("player " + player.getPose());
+                    }
+                    if (graphicsInterface.isQPressed()/* || true*/) {
+                        if (player.canAttack) {
+                            figheters.forEach(combatant -> {
+                                if (player.getPose().distance(combatant.getPose()) <= player.getRange() && player != combatant) {
+                                    combatant.receiveAttack(
+                                            1000,
+                                            1000,
+                                            1000
+                                    );
+                                    System.out.println(combatant + " health " + combatant.getHealth());
+                                }
+                            });
+                        }
+                    }
+
+                    if (player.isDead()) {
+                        System.out.println("player died!");
                     }
 
                     player.move(xToMoveBy, yToMoveBy);
+                    room.update();
+                    player.restoreHealth(10000);
+                    figheters.removeIf(Combatant::isDead);
                     graphicsInterface.setGameState(
                             new GameState(
                                     roomGenerator.cells,
-                                    figheters
+                                    figheters,
+                                    player
                             )
                     );
-//                    System.out.println("pose:" + player.getPose());
-
 
                     graphicsInterface.doRepaint();
 

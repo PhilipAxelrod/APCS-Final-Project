@@ -286,4 +286,5 @@ public class Weapon extends Equipment
         return range;
     }
 
+
 }

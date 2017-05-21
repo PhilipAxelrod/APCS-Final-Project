@@ -64,10 +64,11 @@ public class Player extends Combatant
     }
 
 
-    public Player( Point2D startPose )
+    public Player( Point2D startPose, int initHealth )
     {
         this();
         this.topLeftCorner = startPose;
+        this.restoreHealth(initHealth);
     }
 
 
@@ -362,6 +363,10 @@ public class Player extends Combatant
 
     }
 
+
+    public Weapon getWeapon() {
+        return equippedWeapon;
+    }
 
     @Override
     public int getRange()
