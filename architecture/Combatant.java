@@ -47,9 +47,12 @@ public abstract class Combatant extends TimerTask
         return topLeftCorner;
     }
 
-    public Point2D getPreviousPose() {
+
+    public Point2D getPreviousPose()
+    {
         return previousTopLeftCorner;
     }
+
 
     protected Point2D bottomRightCorner()
     {
@@ -83,7 +86,7 @@ public abstract class Combatant extends TimerTask
     private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
 
     private int actionBar = 0;
-    
+
     protected boolean canAttack = true;
 
     /**
@@ -95,8 +98,8 @@ public abstract class Combatant extends TimerTask
     /**
      * Abbreviated codes for each stat, in order of storage.
      */
-    public static final String[] statNames = { "HP", "MP", "ATK", "DEF",
-        "ACC", "AVO", "CRIT", "CRITAVO" };
+    public static final String[] statNames = { "HP", "MP", "ATK", "DEF", "ACC",
+        "AVO", "CRIT", "CRITAVO" };
 
     // Constants used to calculate stats from attributes.
     private static final double healthFactor = 4, manaFactor = 3,
@@ -124,13 +127,13 @@ public abstract class Combatant extends TimerTask
 
     public void run()
     {
-        
+
         if ( actionBar >= actionLimit )
             canAttack = true;
-        
+
         else
             actionBar += stats[3];
-        
+
         for ( VolatileEffect effect : getTempEffects() )
             if ( effect.tick() )
                 removeEffect( effect );
@@ -148,22 +151,27 @@ public abstract class Combatant extends TimerTask
      *            accuracy value of attacker
      * @param crit
      *            critical value of attacker
-     * @return an array consisting of damage dealt in the first index and a code
-     *         in the second index corresponding to special cases (0 for normal,
-     *         1 for miss, 2 for critical hit).
+     * @param attacker
+     *            the attacker
+     * @return a CombatResult object carrying detailed information
      */
-    public int[] receiveAttack( int atk, int acc, int crit )
+    public CombatResult receiveAttack(
+        int atk,
+        int acc,
+        int crit,
+        Combatant attacker )
     {
-        int[] information = new int[2];
-        information[1] = 0;
+        CombatResult result = new CombatResult( attacker, this );
 
         // Test for miss
         if ( Math.random() * 100 > acc - getStats()[5] )
         {
-            information[0] = 0;
-            information[1] = 1;
-            return information;
+            result.setDamage( 0 );
+            result.setHit( false );
+            result.setCritical( false );
+            return result;
         }
+        result.setHit( true );
 
         // Calculate damage
         int diff = atk - stats[3];
@@ -172,24 +180,28 @@ public abstract class Combatant extends TimerTask
         // varFactor
         double var = Math.random() * ( varFactor - inverseVar ) + inverseVar;
 
-        int damage = (int) Math.round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
+        int damage = (int)Math
+            .round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
 
         // Test for critical hit.
         if ( Math.random() * 100 <= crit - stats[7] )
         {
             damage *= 2;
-            information[1] = 2;
+            result.setCritical( true );
         }
 
+        result.setDamage( damage );
         healthLoss( damage );
 
-        information[0] = damage;
-        return information;
+        return result;
     }
 
-    public boolean isDead() {
+
+    public boolean isDead()
+    {
         return getHealth() <= 0;
     }
+
 
     /**
      * Combatant receives a volatile effect and attributes are accordingly
