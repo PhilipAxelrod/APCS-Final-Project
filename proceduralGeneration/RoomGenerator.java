@@ -10,11 +10,12 @@ import com.sun.javafx.geom.Point2D;
 
 public class RoomGenerator
 {
-    private final static int HashTileGridLength = 10;
+    private final static int HashTileGridLength = 4;
 
-    final Cell[][] cells = new Cell[rows][cols];
-    static final int rows = 10;
+    final public Cell[][] cells = new Cell[rows][cols];
+    static final int rows = 3;
     static final int cols = rows;
+    static final Point center = new Point(rows / 2, cols/ 2);
     
     private void initCells(  )
     {
@@ -26,12 +27,27 @@ public class RoomGenerator
         }
     }
     
-    public RoomGenerator(ArrayList<Point> initAlive) {
+    public RoomGenerator(List<Point> initAlive) {
         initCells();
         for ( Point point : initAlive )
         {
             cells[point.x][point.y].isAlive = true;
         }
+    }
+
+
+    public RoomGenerator() {
+        this(Arrays.<Point>asList(
+                new Point(
+                        center.x - 1,
+                        center.y
+                ),
+                center,
+                new Point(
+                        center.x + 1,
+                        center.y
+                )
+        ));
     }
     
     /**
@@ -42,26 +58,32 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        return false;//Math.random() < 0.5;
+        if (numAlive == 3 && !currCell.isAlive) {
+            return true;
+        }
+        if (currCell.isAlive && numAlive <= 6 && numAlive >= 1) {
+            return true;
+        }
+        return false;
     }
     
     public void update(  )
     {
         updateFutureRoomCellStates();
-        updateQeuedStates();
+        updateQueuedStates();
     }
     
     private void updateFutureRoomCellStates()
     {
-        for (int r = 0; r < cols; r++) {
-            for(int c = 0; c < rows; c++) {
-                int aliveNeighbors = getNeighborsAlive( r, c );
-                cells[r][c].willBeAlive = simulationRule( aliveNeighbors, cells[r][c]);
+        for (int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                int aliveNeighbors = getNeighborsAlive( row, col);
+                cells[row][col].willBeAlive = simulationRule( aliveNeighbors, cells[row][col]);
             }
         }
     }
     
-    public void updateQeuedStates(  )
+    public void updateQueuedStates(  )
     {
         for ( int i = 0; i < cells.length; i++ )
         {
@@ -95,11 +117,11 @@ public class RoomGenerator
     {
         ArrayList<Optional<Cell>> ret = new ArrayList<Optional<Cell>>();
         for(int i = -1; i <= 1; i++) {
-            for(int j = -1; j <= -1; j++) {
+            for(int j = -1; j <= 1; j++) {
                 // Don't count current cell
                 if(!(i == 0 && j == 0)) {
                     int neighborX = x + i;
-                    int neighborY = y + i;
+                    int neighborY = y + j;
                     
                     if(withinWidth( neighborX ) && withinHeight( neighborY )) {
                         ret.add(Optional.of(cells[neighborX][neighborY]));
@@ -157,21 +179,22 @@ public class RoomGenerator
      * @param walls
      * @return
      */
-    private Hashtable<Point2D, List<Line2D>> segment(ArrayList<Line2D> walls, int gridLengthByTiles, int width) {
-        Hashtable<Point2D, List<Line2D>> ret = new Hashtable<>();
-        int tileWidth = cells.length * width / gridLengthByTiles;
-        for (Line2D wall : walls) {
+    private Hashtable<Point2D, List<Rectangle>> segment(ArrayList<Rectangle> walls, int gridLengthByTiles, int width) {
+        Hashtable<Point2D, List<Rectangle>> ret = new Hashtable<>();
+        int tileWidth = rows * width / gridLengthByTiles;
+        System.out.println("tile width" + tileWidth);
+        for (Rectangle wall : walls) {
             // hella sketch rounding going on here. Bascially round down to the
             // nearest multiple of tileWidth
-            float x = roundToLowestMultiple(wall.x1, tileWidth);
-            float y = roundToLowestMultiple(wall.y1, tileWidth);
+            float x = roundToLowestMultiple(wall.x, tileWidth);
+            float y = roundToLowestMultiple(wall.y, tileWidth);
 
             Point2D point2D = new Point2D(x, y);
 
             if (ret.containsKey(point2D)) {
                 ret.get(point2D).add(wall);
             } else {
-                ArrayList<Line2D> initWallList = new ArrayList<>();
+                ArrayList<Rectangle> initWallList = new ArrayList<>();
                 initWallList.add(wall);
                 ret.put(point2D, initWallList);
             }
@@ -188,50 +211,61 @@ public class RoomGenerator
         }
     }
 
-    public Hashtable<Point2D, List<Line2D>> getWalls(final int length) {
-        ArrayList<Line2D> walls = new ArrayList<Line2D>();
+    // length in pixels
+    public Hashtable<Point2D, List<Rectangle>> getWalls(final int lengthOfCell) {
+        ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 
         // TODO: 1) use foreach 2) include above, below, etc into Cell
-        for (int r = 0; r < cells.length; r++) {
-            for (int c = 0; c < cells[0].length; c++) {
-                Cell cell = cells[r][c];
-
-                // TODO: change to use r and c instead of cell.x. (see
-                // TODO: above TODO first)
-                if (cell.isAlive && !alive(above(r, c))){
-                    int height = cell.y * length;
-                    Point2D leftCorner = new Point2D(cell.x * length, height);
-                    Point2D rightCorner = new Point2D(cell.x * length + length, height);
-
-                    walls.add(new Line2D(leftCorner, rightCorner));
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                Cell cell = cells[c][r];
+                if (!cell.isAlive) {
+                    System.out.println("adding forbidden cell at:");
+                    System.out.println(cell);
+                    walls.add(new Rectangle(
+                            cell.x * lengthOfCell,
+                            cell.y * lengthOfCell,
+                            lengthOfCell,
+                            lengthOfCell
+                    ));
                 }
 
-                if (cell.isAlive && !alive(below(r, c))) {
-                    int y = cell.y * length + length;
-                    Point2D leftCorner = new Point2D(cell.x * length, y);
-                    Point2D rightCorner = new Point2D(cell.x * length + length, y);
-
-                    walls.add(new Line2D(leftCorner, rightCorner));
-                }
-
-                if (cell.isAlive && !alive(left(r, c))){
-                    int x = cell.x * length;
-                    Point2D topCorner = new Point2D(x, cell.y * length);
-                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
-
-                    walls.add(new Line2D(topCorner, bottomCorner));
-                }
-
-                if (cell.isAlive && !alive(right(r, c))) {
-                    int x = cell.x * length + length;
-                    Point2D topCorner = new Point2D(x, cell.y * length);
-                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
-
-                    walls.add(new Line2D(topCorner, bottomCorner));
-                }
+//                // TODO: change to use r and c instead of cell.x. (see
+//                // TODO: above TODO first)
+//                if (cell.isAlive && !alive(above(c, r))){
+//                    int height = cell.y * length;
+//                    Point2D leftCorner = new Point2D(cell.x * length, height);
+//                    Point2D rightCorner = new Point2D(cell.x * length + length, height);
+//
+//                    walls.add(new Line2D(leftCorner, rightCorner));
+//                }
+//
+//                if (cell.isAlive && !alive(below(c, r))) {
+//                    int y = cell.y * length + length;
+//                    Point2D leftCorner = new Point2D(cell.x * length, y);
+//                    Point2D rightCorner = new Point2D(cell.x * length + length, y);
+//
+//                    walls.add(new Line2D(leftCorner, rightCorner));
+//                }
+//
+//                if (cell.isAlive && !alive(left(c, r))){
+//                    int x = cell.x * length;
+//                    Point2D topCorner = new Point2D(x, cell.y * length);
+//                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
+//
+//                    walls.add(new Line2D(topCorner, bottomCorner));
+//                }
+//
+//                if (cell.isAlive && !alive(right(c, r))) {
+//                    int x = cell.x * length + length;
+//                    Point2D topCorner = new Point2D(x, cell.y * length);
+//                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
+//
+//                    walls.add(new Line2D(topCorner, bottomCorner));
+//                }
             }
         }
 
-        return segment(walls, HashTileGridLength, length);
+        return segment(walls, /*HashTileGridLength*/1, lengthOfCell);
     }
 }

@@ -25,9 +25,9 @@ public abstract class Combatant extends TimerTask
 
     protected Point2D topLeftCorner;
 
-    public int WIDTH = 10;
+    public int WIDTH = 99;
 
-    public int HEIGHT = 30;
+    public int HEIGHT = WIDTH;
 
 
     public Combatant( Point2D initPose )
@@ -47,6 +47,9 @@ public abstract class Combatant extends TimerTask
         return topLeftCorner;
     }
 
+    public Point2D getPreviousPose() {
+        return previousTopLeftCorner;
+    }
 
     protected Point2D bottomRightCorner()
     {
@@ -81,7 +84,7 @@ public abstract class Combatant extends TimerTask
 
     private int actionBar = 0;
     
-    protected boolean canAttack = false;
+    protected boolean canAttack = true;
 
     /**
      * Abbreviated codes for each attribute, in order of storage.
@@ -169,8 +172,7 @@ public abstract class Combatant extends TimerTask
         // varFactor
         double var = Math.random() * ( varFactor - inverseVar ) + inverseVar;
 
-        int damage = (int)Math
-            .round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
+        int damage = (int) Math.round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
 
         // Test for critical hit.
         if ( Math.random() * 100 <= crit - stats[7] )
@@ -185,6 +187,9 @@ public abstract class Combatant extends TimerTask
         return information;
     }
 
+    public boolean isDead() {
+        return getHealth() <= 0;
+    }
 
     /**
      * Combatant receives a volatile effect and attributes are accordingly

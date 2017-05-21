@@ -1,6 +1,5 @@
 package proceduralGeneration;
 
-import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
 
 import graphicsUtils.GraphicsInterface;
@@ -13,48 +12,49 @@ import architecture.Combatant;
 
 
 public class Room extends Rectangle {
-    ArrayList<Combatant> enemies;
+    ArrayList<Combatant> combatants;
     ArrayList<Chest> chests;
 
-    final int tiles;
-    Hashtable<Point2D, List<Line2D>> walls;
+    private final int tileWidth;
+    Hashtable<Point2D, List<Rectangle>> walls;
        
     Cell[][] cells;
-    static final int rows = 1000;
-    static final int cols = rows;
+//    static final int rows = 1000;
+//    static final int cols = rows;
 
     static GraphicsInterface graphicsInterface;
     
-    public Room(ArrayList<Combatant> enemies, Hashtable<Point2D, List<Line2D>> walls, int tiles)
+    public Room(ArrayList<Combatant> combatants, Hashtable<Point2D, List<Rectangle>> walls, int tileWidth)
     {
-        this.enemies = enemies;
+        this.combatants = combatants;
         this.walls = walls;
-        this.tiles = tiles;
+        this.tileWidth = tileWidth;
     }
     
     public void update(  )
     {
-       for(Combatant c : enemies) {
+       for(Combatant c : combatants) {
            c.run();
        }
-       enemies.forEach(combatant -> {
+
+       combatants.forEach(combatant -> {
          Point2D currPose = combatant.getPose();
 
          Point2D tileKey = new Point2D(
-                 RoomGenerator.roundToLowestMultiple(currPose.x, tiles),
-                 RoomGenerator.roundToLowestMultiple(currPose.y, tiles)
+                 RoomGenerator.roundToLowestMultiple(currPose.x, tileWidth),
+                 RoomGenerator.roundToLowestMultiple(currPose.y, tileWidth)
          );
 
-         List<Line2D> tileWalls = walls.get(tileKey);
+         List<Rectangle> tileWalls = walls.get(tileKey);
 
          if (tileWalls != null) {
-             tileWalls.forEach(wall -> {
-                 // Sketch af collision detection
-                 if (wall.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
+             for (Rectangle forbiddenTile : tileWalls) {
+                 if (forbiddenTile.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
                      combatant.resetPoseToPrevios();
-                     System.out.println("lol, it actually worked");
+                     System.out.println("collision detected and dealt with");
+                     break;
                  }
-             });
+             }
          }
        });
     }
@@ -95,7 +95,7 @@ public class Room extends Rectangle {
                     x = x - side;
             }
 
-            graphicsInterface.drawFloor(1, 1, side, x, y);
+            graphicsInterface.drawFloor_1(1, 1, side, x, y);
         }
     }
     
@@ -109,8 +109,8 @@ public class Room extends Rectangle {
         {
             for ( int j = 0; j < cell[0].length; j++ )
             {
-                if(cell[i][j].isAlive) {
-                    graphicsInterface.drawFloor( 1, 1, side, i * side, j * side );
+                if(cell[i][j].isAlive()) {
+                    graphicsInterface.drawFloor_1( 1, 1, side, i * side, j * side );
                 }
             }
         }

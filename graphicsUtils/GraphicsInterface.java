@@ -8,22 +8,22 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import keyboardInputs.KeyEventDemo;
+import architecture.Combatant;
+import architecture.GameState;
+import architecture.Weapon;
+import proceduralGeneration.Cell;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
-public class GraphicsInterface extends Canvas implements KeyListener, ActionListener
-
+public class GraphicsInterface extends JPanel implements KeyListener, ActionListener
 {
+    private GameState gameState;
     //current sprite to be loaded
     private BufferedImage sprite;
     //graphics class, dictated from java.awt.graphics
@@ -35,36 +35,49 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     // KeyPress Booleans. Pressed down=True, Not Pressed=False
     
     
-    public boolean arUp=false, arRight=false, arLeft=false, arDown=false;
-    
-    public int currX=0, currY=0;
+    private boolean arUp, arRight, arLeft, arDown, qKey = false;
+
+    public boolean isArUp() {
+        return arUp;
+    }
+
+    public boolean isArRight() {
+        return arRight;
+    }
+
+    public boolean isArLeft() {
+        return arLeft;
+    }
+
+    public boolean isArDown() {
+        return arDown;
+    }
+
+    public boolean isQPressed() {
+        return qKey;
+    }
 
     //Create the GUI
     public GraphicsInterface()
     {
-        
+        setFocusable(false);
         //Fix the size of the JFrame
-        setMinimumSize( new Dimension( 700, 700 ) );
-        setMaximumSize( new Dimension( 700, 700 ) );
-        setPreferredSize( new Dimension( 700, 700 ) );
-
+        setMinimumSize( new Dimension( 1400, 1400 ) );
+        setPreferredSize( new Dimension( 1400, 1400 ) );
         //Add components to the JFrame
-        frame = new JFrame();        
+        frame = new JFrame();
+        Container contentPaine = frame.getContentPane();
         frame.setLayout( new BorderLayout() );        
-        frame.add( this, BorderLayout.CENTER );        
+        frame.getContentPane().add( this, BorderLayout.CENTER );
         frame.pack();        
         frame.addKeyListener( this );        
-        JPanel panel = new JPanel();
         frame.setResizable( false );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setLocationRelativeTo( null );
-        Container c = frame.getContentPane();
-        c.add( panel );
-        graphic = getGraphics();
+//        graphic = getGraphics();
         frame.setVisible( true );
         init();
     }
-
 
     private void init()
     {
@@ -112,7 +125,6 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public void paint( BufferedImage sprite, int x, int y, int width, int height, Graphics g )
     {
         g.drawImage( sprite, x, y, width, height, frame );
-
     }
 
 
@@ -124,7 +136,7 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
      * @param blockSize
      *            the length in pixels of each individual block
      */
-    public void drawFloor( int width, int height, int blockSize)
+    public void drawFloor(int width, int height, int blockSize)
     {
         for ( int row = 0; row < height; row++ )
         {
@@ -136,13 +148,15 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         System.out.println( "Draw floor finished!" );
     }
 
-    public void drawFloor(int startX, int startY, int width, int height, int blockSize) {
+    public void drawFloor_1(int startX, int startY, int width, int height, int blockSize) {
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 paint(  sprite,
-                        startX + 100 * row,
-                        startY + 100 * col,
-                        blockSize, blockSize, graphic );
+                        startX + blockSize * row,
+                        startY + blockSize * col,
+                        blockSize,
+                        blockSize,
+                        graphic );
             }
         }
     }
@@ -161,24 +175,25 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public void keyPressed( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
-        System.out.println("this pressed: " + keyCode);
         if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
-            currX-=100;
+            arLeft = true;
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Up" ) )
         {
-            currY-=100;
+            arUp = true;
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Right" ) )
         {
-            currX+=100; 
+            arRight = true;
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
-            currY+=100; 
+            arDown = true;
         }
-        movePiece();
+        if (KeyEvent.getKeyText(keyCode).equals("Q")) {
+            qKey = true;
+        }
     }
 
     //change the booleans based on KeyEvents
@@ -186,16 +201,13 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
     public void keyReleased( KeyEvent e )
     {
         int keyCode = e.getKeyCode();
-        System.out.println("this released: " + e.getKeyCode());
         if ( KeyEvent.getKeyText( keyCode ).equals( "Left" ) )
         {
             arLeft = false;
-
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Up" ) )
         {
             arUp = false;
-
         }
         if ( KeyEvent.getKeyText( keyCode ).equals( "Right" ) )
         {
@@ -205,7 +217,9 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         if ( KeyEvent.getKeyText( keyCode ).equals( "Down" ) )
         {
             arDown = false;
-
+        }
+        if (KeyEvent.getKeyText(keyCode).equals("Q")) {
+            qKey = false;
         }
 
     }
@@ -226,43 +240,92 @@ public class GraphicsInterface extends Canvas implements KeyListener, ActionList
         // TODO Auto-generated method stub
     }
 
-    public void movePiece ()
+    public void render( Cell[][] cell)
     {
-        if (currX<0)
+        loadSprite("Dirt_Floor.png");
+
+        int side = 100;
+
+        for ( int i = 0; i < cell.length; i++ )
         {
-            currX=0;
+            for ( int j = 0; j < cell[0].length; j++ )
+            {
+                if(cell[i][j].isAlive()) {
+                    drawFloor_1( i * side, j * side, 1, 1, side );
+                }
+            }
         }
-        if (currY<0)
-        {
-            currY=0;
+    }
+
+    public void renderGrid(Cell[][] cells)
+    {
+        render(cells);
+    }
+
+    public void renderCharacter(Combatant combatant) {
+        loadSprite("ConcretePowderMagenta.png");
+
+        drawFloor_1(
+                (int) combatant.getPose().x,
+                (int) combatant.getPose().y,
+                1,
+                1,
+                combatant.WIDTH
+        );
+
+    }
+
+    public void renderWeapon(Weapon weapon, Combatant combatant) {
+        // TODO: Remove hard coding of weapon size
+        if (weapon.getType()[0] == 0) {
+            loadSprite("default_sword.png");
+            drawFloor_1(
+                    (int)(combatant.getPose().x + 2D / 3 * combatant.WIDTH),
+                    (int) (combatant.getPose().y + 2D / 3 * combatant.HEIGHT),
+                    1,
+                    1,
+                    100
+            );
+        } else {
+            throw new NotImplementedException();
         }
-        if (currX>700)
-        {
-            currX=700;
-        }
-        if (currY>700)
-        {
-            currY=700;
-        }
-        try
-        {
-            this.setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
-        drawFloor( 100, 100, 100 );
-        try
-        {
-            this.setSprite( ImageUtils.loadBufferedImage( "ConcretePowderMagenta.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
-        paint(sprite, currX, currY, 100, 100, graphic);
-        System.out.println( currX+" "+currY );               
+    }
+     public void clearGrid() {
+         graphic.clearRect(0, 0, frame.getWidth(), frame.getHeight());
      }
-     
+
+     public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+     }
+
+     @Override
+     public void paint(Graphics g) {
+        // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE super.paint(g);
+        this.graphic = g;
+         try {
+             super.paint(g);
+             if (gameState != null) {
+                 renderGrid(gameState.cells);
+                 gameState.combatants.forEach(this::renderCharacter);
+                 renderWeapon(gameState.player.getWeapon(), gameState.player);
+             }
+         } catch (Exception e1) {
+             e1.printStackTrace();
+         }
+
+
+     }
+
+     public void clear() {
+         graphic.clearRect(0, 0, frame.getWidth(), frame.getHeight());
+     }
+
+
+     public void doRepaint() {
+        frame.getContentPane().repaint();
+     }
+
+     public void requestFocus() {
+        frame.requestFocus();
+     }
 }

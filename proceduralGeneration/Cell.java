@@ -13,4 +13,17 @@ public class Cell
         this.x = x;
         this.y = y;
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public boolean willBeAlive() {
+        return willBeAlive;
+    }
+
+    @Override
+    public String toString() {
+        return "x "  + x  + " y " + y + " " + isAlive;
+    }
 }
