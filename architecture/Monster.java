@@ -167,10 +167,7 @@ public abstract class Monster extends Combatant
         if ( canAttack && distance <= getRange() && !player.isDead() )
         {
             System.out.println( "player attacked!" );
-            player.receiveAttack( getStats()[2],
-                getStats()[4],
-                getStats()[6],
-                this );
+            attack( player );
             // canAttack = false;
         }
     }

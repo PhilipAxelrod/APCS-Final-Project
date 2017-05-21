@@ -161,7 +161,7 @@ public abstract class Combatant extends TimerTask
      *            the attacker
      * @return a CombatResult object carrying detailed information
      */
-    public CombatResult receiveAttack(
+    private CombatResult receiveAttack(
         int atk,
         int acc,
         int crit,
