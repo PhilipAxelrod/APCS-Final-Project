@@ -147,6 +147,8 @@ public abstract class Combatant extends TimerTask
 
 
     /**
+     * ONLY FOR TESTING
+     * 
      * This method is called when the Combatant receives a normal attack. Damage
      * is calculated using passed stats from the attacker and defensive stats of
      * the defender (this object).
@@ -161,7 +163,7 @@ public abstract class Combatant extends TimerTask
      *            the attacker
      * @return a CombatResult object carrying detailed information
      */
-    private CombatResult receiveAttack(
+    public CombatResult receiveAttack(
         int atk,
         int acc,
         int crit,

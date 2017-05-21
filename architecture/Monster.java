@@ -193,7 +193,7 @@ public abstract class Monster extends Combatant
     @Override
     protected void updateStats()
     {
-
+        super.updateStats();
         // ATK = (STR or INT) + level
         if ( !isMagicDamage() )
             getStats()[2] = getModifiedAttributes()[0] + getLevel();
@@ -212,8 +212,6 @@ public abstract class Monster extends Combatant
         else // (isMagicDamage())
             getStats()[4] = ( getModifiedAttributes()[5] + getLevel() ) * 4
                 + getModifiedAttributes()[6] + 75;
-
-        super.updateStats();
     }
 
 

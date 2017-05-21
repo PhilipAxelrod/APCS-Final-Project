@@ -184,7 +184,7 @@ public class Player extends Combatant
     protected void updateStats()
     {
         super.updateStats();
-        
+
         // ATK = (STR or INT) + MT
         if ( equippedWeapon != null )
         {
@@ -197,21 +197,18 @@ public class Player extends Combatant
         }
         else
             getStats()[2] += getModifiedAttributes()[0];
+
         // DEF = sumOf(defense of equippedArmor)
         for ( Armor armor : equippedArmor )
             if ( armor != null )
-            {
-                System.out.println( armor.getDefense() );
                 getStats()[3] += armor.getDefense();
-            }
+
         // ACC = (DEX or WIS) * accuracyFactor + ACC(equippedWeapon)
         getStats()[4] = 0;
         if ( equippedWeapon != null )
             getStats()[4] = equippedWeapon.getAccuracy();
         else
             getStats()[4] += 70;
-
-        
     }
 
 

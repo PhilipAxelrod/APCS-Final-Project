@@ -1,12 +1,15 @@
 package testClasses;
 
+import architecture.CombatResult;
 import architecture.Monster;
+import architecture.Player;
 import architecture.Skeleton;
+
 
 public class CombatSimulationTester
 {
     // Defender information
-    private static final Monster target = new Skeleton( 20, null );
+    private static final Monster target = new Skeleton( 20, new Player() );
 
     // Attacker information
     private static final int atk = 70, acc = 240, crit = 20, attacks = 10;
@@ -17,18 +20,15 @@ public class CombatSimulationTester
         target.printStatus();
         for ( int attempts = 0; attempts < attacks; attempts++ )
         {
-            int[] result = target.receiveAttack( atk, acc, crit, null );
+            CombatResult result = target.receiveAttack( atk, acc, crit, null );
 
-            System.out.println( result[0] + "!" );
-
-            if ( result[1] == 1 )
+            if ( result.isHit() )
+                System.out.println( result.getDamage() + "!" );
+            else
                 System.out.println( "Miss!" );
 
-            else if ( result[1] == 2 )
+            if ( result.isCritical() )
                 System.out.println( "Critical Hit!" );
-
-            else if ( result[1] == 0 )
-                System.out.println( "Hit" );
 
             System.out.println();
 
