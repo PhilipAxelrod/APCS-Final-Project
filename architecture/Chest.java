@@ -26,7 +26,20 @@ public class Chest
      */
     public Chest()
     {
-        this.contents = new LinkedList<Item>();
+        this( new LinkedList<Item>() );
+    }
+
+
+    /**
+     * Creates a chest with randomly generated items.
+     * 
+     * @param level
+     *            relative strength and quantity of items
+     */
+    public Chest( int level )
+    {
+        this();
+        contents = Monster.generateItems( level );
     }
 
 
