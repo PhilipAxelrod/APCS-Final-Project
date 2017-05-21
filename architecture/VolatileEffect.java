@@ -16,20 +16,16 @@ public abstract class VolatileEffect
 {
     private int turnsRemaining;
 
-    private Combatant combatant;
-
 
     /**
      * @param turnsRemaining
      *            the duration of the effect; a negative duration creates a
      *            permanent effect (for the duration of the battle)
-     * @param combatant
-     *            the target of the effect
+     * 
      */
-    public VolatileEffect( int turnsRemaining, Combatant combatant )
+    public VolatileEffect( int turnsRemaining )
     {
         this.turnsRemaining = turnsRemaining;
-        this.combatant = combatant;
     }
 
 
@@ -52,15 +48,6 @@ public abstract class VolatileEffect
     public int getTurnsRemaining()
     {
         return turnsRemaining;
-    }
-
-
-    /**
-     * @return Returns the combatant.
-     */
-    public Combatant getCombatant()
-    {
-        return combatant;
     }
 
 

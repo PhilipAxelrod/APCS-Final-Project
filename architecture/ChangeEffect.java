@@ -35,17 +35,14 @@ public class ChangeEffect extends VolatileEffect
      *            value
      * @param duration
      *            how long the ChangeEffect lasts
-     * @param combatant
-     *            the target of the effect
      */
     public ChangeEffect(
         boolean isAttribute,
         int valueIndex,
         int netChange,
-        int duration,
-        Combatant combatant )
+        int duration )
     {
-        super( duration, combatant );
+        super( duration );
         this.isAttribute = isAttribute;
         this.valueIndex = valueIndex;
         this.netChange = netChange;
@@ -55,7 +52,6 @@ public class ChangeEffect extends VolatileEffect
     @Override
     public void clear()
     {
-        getCombatant().updateAttributes();
     }
 
 

@@ -39,7 +39,7 @@ public class Armor extends Equipment
      * All types of armor, divided by material and slot arranged in a
      * two-dimensional string array.
      */
-    public static final String[][] armorTypes = {
+    public static final String[][] ARMORTYPES = {
         { "Helmet", "Chestplate", "Platelegs", "Gauntlets", "Boots" },
         { "Cap", "Tunic", "Leggings", "Leather Gloves", "Leather Boots" },
         { "Hat", "Robe Top", "Robe Bottom", "Gloves", "Shoes" } };
@@ -98,7 +98,7 @@ public class Armor extends Equipment
 
     private static int generateType()
     {
-        return (int)( Math.random() * armorTypes[0].length );
+        return (int)( Math.random() * ARMORTYPES[0].length );
     }
 
 
@@ -124,7 +124,13 @@ public class Armor extends Equipment
             case 2:
                 def += -1;
         }
-        return (int)Math.round( def );
+
+        int defInt = (int)Math.round( def );
+
+        if ( defInt < 0 )
+            defInt = 0;
+
+        return defInt;
     }
 
 
@@ -202,7 +208,7 @@ public class Armor extends Equipment
     @Override
     public String[][] types()
     {
-        return armorTypes;
+        return ARMORTYPES;
     }
 
 
