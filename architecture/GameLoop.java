@@ -36,10 +36,10 @@ public class GameLoop
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
-        ArrayList<Combatant> figheters = new ArrayList<Combatant>();
-        final Player player = new Player( new Point2D( 0, 0 ), 100 );
-        figheters.add( new Skeleton( 5, player ) );
-        figheters.add( player );
+        ArrayList<Combatant> fighters = new ArrayList<Combatant>();
+        final Player player = new Player( new Point2D( 0, 0 ) );
+        fighters.add( new Skeleton( 1, player ) );
+        fighters.add( player );
 
         ArrayList<Point> emptyList = new ArrayList<>();
         RoomGenerator roomGenerator = new RoomGenerator();
@@ -49,7 +49,7 @@ public class GameLoop
             roomGenerator.update();
         }
 
-        final Room room = new Room( figheters,
+        final Room room = new Room( fighters,
             roomGenerator.getWalls( player.WIDTH ),
             player.WIDTH * 3 );
 
@@ -98,12 +98,12 @@ public class GameLoop
                 {
                     if ( player.canAttack )
                     {
-                        figheters.forEach( combatant -> {
-                            if ( player.getPose().distance(
-                                combatant.getPose() ) <= player.getRange()
-                                && player != combatant )
+                        fighters.forEach( combatant -> {
+                            if ( player.isInRange( combatant )
+                                && !combatant.equals( player ) )
                             {
-                                combatant.receiveAttack( 1000, 1000, 1000, null );
+                                int[] stats = player.getStats();
+                                player.attack( combatant );
                                 System.out.println( combatant + " health "
                                     + combatant.getHealth() );
                             }
@@ -119,9 +119,9 @@ public class GameLoop
                 player.move( xToMoveBy, yToMoveBy );
                 room.update();
                 player.restoreHealth( 10000 );
-                figheters.removeIf( Combatant::isDead );
+                fighters.removeIf( Combatant::isDead );
                 graphicsInterface.setGameState(
-                    new GameState( roomGenerator.cells, figheters, player ) );
+                    new GameState( roomGenerator.cells, fighters, player ) );
 
                 graphicsInterface.doRepaint();
 

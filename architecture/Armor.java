@@ -110,7 +110,7 @@ public class Armor extends Equipment
 
     private static int generateDefense( int level, int type, int material )
     {
-        double def = ( defenseScaling * level + 2 ) * defenseRatios[type]
+        double def = ( defenseScaling * level + 20 ) * defenseRatios[type]
             / ratioSum;
 
         switch ( material )
@@ -166,7 +166,7 @@ public class Armor extends Equipment
                 boosts.add( new AttributeBoost( 3, -1 ) );
 
             case 1:
-                boosts.add( new AttributeBoost( 4, 1 ) );
+                boosts.add( new AttributeBoost( 3, 1 ) );
 
             case 2:
                 boosts.add( new AttributeBoost( 1, 1 ) );

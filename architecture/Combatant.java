@@ -137,6 +137,15 @@ public abstract class Combatant extends TimerTask
     }
 
 
+    public CombatResult attack( Combatant defender )
+    {
+        if ( !canAttack )
+            return null;
+
+        return defender.receiveAttack( stats[2], stats[4], stats[6], this );
+    }
+
+
     /**
      * This method is called when the Combatant receives a normal attack. Damage
      * is calculated using passed stats from the attacker and defensive stats of
@@ -194,9 +203,19 @@ public abstract class Combatant extends TimerTask
     }
 
 
+    /**
+     * @return if the Combatant is dead
+     */
     public boolean isDead()
     {
         return isDead;
+    }
+
+
+    public boolean isInRange( Combatant other )
+    {
+        double distance = getPose().distance( other.getPose() );
+        return ( distance <= getRange() );
     }
 
 
@@ -229,6 +248,9 @@ public abstract class Combatant extends TimerTask
      */
     protected void updateStats()
     {
+        for ( int i = 0; i < getStats().length; i++ )
+            getStats()[i] = 0;
+
         // HP = VIT * healthFactor
         stats[0] = (int)Math.round( baseAttributes[4] * healthFactor );
 
@@ -477,4 +499,48 @@ public abstract class Combatant extends TimerTask
     {
         return canAttack;
     }
+
+
+    /**
+     * Prints a summary of Monster's type, level, HP, MP, attributes, and stats.
+     */
+    public void printStatus()
+    {
+        String divider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+        System.out.println( this + " Lv. " + getLevel() );
+        System.out.println( "HP: " + getHealth() + "/" + getStats()[0] + " MP: "
+            + getMana() + "/" + getStats()[1] );
+
+        System.out.println( "Attributes" );
+        for ( int j = 0; j < 7; j++ )
+        {
+            System.out.print( Combatant.attributeNames[j] + " "
+                + getBaseAttributes()[j] + " " );
+        }
+
+        System.out.println( "\nStats" );
+        for ( int j = 0; j < Combatant.statNames.length; j++ )
+        {
+            System.out
+                .print( Combatant.statNames[j] + " " + getStats()[j] + " " );
+        }
+
+        System.out.println( "\n" + divider );
+    }
+
+
+    /**
+     * For testing. Prints out the current type, level, health, and mana.
+     */
+    public void printVitals()
+    {
+        String divider = "~~~~~~~~~~~";
+
+        System.out.println( this + " Lv. " + getLevel() );
+        System.out.println( "HP: " + getHealth() + "/" + getStats()[0] + " MP: "
+            + getMana() + "/" + getStats()[1] );
+        System.out.println( divider );
+    }
+
 }

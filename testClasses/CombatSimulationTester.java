@@ -17,7 +17,7 @@ public class CombatSimulationTester
         target.printStatus();
         for ( int attempts = 0; attempts < attacks; attempts++ )
         {
-            int[] result = target.receiveAttack( atk, acc, crit );
+            int[] result = target.receiveAttack( atk, acc, crit, null );
 
             System.out.println( result[0] + "!" );
 

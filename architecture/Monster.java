@@ -281,43 +281,6 @@ public abstract class Monster extends Combatant
 
 
     /**
-     * Used to store a String representation of the type of Monster.
-     * 
-     * @return String of Monster type
-     */
-    public abstract String type();
-
-
-    /**
-     * Prints a summary of Monster's type, level, HP, MP, attributes, and stats.
-     */
-    public void printStatus()
-    {
-        String divider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-
-        System.out.println( type() + " Lv. " + getLevel() );
-        System.out.println( "HP: " + getHealth() + "/" + getStats()[0] + " MP: "
-            + getMana() + "/" + getStats()[1] );
-
-        System.out.println( "Attributes" );
-        for ( int j = 0; j < 7; j++ )
-        {
-            System.out.print( Combatant.attributeNames[j] + " "
-                + getBaseAttributes()[j] + " " );
-        }
-
-        System.out.println( "\nStats" );
-        for ( int j = 0; j < Combatant.statNames.length; j++ )
-        {
-            System.out
-                .print( Combatant.statNames[j] + " " + getStats()[j] + " " );
-        }
-
-        System.out.println( "\n" + divider );
-    }
-
-
-    /**
      * For testing. Prints out the average increase in each stat per level.
      */
     public void printDistributionRatios()
@@ -327,22 +290,15 @@ public abstract class Monster extends Combatant
             System.out.print( Combatant.attributeNames[i] + ": "
                 + (int)( distributionRatios()[i] * 700 ) / 100.0 + " " );
         }
-
     }
 
 
     /**
-     * For testing. Prints out the current type, level, health, and mana.
+     * Used to store a String representation of the type of Monster.
+     * 
+     * @return String of Monster type
      */
-    public void printVitals()
-    {
-        String divider = "~~~~~~~~~~~";
-
-        System.out.println( type() + " Lv. " + getLevel() );
-        System.out.println( "HP: " + getHealth() + "/" + getStats()[0] + " MP: "
-            + getMana() + "/" + getStats()[1] );
-        System.out.println( divider );
-    }
+    public abstract String type();
 
 
     public void intellegence()
