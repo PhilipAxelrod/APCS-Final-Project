@@ -83,11 +83,11 @@ public abstract class Combatant extends TimerTask
     // [HP, MP, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
     private int[] stats = new int[8];
 
-    private LinkedList<VolatileEffect> volatileEffects = new LinkedList<VolatileEffect>();
-
     private int actionBar = 0;
 
     protected boolean canAttack = true;
+
+    protected boolean isDead = false;
 
     /**
      * Abbreviated codes for each attribute, in order of storage.
@@ -134,9 +134,6 @@ public abstract class Combatant extends TimerTask
         else
             actionBar += stats[3];
 
-        for ( VolatileEffect effect : getTempEffects() )
-            if ( effect.tick() )
-                removeEffect( effect );
     }
 
 
@@ -199,44 +196,7 @@ public abstract class Combatant extends TimerTask
 
     public boolean isDead()
     {
-        return getHealth() <= 0;
-    }
-
-
-    /**
-     * Combatant receives a volatile effect and attributes are accordingly
-     * updated by calling updateAttributes().
-     * 
-     * @param effect
-     *            reveived effect
-     */
-    public void receiveEffect( VolatileEffect effect )
-    {
-        volatileEffects.add( effect );
-        updateAttributes();
-    }
-
-
-    /**
-     * Removes all VolatileEffects.
-     */
-    public void removeAllEffects()
-    {
-        volatileEffects = new LinkedList<VolatileEffect>();
-    }
-
-
-    /**
-     * Removes given VolatileEffect and calls the clear() method of the effect.
-     * 
-     * @param effect
-     *            VolatileEffect to remove
-     * @return true if VolatileEffect removed, false if no changes made
-     */
-    public boolean removeEffect( VolatileEffect effect )
-    {
-        effect.clear();
-        return volatileEffects.remove( effect );
+        return isDead;
     }
 
 
@@ -264,25 +224,6 @@ public abstract class Combatant extends TimerTask
 
 
     /**
-     * Calculates attribute changes of VolatileEffects. Stat changes are handled
-     * by updateStats().
-     */
-    protected void updateVolatileBoosts()
-    {
-        for ( VolatileEffect effect : volatileEffects )
-        {
-            if ( effect instanceof ChangeEffect )
-            {
-                if ( ( (ChangeEffect)effect ).isAttribute() )
-                    modifiedAttributes[( (ChangeEffect)effect )
-                        .getValueIndex()] += ( (ChangeEffect)effect )
-                            .getNetChange();
-            }
-        }
-    }
-
-
-    /**
      * Updates the stats of the combatant based purely on attributes and
      * volatile effects.
      */
@@ -305,17 +246,6 @@ public abstract class Combatant extends TimerTask
         // CRITAVO = LUK * critFactor
         stats[7] = (int)Math.round( baseAttributes[6] * critFactor );
 
-        // Factor in stat buffs/debuffs
-        for ( VolatileEffect effect : volatileEffects )
-        {
-            if ( effect instanceof ChangeEffect )
-            {
-                if ( !( (ChangeEffect)effect ).isAttribute() )
-                    stats[( (ChangeEffect)effect )
-                        .getValueIndex()] += ( (ChangeEffect)effect )
-                            .getNetChange();
-            }
-        }
     }
 
 
@@ -438,7 +368,10 @@ public abstract class Combatant extends TimerTask
      * removes it from the game and awards exp/items to player, while death of
      * player ends the game.
      */
-    public abstract void death();
+    public void death()
+    {
+        isDead = true;
+    }
 
 
     /**
@@ -534,15 +467,6 @@ public abstract class Combatant extends TimerTask
     public int[] getStats()
     {
         return stats;
-    }
-
-
-    /**
-     * @return Returns the tempEffects.
-     */
-    public LinkedList<VolatileEffect> getTempEffects()
-    {
-        return volatileEffects;
     }
 
 

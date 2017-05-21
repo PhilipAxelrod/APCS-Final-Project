@@ -68,7 +68,7 @@ public class Player extends Combatant
     {
         this();
         this.topLeftCorner = startPose;
-        this.restoreHealth(initHealth);
+        this.restoreHealth( initHealth );
     }
 
 
@@ -160,9 +160,6 @@ public class Player extends Combatant
                 for ( int i = 0; i < 7; i++ )
                     getModifiedAttributes()[i] += armor.getTotalBoosts()[i];
 
-        // Add ring boosts
-
-        updateVolatileBoosts();
         updateStats();
 
     }
@@ -230,19 +227,6 @@ public class Player extends Combatant
 
             updateAttributes();
         }
-    }
-
-
-    /**
-     * Equips a ring from the inventory, simultaneously removing any previously
-     * equipped weapon back to the inventory if no space is available.
-     * 
-     * @param ring
-     *            ring to equip
-     */
-    public void equip( Ring ring )
-    {
-        // TODO complete
     }
 
 
@@ -364,9 +348,11 @@ public class Player extends Combatant
     }
 
 
-    public Weapon getWeapon() {
+    public Weapon getWeapon()
+    {
         return equippedWeapon;
     }
+
 
     @Override
     public int getRange()

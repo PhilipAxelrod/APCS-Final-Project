@@ -30,7 +30,7 @@ public abstract class Monster extends Combatant
      * The relative probabilities of the type of item appearing on a monster.
      * Expressed in the order: [potion, armor, weapon, accessory].
      */
-    private static final double[] itemDistribution = { 12, 5, 1, 2 };
+    private static final double[] itemDistribution = { 12, 5, 1 };
 
     /**
      * The probability that another item is added to the items of the Monster.
@@ -142,10 +142,6 @@ public abstract class Monster extends Combatant
                             items.add( new Weapon( level ) );
                             break;
 
-                        case 3:
-                            items.add( new Ring( level ) );
-                            break;
-
                     }
                     break;
                 }
@@ -193,7 +189,6 @@ public abstract class Monster extends Combatant
     public void updateAttributes()
     {
         resetAttributes();
-        updateVolatileBoosts();
         updateStats();
     }
 
