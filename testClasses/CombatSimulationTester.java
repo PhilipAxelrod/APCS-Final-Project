@@ -12,7 +12,7 @@ public class CombatSimulationTester
     private static final Monster target = new Skeleton( 20, new Player() );
 
     // Attacker information
-    private static final int atk = 70, acc = 240, crit = 20, attacks = 10;
+    private static final int atk = 70, acc = 300, crit = 75, attacks = 10;
 
 
     public static void main( String[] args )
