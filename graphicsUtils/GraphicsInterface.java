@@ -309,11 +309,9 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
                  gameState.combatants.forEach(this::renderCharacter);
                  renderWeapon(gameState.player.getWeapon(), gameState.player);
              }
-         } catch (Exception e1) {
+         } catch (NullPointerException e1) {
              e1.printStackTrace();
          }
-
-
      }
 
      public void clear() {

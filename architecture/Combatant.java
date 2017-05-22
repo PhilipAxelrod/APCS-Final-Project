@@ -210,7 +210,7 @@ public abstract class Combatant extends TimerTask
      */
     public boolean isDead()
     {
-        return isDead;
+        return getHealth() <= 0;
     }
 
 
