@@ -128,7 +128,7 @@ public abstract class Combatant extends TimerTask
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 10000;
+    private static final int actionLimit = 10000000;
 
 
     public void run()
@@ -146,8 +146,10 @@ public abstract class Combatant extends TimerTask
     public CombatResult attack( Combatant defender )
     {
         if ( !canAttack )
+        {
+            System.out.println( "can't attack" );
             return null;
-
+        }
         return defender.receiveAttack( stats[2], stats[4], stats[6], this );
     }
 
