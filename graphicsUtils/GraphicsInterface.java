@@ -319,30 +319,21 @@ public class GraphicsInterface extends JPanel
     {
         // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE
         // super.placeImage(g);
-        try
-        {
-            System.out
-                .println( "moving to x" + (int)gameState.player.getPose().x );
-            g.translate( -(int)gameState.player.getPose().x,
-                -(int)gameState.player.getPose().y );
+         try {
+             super.paint(g);
+             g.translate(
+                     -(int)gameState.player.getPose().x + frame.getWidth() / 2,
+                     -(int)gameState.player.getPose().y  + frame.getHeight() / 2);
 
-            super.paint( g );
-
-            if ( gameState != null )
-            {
-                renderGrid( gameState.cells, g );
-                gameState.combatants
-                    .forEach( combatant -> renderCharacter( combatant, g ) );
-                renderWeapon( gameState.player.getWeapon(),
-                    gameState.player,
-                    g );
-            }
-        }
-        catch ( NullPointerException e1 )
-        {
-            e1.printStackTrace();
-        }
-    }
+             if (gameState != null) {
+                 renderGrid(gameState.cells, g);
+                 gameState.combatants.forEach(combatant -> renderCharacter(combatant, g));
+                 renderWeapon(gameState.player.getWeapon(), gameState.player, g);
+             }
+         } catch (NullPointerException e1) {
+             e1.printStackTrace();
+         }
+     }
 
 
     public void doRepaint()
