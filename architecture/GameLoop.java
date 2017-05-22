@@ -103,7 +103,6 @@ public class GameLoop
                             if ( player.isInRange( combatant )
                                 && !combatant.equals( player ) )
                             {
-                                int[] stats = player.getStats();
                                 player.attack( combatant );
                                 System.out.println( combatant + " health "
                                     + combatant.getHealth() );
