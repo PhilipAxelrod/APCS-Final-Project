@@ -67,10 +67,16 @@ public abstract class Combatant extends TimerTask
     }
 
 
-    protected void move( float x, float y )
+    public void move( float x, float y )
     {
         previousTopLeftCorner = topLeftCorner;
         topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
+    }
+
+    public void moveTo(float x, float y) {
+        previousTopLeftCorner = topLeftCorner;
+        topLeftCorner = new Point2D(x, y );
+
     }
 
     private int level, health, mana;

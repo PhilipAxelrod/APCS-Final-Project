@@ -66,6 +66,7 @@ public class GameLoop
         {
             throw new RuntimeException( "Image failed to load" );
         }
+        roomGenerator.spawnPlayer(player);
 
         TimerTask task = new TimerTask()
         {

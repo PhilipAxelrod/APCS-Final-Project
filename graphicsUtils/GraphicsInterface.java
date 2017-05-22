@@ -244,6 +244,7 @@ public class GraphicsInterface extends JPanel implements KeyListener, ActionList
     {
         loadSprite("Dirt_Floor.png");
 
+        // TODO: hardcoded constant
         int side = 100;
 
         for ( int i = 0; i < cell.length; i++ )

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import architecture.Player;
 import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
 
@@ -13,10 +14,12 @@ public class RoomGenerator
     private final static int HashTileGridLength = 4;
 
     final public Cell[][] cells = new Cell[rows][cols];
+    List<Cell> aliveCells = new LinkedList<Cell>();
+
     static final int rows = 3;
     static final int cols = rows;
     static final Point center = new Point(rows / 2, cols/ 2);
-    
+
     private void initCells(  )
     {
         for ( int i = 0; i < cells.length; i++ )
@@ -72,7 +75,14 @@ public class RoomGenerator
         updateFutureRoomCellStates();
         updateQueuedStates();
     }
-    
+
+    public void spawnPlayer(Player player) {
+        int randomIndex = (int) (Math.random() * aliveCells.size());
+        Cell randomCell = aliveCells.get(randomIndex);
+        // TODO: hardcoded constant
+        player.moveTo(randomCell.x * 100, randomCell.y * 100);
+    }
+
     private void updateFutureRoomCellStates()
     {
         for (int row = 0; row < rows; row++) {
@@ -85,15 +95,18 @@ public class RoomGenerator
     
     public void updateQueuedStates(  )
     {
-        for ( int i = 0; i < cells.length; i++ )
-        {
-            for ( int j = 0; j < cells[0].length; j++ )
-            {
-                Cell currCell = cells[i][j];
-                currCell.isAlive = currCell.willBeAlive;
-                currCell.willBeAlive = null;
+        LinkedList<Cell> newAliveCells = new LinkedList<Cell>();
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                cell.isAlive = cell.willBeAlive;
+                cell.willBeAlive = null;
+
+                if (cell.isAlive) {
+                    newAliveCells.add(cell);
+                }
             }
         }
+        aliveCells = newAliveCells;
     }
     
     private int getNeighborsAlive(int x, int y )
@@ -229,40 +242,6 @@ public class RoomGenerator
                             lengthOfCell
                     ));
                 }
-
-//                // TODO: change to use r and c instead of cell.x. (see
-//                // TODO: above TODO first)
-//                if (cell.isAlive && !alive(above(c, r))){
-//                    int height = cell.y * length;
-//                    Point2D leftCorner = new Point2D(cell.x * length, height);
-//                    Point2D rightCorner = new Point2D(cell.x * length + length, height);
-//
-//                    walls.add(new Line2D(leftCorner, rightCorner));
-//                }
-//
-//                if (cell.isAlive && !alive(below(c, r))) {
-//                    int y = cell.y * length + length;
-//                    Point2D leftCorner = new Point2D(cell.x * length, y);
-//                    Point2D rightCorner = new Point2D(cell.x * length + length, y);
-//
-//                    walls.add(new Line2D(leftCorner, rightCorner));
-//                }
-//
-//                if (cell.isAlive && !alive(left(c, r))){
-//                    int x = cell.x * length;
-//                    Point2D topCorner = new Point2D(x, cell.y * length);
-//                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
-//
-//                    walls.add(new Line2D(topCorner, bottomCorner));
-//                }
-//
-//                if (cell.isAlive && !alive(right(c, r))) {
-//                    int x = cell.x * length + length;
-//                    Point2D topCorner = new Point2D(x, cell.y * length);
-//                    Point2D bottomCorner = new Point2D(x, cell.y * length + length);
-//
-//                    walls.add(new Line2D(topCorner, bottomCorner));
-//                }
             }
         }
 

@@ -51,7 +51,7 @@ public class Room extends Rectangle {
              for (Rectangle forbiddenTile : tileWalls) {
                  if (forbiddenTile.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
                      combatant.resetPoseToPrevios();
-                     System.out.println("collision detected and dealt with");
+//                     System.out.println("collision detected and dealt with");
                      break;
                  }
              }
