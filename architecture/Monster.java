@@ -300,9 +300,37 @@ public abstract class Monster extends Combatant
     {
         Point2D pPos = player.getPose();
         Point2D ePos = getPose();
-        if ( pPos.x > ePos.y )
+        if (pPos.x>ePos.x)
         {
-
+            move(ePos.x+1,ePos.y);
+        }
+        else
+        {
+            
+        }
+        if (pPos.x<ePos.x)
+        {
+            move(ePos.x-1,ePos.y);
+        }
+        else
+        {
+            
+        }
+        if (pPos.y>ePos.y)
+        {
+            move(ePos.x,ePos.y+1);
+        }
+        else
+        {
+            
+        }
+        if (pPos.y<ePos.y)
+        {
+            move(ePos.x,ePos.y-1);
+        }
+        else
+        {
+            
         }
 
     }
