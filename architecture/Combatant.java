@@ -73,9 +73,11 @@ public abstract class Combatant extends TimerTask
         topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
     }
 
-    public void moveTo(float x, float y) {
+
+    public void moveTo( float x, float y )
+    {
         previousTopLeftCorner = topLeftCorner;
-        topLeftCorner = new Point2D(x, y );
+        topLeftCorner = new Point2D( x, y );
 
     }
 
@@ -128,21 +130,26 @@ public abstract class Combatant extends TimerTask
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 10000000;
+    private static final int actionLimit = 200;
 
 
     public void run()
     {
-
         if ( actionBar >= actionLimit )
             canAttack = true;
 
         else
             actionBar += stats[3];
-
     }
 
 
+    /**
+     * The Combatant attacks another Combatant
+     * 
+     * @param defender
+     *            the other Combatant
+     * @return the result of the combat
+     */
     public CombatResult attack( Combatant defender )
     {
         if ( !canAttack )
@@ -150,6 +157,9 @@ public abstract class Combatant extends TimerTask
             System.out.println( "can't attack" );
             return null;
         }
+        canAttack = false;
+        actionBar = 0;
+        System.out.println( "attacked" );
         return defender.receiveAttack( stats[2], stats[4], stats[6], this );
     }
 
@@ -222,6 +232,11 @@ public abstract class Combatant extends TimerTask
     }
 
 
+    /**
+     * If another Combatant is in range
+     * @param other the other Combatant
+     * @return true if in range, false if outside of range
+     */
     public boolean isInRange( Combatant other )
     {
         double distance = getPose().distance( other.getPose() );
