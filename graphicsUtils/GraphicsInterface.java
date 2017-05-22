@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.*;
@@ -33,7 +32,6 @@ public class GraphicsInterface extends JPanel
     private BufferedImage sprite;
 
     // graphics class, dictated from java.awt.graphics
-    private Graphics graphic;
 
     // individual JFrame for the game
     private JFrame frame;
@@ -95,13 +93,13 @@ public class GraphicsInterface extends JPanel
         frame.setLocationRelativeTo( null );
         // graphic = getGraphics();
         frame.setVisible( true );
-        init();
+        init(frame.getGraphics());
     }
 
 
-    private void init()
+    private void init(Graphics g)
     {
-        // Load the sprite into the BufferedImage, to paint.
+        // Load the sprite into the BufferedImage, to placeImage.
         BufferedImage spriteSheet = null;
         // Try Catch if you can't find file
         try
@@ -119,7 +117,7 @@ public class GraphicsInterface extends JPanel
         // Get the sprite at said coordinates (x upper, y upper, x lower, y
         // lower)
         sprite = ss.grabSprite( 0, 0, 48, 48 );
-        paint( graphic );
+        paint( g );
         System.out.println( "graphics interface initGraphics() finished!" );
 
     }
@@ -147,7 +145,7 @@ public class GraphicsInterface extends JPanel
 
 
     // draw the image onto the JFrame
-    public void paint(
+    public void placeImage(
         BufferedImage sprite,
         int x,
         int y,
@@ -159,60 +157,30 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    /**
-     * TODO: take image as parameter
-     * 
-     * @param width
-     * @param height
-     * @param blockSize
-     *            the length in pixels of each individual block
-     */
-    public void drawFloor( int width, int height, int blockSize )
+
+
+    public void drawImage(
+            int startX,
+            int startY,
+            int width,
+            int height,
+            int blockSize,
+            Graphics g)
     {
         for ( int row = 0; row < height; row++ )
         {
             for ( int col = 0; col < width; col++ )
             {
-                paint( sprite,
-                    100 * row,
-                    100 * col,
-                    blockSize,
-                    blockSize,
-                    graphic );
-            }
-        }
-        System.out.println( "Draw floor finished!" );
-    }
-
-
-    public void drawFloor_1(
-        int startX,
-        int startY,
-        int width,
-        int height,
-        int blockSize )
-    {
-        for ( int row = 0; row < height; row++ )
-        {
-            for ( int col = 0; col < width; col++ )
-            {
-                paint( sprite,
+                placeImage( sprite,
                     startX + blockSize * row,
                     startY + blockSize * col,
                     blockSize,
                     blockSize,
-                    graphic );
+                    g );
             }
         }
     }
 
-
-    public static void main( String[] args )
-    {
-        GraphicsInterface graphicsInterface = new GraphicsInterface();
-        graphicsInterface.drawFloor( 100, 100, 100 );
-
-    }
 
 
     // change the booleans based on KeyEvents
@@ -288,57 +256,56 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void render( Cell[][] cell )
+
+
+    public void renderGrid(Cell[][] cells, Graphics graphics)
     {
         loadSprite( "Dirt_Floor.png" );
 
         // TODO: hardcoded constant
         int side = 100;
 
-        for ( int i = 0; i < cell.length; i++ )
+        for ( int i = 0; i < cells.length; i++ )
         {
-            for ( int j = 0; j < cell[0].length; j++ )
+            for ( int j = 0; j < cells[0].length; j++ )
             {
-                if ( cell[i][j].isAlive() )
+                if ( cells[i][j].isAlive() )
                 {
-                    drawFloor_1( i * side, j * side, 1, 1, side );
+                    drawImage( i * side, j * side, 1, 1, side, graphics );
                 }
             }
         }
     }
 
 
-    public void renderGrid( Cell[][] cells )
-    {
-        render( cells );
-    }
-
-
-    public void renderCharacter( Combatant combatant )
+    public void renderCharacter( Combatant combatant, Graphics g )
     {
         loadSprite( "ConcretePowderMagenta.png" );
 
-        drawFloor_1( (int)combatant.getPose().x,
+        drawImage( (int)combatant.getPose().x,
             (int)combatant.getPose().y,
             1,
             1,
-            combatant.WIDTH );
+            combatant.WIDTH,
+            g);
 
     }
 
 
-    public void renderWeapon( Weapon weapon, Combatant combatant )
+    public void renderWeapon(Weapon weapon, Combatant combatant, Graphics g)
     {
         // TODO: Remove hard coding of weapon size
         if ( weapon.getType()[0] == 0 )
         {
             loadSprite( "default_sword.png" );
-            drawFloor_1(
+
+            drawImage(
                 (int)( combatant.getPose().x + 2D / 3 * combatant.WIDTH ),
                 (int)( combatant.getPose().y + 2D / 3 * combatant.HEIGHT ),
                 1,
                 1,
-                100 );
+                100,
+                g);
         }
         else
         {
@@ -346,11 +313,6 @@ public class GraphicsInterface extends JPanel
         }
     }
 
-
-    public void clearGrid()
-    {
-        graphic.clearRect( 0, 0, frame.getWidth(), frame.getHeight() );
-    }
 
 
     public void setGameState( GameState gameState )
@@ -363,14 +325,17 @@ public class GraphicsInterface extends JPanel
     public void paint( Graphics g )
     {
         // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE
-        // super.paint(g);
-        this.graphic = g;
+        // super.placeImage(g);
          try {
+             System.out.println("moving to x" + (int) gameState.player.getPose().x);
+             g.translate( (int)gameState.player.getPose().x, (int)gameState.player.getPose().y );
+
              super.paint(g);
+
              if (gameState != null) {
-                 renderGrid(gameState.cells);
-                 gameState.combatants.forEach(this::renderCharacter);
-                 renderWeapon(gameState.player.getWeapon(), gameState.player);
+                 renderGrid(gameState.cells, g);
+                 gameState.combatants.forEach(combatant -> renderCharacter(combatant, g));
+                 renderWeapon(gameState.player.getWeapon(), gameState.player, g);
              }
          } catch (NullPointerException e1) {
              e1.printStackTrace();
@@ -378,16 +343,12 @@ public class GraphicsInterface extends JPanel
      }
 
 
-    public void clear()
-    {
-        graphic.clearRect( 0, 0, frame.getWidth(), frame.getHeight() );
-    }
 
 
     public void doRepaint()
     {
         Player player = gameState.player;
-        graphic.translate( (int)player.getPose().x, (int)player.getPose().y );
+//        graphic.translate( (int)player.getPose().x, (int)player.getPose().y );
         frame.getContentPane().repaint();
     }
 
