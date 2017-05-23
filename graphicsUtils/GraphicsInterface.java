@@ -380,6 +380,13 @@ public class GraphicsInterface extends JPanel
                     g );
 
                 gameState.chests.forEach( chest -> renderChest( chest, g ) );
+                for (Chest chest : gameState.chests)
+                {
+                    if (!chest.isEmpty())
+                        renderChest(chest, g);
+                    else
+                        gameState.chests.remove( chest );
+                }
             }
         }
         catch ( NullPointerException e1 )

@@ -111,6 +111,11 @@ public class GameLoop
                             }
                         } );
                     }
+                    for ( Chest chest : chests )
+                    {
+                        if ( player.canOpen( chest ) )
+                            chest.acquireAll( player );
+                    }
                 }
 
                 if ( player.isDead() )
@@ -122,12 +127,11 @@ public class GameLoop
                 room.update();
                 player.restoreHealth( 10000 );
                 fighters.removeIf( Combatant::isDead );
-                graphicsInterface.setGameState( new GameState(roomGenerator.cells, fighters, player, chests ) );
+                graphicsInterface.setGameState( new GameState(
+                    roomGenerator.cells, fighters, player, chests ) );
 
                 graphicsInterface.doRepaint();
 
-               
-                System.out.println( chests.size() );
             }
         };
 
