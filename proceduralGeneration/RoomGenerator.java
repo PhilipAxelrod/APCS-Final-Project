@@ -69,15 +69,11 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        if ( numAlive == 3 && !currCell.isAlive )
+        if ((numAlive == 8 ||  numAlive == 3) && !currCell.isAlive )
         {
             return true;
         }
-        if ( currCell.isAlive && numAlive <= 6 && numAlive >= 1 )
-        {
-            return true;
-        }
-        return false;
+        return currCell.isAlive && numAlive <= 6 && numAlive >= 1;
     }
 
 

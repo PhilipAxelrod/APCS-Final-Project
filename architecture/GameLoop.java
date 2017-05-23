@@ -55,12 +55,12 @@ public class GameLoop
         }
 
         final Room room = new Room(
-            fighters,
-            roomGenerator.getWalls( player.WIDTH + 1),
-            player.WIDTH * RoomGenerator.rows, // was * 5 before
-            chests,
-            roomGenerator.getPortal(player.WIDTH + 1),
-            player);
+                fighters,
+                roomGenerator.getWalls( player.WIDTH + 1),
+                player.WIDTH * RoomGenerator.rows, // was * 5 before
+                chests,
+                roomGenerator.getPortal(player.WIDTH + 1),
+                player);
 
         System.out.println( "just scheduled!" );
 
@@ -69,7 +69,7 @@ public class GameLoop
         try
         {
             graphicsInterface
-                .setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
+                    .setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
         }
         catch ( IOException e )
         {
@@ -113,12 +113,12 @@ public class GameLoop
                     {
                         fighters.forEach( combatant -> {
                             if ( player.isInRange( combatant )
-                                && !combatant.equals( player ) )
+                                    && !combatant.equals( player ) )
                             {
                                 player.attack( combatant );
                                 System.out.println( combatant + " health " + combatant.getHealth() );
                             }
-                            
+
                         } );
                     }
                     for ( Chest chest : chests )

@@ -2,6 +2,8 @@ package architecture;
 
 import java.util.LinkedList;
 import java.util.List;
+import proceduralGeneration.Room;
+
 
 import com.sun.javafx.geom.Point2D;
 
@@ -42,6 +44,7 @@ public abstract class Monster extends Combatant
     private List<Item> items;
 
     private Player player;
+    
 
 
     /**
@@ -296,12 +299,11 @@ public abstract class Monster extends Combatant
      */
     public abstract String type();
 
-
     public void intellegence()
     {
         float xmove=0;
         float ymove=0;
-
+        
         if (player.getPose().x>getPose().x)
         {
             xmove=xmove+100;
@@ -329,7 +331,51 @@ public abstract class Monster extends Combatant
         {
             ymove=0;
         }
-        move(xmove,ymove);
+//        Point2D testColl = null, testCollO = null;
+//        testCollO.setLocation(getPose().x,getPose().y);
+//        testColl.setLocation( getPose().x+xmove, getPose().y+ymove);
+//        if (currRoom.inCollisionAtPoint(player, testColl));
+//        {
+//            testColl=testCollO;
+//            testColl.setLocation( getPose().x+100, getPose().y);
+//            if (currRoom.inCollisionAtPoint(player, testColl))
+//            {
+//                testColl=testCollO;
+//                testColl.setLocation( getPose().x, getPose().y+100);
+//                if (currRoom.inCollisionAtPoint(player, testColl))
+//                {
+//                    testColl=testCollO;
+//                    testColl.setLocation( getPose().x-100, getPose().y);
+//                    if (currRoom.inCollisionAtPoint(player, testColl))
+//                    {
+//                        testColl=testCollO;
+//                        testColl.setLocation( getPose().x-100, getPose().y);
+//                        if (currRoom.inCollisionAtPoint(player, testColl))
+//                        {
+//                            testColl=testCollO;
+//                            testColl.setLocation( getPose().x-100, getPose().y);
+//                        }
+//                        else
+//                        {
+//                            move(0,-100);
+//                        }
+//                    }
+//                    else
+//                    {
+//                        move(-100,0);
+//                    }
+//                }
+//                else
+//                {
+//                    move(0,100);
+//                }
+//            }
+//            else
+//            {
+//                move(100,0);
+//            }
+//        }
+//        
 //        System.out.println(player.getPose());
 //        System.out.println(getPose());
 
