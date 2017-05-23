@@ -5,8 +5,9 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import architecture.Combatant;
+import architecture.Monster;
 import architecture.Player;
-import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
 
 
@@ -16,7 +17,7 @@ public class RoomGenerator
 
     final public Cell[][] cells = new Cell[rows][cols];
 
-    List<Cell> aliveCells = new LinkedList<Cell>();
+    List<Cell> aliveAvailibleCells = new LinkedList<Cell>();
 
     // TODO: Hardcoded value
     public static final int rows = 10;
@@ -50,9 +51,12 @@ public class RoomGenerator
 
     public RoomGenerator()
     {
-        this( Arrays.<Point> asList( new Point( center.x - 1, center.y ),
-            center,
-            new Point( center.x + 1, center.y ) ) );
+        this( Arrays.<Point> asList(
+                new Point( center.x - 1, center.y ),
+                center,
+                new Point( center.x + 1, center.y ),
+                new Point( center.x + 2, center.y )/*,
+                new Point( center.x + 3, center.y )*/));
     }
 
 
@@ -83,13 +87,27 @@ public class RoomGenerator
         updateQueuedStates();
     }
 
+    public Cell getRandomAvailibleCell() {
+        int randomIndex = (int)( Math.random() * aliveAvailibleCells.size() );
+        return aliveAvailibleCells.get(randomIndex);
+    }
 
     public void spawnPlayer( Player player, int tileLength )
     {
-        int randomIndex = (int)( Math.random() * aliveCells.size() );
-        Cell randomCell = aliveCells.get( randomIndex );
+        Cell randomCell = getRandomAvailibleCell();
+        aliveAvailibleCells.remove(randomCell);
         // TODO: hardcoded constant
         player.moveTo( randomCell.x * tileLength, randomCell.y * tileLength);
+    }
+
+    public void spawnEnemies(List<Monster> combatants, int tileLength) {
+        combatants.forEach(enemy -> {
+            Cell randomCell = getRandomAvailibleCell();
+            enemy.moveTo( randomCell.x * tileLength, randomCell.y * tileLength);
+
+            // make sure that no 2 enemies spawn in the same place
+            aliveAvailibleCells.remove(randomCell);
+        });
     }
 
 
@@ -123,7 +141,7 @@ public class RoomGenerator
                 }
             }
         }
-        aliveCells = newAliveCells;
+        aliveAvailibleCells = newAliveCells;
     }
 
 
@@ -292,7 +310,8 @@ public class RoomGenerator
                 {
                     System.out.println( "adding forbidden cell at:" );
                     System.out.println( cell );
-                    walls.add( new Rectangle( cell.x * lengthOfCell,
+                    walls.add( new Rectangle(
+                        cell.x * lengthOfCell,
                         cell.y * lengthOfCell,
                         lengthOfCell,
                         lengthOfCell ) );

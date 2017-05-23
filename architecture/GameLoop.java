@@ -38,14 +38,19 @@ public class GameLoop
         ArrayList<Chest> chests = new ArrayList<Chest>();
         chests.add( new Chest( 1, new Point2D( 100, 100 ) ) );
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
-        final Player player = new Player( new Point2D( 0, 0 ) );
-        fighters.add( new Skeleton( 1, player ) );
-        fighters.add( player );
+        ArrayList<Monster> monsters = new ArrayList<Monster>();
 
-        ArrayList<Point> emptyList = new ArrayList<>();
+        final Player player = new Player( new Point2D( 0, 0 ) );
+
+        Skeleton skeleton = new Skeleton(1, player);
+
+        fighters.add( skeleton);
+        fighters.add( player );
+        monsters.add(skeleton);
+
         RoomGenerator roomGenerator = new RoomGenerator();
 
-        for ( int i = 0; i < 10; i++ )
+        for ( int i = 0; i < 50; i++ )
         {
             roomGenerator.update();
         }
@@ -72,6 +77,7 @@ public class GameLoop
 
         // TODO: make tile width more intelligent
         roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
+        roomGenerator.spawnEnemies(monsters, player.WIDTH + 1);
 
         TimerTask task = new TimerTask()
         {
@@ -109,8 +115,7 @@ public class GameLoop
                                 && !combatant.equals( player ) )
                             {
                                 player.attack( combatant );
-                                System.out.println( combatant + " health "
-                                    + combatant.getHealth() );
+                                System.out.println( combatant + " health " + combatant.getHealth() );
                             }
                             
                         } );
