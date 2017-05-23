@@ -261,10 +261,8 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderGrid( Cell[][] cells, Graphics graphics )
+    public void renderGrid( Cell[][] cells,int tileLength, Graphics graphics )
     {
-        // TODO: hardcoded constant
-        int side = 100;
 
         for ( int i = 0; i < cells.length; i++ )
         {
@@ -274,10 +272,10 @@ public class GraphicsInterface extends JPanel
                 {
                     placeImage(
                             "Dirt_Floor.png",
-                            i * side,
-                            j * side,
-                            side,
-                            side,
+                            i * tileLength,
+                            j * tileLength,
+                            tileLength,
+                            tileLength,
                             graphics );
                 }
             }
@@ -285,14 +283,14 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderCharacter( Combatant combatant, Graphics g )
+    public void renderCharacter( Combatant combatant, int tileLength, Graphics g )
     {
         placeImage(
                 "ConcretePowderMagenta.png",
             (int)combatant.getPose().x,
             (int)combatant.getPose().y,
-            combatant.WIDTH,
-            combatant.HEIGHT,
+            tileLength,
+            tileLength,
                 g );
 
     }
@@ -346,9 +344,9 @@ public class GraphicsInterface extends JPanel
 
             if ( gameState != null )
             {
-                renderGrid( gameState.cells, g );
+                renderGrid( gameState.cells, gameState.tileLength, g );
                 gameState.chests.forEach( chest -> renderChest( chest, g ) );
-                gameState.combatants.forEach( combatant -> renderCharacter( combatant, g ) );
+                gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.tileLength, g ) );
                 renderWeapon(
                     gameState.player.getWeapon(),
                     gameState.player,

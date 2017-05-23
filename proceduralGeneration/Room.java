@@ -1,5 +1,6 @@
 package proceduralGeneration;
 
+import architecture.Player;
 import com.sun.javafx.geom.Point2D;
 
 import graphicsUtils.GraphicsInterface;
@@ -27,17 +28,21 @@ public class Room extends Rectangle
 
     static GraphicsInterface graphicsInterface;
 
-
+    Player player;
+    Rectangle portal;
     public Room(
-        ArrayList<Combatant> combatants,
-        Hashtable<Point2D, List<Rectangle>> walls,
-        int tileWidth,
-        ArrayList<Chest> chests )
+            ArrayList<Combatant> combatants,
+            Hashtable<Point2D, List<Rectangle>> walls,
+            int tileWidth,
+            ArrayList<Chest> chests,
+            Rectangle portal, Player player)
     {
         this.combatants = combatants;
         this.walls = walls;
         this.tileWidth = tileWidth;
         this.chests = chests;
+        this.portal = portal;
+        this.player = player;
     }
 
 
@@ -72,6 +77,11 @@ public class Room extends Rectangle
 
     public void update()
     {
+        if (portal.intersects(player.getBoundingBox())) {
+            player.restoreHealth(player.getStats()[0] / 2);
+            player.restoreMana(player.getStats()[1] / 2);
+        }
+
         for ( Combatant c : combatants )
         {
             c.run();
@@ -101,6 +111,7 @@ public class Room extends Rectangle
     }
 
 
+    @Deprecated
     public void render( GraphicsInterface graphicsInterface )
     {
         graphicsInterface.loadSprite( "Dirt_Floor.png" );
@@ -134,6 +145,7 @@ public class Room extends Rectangle
     }
 
 
+    @Deprecated
     public static void render( Cell[][] cell )
     {
         graphicsInterface.loadSprite( "Dirt_Floor.png" );
