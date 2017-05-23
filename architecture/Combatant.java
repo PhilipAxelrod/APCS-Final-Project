@@ -130,7 +130,7 @@ public abstract class Combatant extends TimerTask
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 200;
+    private static final int actionLimit = 100;
 
 
     public void run()

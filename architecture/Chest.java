@@ -3,6 +3,8 @@ package architecture;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sun.javafx.geom.Point2D;
+
 
 /**
  * A container for items which can be looted by the player.
@@ -19,6 +21,21 @@ public class Chest
     List<Item> contents;
 
     boolean isOpened = false;
+
+    /**
+     * the location of the Chest
+     */
+    protected Point2D topLeftCorner;
+
+    /**
+     * width of Chest
+     */
+    public static final int WIDTH = 99;
+
+    /**
+     * height of Chest
+     */
+    public static final int HEIGHT = WIDTH;
 
 
     /**
@@ -52,6 +69,51 @@ public class Chest
     public Chest( List<Item> contents )
     {
         this.contents = contents;
+        topLeftCorner = new Point2D( 0, 0 );
+    }
+
+
+    /**
+     * Creates an empty Chest.
+     * 
+     * @param loc
+     *            Pont2D location
+     * 
+     */
+    public Chest( Point2D loc )
+    {
+        this( new LinkedList<Item>(), loc );
+    }
+
+
+    /**
+     * Creates a chest with randomly generated items.
+     * 
+     * @param level
+     *            relative strength and quantity of items
+     * @param loc
+     *            Pont2D location
+     * 
+     */
+    public Chest( int level, Point2D loc )
+    {
+        this( loc );
+        contents = Monster.generateItems( level );
+    }
+
+
+    /**
+     * Creates a chest with a list of Items.
+     * 
+     * @param contents
+     *            Items to add
+     * @param loc
+     *            Pont2D location
+     */
+    public Chest( List<Item> contents, Point2D loc )
+    {
+        this.contents = contents;
+        topLeftCorner = loc;
     }
 
 
@@ -119,6 +181,18 @@ public class Chest
     public boolean isOpened()
     {
         return isOpened;
+    }
+
+
+    public Point2D getPose()
+    {
+        return topLeftCorner;
+    }
+
+
+    protected Point2D bottomRightCorner()
+    {
+        return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
     }
 
 }

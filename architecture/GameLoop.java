@@ -36,6 +36,7 @@ public class GameLoop
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
+        chests.add( new Chest( 1 ) );
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         final Player player = new Player( new Point2D( 0, 0 ) );
         fighters.add( new Skeleton( 1, player ) );
@@ -51,7 +52,8 @@ public class GameLoop
 
         final Room room = new Room( fighters,
             roomGenerator.getWalls( player.WIDTH ),
-            player.WIDTH * 3 );
+            player.WIDTH * 3,
+            chests );
 
         System.out.println( "just scheduled!" );
 
@@ -66,7 +68,7 @@ public class GameLoop
         {
             throw new RuntimeException( "Image failed to load" );
         }
-        roomGenerator.spawnPlayer(player);
+        roomGenerator.spawnPlayer( player );
 
         TimerTask task = new TimerTask()
         {
