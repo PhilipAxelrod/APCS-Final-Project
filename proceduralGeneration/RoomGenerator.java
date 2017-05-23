@@ -110,6 +110,14 @@ public class RoomGenerator
         });
     }
 
+    public Rectangle getPortal(int tileLength) {
+        Cell randomCell = getRandomAvailibleCell();
+        Rectangle portal = new Rectangle(randomCell.x, randomCell.y, tileLength, tileLength);
+        aliveAvailibleCells.remove(randomCell);
+        return portal;
+    }
+
+
 
     private void updateFutureRoomCellStates()
     {

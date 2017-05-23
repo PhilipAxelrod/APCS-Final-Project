@@ -1,6 +1,5 @@
 package architecture;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -59,7 +58,9 @@ public class GameLoop
             fighters,
             roomGenerator.getWalls( player.WIDTH + 1),
             player.WIDTH * RoomGenerator.rows, // was * 5 before
-            chests );
+            chests,
+            roomGenerator.getPortal(player.WIDTH + 1),
+            player);
 
         System.out.println( "just scheduled!" );
 

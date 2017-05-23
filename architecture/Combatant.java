@@ -77,6 +77,10 @@ public abstract class Combatant extends TimerTask
         topLeftCorner = new Point2D(x, y );
     }
 
+    public Rectangle getBoundingBox() {
+        return new Rectangle((int) getPose().x,(int) getPose().y, WIDTH, HEIGHT);
+    }
+
     public void moveTo(Point2D point2D) {
         moveTo(point2D.x, point2D.y);
     }
