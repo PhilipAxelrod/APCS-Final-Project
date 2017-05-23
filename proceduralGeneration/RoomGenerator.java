@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import architecture.Monster;
 import architecture.Player;
 import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
@@ -16,7 +17,7 @@ public class RoomGenerator
     final public Cell[][] cells = new Cell[rows][cols];
     List<Cell> aliveCells = new LinkedList<Cell>();
 
-    static final int rows = 3;
+    static final int rows = 10;
     static final int cols = rows;
     static final Point center = new Point(rows / 2, cols/ 2);
 
@@ -49,6 +50,14 @@ public class RoomGenerator
                 new Point(
                         center.x + 1,
                         center.y
+                ),
+                new Point(
+                        center.x + 2,
+                        center.y
+                ),
+                new Point(
+                        center.x + 3,
+                        center.y
                 )
         ));
     }
@@ -76,13 +85,24 @@ public class RoomGenerator
         updateQueuedStates();
     }
 
+    public Cell getRandomAliveCell() {
+        return aliveCells.get((int)(Math.random() * aliveCells.size()));
+    }
+
     public void spawnPlayer(Player player) {
-        int randomIndex = (int) (Math.random() * aliveCells.size());
-        Cell randomCell = aliveCells.get(randomIndex);
+        Cell randomCell = getRandomAliveCell();
         // TODO: hardcoded constant
         player.moveTo(randomCell.x * 100, randomCell.y * 100);
     }
+    public void spawnMonster(Monster monster) {
+        Cell randomCell = getRandomAliveCell();
+        // TODO: hardcoded constant
+        monster.moveTo(randomCell.x * 100, randomCell.y * 100);
+    }
 
+    public void spawnPortal() {
+
+    }
     private void updateFutureRoomCellStates()
     {
         for (int row = 0; row < rows; row++) {

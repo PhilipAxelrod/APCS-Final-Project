@@ -87,11 +87,11 @@ public class GraphicsInterface extends JPanel
         frame.getContentPane().add( this, BorderLayout.CENTER );
         frame.pack();
         frame.addKeyListener( this );
-        frame.setResizable( false );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setLocationRelativeTo( null );
         // graphic = getGraphics();
         frame.setVisible( true );
+        frame.setResizable(true);
         init( frame.getGraphics() );
     }
 

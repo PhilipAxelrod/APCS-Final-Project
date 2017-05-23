@@ -60,7 +60,7 @@ public abstract class Combatant extends TimerTask
     }
 
 
-    public void resetPoseToPrevios()
+    public void resetPositionToPrevios()
     {
         topLeftCorner = previousTopLeftCorner;
         previousTopLeftCorner = null;

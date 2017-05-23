@@ -50,8 +50,7 @@ public class Room extends Rectangle {
          if (tileWalls != null) {
              for (Rectangle forbiddenTile : tileWalls) {
                  if (forbiddenTile.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
-                     combatant.resetPoseToPrevios();
-//                     System.out.println("collision detected and dealt with");
+                     combatant.resetPositionToPrevios();
                      break;
                  }
              }
@@ -94,39 +93,6 @@ public class Room extends Rectangle {
                 case 4:
                     x = x - side;
             }
-
-//            graphicsInterface.drawImage(1, 1, side, x, y, );
         }
-    }
-    
-    public static void render( Cell[][] cell)
-    {
-        graphicsInterface.loadSprite("Dirt_Floor.png");
-
-        int side = 100;
-        
-        for ( int i = 0; i < cell.length; i++ )
-        {
-            for ( int j = 0; j < cell[0].length; j++ )
-            {
-                if(cell[i][j].isAlive()) {
-//                    graphicsInterface.drawImage( 1, 1, side, i * side, j * side, );
-                }
-            }
-        }
-    }
-    
-    public static void main(String[] args) {
-        RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
-        for(int i = 0;  i < 50; i++) {
-            room.update();
-        }
-
-        initGraphics();
-        render(room.cells);
-//
-//        while (true) {
-//            if (graphicsInterface.)
-//        }
     }
 }

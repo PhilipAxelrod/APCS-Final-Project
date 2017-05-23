@@ -38,7 +38,8 @@ public class GameLoop
         ArrayList<Chest> chests = new ArrayList<Chest>();
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         final Player player = new Player( new Point2D( 0, 0 ) );
-        fighters.add( new Skeleton( 1, player ) );
+        Monster monster = new Skeleton( 1, player );
+        fighters.add(  monster);
         fighters.add( player );
 
         ArrayList<Point> emptyList = new ArrayList<>();
@@ -67,6 +68,7 @@ public class GameLoop
             throw new RuntimeException( "Image failed to load" );
         }
         roomGenerator.spawnPlayer(player);
+        roomGenerator.spawnMonster(monster);
 
         TimerTask task = new TimerTask()
         {
@@ -81,19 +83,19 @@ public class GameLoop
 
                 if ( graphicsInterface.isArDown() )
                 {
-                    yToMoveBy += 10;
+                    yToMoveBy += 5;
                 }
                 if ( graphicsInterface.isArUp() )
                 {
-                    yToMoveBy += -10;
+                    yToMoveBy += -5;
                 }
                 if ( graphicsInterface.isArLeft() )
                 {
-                    xToMoveBy += -10;
+                    xToMoveBy += -5;
                 }
                 if ( graphicsInterface.isArRight() )
                 {
-                    xToMoveBy += 10;
+                    xToMoveBy += 5;
                 }
                 if ( graphicsInterface.isQPressed()/* || true */ )
                 {
@@ -128,7 +130,7 @@ public class GameLoop
             }
         };
 
-        timer.scheduleAtFixedRate( task, 0, 100 );
+        timer.scheduleAtFixedRate( task, 0, 10 );
 
     }
 }
