@@ -186,35 +186,7 @@ public class GraphicsInterface extends JPanel
                     g
         );
     }
-
-
-
-    @Deprecated
-    public void drawImage(
-        int startX,
-        int startY,
-        int width,
-        int height,
-        int blockSize,
-        Graphics g )
-    {
-        for ( int row = 0; row < height; row++ )
-        {
-            for ( int col = 0; col < width; col++ )
-            {
-                placeImage( sprite,
-                    startX + blockSize * row,
-                    startY + blockSize * col,
-                    blockSize,
-                    blockSize,
-                    g );
-            }
-        }
-    }
-
-
-
-
+    
 
     // change the booleans based on KeyEvents
     @Override
@@ -291,8 +263,6 @@ public class GraphicsInterface extends JPanel
 
     public void renderGrid( Cell[][] cells, Graphics graphics )
     {
-        loadSprite( "Dirt_Floor.png" );
-
         // TODO: hardcoded constant
         int side = 100;
 
@@ -302,7 +272,13 @@ public class GraphicsInterface extends JPanel
             {
                 if ( cells[i][j].isAlive() )
                 {
-                    drawImage( i * side, j * side, 1, 1, side, graphics );
+                    placeImage(
+                            "Dirt_Floor.png",
+                            i * side,
+                            j * side,
+                            side,
+                            side,
+                            graphics );
                 }
             }
         }
@@ -311,30 +287,29 @@ public class GraphicsInterface extends JPanel
 
     public void renderCharacter( Combatant combatant, Graphics g )
     {
-        loadSprite( "ConcretePowderMagenta.png" );
-
-        drawImage( (int)combatant.getPose().x,
+        placeImage(
+                "ConcretePowderMagenta.png",
+            (int)combatant.getPose().x,
             (int)combatant.getPose().y,
-            1,
-            1,
             combatant.WIDTH,
-            g );
+            combatant.HEIGHT,
+                g );
 
     }
 
 
     public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
     {
-        // TODO: Remove hard coding of weapon size
         if ( weapon.getType()[0] == 0 )
         {
             loadSprite( "default_sword.png" );
 
-            drawImage(
+            // TODO: Remove hard coding of weapon size
+            placeImage(
+                "default_sword.png",
                 (int)( combatant.getPose().x + 2D / 3 * combatant.WIDTH ),
                 (int)( combatant.getPose().y + 2D / 3 * combatant.HEIGHT ),
-                1,
-                1,
+                100,
                 100,
                 g );
         }
@@ -373,13 +348,13 @@ public class GraphicsInterface extends JPanel
             if ( gameState != null )
             {
                 renderGrid( gameState.cells, g );
+                gameState.chests.forEach( chest -> renderChest( chest, g ) );
                 gameState.combatants.forEach( combatant -> renderCharacter( combatant, g ) );
                 renderWeapon(
                     gameState.player.getWeapon(),
                     gameState.player,
                     g );
 
-                gameState.chests.forEach( chest -> renderChest( chest, g ) );
                 for (Chest chest : gameState.chests)
                 {
                     if (!chest.isEmpty())
