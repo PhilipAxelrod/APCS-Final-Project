@@ -152,7 +152,7 @@ public class Room extends Rectangle
             }
         }
     }
-
+    
 
     public static void main( String[] args )
     {

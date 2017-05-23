@@ -2,6 +2,8 @@ package architecture;
 
 import com.sun.javafx.geom.Point2D;
 
+import proceduralGeneration.Room;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.TimerTask;
@@ -28,7 +30,8 @@ public abstract class Combatant extends TimerTask
     public int WIDTH = 99;
 
     public int HEIGHT = WIDTH;
-
+    
+    public Room currRoom;
 
     public Combatant( Point2D initPose )
     {
@@ -551,7 +554,10 @@ public abstract class Combatant extends TimerTask
             + getMana() + "/" + getStats()[1] );
         System.out.println( divider );
     }
-    
+    public void getCurrRoom(Room room)
+    {
+        currRoom=room;
+    }
     
 
 }
