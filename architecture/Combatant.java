@@ -30,8 +30,15 @@ public abstract class Combatant extends TimerTask
     public int WIDTH = 99;
 
     public int HEIGHT = WIDTH;
-    
+
+    private int xVelocity = 0, yVelocity = 0;
+
     public Room currRoom;
+
+    private static final int ACCELERATION = 12;
+
+    private static final double FRICTION = .9;
+
 
     public Combatant( Point2D initPose )
     {
@@ -62,6 +69,7 @@ public abstract class Combatant extends TimerTask
         return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
     }
 
+
     public void resetPoseToPrevios()
     {
         topLeftCorner = previousTopLeftCorner;
@@ -75,17 +83,49 @@ public abstract class Combatant extends TimerTask
         topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
     }
 
-    public void moveTo(float x, float y) {
+
+    public void moveTo( float x, float y )
+    {
         previousTopLeftCorner = topLeftCorner;
-        topLeftCorner = new Point2D(x, y );
+        topLeftCorner = new Point2D( x, y );
     }
 
-    public Rectangle getBoundingBox() {
-        return new Rectangle((int) getPose().x,(int) getPose().y, WIDTH, HEIGHT);
+
+    public Rectangle getBoundingBox()
+    {
+        return new Rectangle( (int)getPose().x,
+            (int)getPose().y,
+            WIDTH,
+            HEIGHT );
     }
 
-    public void moveTo(Point2D point2D) {
-        moveTo(point2D.x, point2D.y);
+
+    public void moveTo( Point2D point2D )
+    {
+        moveTo( point2D.x, point2D.y );
+    }
+
+
+    public void accelerate( float plusX, float plusY )
+    {
+        if ( plusX > 0 )
+            xVelocity += ACCELERATION;
+        else if ( plusX < 0 )
+            xVelocity -= ACCELERATION;
+
+        if ( plusY > 0 )
+            yVelocity += ACCELERATION;
+        else if ( plusY < 0 )
+            yVelocity -= ACCELERATION;
+
+        xVelocity *= FRICTION;
+        yVelocity *= FRICTION;
+    }
+
+
+    public void move()
+    {
+        move( xVelocity, yVelocity );
     }
 
     private int level, health, mana;
@@ -561,10 +601,12 @@ public abstract class Combatant extends TimerTask
             + getMana() + "/" + getStats()[1] );
         System.out.println( divider );
     }
-    public void getCurrRoom(Room room)
+
+
+    public void getCurrRoom( Room room )
     {
-        currRoom=room;
+        currRoom = room;
     }
-    
+
 
 }

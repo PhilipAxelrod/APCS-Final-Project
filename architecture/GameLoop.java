@@ -137,7 +137,8 @@ public class GameLoop
                     System.out.println( "player died!" );
                 }
 
-                player.move( xToMoveBy, yToMoveBy );
+                player.accelerate( xToMoveBy, yToMoveBy );
+                player.move();
                 room.update();
                 player.restoreHealth( 10000 );
 
