@@ -14,9 +14,9 @@ import architecture.Combatant;
 
 public class Room extends Rectangle
 {
-    ArrayList<Combatant> combatants;
+    public ArrayList<Combatant> combatants;
 
-    ArrayList<Chest> chests;
+    public ArrayList<Chest> chests;
 
     private final int tileWidth;
 
@@ -49,6 +49,9 @@ public class Room extends Rectangle
         return portal;
     }
 
+    public boolean atPortal() {
+        return portal.intersects(player.getBoundingBox());
+    }
 
     public boolean inCollisionAtPoint(Combatant combatant, Point2D point) {
 
@@ -92,11 +95,14 @@ public class Room extends Rectangle
             c.run();
         }
 
+        combatants.removeIf( Combatant::isDead );
+
         combatants.forEach( combatant -> {
             if (inCollision(combatant)) {
                 combatant.resetPoseToPrevios();
             }
         });
+
     }
 
 

@@ -56,7 +56,7 @@ public class GameLoop
 
         final Room room = new Room(
                 fighters,
-                roomGenerator.getWalls( player.WIDTH + 1),
+                roomGenerator.getForbiddenRectangles( player.WIDTH + 1),
                 player.WIDTH * RoomGenerator.rows, // was * 5 before
                 chests,
                 roomGenerator.getPortal(player.WIDTH + 1),
@@ -88,6 +88,11 @@ public class GameLoop
             {
                 // incrementTickNum();
                 graphicsInterface.requestFocus();
+
+                if (room.atPortal()) {
+                    System.out.println("yay, at portal!!!");
+//                    makeNewRoom(room, roomGenerator);
+                }
                 int xToMoveBy = 0;
                 int yToMoveBy = 0;
 
@@ -107,13 +112,12 @@ public class GameLoop
                 {
                     xToMoveBy += 20;
                 }
-                if ( graphicsInterface.isQPressed()/* || true */ )
+                if ( graphicsInterface.isQPressed())
                 {
                     if ( player.canAttack )
                     {
                         fighters.forEach( combatant -> {
-                            if ( player.isInRange( combatant )
-                                    && !combatant.equals( player ) )
+                            if ( player.isInRange( combatant ) && !combatant.equals( player ) )
                             {
                                 player.attack( combatant );
                                 System.out.println( combatant + " health " + combatant.getHealth() );
@@ -136,7 +140,6 @@ public class GameLoop
                 player.move( xToMoveBy, yToMoveBy );
                 room.update();
                 player.restoreHealth( 10000 );
-                fighters.removeIf( Combatant::isDead );
 
                 // TODO: Make tile width more intelligent
                 graphicsInterface.setGameState(
@@ -154,6 +157,16 @@ public class GameLoop
         };
 
         timer.scheduleAtFixedRate( task, 0, 100 );
-
     }
+
+//    private static void makeNewRoom(Room room,
+//                                    RoomGenerator roomGenerator,
+//                                    Player) {
+//        room = new Room(fighters,
+//                roomGenerator.getForbiddenRectangles( player.WIDTH + 1),
+//                player.WIDTH * RoomGenerator.rows, // was * 5 before
+//                chests,
+//                roomGenerator.getPortal(player.WIDTH + 1),
+//                player);
+//    }
 }

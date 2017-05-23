@@ -111,12 +111,8 @@ public class GraphicsInterface extends JPanel
                 .log( Level.SEVERE, null, ex );
         }
 
-        SpriteSheet ss = new SpriteSheet( spriteSheet );
 
-        // Get the sprite at said coordinates (x upper, y upper, x lower, y
-        // lower)
-        sprite = ss.grabSprite( 0, 0, 48, 48 );
-        paint( g );
+
         System.out.println( "graphics interface initGraphics() finished!" );
 
     }

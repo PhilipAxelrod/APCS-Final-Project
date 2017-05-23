@@ -375,7 +375,8 @@ public abstract class Monster extends Combatant
 //                move(100,0);
 //            }
 //        }
-//        
+//
+        moveTo(xmove, ymove);
 //        System.out.println(player.getPose());
 //        System.out.println(getPose());
 

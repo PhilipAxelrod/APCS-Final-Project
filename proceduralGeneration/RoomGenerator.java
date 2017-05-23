@@ -55,8 +55,8 @@ public class RoomGenerator
                 new Point( center.x - 1, center.y ),
                 center,
                 new Point( center.x + 1, center.y ),
-                new Point( center.x + 2, center.y )/*,
-                new Point( center.x + 3, center.y )*/));
+                new Point( center.x + 2, center.y ),
+                new Point( center.x + 3, center.y )));
     }
 
 
@@ -105,6 +105,8 @@ public class RoomGenerator
             aliveAvailibleCells.remove(randomCell);
         });
     }
+
+//    public void spawn
 
     public Rectangle getPortal(int tileLength) {
         Cell randomCell = getRandomAvailibleCell();
@@ -300,7 +302,7 @@ public class RoomGenerator
 
 
     // length in pixels
-    public Hashtable<Point2D, List<Rectangle>> getWalls(final int lengthOfCell )
+    public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(final int lengthOfCell )
     {
         ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 
