@@ -18,7 +18,7 @@ public class RoomGenerator
 
     List<Cell> aliveCells = new LinkedList<Cell>();
 
-    static final int rows = 3;
+    static final int rows = 5;
 
     static final int cols = rows;
 
@@ -272,14 +272,7 @@ public class RoomGenerator
 
     private boolean alive( Optional<Cell> toCheck )
     {
-        if ( toCheck.isPresent() )
-        {
-            return toCheck.get().isAlive;
-        }
-        else
-        {
-            return false;
-        }
+        return toCheck.map(cell -> cell.isAlive).orElse(false);
     }
 
 

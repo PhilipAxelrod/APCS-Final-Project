@@ -145,6 +145,18 @@ public class GraphicsInterface extends JPanel
         }
     }
 
+    public BufferedImage getSprite(String absolutePath) {
+        try
+        {
+            return ImageUtils.loadBufferedImage( absolutePath );
+        }
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "image loading failed" );
+        }
+    }
+
+
 
     // draw the image onto the JFrame
     public void placeImage(
@@ -158,7 +170,26 @@ public class GraphicsInterface extends JPanel
         g.drawImage( sprite, x, y, width, height, frame );
     }
 
+    public void placeImage(
+                            String pathToImage,
+                            int startX,
+                            int startY,
+                            int width,
+                            int height,
+                            Graphics g ) {
+        placeImage(
+                    getSprite(pathToImage),
+                    startX,
+                    startY,
+                    width,
+                    height,
+                    g
+        );
+    }
 
+
+
+    @Deprecated
     public void drawImage(
         int startX,
         int startY,
@@ -180,6 +211,9 @@ public class GraphicsInterface extends JPanel
             }
         }
     }
+
+
+
 
 
     // change the booleans based on KeyEvents
@@ -314,8 +348,7 @@ public class GraphicsInterface extends JPanel
     public void renderChest( Chest chest, Graphics g )
     {
         Point2D loc = chest.getPose();
-        loadSprite( "Chest.png" );
-        drawImage( (int)loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, 100, g );
+        placeImage("Chest.png", (int) loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, g );
     }
 
 
@@ -340,11 +373,12 @@ public class GraphicsInterface extends JPanel
             if ( gameState != null )
             {
                 renderGrid( gameState.cells, g );
-                gameState.combatants
-                    .forEach( combatant -> renderCharacter( combatant, g ) );
-                renderWeapon( gameState.player.getWeapon(),
+                gameState.combatants.forEach( combatant -> renderCharacter( combatant, g ) );
+                renderWeapon(
+                    gameState.player.getWeapon(),
                     gameState.player,
                     g );
+
                 gameState.chests.forEach( chest -> renderChest( chest, g ) );
             }
         }
@@ -357,7 +391,7 @@ public class GraphicsInterface extends JPanel
 
     public void doRepaint()
     {
-        Player player = gameState.player;
+//        Player player = gameState.player;
 
         // graphic.translate( (int)player.getPose().x, (int)player.getPose().y
         // );

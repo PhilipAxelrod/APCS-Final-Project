@@ -52,7 +52,7 @@ public class GameLoop
 
         final Room room = new Room( fighters,
             roomGenerator.getWalls( player.WIDTH ),
-            player.WIDTH * 3,
+            player.WIDTH * 5,
             chests );
 
         System.out.println( "just scheduled!" );
@@ -122,8 +122,7 @@ public class GameLoop
                 room.update();
                 player.restoreHealth( 10000 );
                 fighters.removeIf( Combatant::isDead );
-                graphicsInterface.setGameState( new GameState(
-                    roomGenerator.cells, fighters, player, chests ) );
+                graphicsInterface.setGameState( new GameState(roomGenerator.cells, fighters, player, chests ) );
 
                 graphicsInterface.doRepaint();
 
