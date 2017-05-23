@@ -1,5 +1,6 @@
 package proceduralGeneration;
 
+import architecture.Monster;
 import architecture.Player;
 import com.sun.javafx.geom.Point2D;
 
@@ -14,15 +15,15 @@ import architecture.Combatant;
 
 public class Room extends Rectangle
 {
-    public ArrayList<Combatant> combatants;
+    public List<Monster> combatants;
 
-    public ArrayList<Chest> chests;
+    public List<Chest> chests;
 
-    private final int tileWidth;
+    private int tileWidth;
 
     Hashtable<Point2D, List<Rectangle>> walls;
 
-    Cell[][] cells;
+    public Cell[][] cells;
     // static final int rows = 1000;
     // static final int cols = rows;
 
@@ -31,10 +32,10 @@ public class Room extends Rectangle
     Player player;
     Rectangle portal;
     public Room(
-            ArrayList<Combatant> combatants,
+            List<Monster> combatants,
             Hashtable<Point2D, List<Rectangle>> walls,
             int tileWidth,
-            ArrayList<Chest> chests,
+            List<Chest> chests,
             Rectangle portal, Player player)
     {
         this.combatants = combatants;
@@ -43,6 +44,17 @@ public class Room extends Rectangle
         this.chests = chests;
         this.portal = portal;
         this.player = player;
+    }
+
+    // get around the fact that java doesn't allow reassigment in
+    // anonymous classes
+    public void assignSelfTo(Room room){
+        this.combatants = room.combatants;
+        this.walls = room.walls;
+        this.tileWidth = room.tileWidth;
+        this.chests = room.chests;
+        this.portal = room.portal;
+        this.player = room.player;
     }
 
     public Rectangle getPortal() {
@@ -94,6 +106,7 @@ public class Room extends Rectangle
         {
             c.run();
         }
+        player.run();
 
         combatants.removeIf( Combatant::isDead );
 
@@ -182,7 +195,7 @@ public class Room extends Rectangle
         RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
         for ( int i = 0; i < 50; i++ )
         {
-            room.update();
+            room.runSimulation();
         }
 
         initGraphics();

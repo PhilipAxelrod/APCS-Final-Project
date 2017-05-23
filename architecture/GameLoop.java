@@ -51,21 +51,24 @@ public class GameLoop
 
         for ( int i = 0; i < 50; i++ )
         {
-            roomGenerator.update();
+            roomGenerator.runSimulation();
         }
 
-        final Room room = new Room(
-                fighters,
-                roomGenerator.getForbiddenRectangles( player.WIDTH + 1),
-                player.WIDTH * RoomGenerator.rows, // was * 5 before
-                chests,
-                roomGenerator.getPortal(player.WIDTH + 1),
+        // TODO: make tile width more intelligent
+        final Room room = roomGenerator.generateRoom(
+                1,
+                player.WIDTH + 1,
                 player);
+
+
 
         System.out.println( "just scheduled!" );
 
         final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
+//        graphicsInterface.renderGrid(room.cells, 100, graphicsInterface.getGraphics());
+
+        System.out.println("finished with graphics");
         try
         {
             graphicsInterface
@@ -76,9 +79,8 @@ public class GameLoop
             throw new RuntimeException( "Image failed to load" );
         }
 
-        // TODO: make tile width more intelligent
-        roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
-        roomGenerator.spawnEnemies(monsters, player.WIDTH + 1);
+//        roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
+//        roomGenerator.spawnEnemies(monsters, player.WIDTH + 1);
 
         TimerTask task = new TimerTask()
         {
@@ -91,7 +93,9 @@ public class GameLoop
 
                 if (room.atPortal()) {
                     System.out.println("yay, at portal!!!");
-//                    makeNewRoom(room, roomGenerator);
+                    room.assignSelfTo(
+                            roomGenerator.generateRoom(0, 0, player)
+                    );
                 }
                 int xToMoveBy = 0;
                 int yToMoveBy = 0;
@@ -160,14 +164,7 @@ public class GameLoop
         timer.scheduleAtFixedRate( task, 0, 100 );
     }
 
-//    private static void makeNewRoom(Room room,
-//                                    RoomGenerator roomGenerator,
-//                                    Player) {
-//        room = new Room(fighters,
-//                roomGenerator.getForbiddenRectangles( player.WIDTH + 1),
-//                player.WIDTH * RoomGenerator.rows, // was * 5 before
-//                chests,
-//                roomGenerator.getPortal(player.WIDTH + 1),
-//                player);
+//    private static void makeNewRoom(Room room, Room newRoom) {
+//        room
 //    }
 }

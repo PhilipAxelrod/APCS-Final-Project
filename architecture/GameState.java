@@ -17,7 +17,7 @@ public class GameState
     public final List<Chest> chests;
 
     // how big each tile is to generate rooms
-    public final int tileLength;
+    public final int cellLength;
 
     public final Rectangle portal;
 
@@ -27,14 +27,14 @@ public class GameState
         List<Combatant> combatants,
         Player player,
         List<Chest> chests,
-        int tileLength,
+        int cellLength,
         Rectangle portal)
     {
         this.cells = cells;
         this.combatants = combatants;
         this.player = player;
         this.chests = chests;
-        this.tileLength = tileLength;
+        this.cellLength = cellLength;
         this.portal = portal;
     }
 }

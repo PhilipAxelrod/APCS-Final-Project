@@ -254,7 +254,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderGrid( Cell[][] cells,int tileLength, Graphics graphics )
+    public void renderGrid( Cell[][] cells,int cellLength, Graphics graphics )
     {
 
         for ( int i = 0; i < cells.length; i++ )
@@ -265,10 +265,10 @@ public class GraphicsInterface extends JPanel
                 {
                     placeImage(
                             "Dirt_Floor.png",
-                            i * tileLength,
-                            j * tileLength,
-                            tileLength,
-                            tileLength,
+                            i * cellLength,
+                            j * cellLength,
+                            cellLength,
+                            cellLength,
                             graphics );
                 }
             }
@@ -276,19 +276,19 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderCharacter( Combatant combatant, int tileLength, Graphics g )
+    public void renderCharacter( Combatant combatant, int cellLength, Graphics g )
     {
         placeImage(
                 "ConcretePowderMagenta.png",
             (int)combatant.getPose().x,
             (int)combatant.getPose().y,
-            tileLength,
-            tileLength,
+            cellLength,
+            cellLength,
                 g );
 
     }
 
-    public void renderPortal(Rectangle portal, int tileLength, Graphics g) {
+    public void renderPortal(Rectangle portal, int cellLength, Graphics g) {
         placeImage("portal.png", portal.x, portal.y,  portal.width, portal.height, g );
     }
 
@@ -340,15 +340,15 @@ public class GraphicsInterface extends JPanel
 
             if ( gameState != null )
             {
-                renderGrid( gameState.cells, gameState.tileLength, g );
+                renderGrid( gameState.cells, gameState.cellLength, g );
                 gameState.chests.forEach( chest -> renderChest( chest, g ) );
-                gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.tileLength, g ) );
+                gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
                 renderWeapon(
                     gameState.player.getWeapon(),
                     gameState.player,
                     g );
 
-                renderPortal(gameState.portal, gameState.tileLength, g);
+                renderPortal(gameState.portal, gameState.cellLength, g);
 
                 for (Chest chest : gameState.chests)
                 {

@@ -5,9 +5,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import architecture.Combatant;
-import architecture.Monster;
-import architecture.Player;
+import architecture.*;
 import com.sun.javafx.geom.Point2D;
 
 
@@ -77,40 +75,57 @@ public class RoomGenerator
     }
 
 
-    public void update()
+    public void runSimulation()
     {
         updateFutureRoomCellStates();
         updateQueuedStates();
     }
 
-    public Cell getRandomAvailibleCell() {
+    private Cell getRandomAvailibleCell() {
         int randomIndex = (int)( Math.random() * aliveAvailibleCells.size() );
         return aliveAvailibleCells.get(randomIndex);
     }
 
-    public void spawnPlayer( Player player, int tileLength )
+
+
+    public void spawnPlayer( Player player, int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
         aliveAvailibleCells.remove(randomCell);
         // TODO: hardcoded constant
-        player.moveTo( randomCell.x * tileLength, randomCell.y * tileLength);
+        if (player == null) {
+            System.out.println("about to spawn null player");
+        }
+        player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength);
     }
 
-    public void spawnEnemies(List<Monster> combatants, int tileLength) {
+    public void spawnEnemies(List<Monster> combatants, int cellLength) {
         combatants.forEach(enemy -> {
             Cell randomCell = getRandomAvailibleCell();
-            enemy.moveTo( randomCell.x * tileLength, randomCell.y * tileLength);
+            enemy.moveTo( randomCell.x * cellLength, randomCell.y * cellLength);
 
             // make sure that no 2 enemies spawn in the same place
             aliveAvailibleCells.remove(randomCell);
         });
     }
 
+    public List<Monster> createEnemies(int floor, int cellLength, Player player) {
+        // TODO: hardcoded
+        int numEnemies = floor * 2;
+        List<Monster> ret = new ArrayList<>();
+        for (int i = 0; i < numEnemies; i++) {
+            // TODO: enemy distribution
+            ret.add(new Skeleton(floor, player ));
+         }
+         spawnEnemies(ret, cellLength);
+         return ret;
+    }
+
 //    public void spawn
 
-    public Rectangle getPortal(int tileLength) {
+    public Rectangle getPortal(int cellLength) {
         Cell randomCell = getRandomAvailibleCell();
-        Rectangle portal = new Rectangle(randomCell.x, randomCell.y, tileLength, tileLength);
+        Rectangle portal = new Rectangle(randomCell.x, randomCell.y, cellLength, cellLength);
         aliveAvailibleCells.remove(randomCell);
         return portal;
     }
@@ -249,7 +264,7 @@ public class RoomGenerator
     }
 
 
-    public static float roundToLowestMultiple( float toRound, int nearest )
+    static float roundToLowestMultiple( float toRound, int nearest )
     {
         return (float)( (int)toRound / nearest ) * nearest;
     }
@@ -326,5 +341,42 @@ public class RoomGenerator
         }
 
         return segment( walls, /* HashTileGridLength */1, lengthOfCell );
+    }
+
+    /**
+     * used when creating new room
+     */
+    private void killAllCells() {
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                cell.isAlive = false;
+                cell.willBeAlive = null;
+            }
+        }
+    }
+
+    private void plantRandomSeed(int numSeeds) {
+        for (int i = 0; i < numSeeds; i++) {
+            getRandomAvailibleCell().isAlive = true;
+        }
+    }
+    public Room generateRoom(int floor, int cellLength, Player player) {
+        killAllCells();
+        // TODO: hardcoded constant
+        plantRandomSeed(50000);
+
+        for (int i = 0; i < 500; i++) {
+            runSimulation();
+        }
+
+        spawnPlayer(player, cellLength);
+        return new Room(
+                createEnemies(floor, cellLength, player),
+                getForbiddenRectangles(cellLength),
+                cellLength,
+                Arrays.<Chest>asList(new Chest(floor, new Point2D(100, 100))),
+                getPortal(cellLength),
+                player);
+
     }
 }
