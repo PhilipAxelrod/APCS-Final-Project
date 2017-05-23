@@ -13,6 +13,9 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.sun.javafx.geom.Point2D;
+
+import architecture.Chest;
 import architecture.Combatant;
 import architecture.GameState;
 import architecture.Player;
@@ -41,7 +44,6 @@ public class GraphicsInterface extends JPanel
     // KeyPress Booleans. Pressed down=True, Not Pressed=False
 
     private boolean arUp, arRight, arLeft, arDown, qKey = false;
-
 
 
     public boolean isArUp()
@@ -93,11 +95,11 @@ public class GraphicsInterface extends JPanel
         frame.setLocationRelativeTo( null );
         // graphic = getGraphics();
         frame.setVisible( true );
-        init(frame.getGraphics());
+        init( frame.getGraphics() );
     }
 
 
-    private void init(Graphics g)
+    private void init( Graphics g )
     {
         // Load the sprite into the BufferedImage, to placeImage.
         BufferedImage spriteSheet = null;
@@ -143,6 +145,18 @@ public class GraphicsInterface extends JPanel
         }
     }
 
+    public BufferedImage getSprite(String absolutePath) {
+        try
+        {
+            return ImageUtils.loadBufferedImage( absolutePath );
+        }
+        catch ( IOException e )
+        {
+            throw new RuntimeException( "image loading failed" );
+        }
+    }
+
+
 
     // draw the image onto the JFrame
     public void placeImage(
@@ -156,16 +170,33 @@ public class GraphicsInterface extends JPanel
         g.drawImage( sprite, x, y, width, height, frame );
     }
 
+    public void placeImage(
+                            String pathToImage,
+                            int startX,
+                            int startY,
+                            int width,
+                            int height,
+                            Graphics g ) {
+        placeImage(
+                    getSprite(pathToImage),
+                    startX,
+                    startY,
+                    width,
+                    height,
+                    g
+        );
+    }
 
 
 
+    @Deprecated
     public void drawImage(
-            int startX,
-            int startY,
-            int width,
-            int height,
-            int blockSize,
-            Graphics g)
+        int startX,
+        int startY,
+        int width,
+        int height,
+        int blockSize,
+        Graphics g )
     {
         for ( int row = 0; row < height; row++ )
         {
@@ -180,6 +211,8 @@ public class GraphicsInterface extends JPanel
             }
         }
     }
+
+
 
 
 
@@ -256,9 +289,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-
-
-    public void renderGrid(Cell[][] cells, Graphics graphics)
+    public void renderGrid( Cell[][] cells, Graphics graphics )
     {
         loadSprite( "Dirt_Floor.png" );
 
@@ -287,12 +318,12 @@ public class GraphicsInterface extends JPanel
             1,
             1,
             combatant.WIDTH,
-            g);
+            g );
 
     }
 
 
-    public void renderWeapon(Weapon weapon, Combatant combatant, Graphics g)
+    public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
     {
         // TODO: Remove hard coding of weapon size
         if ( weapon.getType()[0] == 0 )
@@ -305,7 +336,7 @@ public class GraphicsInterface extends JPanel
                 1,
                 1,
                 100,
-                g);
+                g );
         }
         else
         {
@@ -313,6 +344,12 @@ public class GraphicsInterface extends JPanel
         }
     }
 
+
+    public void renderChest( Chest chest, Graphics g )
+    {
+        Point2D loc = chest.getPose();
+        placeImage("Chest.png", (int) loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, g );
+    }
 
 
     public void setGameState( GameState gameState )
@@ -326,30 +363,49 @@ public class GraphicsInterface extends JPanel
     {
         // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE
         // super.placeImage(g);
-         try {
-             System.out.println("moving to x" + (int) gameState.player.getPose().x);
-             g.translate( (int)gameState.player.getPose().x, (int)gameState.player.getPose().y );
+        try
+        {
+            super.paint( g );
+            g.translate(
+                -(int)gameState.player.getPose().x + frame.getWidth() / 2,
+                -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
 
-             super.paint(g);
+            if ( gameState != null )
+            {
+                renderGrid( gameState.cells, g );
+                gameState.combatants.forEach( combatant -> renderCharacter( combatant, g ) );
+                renderWeapon(
+                    gameState.player.getWeapon(),
+                    gameState.player,
+                    g );
 
-             if (gameState != null) {
-                 renderGrid(gameState.cells, g);
-                 gameState.combatants.forEach(combatant -> renderCharacter(combatant, g));
-                 renderWeapon(gameState.player.getWeapon(), gameState.player, g);
-             }
-         } catch (NullPointerException e1) {
-             e1.printStackTrace();
-         }
-     }
-
-
+                gameState.chests.forEach( chest -> renderChest( chest, g ) );
+                for (Chest chest : gameState.chests)
+                {
+                    if (!chest.isEmpty())
+                        renderChest(chest, g);
+                    else
+                        gameState.chests.remove( chest );
+                }
+            }
+        }
+        catch ( NullPointerException e1 )
+        {
+            e1.printStackTrace();
+        }
+    }
 
 
     public void doRepaint()
     {
-        Player player = gameState.player;
-//        graphic.translate( (int)player.getPose().x, (int)player.getPose().y );
+//        Player player = gameState.player;
+
+        // graphic.translate( (int)player.getPose().x, (int)player.getPose().y
+        // );
+
         frame.getContentPane().repaint();
+        // graphic.translate( (int)player.getPose().x, (int)player.getPose().y
+        // );
     }
 
 

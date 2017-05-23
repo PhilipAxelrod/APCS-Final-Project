@@ -11,80 +11,106 @@ import architecture.Chest;
 import architecture.Combatant;
 
 
-public class Room extends Rectangle {
+public class Room extends Rectangle
+{
     ArrayList<Combatant> combatants;
+
     ArrayList<Chest> chests;
 
     private final int tileWidth;
+
     Hashtable<Point2D, List<Rectangle>> walls;
-       
+
     Cell[][] cells;
-//    static final int rows = 1000;
-//    static final int cols = rows;
+    // static final int rows = 1000;
+    // static final int cols = rows;
 
     static GraphicsInterface graphicsInterface;
-    
-    public Room(ArrayList<Combatant> combatants, Hashtable<Point2D, List<Rectangle>> walls, int tileWidth)
+
+
+    public Room(
+        ArrayList<Combatant> combatants,
+        Hashtable<Point2D, List<Rectangle>> walls,
+        int tileWidth,
+        ArrayList<Chest> chests )
     {
         this.combatants = combatants;
         this.walls = walls;
         this.tileWidth = tileWidth;
+        this.chests = chests;
     }
-    
-    public void update(  )
+
+
+    public void update()
     {
-       for(Combatant c : combatants) {
-           c.run();
-       }
+        for ( Combatant c : combatants )
+        {
+            c.run();
+        }
 
-       combatants.forEach(combatant -> {
-         Point2D currPose = combatant.getPose();
+        combatants.forEach( combatant -> {
+            Point2D currPose = combatant.getPose();
 
-         Point2D tileKey = new Point2D(
-                 RoomGenerator.roundToLowestMultiple(currPose.x, tileWidth),
-                 RoomGenerator.roundToLowestMultiple(currPose.y, tileWidth)
-         );
+            Point2D tileKey = new Point2D(
+                RoomGenerator.roundToLowestMultiple( currPose.x, tileWidth ),
+                RoomGenerator.roundToLowestMultiple( currPose.y, tileWidth ) );
 
-         List<Rectangle> tileWalls = walls.get(tileKey);
+            List<Rectangle> tileWalls = walls.get( tileKey );
 
-         if (tileWalls != null) {
-             for (Rectangle forbiddenTile : tileWalls) {
-                 if (forbiddenTile.intersects(currPose.x, currPose.y, combatant.WIDTH, combatant.HEIGHT)) {
-                     combatant.resetPoseToPrevios();
-//                     System.out.println("collision detected and dealt with");
-                     break;
-                 }
-             }
-         }
-       });
+            if ( tileWalls != null )
+            {
+                for ( Rectangle forbiddenTile : tileWalls )
+                {
+                    if ( forbiddenTile.intersects( currPose.x,
+                        currPose.y,
+                        combatant.WIDTH,
+                        combatant.HEIGHT ) )
+                    {
+                        combatant.resetPoseToPrevios();
+                        // System.out.println("collision detected and dealt
+                        // with");
+                        break;
+                    }
+                }
+            }
+        } );
     }
-  
-    private static int randomInt(int min, int max) {
+
+
+    private static int randomInt( int min, int max )
+    {
         int range = max - min + 1;
-        return min + (int)(range * Math.random());
+        return min + (int)( range * Math.random() );
     }
 
-    public static void initGraphics() {
-        if (graphicsInterface == null) {
+
+    public static void initGraphics()
+    {
+        if ( graphicsInterface == null )
+        {
             graphicsInterface = new GraphicsInterface();
         }
     }
-    public void render(  GraphicsInterface graphicsInterface)
+
+
+    public void render( GraphicsInterface graphicsInterface )
     {
-        graphicsInterface.loadSprite("Dirt_Floor.png");
+        graphicsInterface.loadSprite( "Dirt_Floor.png" );
 
         int side = 100;
 
-        int x = randomInt(1, 500);
-        int y = randomInt(1, 500);
+        int x = randomInt( 1, 500 );
+        int y = randomInt( 1, 500 );
 
-        for (int i = 0; i < 10; i++) {
-            int leftRightTopDown = randomInt(1, 4);
+        for ( int i = 0; i < 10; i++ )
+        {
+            int leftRightTopDown = randomInt( 1, 4 );
 
-            switch (leftRightTopDown) {
+            switch ( leftRightTopDown )
+            {
                 case 1:
-                   y = y - side;
-                   break;
+                    y = y - side;
+                    break;
                 case 2:
                     x = x + side;
                     break;
@@ -95,38 +121,44 @@ public class Room extends Rectangle {
                     x = x - side;
             }
 
-//            graphicsInterface.drawImage(1, 1, side, x, y, );
+            // graphicsInterface.drawImage(1, 1, side, x, y, );
         }
     }
-    
-    public static void render( Cell[][] cell)
+
+
+    public static void render( Cell[][] cell )
     {
-        graphicsInterface.loadSprite("Dirt_Floor.png");
+        graphicsInterface.loadSprite( "Dirt_Floor.png" );
 
         int side = 100;
-        
+
         for ( int i = 0; i < cell.length; i++ )
         {
             for ( int j = 0; j < cell[0].length; j++ )
             {
-                if(cell[i][j].isAlive()) {
-//                    graphicsInterface.drawImage( 1, 1, side, i * side, j * side, );
+                if ( cell[i][j].isAlive() )
+                {
+                    // graphicsInterface.drawImage( 1, 1, side, i * side, j *
+                    // side, );
                 }
             }
         }
     }
-    
-    public static void main(String[] args) {
+
+
+    public static void main( String[] args )
+    {
         RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
-        for(int i = 0;  i < 50; i++) {
+        for ( int i = 0; i < 50; i++ )
+        {
             room.update();
         }
 
         initGraphics();
-        render(room.cells);
-//
-//        while (true) {
-//            if (graphicsInterface.)
-//        }
+        render( room.cells );
+        //
+        // while (true) {
+        // if (graphicsInterface.)
+        // }
     }
 }

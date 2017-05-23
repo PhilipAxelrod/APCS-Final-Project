@@ -388,4 +388,13 @@ public class Player extends Combatant
             return equippedWeapon.getRange();
     }
 
+
+    public boolean canOpen( Chest chest )
+    {
+        return ( Point2D.distance( topLeftCorner.x,
+            topLeftCorner.y,
+            chest.getPose().x,
+            chest.getPose().y ) <= 100 );
+    }
+
 }

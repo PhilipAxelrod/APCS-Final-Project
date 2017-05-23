@@ -36,6 +36,7 @@ public class GameLoop
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
+        chests.add( new Chest( 1, new Point2D( 0, 0 ) ) );
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         final Player player = new Player( new Point2D( 0, 0 ) );
         fighters.add( new Skeleton( 1, player ) );
@@ -51,7 +52,8 @@ public class GameLoop
 
         final Room room = new Room( fighters,
             roomGenerator.getWalls( player.WIDTH ),
-            player.WIDTH * 3 );
+            player.WIDTH * 5,
+            chests );
 
         System.out.println( "just scheduled!" );
 
@@ -66,7 +68,7 @@ public class GameLoop
         {
             throw new RuntimeException( "Image failed to load" );
         }
-        roomGenerator.spawnPlayer(player);
+        roomGenerator.spawnPlayer( player );
 
         TimerTask task = new TimerTask()
         {
@@ -110,6 +112,11 @@ public class GameLoop
                             
                         } );
                     }
+                    for ( Chest chest : chests )
+                    {
+                        if ( player.canOpen( chest ) )
+                            chest.acquireAll( player );
+                    }
                 }
 
                 if ( player.isDead() )
@@ -121,8 +128,8 @@ public class GameLoop
                 room.update();
                 player.restoreHealth( 10000 );
                 fighters.removeIf( Combatant::isDead );
-                graphicsInterface.setGameState(
-                    new GameState( roomGenerator.cells, fighters, player ) );
+                graphicsInterface.setGameState( new GameState(
+                    roomGenerator.cells, fighters, player, chests ) );
 
                 graphicsInterface.doRepaint();
 
