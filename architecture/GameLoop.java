@@ -107,6 +107,7 @@ public class GameLoop
                                 System.out.println( combatant + " health "
                                     + combatant.getHealth() );
                             }
+                            
                         } );
                     }
                 }

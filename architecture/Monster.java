@@ -163,13 +163,14 @@ public abstract class Monster extends Combatant
             playerPose.y,
             getPose().x,
             getPose().y );
-
+        intellegence();
         if ( canAttack && distance <= getRange() && !player.isDead() )
         {
 //            System.out.println( "player attacked!" );
             attack( player );
             // canAttack = false;
         }
+        
     }
 
 
@@ -298,40 +299,39 @@ public abstract class Monster extends Combatant
 
     public void intellegence()
     {
-        Point2D pPos = player.getPose();
-        Point2D ePos = getPose();
-        if (pPos.x>ePos.x)
+        float xmove=0;
+        float ymove=0;
+        if (player.getPose().x>getPose().x)
         {
-            move(ePos.x+1,ePos.y);
+            xmove=xmove+100;
         }
-        else
+        
+        if (player.getPose().x<getPose().x)
         {
-            
+            xmove=xmove-100;
         }
-        if (pPos.x<ePos.x)
+        
+        if (player.getPose().y>getPose().y)
         {
-            move(ePos.x-1,ePos.y);
+            ymove=ymove+100;
         }
-        else
+        
+        if (player.getPose().y<getPose().y)
         {
-            
+            ymove=ymove-100;
         }
-        if (pPos.y>ePos.y)
+        if (player.getPose().x==getPose().x)
         {
-            move(ePos.x,ePos.y+1);
+            xmove=0;
         }
-        else
+        if (player.getPose().y==getPose().y)
         {
-            
+            ymove=0;
         }
-        if (pPos.y<ePos.y)
-        {
-            move(ePos.x,ePos.y-1);
-        }
-        else
-        {
-            
-        }
+        move(xmove,ymove);
+        System.out.println(player.getPose());
+        System.out.println(getPose());
+
 
     }
 
