@@ -324,7 +324,7 @@ public class GraphicsInterface extends JPanel
     public void setGameState( GameState gameState )
     {
         this.gameState = gameState;
-    }
+    }   
 
 
     @Override
