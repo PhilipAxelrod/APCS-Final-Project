@@ -301,6 +301,7 @@ public abstract class Monster extends Combatant
     {
         float xmove=0;
         float ymove=0;
+
         if (player.getPose().x>getPose().x)
         {
             xmove=xmove+100;

@@ -59,7 +59,6 @@ public abstract class Combatant extends TimerTask
         return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
     }
 
-
     public void resetPoseToPrevios()
     {
         topLeftCorner = previousTopLeftCorner;

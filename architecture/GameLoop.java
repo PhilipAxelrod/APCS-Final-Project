@@ -36,7 +36,7 @@ public class GameLoop
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
-        chests.add( new Chest( 1, new Point2D( 0, 0 ) ) );
+        chests.add( new Chest( 1, new Point2D( 100, 100 ) ) );
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         final Player player = new Player( new Point2D( 0, 0 ) );
         fighters.add( new Skeleton( 1, player ) );

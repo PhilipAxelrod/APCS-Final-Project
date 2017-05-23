@@ -41,6 +41,35 @@ public class Room extends Rectangle
     }
 
 
+    public boolean inCollisionAtPoint(Combatant combatant, Point2D point) {
+
+        Point2D tileKey = new Point2D(
+                RoomGenerator.roundToLowestMultiple( point.x, tileWidth ),
+                RoomGenerator.roundToLowestMultiple( point.y, tileWidth ) );
+
+        List<Rectangle> tileWalls = walls.get( tileKey );
+
+        if ( tileWalls != null )
+        {
+            for ( Rectangle forbiddenTile : tileWalls )
+            {
+                if ( forbiddenTile.intersects(
+                        point.x,
+                        point.y,
+                        combatant.WIDTH,
+                        combatant.HEIGHT ) )
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean inCollision(Combatant combatant) {
+        return inCollisionAtPoint(combatant, combatant.getPose());
+    }
+
     public void update()
     {
         for ( Combatant c : combatants )
@@ -49,31 +78,10 @@ public class Room extends Rectangle
         }
 
         combatants.forEach( combatant -> {
-            Point2D currPose = combatant.getPose();
-
-            Point2D tileKey = new Point2D(
-                RoomGenerator.roundToLowestMultiple( currPose.x, tileWidth ),
-                RoomGenerator.roundToLowestMultiple( currPose.y, tileWidth ) );
-
-            List<Rectangle> tileWalls = walls.get( tileKey );
-
-            if ( tileWalls != null )
-            {
-                for ( Rectangle forbiddenTile : tileWalls )
-                {
-                    if ( forbiddenTile.intersects( currPose.x,
-                        currPose.y,
-                        combatant.WIDTH,
-                        combatant.HEIGHT ) )
-                    {
-                        combatant.resetPoseToPrevios();
-                        // System.out.println("collision detected and dealt
-                        // with");
-                        break;
-                    }
-                }
+            if (inCollision(combatant)) {
+                combatant.resetPoseToPrevios();
             }
-        } );
+        });
     }
 
 

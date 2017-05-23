@@ -336,11 +336,10 @@ public class GraphicsInterface extends JPanel
     @Override
     public void paint( Graphics g )
     {
-        // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE
-        // super.placeImage(g);
         try
         {
             super.paint( g );
+            // ensure player is always in the center
             g.translate(
                 -(int)gameState.player.getPose().x + frame.getWidth() / 2,
                 -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
