@@ -93,19 +93,19 @@ public class GameLoop
 
                 if ( graphicsInterface.isArDown() )
                 {
-                    yToMoveBy += 10;
+                    yToMoveBy += 20;
                 }
                 if ( graphicsInterface.isArUp() )
                 {
-                    yToMoveBy += -10;
+                    yToMoveBy += -20;
                 }
                 if ( graphicsInterface.isArLeft() )
                 {
-                    xToMoveBy += -10;
+                    xToMoveBy += -20;
                 }
                 if ( graphicsInterface.isArRight() )
                 {
-                    xToMoveBy += 10;
+                    xToMoveBy += 20;
                 }
                 if ( graphicsInterface.isQPressed()/* || true */ )
                 {
@@ -145,7 +145,8 @@ public class GameLoop
                                 fighters,
                                 player,
                                 chests,
-                                player.WIDTH + 1) );
+                                player.WIDTH + 1,
+                                room.getPortal()) );
 
                 graphicsInterface.doRepaint();
 

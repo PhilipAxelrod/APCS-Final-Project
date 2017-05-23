@@ -1,12 +1,9 @@
 package graphicsUtils;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.*;
 
 import java.io.IOException;
@@ -295,6 +292,9 @@ public class GraphicsInterface extends JPanel
 
     }
 
+    public void renderPortal(Rectangle portal, int tileLength, Graphics g) {
+        placeImage("portal.png", portal.x, portal.y,  portal.width, portal.height, g );
+    }
 
     public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
     {
@@ -351,6 +351,8 @@ public class GraphicsInterface extends JPanel
                     gameState.player.getWeapon(),
                     gameState.player,
                     g );
+
+                renderPortal(gameState.portal, gameState.tileLength, g);
 
                 for (Chest chest : gameState.chests)
                 {

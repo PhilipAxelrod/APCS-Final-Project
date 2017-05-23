@@ -45,6 +45,10 @@ public class Room extends Rectangle
         this.player = player;
     }
 
+    public Rectangle getPortal() {
+        return portal;
+    }
+
 
     public boolean inCollisionAtPoint(Combatant combatant, Point2D point) {
 
@@ -78,6 +82,7 @@ public class Room extends Rectangle
     public void update()
     {
         if (portal.intersects(player.getBoundingBox())) {
+            System.out.println("yay, reached portal");
             player.restoreHealth(player.getStats()[0] / 2);
             player.restoreMana(player.getStats()[1] / 2);
         }

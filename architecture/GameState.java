@@ -2,6 +2,7 @@ package architecture;
 
 import proceduralGeneration.Cell;
 
+import java.awt.*;
 import java.util.List;
 
 
@@ -18,18 +19,22 @@ public class GameState
     // how big each tile is to generate rooms
     public final int tileLength;
 
+    public final Rectangle portal;
+
 
     public GameState(
         Cell[][] cells,
         List<Combatant> combatants,
         Player player,
         List<Chest> chests,
-        int tileLength)
+        int tileLength,
+        Rectangle portal)
     {
         this.cells = cells;
         this.combatants = combatants;
         this.player = player;
         this.chests = chests;
         this.tileLength = tileLength;
+        this.portal = portal;
     }
 }
