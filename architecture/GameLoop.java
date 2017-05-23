@@ -36,7 +36,7 @@ public class GameLoop
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
-        chests.add( new Chest( 1 ) );
+        chests.add( new Chest( 1, new Point2D( 0, 0 ) ) );
         ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         final Player player = new Player( new Point2D( 0, 0 ) );
         fighters.add( new Skeleton( 1, player ) );
@@ -122,11 +122,13 @@ public class GameLoop
                 room.update();
                 player.restoreHealth( 10000 );
                 fighters.removeIf( Combatant::isDead );
-                graphicsInterface.setGameState(
-                    new GameState( roomGenerator.cells, fighters, player ) );
+                graphicsInterface.setGameState( new GameState(
+                    roomGenerator.cells, fighters, player, chests ) );
 
                 graphicsInterface.doRepaint();
 
+               
+                System.out.println( chests.size() );
             }
         };
 

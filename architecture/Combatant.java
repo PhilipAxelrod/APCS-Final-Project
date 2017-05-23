@@ -135,11 +135,15 @@ public abstract class Combatant extends TimerTask
 
     public void run()
     {
-        if ( actionBar >= actionLimit )
-            canAttack = true;
-
-        else
+        if ( !canAttack )
+        {
             actionBar += stats[3];
+            if ( actionBar >= actionLimit )
+            {
+                canAttack = true;
+                System.out.println( this + " is ready to attack" );
+            }
+        }
     }
 
 
@@ -159,13 +163,13 @@ public abstract class Combatant extends TimerTask
         }
         canAttack = false;
         actionBar = 0;
-        System.out.println( "attacked" );
+        System.out.println( defender + " was attacked" );
         return defender.receiveAttack( stats[2], stats[4], stats[6], this );
     }
 
 
     /**
-     * ONLY FOR TESTING
+     * CALL EXTERNALLY ONLY FOR TESTING
      * 
      * This method is called when the Combatant receives a normal attack. Damage
      * is calculated using passed stats from the attacker and defensive stats of
@@ -234,7 +238,9 @@ public abstract class Combatant extends TimerTask
 
     /**
      * If another Combatant is in range
-     * @param other the other Combatant
+     * 
+     * @param other
+     *            the other Combatant
      * @return true if in range, false if outside of range
      */
     public boolean isInRange( Combatant other )
@@ -567,42 +573,43 @@ public abstract class Combatant extends TimerTask
             + getMana() + "/" + getStats()[1] );
         System.out.println( divider );
     }
-    
-    public void intellegence(Player player)
+
+
+    public void intellegence( Player player )
     {
         Point2D pPos = player.getPose();
         Point2D ePos = getPose();
-        if (pPos.x>ePos.x)
+        if ( pPos.x > ePos.x )
         {
-            move(ePos.x+1,ePos.y);
+            move( ePos.x + 1, ePos.y );
         }
         else
         {
-            
+
         }
-        if (pPos.x<ePos.x)
+        if ( pPos.x < ePos.x )
         {
-            move(ePos.x-1,ePos.y);
-        }
-        else
-        {
-            
-        }
-        if (pPos.y>ePos.y)
-        {
-            move(ePos.x,ePos.y+1);
+            move( ePos.x - 1, ePos.y );
         }
         else
         {
-            
+
         }
-        if (pPos.y<ePos.y)
+        if ( pPos.y > ePos.y )
         {
-            move(ePos.x,ePos.y-1);
+            move( ePos.x, ePos.y + 1 );
         }
         else
         {
-            
+
+        }
+        if ( pPos.y < ePos.y )
+        {
+            move( ePos.x, ePos.y - 1 );
+        }
+        else
+        {
+
         }
     }
 

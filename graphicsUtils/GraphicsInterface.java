@@ -13,6 +13,9 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.sun.javafx.geom.Point2D;
+
+import architecture.Chest;
 import architecture.Combatant;
 import architecture.GameState;
 import architecture.Player;
@@ -308,6 +311,14 @@ public class GraphicsInterface extends JPanel
     }
 
 
+    public void renderChest( Chest chest, Graphics g )
+    {
+        Point2D loc = chest.getPose();
+        loadSprite( "Chest.png" );
+        drawImage( (int)loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, 100, g );
+    }
+
+
     public void setGameState( GameState gameState )
     {
         this.gameState = gameState;
@@ -319,21 +330,29 @@ public class GraphicsInterface extends JPanel
     {
         // TODO: this.graphic = g; MUST MUST MUST BE CALLED BEFORE
         // super.placeImage(g);
-         try {
-             super.paint(g);
-             g.translate(
-                     -(int)gameState.player.getPose().x + frame.getWidth() / 2,
-                     -(int)gameState.player.getPose().y  + frame.getHeight() / 2);
+        try
+        {
+            super.paint( g );
+            g.translate(
+                -(int)gameState.player.getPose().x + frame.getWidth() / 2,
+                -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
 
-             if (gameState != null) {
-                 renderGrid(gameState.cells, g);
-                 gameState.combatants.forEach(combatant -> renderCharacter(combatant, g));
-                 renderWeapon(gameState.player.getWeapon(), gameState.player, g);
-             }
-         } catch (NullPointerException e1) {
-             e1.printStackTrace();
-         }
-     }
+            if ( gameState != null )
+            {
+                renderGrid( gameState.cells, g );
+                gameState.combatants
+                    .forEach( combatant -> renderCharacter( combatant, g ) );
+                renderWeapon( gameState.player.getWeapon(),
+                    gameState.player,
+                    g );
+                gameState.chests.forEach( chest -> renderChest( chest, g ) );
+            }
+        }
+        catch ( NullPointerException e1 )
+        {
+            e1.printStackTrace();
+        }
+    }
 
 
     public void doRepaint()
