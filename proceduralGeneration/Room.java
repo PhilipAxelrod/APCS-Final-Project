@@ -101,6 +101,7 @@ public class Room extends Rectangle
     }
 
 
+    @Deprecated
     public void render( GraphicsInterface graphicsInterface )
     {
         graphicsInterface.loadSprite( "Dirt_Floor.png" );
@@ -134,6 +135,7 @@ public class Room extends Rectangle
     }
 
 
+    @Deprecated
     public static void render( Cell[][] cell )
     {
         graphicsInterface.loadSprite( "Dirt_Floor.png" );

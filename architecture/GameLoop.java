@@ -50,9 +50,10 @@ public class GameLoop
             roomGenerator.update();
         }
 
-        final Room room = new Room( fighters,
-            roomGenerator.getWalls( player.WIDTH ),
-            player.WIDTH * 5,
+        final Room room = new Room(
+            fighters,
+            roomGenerator.getWalls( player.WIDTH + 1),
+            player.WIDTH * RoomGenerator.rows, // was * 5 before
             chests );
 
         System.out.println( "just scheduled!" );
@@ -68,7 +69,9 @@ public class GameLoop
         {
             throw new RuntimeException( "Image failed to load" );
         }
-        roomGenerator.spawnPlayer( player );
+
+        // TODO: make tile width more intelligent
+        roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
 
         TimerTask task = new TimerTask()
         {
@@ -128,8 +131,15 @@ public class GameLoop
                 room.update();
                 player.restoreHealth( 10000 );
                 fighters.removeIf( Combatant::isDead );
-                graphicsInterface.setGameState( new GameState(
-                    roomGenerator.cells, fighters, player, chests ) );
+
+                // TODO: Make tile width more intelligent
+                graphicsInterface.setGameState(
+                        new GameState(
+                                roomGenerator.cells,
+                                fighters,
+                                player,
+                                chests,
+                                player.WIDTH + 1) );
 
                 graphicsInterface.doRepaint();
 

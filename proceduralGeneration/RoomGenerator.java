@@ -18,7 +18,8 @@ public class RoomGenerator
 
     List<Cell> aliveCells = new LinkedList<Cell>();
 
-    static final int rows = 5;
+    // TODO: Hardcoded value
+    public static final int rows = 10;
 
     static final int cols = rows;
 
@@ -83,12 +84,12 @@ public class RoomGenerator
     }
 
 
-    public void spawnPlayer( Player player )
+    public void spawnPlayer( Player player, int tileLength )
     {
         int randomIndex = (int)( Math.random() * aliveCells.size() );
         Cell randomCell = aliveCells.get( randomIndex );
         // TODO: hardcoded constant
-        player.moveTo( randomCell.x * 100, randomCell.y * 100 );
+        player.moveTo( randomCell.x * tileLength, randomCell.y * tileLength);
     }
 
 
@@ -277,8 +278,7 @@ public class RoomGenerator
 
 
     // length in pixels
-    public Hashtable<Point2D, List<Rectangle>> getWalls(
-        final int lengthOfCell )
+    public Hashtable<Point2D, List<Rectangle>> getWalls(final int lengthOfCell )
     {
         ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" line="5" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e0955b21-f206-4559-b9e5-4ca7b56e93fe" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/Combatant.java" afterPath="$PROJECT_DIR$/architecture/Combatant.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/GameLoop.java" afterPath="$PROJECT_DIR$/architecture/GameLoop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/Monster.java" afterPath="$PROJECT_DIR$/architecture/Monster.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/GameState.java" afterPath="$PROJECT_DIR$/architecture/GameState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" afterPath="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/Room.java" afterPath="$PROJECT_DIR$/proceduralGeneration/Room.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" afterPath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
     </list>
     <ignored path="APCS-Final-Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,8 +39,8 @@
       <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
+            <state relative-caret-position="148">
+              <caret line="100" column="35" lean-forward="false" selection-start-line="100" selection-start-column="35" selection-end-line="100" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#440#441#0" expanded="true" />
@@ -46,8 +49,8 @@
                 <element signature="e#538#539#0" expanded="true" />
                 <element signature="e#676#683#0" expanded="true" />
                 <element signature="e#803#814#0" expanded="true" />
-                <element signature="e#1789#3967#0" expanded="true" />
-                <element signature="e#3966#3967#0" expanded="true" />
+                <element signature="e#1908#4326#0" expanded="true" />
+                <element signature="e#4325#4326#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,27 +69,27 @@
       <file leaf-file-name="RoomGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="279" column="10" lean-forward="false" selection-start-line="279" selection-start-column="10" selection-end-line="279" selection-end-column="10" />
+            <state relative-caret-position="71">
+              <caret line="280" column="50" lean-forward="true" selection-start-line="280" selection-start-column="50" selection-end-line="280" selection-end-column="50" />
               <folding>
-                <element signature="e#6462#6463#0" expanded="true" />
-                <element signature="e#6532#6533#0" expanded="true" />
-                <marker date="1495508961082" expanded="false" signature="1043:1050" ph="&lt;~&gt;" />
-                <marker date="1495508961082" expanded="false" signature="2479:2485" ph="&lt;~&gt;" />
-                <marker date="1495508961082" expanded="false" signature="3457:3473" ph="&lt;~&gt;" />
-                <marker date="1495508961082" expanded="false" signature="4233:4248" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="4286:4292" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="4342:4357" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="4395:4401" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="4705:4720" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="4746:4752" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="4802:4817" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="4843:4849" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="4899:4914" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="4940:4946" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="4995:5010" ph=" { " />
-                <marker date="1495508961082" expanded="false" signature="5036:5042" ph=" }" />
-                <marker date="1495508961082" expanded="false" signature="6706:6717" ph="&lt;~&gt;" />
+                <element signature="e#6528#6529#0" expanded="true" />
+                <element signature="e#6598#6599#0" expanded="true" />
+                <marker date="1495514636800" expanded="false" signature="1080:1087" ph="&lt;~&gt;" />
+                <marker date="1495514636800" expanded="false" signature="2545:2551" ph="&lt;~&gt;" />
+                <marker date="1495514636800" expanded="false" signature="3523:3539" ph="&lt;~&gt;" />
+                <marker date="1495514636800" expanded="false" signature="4299:4314" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="4352:4358" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="4408:4423" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="4461:4467" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="4771:4786" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="4812:4818" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="4868:4883" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="4909:4915" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="4965:4980" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="5006:5012" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="5061:5076" ph=" { " />
+                <marker date="1495514636800" expanded="false" signature="5102:5108" ph=" }" />
+                <marker date="1495514636800" expanded="false" signature="6763:6774" ph="&lt;~&gt;" />
               </folding>
             </state>
           </provider>
@@ -95,8 +98,8 @@
       <file leaf-file-name="GraphicsInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="289" column="0" lean-forward="false" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
+            <state relative-caret-position="714">
+              <caret line="336" column="11" lean-forward="true" selection-start-line="336" selection-start-column="11" selection-end-line="336" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1196#1197#0" expanded="true" />
@@ -111,9 +114,19 @@
                 <element signature="e#1493#1494#0" expanded="true" />
                 <element signature="e#3173#3174#0" expanded="true" />
                 <element signature="e#3212#3213#0" expanded="true" />
-                <element signature="e#8029#8030#0" expanded="true" />
-                <element signature="e#8071#8072#0" expanded="true" />
+                <element signature="e#8013#8014#0" expanded="true" />
+                <element signature="e#8055#8056#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/architecture/GameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,8 +157,8 @@
       <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="59" column="10" lean-forward="false" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
+            <state relative-caret-position="24">
+              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
                 <element signature="e#1690#1691#0" expanded="true" />
                 <element signature="e#1763#1764#0" expanded="true" />
@@ -224,16 +237,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>we</find>
-      <find>weapon</find>
-      <find>equippedWeapon</find>
-      <find>is</find>
-      <find>isDe</find>
-      <find>isDea</find>
-      <find>death()</find>
-      <find>p</find>
-      <find>player att</find>
-      <find>c</find>
       <find>collision</find>
       <find>wid</find>
       <find>width</find>
@@ -245,19 +248,31 @@
       <find>moving t</find>
       <find>moving to</find>
       <find>*</find>
-      <find>* 3</find>
       <find>l</find>
       <find>load</find>
       <find>loadS</find>
       <find>isDead</find>
       <find>i</find>
-      <find>intell</find>
       <find>move</find>
+      <find>intell</find>
+      <find>99</find>
+      <find>9</find>
+      <find>1</find>
+      <find>100</find>
+      <find>* 3</find>
+      <find>*</find>
+      <find>* 5</find>
+      <find>+ 1</find>
       <find>chest</find>
+      <find>10</find>
+      <find>getWalls</find>
+      <find>5</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>[c][r]</replace>
+      <replace>5</replace>
+      <replace>10</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -279,16 +294,16 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/architecture/Renderable.java" />
         <option value="$PROJECT_DIR$/architecture/Weapon.java" />
-        <option value="$PROJECT_DIR$/architecture/GameState.java" />
         <option value="$PROJECT_DIR$/architecture/Player.java" />
         <option value="$PROJECT_DIR$/testClasses/CombatSimulationTester.java" />
-        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
         <option value="$PROJECT_DIR$/architecture/Chest.java" />
-        <option value="$PROJECT_DIR$/architecture/GameLoop.java" />
         <option value="$PROJECT_DIR$/architecture/Monster.java" />
-        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
         <option value="$PROJECT_DIR$/architecture/Combatant.java" />
+        <option value="$PROJECT_DIR$/architecture/GameState.java" />
         <option value="$PROJECT_DIR$/proceduralGeneration/Room.java" />
+        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
+        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
+        <option value="$PROJECT_DIR$/architecture/GameLoop.java" />
       </list>
     </option>
   </component>
@@ -376,7 +391,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20592593" />
-    <property name="SearchEverywhereHistoryKey" value="game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;Game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;drawimage&#9;PSI&#9;JAVA://graphicsUtils.GraphicsInterface#drawImage&#10;Monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;graphics&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;player&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;Combat&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;Room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;renderW&#9;PSI&#9;JAVA://graphicsUtils.GraphicsInterface#renderWeapon&#10;Comba&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;Wea&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Weapon.java&#10;Point&#9;FILE&#9;jar://C:/Users/Philip/Dropbox/jdk1.8.0_111/src.zip!/java/awt/geom/Point2D.java&#10;.git&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/.gitignore&#10;Com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;Cell&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Cell.java&#10;Poin&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_45/javafx-src.zip!/com/sun/javafx/geom/Point2D.java&#10;Arrays&#9;PSI&#9;JAVA://java.util.Arrays&#10;Cel&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Cell.java&#10;gra&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;grap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;roomGe&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;weap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/architecture/Weapon.java&#10;comb&#9;PSI&#9;JAVA://architecture.Combatant&#10;roomG&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;gamel&#9;PSI&#9;JAVA://architecture.GameLoop" />
+    <property name="SearchEverywhereHistoryKey" value="room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;Room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;Graphics&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;Game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameState.java&#10;game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;drawimage&#9;PSI&#9;JAVA://graphicsUtils.GraphicsInterface#drawImage&#10;Monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;graphics&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;player&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;Combat&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;renderW&#9;PSI&#9;JAVA://graphicsUtils.GraphicsInterface#renderWeapon&#10;Comba&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;Wea&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Weapon.java&#10;Point&#9;FILE&#9;jar://C:/Users/Philip/Dropbox/jdk1.8.0_111/src.zip!/java/awt/geom/Point2D.java&#10;.git&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/.gitignore&#10;Com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;Cell&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Cell.java&#10;Poin&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_45/javafx-src.zip!/com/sun/javafx/geom/Point2D.java&#10;Arrays&#9;PSI&#9;JAVA://java.util.Arrays&#10;Cel&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/Cell.java&#10;gra&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;grap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;roomGe&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;weap&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/architecture/Weapon.java&#10;comb&#9;PSI&#9;JAVA://architecture.Combatant&#10;roomG&#9;FILE&#9;file://C:/Users/paxelrod703/Desktop/GitHub/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;gamel&#9;PSI&#9;JAVA://architecture.GameLoop" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -969,12 +984,12 @@
       <workItem from="1495474720615" duration="573000" />
       <workItem from="1495482480498" duration="870000" />
       <workItem from="1495497807131" duration="296000" />
-      <workItem from="1495507143086" duration="5109000" />
+      <workItem from="1495507143086" duration="6279000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50314000" />
+    <option name="totallyTimeSpent" value="51484000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1004,7 +1019,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26476908" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26476908" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1078,7 +1093,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
-          <line>68</line>
+          <line>69</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
@@ -1090,13 +1105,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java</url>
-          <line>350</line>
+          <line>348</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java</url>
-          <line>289</line>
+          <line>287</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
@@ -1375,14 +1390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JUnitTests/ChangeEffectTest.java" />
     <entry file="file://$PROJECT_DIR$/architecture/Player.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1411,33 +1418,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="279" column="10" lean-forward="false" selection-start-line="279" selection-start-column="10" selection-end-line="279" selection-end-column="10" />
-          <folding>
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6532#6533#0" expanded="true" />
-            <marker date="1495508961082" expanded="false" signature="1043:1050" ph="&lt;~&gt;" />
-            <marker date="1495508961082" expanded="false" signature="2479:2485" ph="&lt;~&gt;" />
-            <marker date="1495508961082" expanded="false" signature="3457:3473" ph="&lt;~&gt;" />
-            <marker date="1495508961082" expanded="false" signature="4233:4248" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="4286:4292" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="4342:4357" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="4395:4401" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="4705:4720" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="4746:4752" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="4802:4817" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="4843:4849" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="4899:4914" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="4940:4946" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="4995:5010" ph=" { " />
-            <marker date="1495508961082" expanded="false" signature="5036:5042" ph=" }" />
-            <marker date="1495508961082" expanded="false" signature="6706:6717" ph="&lt;~&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/Chest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
@@ -1462,30 +1442,6 @@
         <state relative-caret-position="187">
           <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="289" column="0" lean-forward="false" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1196#1197#0" expanded="true" />
-            <element signature="e#1223#1224#0" expanded="true" />
-            <element signature="e#1262#1263#0" expanded="true" />
-            <element signature="e#1292#1293#0" expanded="true" />
-            <element signature="e#1330#1331#0" expanded="true" />
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1397#1398#0" expanded="true" />
-            <element signature="e#1426#1427#0" expanded="true" />
-            <element signature="e#1466#1467#0" expanded="true" />
-            <element signature="e#1493#1494#0" expanded="true" />
-            <element signature="e#3173#3174#0" expanded="true" />
-            <element signature="e#3212#3213#0" expanded="true" />
-            <element signature="e#8029#8030#0" expanded="true" />
-            <element signature="e#8071#8072#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1541,10 +1497,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/architecture/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="336" column="11" lean-forward="true" selection-start-line="336" selection-start-column="11" selection-end-line="336" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1196#1197#0" expanded="true" />
+            <element signature="e#1223#1224#0" expanded="true" />
+            <element signature="e#1262#1263#0" expanded="true" />
+            <element signature="e#1292#1293#0" expanded="true" />
+            <element signature="e#1330#1331#0" expanded="true" />
+            <element signature="e#1359#1360#0" expanded="true" />
+            <element signature="e#1397#1398#0" expanded="true" />
+            <element signature="e#1426#1427#0" expanded="true" />
+            <element signature="e#1466#1467#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="e#3173#3174#0" expanded="true" />
+            <element signature="e#3212#3213#0" expanded="true" />
+            <element signature="e#8013#8014#0" expanded="true" />
+            <element signature="e#8055#8056#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="59" column="10" lean-forward="false" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
+        <state relative-caret-position="24">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
             <element signature="e#1690#1691#0" expanded="true" />
             <element signature="e#1763#1764#0" expanded="true" />
@@ -1552,10 +1540,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="280" column="50" lean-forward="true" selection-start-line="280" selection-start-column="50" selection-end-line="280" selection-end-column="50" />
+          <folding>
+            <element signature="e#6528#6529#0" expanded="true" />
+            <element signature="e#6598#6599#0" expanded="true" />
+            <marker date="1495514636800" expanded="false" signature="1080:1087" ph="&lt;~&gt;" />
+            <marker date="1495514636800" expanded="false" signature="2545:2551" ph="&lt;~&gt;" />
+            <marker date="1495514636800" expanded="false" signature="3523:3539" ph="&lt;~&gt;" />
+            <marker date="1495514636800" expanded="false" signature="4299:4314" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="4352:4358" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="4408:4423" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="4461:4467" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="4771:4786" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="4812:4818" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="4868:4883" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="4909:4915" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="4965:4980" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="5006:5012" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="5061:5076" ph=" { " />
+            <marker date="1495514636800" expanded="false" signature="5102:5108" ph=" }" />
+            <marker date="1495514636800" expanded="false" signature="6763:6774" ph="&lt;~&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
+        <state relative-caret-position="148">
+          <caret line="100" column="35" lean-forward="false" selection-start-line="100" selection-start-column="35" selection-end-line="100" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#440#441#0" expanded="true" />
@@ -1564,8 +1579,8 @@
             <element signature="e#538#539#0" expanded="true" />
             <element signature="e#676#683#0" expanded="true" />
             <element signature="e#803#814#0" expanded="true" />
-            <element signature="e#1789#3967#0" expanded="true" />
-            <element signature="e#3966#3967#0" expanded="true" />
+            <element signature="e#1908#4326#0" expanded="true" />
+            <element signature="e#4325#4326#0" expanded="true" />
           </folding>
         </state>
       </provider>
