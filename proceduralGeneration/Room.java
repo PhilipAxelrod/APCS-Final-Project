@@ -2,6 +2,7 @@ package proceduralGeneration;
 
 import architecture.Monster;
 import architecture.Player;
+import com.sun.istack.internal.NotNull;
 import com.sun.javafx.geom.Point2D;
 
 import graphicsUtils.GraphicsInterface;
@@ -19,9 +20,9 @@ public class Room extends Rectangle
 
     public List<Chest> chests;
 
-    private int tileWidth;
+    private int cellWidth;
 
-    Hashtable<Point2D, List<Rectangle>> walls;
+    Hashtable<Point2D, List<Rectangle>> forbiddenCells;
 
     public Cell[][] cells;
     // static final int rows = 1000;
@@ -33,25 +34,29 @@ public class Room extends Rectangle
     Rectangle portal;
     public Room(
             List<Monster> combatants,
-            Hashtable<Point2D, List<Rectangle>> walls,
+            Hashtable<Point2D,
+            List<Rectangle>> forbiddenCells,
             int tileWidth,
             List<Chest> chests,
-            Rectangle portal, Player player)
+            Rectangle portal,
+            Player player,
+            Cell[][] cells)
     {
         this.combatants = combatants;
-        this.walls = walls;
-        this.tileWidth = tileWidth;
+        this.forbiddenCells = forbiddenCells;
+        this.cellWidth = tileWidth;
         this.chests = chests;
         this.portal = portal;
         this.player = player;
+        this.cells = cells;
     }
 
     // get around the fact that java doesn't allow reassigment in
     // anonymous classes
     public void assignSelfTo(Room room){
         this.combatants = room.combatants;
-        this.walls = room.walls;
-        this.tileWidth = room.tileWidth;
+        this.forbiddenCells = room.forbiddenCells;
+        this.cellWidth = room.cellWidth;
         this.chests = room.chests;
         this.portal = room.portal;
         this.player = room.player;
@@ -68,10 +73,10 @@ public class Room extends Rectangle
     public boolean inCollisionAtPoint(Combatant combatant, Point2D point) {
 
         Point2D tileKey = new Point2D(
-                RoomGenerator.roundToLowestMultiple( point.x, tileWidth ),
-                RoomGenerator.roundToLowestMultiple( point.y, tileWidth ) );
+                RoomGenerator.roundToLowestMultiple( point.x, cellWidth * cells.length),
+                RoomGenerator.roundToLowestMultiple( point.y, cellWidth * cells.length) );
 
-        List<Rectangle> tileWalls = walls.get( tileKey );
+        List<Rectangle> tileWalls = forbiddenCells.get( tileKey );
 
         if ( tileWalls != null )
         {
@@ -115,6 +120,10 @@ public class Room extends Rectangle
                 combatant.resetPoseToPrevios();
             }
         });
+
+        if (inCollision(player)) {
+            player.resetPoseToPrevios();
+        }
 
     }
 

@@ -254,7 +254,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderGrid( Cell[][] cells,int cellLength, Graphics graphics )
+    public void renderGrid( Cell[][] cells, int cellLength, Graphics graphics )
     {
 
         for ( int i = 0; i < cells.length; i++ )
@@ -282,9 +282,9 @@ public class GraphicsInterface extends JPanel
                 "ConcretePowderMagenta.png",
             (int)combatant.getPose().x,
             (int)combatant.getPose().y,
-            cellLength,
-            cellLength,
-                g );
+            combatant.WIDTH,
+            combatant.HEIGHT,
+            g );
 
     }
 
@@ -341,6 +341,7 @@ public class GraphicsInterface extends JPanel
             if ( gameState != null )
             {
                 renderGrid( gameState.cells, gameState.cellLength, g );
+
                 gameState.chests.forEach( chest -> renderChest( chest, g ) );
                 gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
                 renderWeapon(

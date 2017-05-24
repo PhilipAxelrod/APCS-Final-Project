@@ -35,9 +35,9 @@ public abstract class Combatant extends TimerTask
 
     public Room currRoom;
 
-    private static final int ACCELERATION = 12;
+    private static final int ACCELERATION = 4;
 
-    private static final double FRICTION = .9;
+    private static final double FRICTION = .5;
 
 
     public Combatant( Point2D initPose )

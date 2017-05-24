@@ -22,7 +22,7 @@ public class RoomGenerator
 
     static final int cols = rows;
 
-    static final Point center = new Point( rows / 2, cols / 2 );
+    private static final Point center = new Point( rows / 2, cols / 2 );
 
 
     private void initCells()
@@ -271,7 +271,7 @@ public class RoomGenerator
 
 
     /**
-     * split a list of walls into a hashtable of point keys and walls of the
+     * split a list of forbiddenCells into a hashtable of point keys and forbiddenCells of the
      * "tile"
      * 
      * @param walls
@@ -376,7 +376,8 @@ public class RoomGenerator
                 cellLength,
                 Arrays.<Chest>asList(new Chest(floor, new Point2D(100, 100))),
                 getPortal(cellLength),
-                player);
+                player,
+                cells);
 
     }
 }
