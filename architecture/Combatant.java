@@ -35,9 +35,9 @@ public abstract class Combatant extends TimerTask
 
     public Room currRoom;
 
-    private static final int ACCELERATION = 4;
+    private static final int ACCELERATION = 12;
 
-    private static final double FRICTION = .5;
+    private static final double FRICTION = 0.9;
 
 
     public Combatant( Point2D initPose )
@@ -108,15 +108,8 @@ public abstract class Combatant extends TimerTask
 
     public void accelerate( float plusX, float plusY )
     {
-        if ( plusX > 0 )
-            xVelocity += ACCELERATION;
-        else if ( plusX < 0 )
-            xVelocity -= ACCELERATION;
-
-        if ( plusY > 0 )
-            yVelocity += ACCELERATION;
-        else if ( plusY < 0 )
-            yVelocity -= ACCELERATION;
+        xVelocity += Math.signum(plusX) * ACCELERATION;
+        yVelocity += Math.signum(plusY) * ACCELERATION;
 
         xVelocity *= FRICTION;
         yVelocity *= FRICTION;

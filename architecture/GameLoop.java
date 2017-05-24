@@ -57,7 +57,7 @@ public class GameLoop
         // TODO: make tile width more intelligent
         final Room room = roomGenerator.generateRoom(
                 1,
-                player.WIDTH + 100,
+                player.WIDTH + 10,
                 player);
 
 
@@ -94,7 +94,7 @@ public class GameLoop
                 if (room.atPortal()) {
                     System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
-                            roomGenerator.generateRoom(0, 0, player)
+                            roomGenerator.generateRoom(0, player.WIDTH + 10, player)
                     );
                 }
                 int xToMoveBy = 0;
@@ -153,7 +153,7 @@ public class GameLoop
                                 fighters,
                                 player,
                                 chests,
-                                player.WIDTH + 100,
+                                player.WIDTH + 10,
                                 room.getPortal()) );
 
                 graphicsInterface.doRepaint();
@@ -161,7 +161,7 @@ public class GameLoop
             }
         };
 
-        timer.scheduleAtFixedRate( task, 0, 1 );
+        timer.scheduleAtFixedRate( task, 0, 100 );
     }
 
 //    private static void makeNewRoom(Room room, Room newRoom) {
