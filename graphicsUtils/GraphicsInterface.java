@@ -384,8 +384,6 @@ public class GraphicsInterface extends JPanel
         System.out.println("drawing took: " + (currTime - lastTime));
         lastTime = currTime;
     }
-
-
     public void requestFocus()
     {
         frame.requestFocus();

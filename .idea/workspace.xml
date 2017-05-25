@@ -2,10 +2,12 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" line="5" />
+    <bookmark url="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" line="88" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0955b21-f206-4559-b9e5-4ca7b56e93fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/Combatant.java" afterPath="$PROJECT_DIR$/architecture/Combatant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/GameLoop.java" afterPath="$PROJECT_DIR$/architecture/GameLoop.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" afterPath="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" afterPath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
     </list>
@@ -36,10 +38,13 @@
       <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+            <state relative-caret-position="370">
+              <caret line="169" column="41" lean-forward="false" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#847#858#0" expanded="true" />
+                <marker date="1495686613281" expanded="false" signature="4941:4956" ph="}" />
+                <marker date="1495686613281" expanded="true" signature="5017:5104" ph="//..." />
               </folding>
             </state>
           </provider>
@@ -58,29 +63,27 @@
       <file leaf-file-name="RoomGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="431">
+              <caret line="87" column="5" lean-forward="true" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
               <folding>
                 <element signature="e#372#378#0" expanded="true" />
-                <element signature="e#9864#9871#0" expanded="true" />
-                <marker date="1495684048422" expanded="false" signature="1103:1110" ph="&lt;~&gt;" />
-                <marker date="1495684048422" expanded="false" signature="3954:3960" ph="&lt;~&gt;" />
-                <marker date="1495684048422" expanded="false" signature="4941:4957" ph="&lt;~&gt;" />
-                <marker date="1495684048422" expanded="false" signature="8206:8217" ph="&lt;~&gt;" />
+                <element signature="e#9891#9898#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GraphicsInterface.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GraphicsInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="376" column="42" lean-forward="true" selection-start-line="376" selection-start-column="42" selection-end-line="376" selection-end-column="42" />
+            <state relative-caret-position="195">
+              <caret line="363" column="0" lean-forward="true" selection-start-line="363" selection-start-column="0" selection-end-line="363" selection-end-column="0" />
               <folding>
                 <element signature="e#8423#8424#0" expanded="true" />
                 <element signature="e#8471#8472#0" expanded="true" />
-                <marker date="1495683892427" expanded="false" signature="8382:8388" ph=" }" />
+                <element signature="e#9874#9875#0" expanded="true" />
+                <element signature="e#9910#9911#0" expanded="true" />
+                <marker date="1495686681950" expanded="false" signature="8382:8388" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -99,21 +102,23 @@
       <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="149" column="30" lean-forward="false" selection-start-line="149" selection-start-column="30" selection-end-line="149" selection-end-column="30" />
+            <state relative-caret-position="300">
+              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Combatant.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Combatant.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+            <state relative-caret-position="234">
+              <caret line="262" column="28" lean-forward="false" selection-start-line="262" selection-start-column="28" selection-end-line="262" selection-end-column="28" />
               <folding>
                 <element signature="e#965#966#0" expanded="true" />
                 <element signature="e#1010#1011#0" expanded="true" />
+                <element signature="e#6211#6212#0" expanded="true" />
+                <element signature="e#6250#6251#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,15 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>acceleration</find>
-      <find>co</find>
-      <find>collision</find>
-      <find>collision d</find>
-      <find>collision de</find>
-      <find>||</find>
-      <find>+1</find>
-      <find>ac</find>
-      <find>accele</find>
       <find>assign</find>
       <find>b</find>
       <find>bo</find>
@@ -151,8 +147,6 @@
       <find>+ 100</find>
       <find>+ 1</find>
       <find>+</find>
-      <find>+</find>
-      <find>+ 10</find>
       <find>l</find>
       <find>loadImage</find>
       <find>loadImag</find>
@@ -160,6 +154,15 @@
       <find>loadIm</find>
       <find>loadI</find>
       <find>loa</find>
+      <find>draw</find>
+      <find>drawi</find>
+      <find>drawing</find>
+      <find>+1 10</find>
+      <find>+1 1</find>
+      <find>+1</find>
+      <find>+10</find>
+      <find>+ 10</find>
+      <find>portal</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -170,6 +173,7 @@
       <replace>cellLength</replace>
       <replace>+ 100</replace>
       <replace>+ 10</replace>
+      <replace>+ 50</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Program Files\Java\jdk1.8.0_121\jre\lib\rt.jar!\sun\java2d\opengl</dir>
@@ -200,10 +204,10 @@
         <option value="$PROJECT_DIR$/architecture/Monster.java" />
         <option value="$PROJECT_DIR$/architecture/GameState.java" />
         <option value="$PROJECT_DIR$/proceduralGeneration/Room.java" />
-        <option value="$PROJECT_DIR$/architecture/GameLoop.java" />
-        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
         <option value="$PROJECT_DIR$/architecture/Combatant.java" />
         <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
+        <option value="$PROJECT_DIR$/architecture/GameLoop.java" />
+        <option value="$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" />
       </list>
     </option>
   </component>
@@ -1022,12 +1026,12 @@
       <workItem from="1495554982781" duration="793000" />
       <workItem from="1495565545312" duration="6549000" />
       <workItem from="1495582569218" duration="4246000" />
-      <workItem from="1495681314559" duration="2733000" />
+      <workItem from="1495681314559" duration="5212000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71179000" />
+    <option name="totallyTimeSpent" value="73709000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1052,7 +1056,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32842582" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1067,11 +1071,35 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52095133" sideWeight="0.49573562" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39935064" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52095133" sideWeight="0.49573562" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32842582" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26852846" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1141,34 +1169,13 @@
           <properties />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/architecture/GameLoop.java</url>
-          <line>95</line>
-          <properties />
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java</url>
-          <line>371</line>
-          <properties />
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java</url>
-          <line>362</line>
-          <properties class="proceduralGeneration.RoomGenerator" method="generateRoom">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="62" />
+      <option name="time" value="64" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="walls" language="JAVA" />
-        <watch expression="combatant.getPose()" language="JAVA" />
-        <watch expression="cells" language="JAVA" />
+        <watch expression="randomCell" language="JAVA" />
+        <watch expression="portal.x" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -1306,7 +1313,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="8" column="5" lean-forward="false" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1363,7 +1369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2280">
           <caret line="78" column="12" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1386,7 +1391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1450,7 +1454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,7 +1461,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="504" column="0" lean-forward="false" selection-start-line="504" selection-start-column="0" selection-end-line="504" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1478,16 +1480,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graphicsUtils/ImageUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1498,46 +1490,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="149" column="30" lean-forward="false" selection-start-line="149" selection-start-column="30" selection-end-line="149" selection-end-column="30" />
+        <state relative-caret-position="300">
+          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
+    <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="376" column="42" lean-forward="true" selection-start-line="376" selection-start-column="42" selection-end-line="376" selection-end-column="42" />
+        <state relative-caret-position="234">
+          <caret line="262" column="28" lean-forward="false" selection-start-line="262" selection-start-column="28" selection-end-line="262" selection-end-column="28" />
           <folding>
-            <element signature="e#8423#8424#0" expanded="true" />
-            <element signature="e#8471#8472#0" expanded="true" />
-            <marker date="1495683892427" expanded="false" signature="8382:8388" ph=" }" />
+            <element signature="e#965#966#0" expanded="true" />
+            <element signature="e#1010#1011#0" expanded="true" />
+            <element signature="e#6211#6212#0" expanded="true" />
+            <element signature="e#6250#6251#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="431">
+          <caret line="87" column="5" lean-forward="true" selection-start-line="87" selection-start-column="5" selection-end-line="87" selection-end-column="5" />
           <folding>
             <element signature="e#372#378#0" expanded="true" />
-            <element signature="e#9864#9871#0" expanded="true" />
-            <marker date="1495684048422" expanded="false" signature="1103:1110" ph="&lt;~&gt;" />
-            <marker date="1495684048422" expanded="false" signature="3954:3960" ph="&lt;~&gt;" />
-            <marker date="1495684048422" expanded="false" signature="4941:4957" ph="&lt;~&gt;" />
-            <marker date="1495684048422" expanded="false" signature="8206:8217" ph="&lt;~&gt;" />
+            <element signature="e#9891#9898#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/architecture/Combatant.java">
+    <entry file="file://$PROJECT_DIR$/architecture/GameLoop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+        <state relative-caret-position="370">
+          <caret line="169" column="41" lean-forward="false" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
           <folding>
-            <element signature="e#965#966#0" expanded="true" />
-            <element signature="e#1010#1011#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#847#858#0" expanded="true" />
+            <marker date="1495686613281" expanded="false" signature="4941:4956" ph="}" />
+            <marker date="1495686613281" expanded="true" signature="5017:5104" ph="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="363" column="0" lean-forward="true" selection-start-line="363" selection-start-column="0" selection-end-line="363" selection-end-column="0" />
+          <folding>
+            <element signature="e#8423#8424#0" expanded="true" />
+            <element signature="e#8471#8472#0" expanded="true" />
+            <element signature="e#9874#9875#0" expanded="true" />
+            <element signature="e#9910#9911#0" expanded="true" />
+            <marker date="1495686681950" expanded="false" signature="8382:8388" ph=" }" />
           </folding>
         </state>
       </provider>

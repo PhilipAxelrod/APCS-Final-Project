@@ -59,7 +59,7 @@ public class GameLoop
         // TODO: make tile width more intelligent
         final Room room = roomGenerator.generateRoom(
                 1,
-                player.WIDTH + 10,
+                player.WIDTH + 50,
                 player);
 
 
@@ -95,7 +95,7 @@ public class GameLoop
                 if (room.atPortal()) {
                     System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
-                            roomGenerator.generateRoom(0, player.WIDTH + 10, player)
+                            roomGenerator.generateRoom(0, player.WIDTH + 50, player)
                     );
                 }
                 int xToMoveBy = 0;
@@ -142,10 +142,15 @@ public class GameLoop
                     System.out.println( "player died!" );
                 }
 
+                monsters.removeIf(Monster::isDead);
+                player.restoreHealth( 10000 );
+
+                // TODO: separate player from Monsters
+                fighters.removeIf(Combatant::isDead);
+
                 player.accelerate( xToMoveBy, yToMoveBy );
                 player.move();
                 room.update();
-                player.restoreHealth( 10000 );
 
                 // TODO: Make tile width more intelligent
                 graphicsInterface.setGameState(
@@ -154,7 +159,7 @@ public class GameLoop
                                 fighters,
                                 player,
                                 chests,
-                                player.WIDTH + 10,
+                                player.WIDTH + 50,
                                 room.getPortal()) );
 
                 graphicsInterface.doRepaint();

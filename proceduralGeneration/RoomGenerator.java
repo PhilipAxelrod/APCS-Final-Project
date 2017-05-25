@@ -18,7 +18,7 @@ public class RoomGenerator
     List<Cell> aliveAvailibleCells = new LinkedList<Cell>();
 
     // TODO: Hardcoded value
-    public static final int rows = 50;
+    public static final int rows = 10;
 
     static final int cols = rows;
 
@@ -54,8 +54,8 @@ public class RoomGenerator
                 new Point( center.x - 1, center.y ),
                 center,
                 new Point( center.x + 1, center.y ),
-                new Point( center.x + 2, center.y ),
-                new Point( center.x + 3, center.y )));
+                new Point( center.x + 2, center.y )/*,
+                new Point( center.x + 3, center.y )*/));
     }
 
 
@@ -125,7 +125,7 @@ public class RoomGenerator
 
     public Rectangle getPortal(int cellLength) {
         Cell randomCell = getRandomAvailibleCell();
-        Rectangle portal = new Rectangle(randomCell.x, randomCell.y, cellLength, cellLength);
+        Rectangle portal = new Rectangle(randomCell.x * cellLength, randomCell.y * cellLength, cellLength, cellLength);
         aliveAvailibleCells.remove(randomCell);
         return portal;
     }
@@ -363,7 +363,7 @@ public class RoomGenerator
     public Room generateRoom(int floor, int cellLength, Player player) {
         killAllCells();
         // TODO: hardcoded constant
-        plantRandomSeed(50000);
+        plantRandomSeed(10);
 
         for (int i = 0; i < 500; i++) {
             runSimulation();
