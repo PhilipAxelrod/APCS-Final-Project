@@ -130,7 +130,7 @@ public class GraphicsInterface extends JPanel
     {
         try
         {
-            this.sprite = ImageUtils.loadBufferedImage( absolutePath );
+            this.globalImage = ImageUtils.loadBufferedImage( absolutePath );
         }
         catch ( IOException e )
         {
@@ -150,6 +150,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
+    BufferedImage globalImage;
 
     // draw the image onto the JFrame
     public void placeImage(
@@ -170,8 +171,9 @@ public class GraphicsInterface extends JPanel
                             int width,
                             int height,
                             Graphics g ) {
+//        if (globalImage.getPropertyNames())
         placeImage(
-                    getSprite(pathToImage),
+                    /*getSprite(pathToImage)*/globalImage,
                     startX,
                     startY,
                     width,
@@ -257,6 +259,7 @@ public class GraphicsInterface extends JPanel
     public void renderGrid( Cell[][] cells, int cellLength, Graphics graphics )
     {
 
+        loadSprite("Dirt_Floor.png");
         for ( int i = 0; i < cells.length; i++ )
         {
             for ( int j = 0; j < cells[0].length; j++ )
@@ -278,6 +281,7 @@ public class GraphicsInterface extends JPanel
 
     public void renderCharacter( Combatant combatant, int cellLength, Graphics g )
     {
+        loadSprite("ConcretePowderMagenta.png");
         placeImage(
                 "ConcretePowderMagenta.png",
             (int)combatant.getPose().x,
@@ -289,6 +293,8 @@ public class GraphicsInterface extends JPanel
     }
 
     public void renderPortal(Rectangle portal, int cellLength, Graphics g) {
+        loadSprite("portal.png");
+
         placeImage("portal.png", portal.x, portal.y,  portal.width, portal.height, g );
     }
 
@@ -296,6 +302,12 @@ public class GraphicsInterface extends JPanel
     {
         if ( weapon.getType()[0] == 0 )
         {
+            try {
+                globalImage = ImageUtils.loadBufferedImage("portal.png");
+            } catch (Exception e) {
+                throw new RuntimeException("yay, loading failed");
+            }
+
             loadSprite( "default_sword.png" );
 
             // TODO: Remove hard coding of weapon size
@@ -317,6 +329,7 @@ public class GraphicsInterface extends JPanel
     public void renderChest( Chest chest, Graphics g )
     {
         Point2D loc = chest.getPose();
+        loadSprite("Chest.png");
         placeImage("Chest.png", (int) loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, g );
     }
 
@@ -324,7 +337,13 @@ public class GraphicsInterface extends JPanel
     public void setGameState( GameState gameState )
     {
         this.gameState = gameState;
-    }   
+    }
+
+
+    public void doRepaint()
+    {
+        frame.getContentPane().repaint();
+    }
 
 
 //    double lastTranslationTime = System.currentTimeMillis() / 1000D;
@@ -341,42 +360,29 @@ public class GraphicsInterface extends JPanel
                     -(int) gameState.player.getPose().x + frame.getWidth() / 2,
                     -(int) gameState.player.getPose().y + frame.getHeight() / 2);
 
-//            renderGrid( gameState.cells, gameState.cellLength, g );
-//
-//            gameState.chests.forEach( chest -> renderChest( chest, g ) );
-//            gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
-//            renderWeapon(
-//                gameState.player.getWeapon(),
-//                gameState.player,
-//                g );
-//
-//            renderPortal(gameState.portal, gameState.cellLength, g);
-//
-//            for (Chest chest : gameState.chests)
-//            {
-//                if (!chest.isEmpty())
-//                    renderChest(chest, g);
-//                else
-//                    gameState.chests.remove( chest );
-//            }
+            renderGrid( gameState.cells, gameState.cellLength, g );
+
+            gameState.chests.forEach( chest -> renderChest( chest, g ) );
+            gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
+            renderWeapon(
+                gameState.player.getWeapon(),
+                gameState.player,
+                g );
+
+            renderPortal(gameState.portal, gameState.cellLength, g);
+
+            for (Chest chest : gameState.chests)
+            {
+                if (!chest.isEmpty())
+                    renderChest(chest, g);
+                else
+                    gameState.chests.remove( chest );
+            }
         }
 
         double currTime = System.currentTimeMillis() / 1000D;
         System.out.println("drawing took: " + (currTime - lastTime));
         lastTime = currTime;
-    }
-
-
-    public void doRepaint()
-    {
-//        Player player = gameState.player;
-
-        // graphic.translate( (int)player.getPose().x, (int)player.getPose().y
-        // );
-
-        frame.getContentPane().repaint();
-        // graphic.translate( (int)player.getPose().x, (int)player.getPose().y
-        // );
     }
 
 

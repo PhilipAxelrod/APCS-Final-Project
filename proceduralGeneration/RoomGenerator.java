@@ -32,7 +32,7 @@ public class RoomGenerator
             for ( int j = 0; j < cells[0].length; j++ )
             {
                 cells[i][j] = new Cell( i, j );
-                cells[i][j].isAlive = true;
+//                cells[i][j].isAlive = true;
             }
         }
     }
