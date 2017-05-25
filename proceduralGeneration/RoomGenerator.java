@@ -362,8 +362,8 @@ public class RoomGenerator
     }
     public Room generateRoom(int floor, int cellLength, Player player) {
         killAllCells();
-        // TODO: hardcoded constant
-        plantRandomSeed(10);
+        // TODO: More intelligent stuff
+        plantRandomSeed(rows * rows / 5);
 
         for (int i = 0; i < 500; i++) {
             runSimulation();

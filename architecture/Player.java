@@ -1,7 +1,9 @@
 package architecture;
 
 import com.sun.javafx.geom.Point2D;
+import graphicsUtils.GraphicsInterface;
 
+import java.awt.*;
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +22,49 @@ import java.util.List;
  */
 public class Player extends Combatant
 {
+    @Override
+    public void render(GraphicsInterface graphicsInterface, Graphics g) {
+        graphicsInterface.loadSprite("ConcretePowderMagenta.png");
+
+        int thisX = (int)this.getPose().x;
+        int thisY = (int)this.getPose().y;
+
+        graphicsInterface.placeImage(
+                "ConcretePowderMagenta.png",
+                thisX,
+                thisY,
+                WIDTH,
+                HEIGHT,
+                g );
+
+        double fractionOfHealth = getHealth() / getStats()[0];
+        graphicsInterface.loadSprite("healthbar.png");
+        // health bar
+        graphicsInterface.placeImage(
+                "healthbar.png",
+                thisX,
+                thisY - HEIGHT / 8,
+                (int) (WIDTH * fractionOfHealth),
+                10,
+                g
+        );
+
+        double fractionOfMana = getMana() / getStats()[1];
+        graphicsInterface.loadSprite("manabar.png");
+        // health bar
+        graphicsInterface.placeImage(
+                "manabar.png",
+                thisX,
+                thisY - HEIGHT / 4,
+                (int) (WIDTH * fractionOfMana),
+                10,
+                g
+        );
+
+
+    }
+
+
     /**
      * The ratio between level-up requirements of level n and level n-1;
      */

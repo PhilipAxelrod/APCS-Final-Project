@@ -21,7 +21,7 @@ import java.util.TimerTask;
  *
  * @author Sources: none
  */
-public abstract class Combatant extends TimerTask
+public abstract class Combatant extends TimerTask implements Renderable
 {
     protected Point2D previousTopLeftCorner;
 

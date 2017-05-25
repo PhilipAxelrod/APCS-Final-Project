@@ -1,13 +1,11 @@
 package architecture;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
-import graphicsUtils.ImageUtils;
 import proceduralGeneration.Room;
 import proceduralGeneration.RoomGenerator;
 
@@ -15,20 +13,24 @@ import proceduralGeneration.RoomGenerator;
 public class GameLoop
 {
 
-    static int tickNum = 0;
+    static int floor = 1;
 
 
-    public static void incrementTickNum()
+    public static void incrementFloor()
     {
-        tickNum++;
+        floor++;
     }
 
 
-    public static int getTickNum()
+    public static int getFloor()
     {
-        return tickNum;
+        return floor;
     }
 
+    public void restartGame() {
+        // TODO: complete
+        floor = 1;
+    }
 
     public static void main( String[] args )
     {
@@ -68,34 +70,25 @@ public class GameLoop
 
         final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
-//        graphicsInterface.renderGrid(room.cells, 100, graphicsInterface.getGraphics());
-
-        System.out.println("finished with graphics");
-        try
-        {
-            graphicsInterface
-                    .setSprite( ImageUtils.loadBufferedImage( "Dirt_Floor.png" ) );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeException( "Image failed to load" );
-        }
-
-//        roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
-//        roomGenerator.spawnEnemies(monsters, player.WIDTH + 1);
         TimerTask task = new TimerTask()
         {
 
             @Override
             public void run()
             {
-                // incrementTickNum();
+
                 graphicsInterface.requestFocus();
 
                 if (room.atPortal()) {
+                    incrementFloor();
+
+                    player.restoreHealth(player.getStats()[0] / 2);
                     System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
-                            roomGenerator.generateRoom(0, player.WIDTH + 50, player)
+                            roomGenerator.generateRoom(
+                                    floor,
+                                    player.WIDTH + 50,
+                                    player)
                     );
                 }
                 int xToMoveBy = 0;
@@ -140,10 +133,13 @@ public class GameLoop
                 if ( player.isDead() )
                 {
                     System.out.println( "player died!" );
+                    // TODO: show losing screen and restart
                 }
 
                 monsters.removeIf(Monster::isDead);
-                player.restoreHealth( 10000 );
+
+                // TODO: for testing purposes
+//                player.restoreHealth(player.getStats()[0] / 2);
 
                 // TODO: separate player from Monsters
                 fighters.removeIf(Combatant::isDead);
@@ -170,7 +166,4 @@ public class GameLoop
         timer.scheduleAtFixedRate( task, 0, 100 );
     }
 
-//    private static void makeNewRoom(Room room, Room newRoom) {
-//        room
-//    }
 }

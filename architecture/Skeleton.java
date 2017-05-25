@@ -1,5 +1,9 @@
 package architecture;
 
+import graphicsUtils.GraphicsInterface;
+
+import java.awt.*;
+
 /**
  * A balanced, physical monster. All stat assumptions are based on this
  * monster's scaling.
@@ -13,6 +17,21 @@ package architecture;
  */
 public class Skeleton extends Monster
 {
+    @Override
+    public void render(GraphicsInterface graphicsInterface, Graphics g) {
+        graphicsInterface.loadSprite("skeleton.PNG");
+
+        int thisX = (int)this.getPose().x;
+        int thisY = (int)this.getPose().y;
+
+        graphicsInterface.placeImage(
+                "skeleton.PNG",
+                thisX,
+                thisY,
+                WIDTH,
+                HEIGHT,
+                g );
+    }
 
     /**
      * @param level

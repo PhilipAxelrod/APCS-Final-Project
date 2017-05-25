@@ -15,7 +15,6 @@ import com.sun.javafx.geom.Point2D;
 import architecture.Chest;
 import architecture.Combatant;
 import architecture.GameState;
-import architecture.Player;
 import architecture.Weapon;
 import proceduralGeneration.Cell;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -279,7 +278,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderCharacter( Combatant combatant, int cellLength, Graphics g )
+    public void renderCharacter(Combatant combatant, Graphics g)
     {
         loadSprite("ConcretePowderMagenta.png");
         placeImage(
@@ -363,12 +362,13 @@ public class GraphicsInterface extends JPanel
             renderGrid( gameState.cells, gameState.cellLength, g );
 
             gameState.chests.forEach( chest -> renderChest( chest, g ) );
-            gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
+            gameState.combatants.forEach( combatant -> combatant.render(this, g));
+
             renderWeapon(
                 gameState.player.getWeapon(),
                 gameState.player,
                 g );
-
+//
             renderPortal(gameState.portal, gameState.cellLength, g);
 
             for (Chest chest : gameState.chests)
