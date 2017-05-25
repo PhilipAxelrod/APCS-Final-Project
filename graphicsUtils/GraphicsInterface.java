@@ -327,43 +327,43 @@ public class GraphicsInterface extends JPanel
     }   
 
 
+//    double lastTranslationTime = System.currentTimeMillis() / 1000D;
     @Override
     public void paint( Graphics g )
     {
-        try
+        super.paint( g );
+
+        double lastTime = System.currentTimeMillis() / 1000D;
+        if ( gameState != null )
         {
-            super.paint( g );
             // ensure player is always in the center
             g.translate(
-                -(int)gameState.player.getPose().x + frame.getWidth() / 2,
-                -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
+                    -(int) gameState.player.getPose().x + frame.getWidth() / 2,
+                    -(int) gameState.player.getPose().y + frame.getHeight() / 2);
 
-            if ( gameState != null )
-            {
-                renderGrid( gameState.cells, gameState.cellLength, g );
-
-                gameState.chests.forEach( chest -> renderChest( chest, g ) );
-                gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
-                renderWeapon(
-                    gameState.player.getWeapon(),
-                    gameState.player,
-                    g );
-
-                renderPortal(gameState.portal, gameState.cellLength, g);
-
-                for (Chest chest : gameState.chests)
-                {
-                    if (!chest.isEmpty())
-                        renderChest(chest, g);
-                    else
-                        gameState.chests.remove( chest );
-                }
-            }
+//            renderGrid( gameState.cells, gameState.cellLength, g );
+//
+//            gameState.chests.forEach( chest -> renderChest( chest, g ) );
+//            gameState.combatants.forEach( combatant -> renderCharacter( combatant, gameState.cellLength, g ) );
+//            renderWeapon(
+//                gameState.player.getWeapon(),
+//                gameState.player,
+//                g );
+//
+//            renderPortal(gameState.portal, gameState.cellLength, g);
+//
+//            for (Chest chest : gameState.chests)
+//            {
+//                if (!chest.isEmpty())
+//                    renderChest(chest, g);
+//                else
+//                    gameState.chests.remove( chest );
+//            }
         }
-        catch ( NullPointerException e1 )
-        {
-            e1.printStackTrace();
-        }
+
+        double currTime = System.currentTimeMillis() / 1000D;
+        System.out.println("drawing took: " + (currTime - lastTime));
+        lastTime = currTime;
     }
 
 

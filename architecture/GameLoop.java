@@ -32,6 +32,8 @@ public class GameLoop
 
     public static void main( String[] args )
     {
+//        sun.java2d.opengl=true;
+//        sun.java2d.opengl.
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
@@ -81,7 +83,6 @@ public class GameLoop
 
 //        roomGenerator.spawnPlayer( player, player.WIDTH + 1 );
 //        roomGenerator.spawnEnemies(monsters, player.WIDTH + 1);
-
         TimerTask task = new TimerTask()
         {
 

@@ -18,7 +18,7 @@ public class RoomGenerator
     List<Cell> aliveAvailibleCells = new LinkedList<Cell>();
 
     // TODO: Hardcoded value
-    public static final int rows = 10;
+    public static final int rows = 50;
 
     static final int cols = rows;
 
@@ -32,6 +32,7 @@ public class RoomGenerator
             for ( int j = 0; j < cells[0].length; j++ )
             {
                 cells[i][j] = new Cell( i, j );
+                cells[i][j].isAlive = true;
             }
         }
     }
@@ -71,7 +72,7 @@ public class RoomGenerator
         {
             return true;
         }
-        return currCell.isAlive && numAlive <= 6 && numAlive >= 1;
+        return currCell.isAlive && numAlive <= 9/*6 */&& numAlive >= 1;
     }
 
 
@@ -91,12 +92,12 @@ public class RoomGenerator
     public void spawnPlayer( Player player, int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
-        aliveAvailibleCells.remove(randomCell);
-        // TODO: hardcoded constant
         if (player == null) {
             System.out.println("about to spawn null player");
         }
         player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength);
+        aliveAvailibleCells.remove(randomCell);
+
     }
 
     public void spawnEnemies(List<Monster> combatants, int cellLength) {
@@ -110,7 +111,6 @@ public class RoomGenerator
     }
 
     public List<Monster> createEnemies(int floor, int cellLength, Player player) {
-        // TODO: hardcoded
         int numEnemies = floor * 2;
         List<Monster> ret = new ArrayList<>();
         for (int i = 0; i < numEnemies; i++) {
