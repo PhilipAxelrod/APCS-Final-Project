@@ -17,6 +17,7 @@ public class Room extends Rectangle
 {
     public List<Monster> monsters;
 
+    // TODO: make getters
     public List<Chest> chests;
 
     private int cellWidth;

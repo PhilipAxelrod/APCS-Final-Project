@@ -15,7 +15,7 @@ public class RoomGenerator
 
     final public Cell[][] cells = new Cell[rows][cols];
 
-    List<Cell> aliveAvailibleCells = new LinkedList<Cell>();
+    List<Cell> aliveAvailibleCells = new ArrayList<>();
 
     // TODO: Hardcoded value
     public static final int rows = 10;
@@ -113,13 +113,30 @@ public class RoomGenerator
     public List<Monster> createEnemies(int floor, int cellLength, Player player) {
         int numEnemies = floor * 2;
         System.out.println("making " + numEnemies  + "enemies");
-        List<Monster> ret = new ArrayList<>();
+        List<Monster> ret = new LinkedList<>();
         for (int i = 0; i < numEnemies; i++) {
             // TODO: enemy distribution
             ret.add(new Skeleton(floor, player ));
          }
          spawnEnemies(ret, cellLength);
          return ret;
+    }
+
+    public List<Chest> createChests(int floor, int cellLength) {
+        int numChests = (int) (1.5 * floor);
+        List<Chest> ret = new LinkedList<>();
+        for (int i = 0; i < numChests; i++) {
+            // TODO: enemy distribution
+            Cell randomAliveCell = getRandomAvailibleCell();
+            Chest chest = new Chest(
+                    floor,
+                    new Point2D(randomAliveCell.x * cellLength, randomAliveCell.y * cellLength)
+            );
+            ret.add(chest);
+            aliveAvailibleCells.remove(randomAliveCell);
+        }
+        System.out.println("making " + numChests + " chests at" + ret.get(0).getPose());
+        return ret;
     }
 
 //    public void spawn
@@ -376,7 +393,7 @@ public class RoomGenerator
                 createEnemies(floor, cellLength, player),
                 getForbiddenRectangles(cellLength),
                 cellLength,
-                Arrays.<Chest>asList(new Chest(floor, new Point2D(100, 100))),
+                createChests(floor, cellLength),
                 getPortal(cellLength),
                 player,
                 cells);

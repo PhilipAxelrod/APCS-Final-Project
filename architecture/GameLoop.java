@@ -37,28 +37,22 @@ public class GameLoop
 
     public static void main( String[] args )
     {
-        // sun.java2d.opengl=true;
-        // sun.java2d.opengl.
         Timer timer = new Timer();
-
-        ArrayList<Chest> chests = new ArrayList<Chest>();
-        chests.add( new Chest( 1, new Point2D( 100, 100 ) ) );
-//        ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         ArrayList<Monster> monsters = new ArrayList<Monster>();
 
         final Player player = new Player( new Point2D( 0, 0 ) );
 
         Skeleton skeleton = new Skeleton( 1, player, new Point2D( 100, 100 ) );
+        monsters.add(skeleton);
+
         skeleton.printStatus();
         player.printStatus();
         System.out.println( player.getWeapon().getAccuracy() );
 
-//        fighters.add( skeleton);
-//        fighters.add( player );
-        monsters.add(skeleton);
 
         RoomGenerator roomGenerator = new RoomGenerator();
 
+        // TODO: thows index out of bounds excpetion when removed
         for ( int i = 0; i < 50; i++ )
         {
             roomGenerator.runSimulation();
@@ -88,7 +82,7 @@ public class GameLoop
                     incrementFloor();
 
                     player.restoreHealth(player.getStats()[0] / 2);
-                    // TODO: Yes? No?
+
                     player.setLevel(player.getLevel() + 1);
                     System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
@@ -131,7 +125,7 @@ public class GameLoop
 
                         } );
                     }
-                    for ( Chest chest : chests )
+                    for ( Chest chest : room.chests )
                     {
                         if ( player.canOpen( chest ) )
                             chest.acquireAll( player );
@@ -159,7 +153,7 @@ public class GameLoop
                                 roomGenerator.cells,
                                 room.getMonsters(),
                                 player,
-                                chests,
+                                room.chests,
                                 player.WIDTH + 50,
                                 room.getPortal()) );
 

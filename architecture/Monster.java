@@ -313,7 +313,8 @@ public abstract class Monster extends Combatant
 
     public void intelligence()
     {
-        accelerate( player.getPose().x - getPose().x,
+        accelerate(
+                player.getPose().x - getPose().x,
             player.getPose().y - getPose().y );
 //        System.out.println( xVelocity + " " + yVelocity );
         move();
