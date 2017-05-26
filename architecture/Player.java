@@ -37,7 +37,8 @@ public class Player extends Combatant
             HEIGHT,
             g );
 
-        double fractionOfHealth = getHealth() / getStats()[0];
+        double fractionOfHealth =  (double) (getHealth()) / getStats()[0];
+
         graphicsInterface.loadSprite( "healthbar.png" );
         // health bar
         graphicsInterface.placeImage( "healthbar.png",
@@ -47,7 +48,7 @@ public class Player extends Combatant
             10,
             g );
 
-        double fractionOfMana = getMana() / getStats()[1];
+        double fractionOfMana = (double) (getMana()) / getStats()[1];
         graphicsInterface.loadSprite("manabar.png");
         // mana bar
         graphicsInterface.placeImage(

@@ -79,6 +79,7 @@ public class GameLoop
             @Override
             public void run()
             {
+                System.out.println("player health: " + player.getHealth());
 
                 graphicsInterface.requestFocus();
 
