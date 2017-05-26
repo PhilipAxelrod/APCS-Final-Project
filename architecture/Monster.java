@@ -180,7 +180,7 @@ public abstract class Monster extends Combatant
         intelligence();
         if ( canAttack && distance <= getRange() && !player.isDead() )
         {
-            // System.out.println( "player attacked!" );
+             System.out.println( "player attacked!" );
             attack( player );
             // canAttack = false;
         }
