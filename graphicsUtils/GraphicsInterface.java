@@ -299,7 +299,7 @@ public class GraphicsInterface extends JPanel
 
     public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
     {
-        if ( weapon.getType()[0] == 0 )
+        //if ( weapon.getType()[0] == 0 )
         {
             try {
                 globalImage = ImageUtils.loadBufferedImage("portal.png");
@@ -318,9 +318,9 @@ public class GraphicsInterface extends JPanel
                 100,
                 g );
         }
-        else
+        //else
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 
@@ -381,7 +381,7 @@ public class GraphicsInterface extends JPanel
         }
 
         double currTime = System.currentTimeMillis() / 1000D;
-        System.out.println("drawing took: " + (currTime - lastTime));
+        // System.out.println("drawing took: " + (currTime - lastTime));
         lastTime = currTime;
     }
     public void requestFocus()

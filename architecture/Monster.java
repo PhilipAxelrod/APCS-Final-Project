@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import proceduralGeneration.Room;
 
-
 import com.sun.javafx.geom.Point2D;
 
 
@@ -44,7 +43,6 @@ public abstract class Monster extends Combatant
     private List<Item> items;
 
     private Player player;
-    
 
 
     /**
@@ -55,7 +53,7 @@ public abstract class Monster extends Combatant
      */
     public Monster( int level, Player player )
     {
-        this( level, generateItems( level ), player );
+        this( level, generateItems( level ), player, new Point2D( 0, 0 ) );
     }
 
 
@@ -69,7 +67,20 @@ public abstract class Monster extends Combatant
      */
     public Monster( int level, List<Item> items, Player player )
     {
-        super();
+        this( level, items, player, new Point2D( 0, 0 ) );
+
+    }
+
+
+    public Monster( int level, Player player, Point2D loc )
+    {
+        this( level, generateItems( level ), player, loc );
+    }
+
+
+    public Monster( int level, List<Item> Items, Player player, Point2D loc )
+    {
+        super( loc );
         if ( level < 1 )
             throw new InstantiationError( "Level must be at least 1" );
 
@@ -166,14 +177,14 @@ public abstract class Monster extends Combatant
             playerPose.y,
             getPose().x,
             getPose().y );
-        intellegence();
+        intelligence();
         if ( canAttack && distance <= getRange() && !player.isDead() )
         {
-//            System.out.println( "player attacked!" );
+            // System.out.println( "player attacked!" );
             attack( player );
             // canAttack = false;
         }
-        
+
     }
 
 
@@ -299,88 +310,13 @@ public abstract class Monster extends Combatant
      */
     public abstract String type();
 
-    public void intellegence()
+
+    public void intelligence()
     {
-        float xmove=0;
-        float ymove=0;
-        
-        if (player.getPose().x>getPose().x)
-        {
-            xmove=xmove+100;
-        }
-        
-        if (player.getPose().x<getPose().x)
-        {
-            xmove=xmove-100;
-        }
-        
-        if (player.getPose().y>getPose().y)
-        {
-            ymove=ymove+100;
-        }
-        
-        if (player.getPose().y<getPose().y)
-        {
-            ymove=ymove-100;
-        }
-        if (player.getPose().x==getPose().x)
-        {
-            xmove=0;
-        }
-        if (player.getPose().y==getPose().y)
-        {
-            ymove=0;
-        }
-//        Point2D testColl = null, testCollO = null;
-//        testCollO.setLocation(getPose().x,getPose().y);
-//        testColl.setLocation( getPose().x+xmove, getPose().y+ymove);
-//        if (currRoom.inCollisionAtPoint(player, testColl));
-//        {
-//            testColl=testCollO;
-//            testColl.setLocation( getPose().x+100, getPose().y);
-//            if (currRoom.inCollisionAtPoint(player, testColl))
-//            {
-//                testColl=testCollO;
-//                testColl.setLocation( getPose().x, getPose().y+100);
-//                if (currRoom.inCollisionAtPoint(player, testColl))
-//                {
-//                    testColl=testCollO;
-//                    testColl.setLocation( getPose().x-100, getPose().y);
-//                    if (currRoom.inCollisionAtPoint(player, testColl))
-//                    {
-//                        testColl=testCollO;
-//                        testColl.setLocation( getPose().x-100, getPose().y);
-//                        if (currRoom.inCollisionAtPoint(player, testColl))
-//                        {
-//                            testColl=testCollO;
-//                            testColl.setLocation( getPose().x-100, getPose().y);
-//                        }
-//                        else
-//                        {
-//                            move(0,-100);
-//                        }
-//                    }
-//                    else
-//                    {
-//                        move(-100,0);
-//                    }
-//                }
-//                else
-//                {
-//                    move(0,100);
-//                }
-//            }
-//            else
-//            {
-//                move(100,0);
-//            }
-//        }
-//
-        moveTo(xmove, ymove);
-//        System.out.println(player.getPose());
-//        System.out.println(getPose());
-
-
+        accelerate( player.getPose().x - getPose().x,
+            player.getPose().y - getPose().y );
+        System.out.println( xVelocity + " " + yVelocity );
+        move();
     }
 
 }

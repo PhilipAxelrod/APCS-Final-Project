@@ -48,7 +48,7 @@ public class GameLoop
 
         final Player player = new Player( new Point2D( 0, 0 ) );
 
-        Skeleton skeleton = new Skeleton( 1, player );
+        Skeleton skeleton = new Skeleton( 1, player, new Point2D( 100, 100 ) );
         skeleton.printStatus();
         player.printStatus();
         System.out.println( player.getWeapon().getAccuracy() );

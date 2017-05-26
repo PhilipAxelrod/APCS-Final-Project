@@ -358,7 +358,8 @@ public class Player extends Combatant
      */
     public void acquire( List<Item> items )
     {
-        inventory.addAll( items );
+        if ( items != null )
+            inventory.addAll( items );
     }
 
 

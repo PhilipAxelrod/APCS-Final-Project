@@ -49,11 +49,11 @@ public class Weapon extends Equipment
      */
     public Weapon()
     {
-        type[0] = 0;
+        type[0] = 1;
         type[1] = 1;
         isMagicDamage = ( type[0] == 1 );
-        might = 3;
-        accuracy = 70;
+        might = generateMight( 1, type );
+        accuracy = generateAccuracy( 1 );
         mightBoosts = new LinkedList<Integer>();
 
         setNormalBoosts( new LinkedList<AttributeBoost>() );
@@ -285,6 +285,5 @@ public class Weapon extends Equipment
     {
         return range;
     }
-
 
 }

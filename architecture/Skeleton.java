@@ -4,6 +4,9 @@ import graphicsUtils.GraphicsInterface;
 
 import java.awt.*;
 
+import com.sun.javafx.geom.Point2D;
+
+
 /**
  * A balanced, physical monster. All stat assumptions are based on this
  * monster's scaling.
@@ -18,20 +21,21 @@ import java.awt.*;
 public class Skeleton extends Monster
 {
     @Override
-    public void render(GraphicsInterface graphicsInterface, Graphics g) {
-        graphicsInterface.loadSprite("skeleton.PNG");
+    public void render( GraphicsInterface graphicsInterface, Graphics g )
+    {
+        graphicsInterface.loadSprite( "skeleton.PNG" );
 
         int thisX = (int)this.getPose().x;
         int thisY = (int)this.getPose().y;
 
-        graphicsInterface.placeImage(
-                "skeleton.PNG",
-                thisX,
-                thisY,
-                WIDTH,
-                HEIGHT,
-                g );
+        graphicsInterface.placeImage( "skeleton.PNG",
+            thisX,
+            thisY,
+            WIDTH,
+            HEIGHT,
+            g );
     }
+
 
     /**
      * @param level
@@ -42,6 +46,12 @@ public class Skeleton extends Monster
     public Skeleton( int level, Player player )
     {
         super( level, player );
+    }
+
+
+    public Skeleton( int level, Player player, Point2D loc )
+    {
+        super( level, player, loc );
     }
 
 

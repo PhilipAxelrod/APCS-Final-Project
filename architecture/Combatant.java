@@ -31,7 +31,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public int HEIGHT = WIDTH;
 
-    private int xVelocity = 0, yVelocity = 0;
+    public int xVelocity = 0, yVelocity = 0;
 
     public Room currRoom;
 
