@@ -10,7 +10,7 @@ public class GameState
 {
     public final Cell[][] cells;
 
-    public final List<Combatant> combatants;
+    public final List<Monster> monsters;
 
     public final Player player;
 
@@ -24,14 +24,14 @@ public class GameState
 
     public GameState(
         Cell[][] cells,
-        List<Combatant> combatants,
+        List<Monster> monsters,
         Player player,
         List<Chest> chests,
         int cellLength,
         Rectangle portal)
     {
         this.cells = cells;
-        this.combatants = combatants;
+        this.monsters = monsters;
         this.player = player;
         this.chests = chests;
         this.cellLength = cellLength;

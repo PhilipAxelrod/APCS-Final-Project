@@ -362,7 +362,8 @@ public class GraphicsInterface extends JPanel
             renderGrid( gameState.cells, gameState.cellLength, g );
 
             gameState.chests.forEach( chest -> renderChest( chest, g ) );
-            gameState.combatants.forEach( combatant -> combatant.render(this, g));
+            gameState.monsters.forEach(monster -> monster.render(this, g));
+            gameState.player.render(this, g);
 
             renderWeapon(
                 gameState.player.getWeapon(),

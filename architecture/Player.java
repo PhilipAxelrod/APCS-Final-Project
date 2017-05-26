@@ -48,14 +48,16 @@ public class Player extends Combatant
             g );
 
         double fractionOfMana = getMana() / getStats()[1];
-        graphicsInterface.loadSprite( "manabar.png" );
-        // health bar
-        graphicsInterface.placeImage( "manabar.png",
-            thisX,
-            thisY - HEIGHT / 4,
-            (int)( WIDTH * fractionOfMana ),
-            10,
-            g );
+        graphicsInterface.loadSprite("manabar.png");
+        // mana bar
+        graphicsInterface.placeImage(
+                "manabar.png",
+                thisX,
+                thisY - HEIGHT / 4,
+                (int) (WIDTH * fractionOfMana),
+                10,
+                g
+        );
 
     }
 

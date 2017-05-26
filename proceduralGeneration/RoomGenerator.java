@@ -112,6 +112,7 @@ public class RoomGenerator
 
     public List<Monster> createEnemies(int floor, int cellLength, Player player) {
         int numEnemies = floor * 2;
+        System.out.println("making " + numEnemies  + "enemies");
         List<Monster> ret = new ArrayList<>();
         for (int i = 0; i < numEnemies; i++) {
             // TODO: enemy distribution
@@ -329,8 +330,8 @@ public class RoomGenerator
                 Cell cell = cells[c][r];
                 if ( !cell.isAlive )
                 {
-                    System.out.println( "adding forbidden cell at:" );
-                    System.out.println( cell );
+//                    System.out.println( "adding forbidden cell at:" );
+//                    System.out.println("cell:" + cell );
                     walls.add( new Rectangle(
                         cell.x * lengthOfCell,
                         cell.y * lengthOfCell,
@@ -362,7 +363,8 @@ public class RoomGenerator
     }
     public Room generateRoom(int floor, int cellLength, Player player) {
         killAllCells();
-        // TODO: More intelligent stuff
+
+        // ensure there are enough seeds so that there are no islands
         plantRandomSeed(rows * rows / 5);
 
         for (int i = 0; i < 500; i++) {

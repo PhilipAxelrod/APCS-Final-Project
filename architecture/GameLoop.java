@@ -13,25 +13,25 @@ import proceduralGeneration.RoomGenerator;
 public class GameLoop
 {
 
-    static int floor = 1;
+    static int floorNum = 1;
 
 
     public static void incrementFloor()
     {
-        floor++;
+        floorNum++;
     }
 
 
-    public static int getFloor()
+    public static int getFloorNum()
     {
-        return floor;
+        return floorNum;
     }
 
 
     public void restartGame()
     {
         // TODO: complete
-        floor = 1;
+        floorNum = 1;
     }
 
 
@@ -43,7 +43,7 @@ public class GameLoop
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
         chests.add( new Chest( 1, new Point2D( 100, 100 ) ) );
-        ArrayList<Combatant> fighters = new ArrayList<Combatant>();
+//        ArrayList<Combatant> fighters = new ArrayList<Combatant>();
         ArrayList<Monster> monsters = new ArrayList<Monster>();
 
         final Player player = new Player( new Point2D( 0, 0 ) );
@@ -53,9 +53,9 @@ public class GameLoop
         player.printStatus();
         System.out.println( player.getWeapon().getAccuracy() );
 
-        fighters.add( skeleton );
-        fighters.add( player );
-        monsters.add( skeleton );
+//        fighters.add( skeleton);
+//        fighters.add( player );
+        monsters.add(skeleton);
 
         RoomGenerator roomGenerator = new RoomGenerator();
 
@@ -86,11 +86,16 @@ public class GameLoop
                 {
                     incrementFloor();
 
-                    player.restoreHealth( player.getStats()[0] / 2 );
-                    System.out.println( "yay, at portal!!!" );
-                    room.assignSelfTo( roomGenerator.generateRoom( floor,
-                        player.WIDTH + 50,
-                        player ) );
+                    player.restoreHealth(player.getStats()[0] / 2);
+                    // TODO: Yes? No?
+                    player.setLevel(player.getLevel() + 1);
+                    System.out.println("yay, at portal!!!");
+                    room.assignSelfTo(
+                            roomGenerator.generateRoom(
+                                    floorNum,
+                                    player.WIDTH + 50,
+                                    player)
+                    );
                 }
                 int xToMoveBy = 0;
                 int yToMoveBy = 0;
@@ -115,13 +120,12 @@ public class GameLoop
                 {
                     if ( player.canAttack )
                     {
-                        fighters.forEach( combatant -> {
-                            if ( player.isInRange( combatant )
-                                && !combatant.equals( player ) )
+                        monsters.forEach( monster -> {
+                            // TODO: remove second clause of if
+                            if ( player.isInRange( monster ) && !monster.equals( player ) )
                             {
-                                player.attack( combatant );
-                                System.out.println( combatant + " health "
-                                    + combatant.getHealth() );
+                                player.attack( monster );
+                                System.out.println( monster + " health " + monster.getHealth() );
                             }
 
                         } );
@@ -138,27 +142,25 @@ public class GameLoop
                     System.out.println( "player died!" );
                     // TODO: show losing screen and restart
                 }
-
                 monsters.removeIf( Monster::isDead );
 
                 // TODO: for testing purposes
                 // player.restoreHealth(player.getStats()[0] / 2);
 
-                // TODO: separate player from Monsters
-                fighters.removeIf( Combatant::isDead );
 
                 player.accelerate( xToMoveBy, yToMoveBy );
                 player.move();
                 room.update();
 
                 // TODO: Make tile width more intelligent
-                graphicsInterface
-                    .setGameState( new GameState( roomGenerator.cells,
-                        fighters,
-                        player,
-                        chests,
-                        player.WIDTH + 50,
-                        room.getPortal() ) );
+                graphicsInterface.setGameState(
+                        new GameState(
+                                roomGenerator.cells,
+                                room.getMonsters(),
+                                player,
+                                chests,
+                                player.WIDTH + 50,
+                                room.getPortal()) );
 
                 graphicsInterface.doRepaint();
 

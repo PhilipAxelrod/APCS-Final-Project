@@ -204,6 +204,8 @@ public abstract class Combatant extends TimerTask implements Renderable
         }
         canAttack = false;
         actionBar = 0;
+//        System.out.println("this:" + this + " attacking: " + defender);
+
         return defender.receiveAttack( stats[2], stats[4], stats[6], this );
     }
 

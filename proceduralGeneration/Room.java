@@ -2,7 +2,6 @@ package proceduralGeneration;
 
 import architecture.Monster;
 import architecture.Player;
-import com.sun.istack.internal.NotNull;
 import com.sun.javafx.geom.Point2D;
 
 import graphicsUtils.GraphicsInterface;
@@ -16,7 +15,7 @@ import architecture.Combatant;
 
 public class Room extends Rectangle
 {
-    public List<Monster> combatants;
+    public List<Monster> monsters;
 
     public List<Chest> chests;
 
@@ -42,7 +41,7 @@ public class Room extends Rectangle
             Player player,
             Cell[][] cells)
     {
-        this.combatants = combatants;
+        this.monsters = combatants;
         this.forbiddenCells = forbiddenCells;
         this.cellWidth = tileWidth;
         this.chests = chests;
@@ -54,7 +53,7 @@ public class Room extends Rectangle
     // get around the fact that java doesn't allow reassigment in
     // anonymous classes
     public void assignSelfTo(Room room){
-        this.combatants = room.combatants;
+        this.monsters = room.monsters;
         this.forbiddenCells = room.forbiddenCells;
         this.cellWidth = room.cellWidth;
         this.chests = room.chests;
@@ -108,15 +107,15 @@ public class Room extends Rectangle
             player.restoreMana(player.getStats()[1] / 2);
         }
 
-        for ( Combatant c : combatants )
+        for ( Combatant c : monsters)
         {
             c.run();
         }
         player.run();
 
-        combatants.removeIf( Combatant::isDead );
+        monsters.removeIf( Combatant::isDead );
 
-        combatants.forEach( combatant -> {
+        monsters.forEach(combatant -> {
             if (inCollision(combatant)) {
                 combatant.resetPoseToPrevios();
             }
@@ -198,9 +197,12 @@ public class Room extends Rectangle
             }
         }
     }
-    
 
-    public static void main( String[] args )
+    public List<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public static void main(String[] args )
     {
         RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
         for ( int i = 0; i < 50; i++ )
