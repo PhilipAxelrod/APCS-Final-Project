@@ -124,28 +124,7 @@ public class Chest
      */
     public List<Item> getContents()
     {
-        isOpened = true;
         return contents;
-    }
-
-
-    /**
-     * Adds the Item, item, to Player's inventory, if item is present.
-     * 
-     * @param item
-     *            item to add
-     * @param player
-     *            the player
-     * @return true if successful, false if unsuccessful
-     */
-    public boolean acquire( Item item, Player player )
-    {
-        if ( contents.remove( item ) )
-        {
-            player.acquire( item );
-            return true;
-        }
-        return false;
     }
 
 
@@ -157,7 +136,7 @@ public class Chest
      */
     public void acquireAll( Player player )
     {
-        player.acquire( contents );
+        player.acquireAll( contents );
         contents.clear();
     }
 

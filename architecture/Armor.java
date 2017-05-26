@@ -254,7 +254,12 @@ public class Armor extends Equipment
         for ( double i : array )
             sum += i;
         return sum;
+    }
 
+
+    public void addDefense( int defense )
+    {
+        this.defense += defense;
     }
 
 }

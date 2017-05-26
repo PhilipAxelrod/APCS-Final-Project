@@ -200,10 +200,12 @@ public class Player extends Combatant
         resetAttributes();
         // Add equippedWeapon boost
         if ( equippedWeapon != null )
+        {
+            System.out.println( "modify" );
             for ( int i = 0; i < 7; i++ )
                 getModifiedAttributes()[i] += equippedWeapon
                     .getTotalBoosts()[i];
-
+        }
         // Add equippedArmor boosts
         for ( Armor armor : equippedArmor )
             if ( armor != null )
@@ -251,6 +253,39 @@ public class Player extends Combatant
         else
             getStats()[4] += 80;
 
+    }
+
+
+    /**
+     * Adds all items to Player's inventory.
+     * 
+     * @param player
+     *            the player
+     */
+    public void acquireAll( List<Item> contents )
+    {
+        for ( Item item : contents )
+        {
+            if ( item instanceof Weapon )
+            {
+                equippedWeapon.addBoost( new AttributeBoost( 1, 2 ) );
+                equippedWeapon.addBoost( new AttributeBoost( /**/4, 1 ) );
+            }
+            else if ( item instanceof Armor )
+            {
+                Armor armor = (Armor)( item );
+                equippedArmor[armor.getType()].addDefense( 2 );
+                equippedArmor[armor.getType()]
+                    .addBoost( new AttributeBoost( /* spd */4, 1 ) );
+            }
+            else if ( item instanceof Potion )
+            {
+                restoreHealth( getStats()[0] / 2 );
+            }
+            printStatus();
+            updateAttributes();
+        }
+        contents.clear();
     }
 
 
@@ -326,18 +361,6 @@ public class Player extends Combatant
 
             updateAttributes();
         }
-    }
-
-
-    /**
-     * Returns an equipped ring back to the inventory
-     * 
-     * @param slot
-     *            the ring slot from which to remove
-     */
-    public void unEquipRing( int slot )
-    {
-        // TODO complete
     }
 
 
@@ -438,6 +461,15 @@ public class Player extends Combatant
             topLeftCorner.y,
             chest.getPose().x,
             chest.getPose().y ) <= 100 );
+    }
+
+
+    /**
+     * @return Returns the equippedArmor.
+     */
+    public Armor[] getEquippedArmor()
+    {
+        return equippedArmor;
     }
 
 }

@@ -29,9 +29,9 @@ public abstract class Monster extends Combatant
     // [nominal potion, armor, weapon, accessory]
     /**
      * The relative probabilities of the type of item appearing on a monster.
-     * Expressed in the order: [potion, armor, weapon, accessory].
+     * Expressed in the order: [potion, armor, weapon].
      */
-    private static final double[] itemDistribution = { 12, 5, 1 };
+    private static final double[] itemDistribution = { 1, 1, 1 };
 
     /**
      * The probability that another item is added to the items of the Monster.
@@ -192,7 +192,7 @@ public abstract class Monster extends Combatant
     public void death()
     {
         // Awards exp to the player equal to 100 / 6 * (1.5 ^ level)
-        player.acquire( items );
+        player.acquireAll( items );
         player.gainExp( exp );
     }
 
