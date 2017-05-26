@@ -1,7 +1,7 @@
 package testClasses;
 
-import architecture.Monster;
-import architecture.Skeleton;
+import architecture.augmentations.Monster;
+import architecture.characters.Skeleton;
 
 public class MonsterDistributionTester
 {

@@ -2,9 +2,8 @@ package JUnitTests;
 
 import static org.junit.Assert.*;
 
+import architecture.augmentations.Armor;
 import org.junit.Test;
-
-import architecture.*;
 
 
 /**

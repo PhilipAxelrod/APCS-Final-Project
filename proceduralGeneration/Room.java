@@ -1,7 +1,7 @@
 package proceduralGeneration;
 
-import architecture.Monster;
-import architecture.Player;
+import architecture.augmentations.Monster;
+import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 
 import graphicsUtils.GraphicsInterface;
@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import architecture.Chest;
-import architecture.Combatant;
+import architecture.augmentations.Chest;
+import architecture.characters.Combatant;
 
 
 public class Room extends Rectangle
@@ -104,8 +104,8 @@ public class Room extends Rectangle
     {
         if (portal.intersects(player.getBoundingBox())) {
             System.out.println("yay, reached portal");
-            player.restoreHealth(player.getStats()[0] / 2);
-            player.restoreMana(player.getStats()[1] / 2);
+            player.restoreHealth(player.getStats().getHP() / 2);
+            player.restoreMana(player.getStats().getMana() / 2);
         }
 
         for ( Combatant c : monsters)
@@ -118,12 +118,15 @@ public class Room extends Rectangle
 
         monsters.forEach(combatant -> {
             if (inCollision(combatant)) {
+
                 combatant.resetPoseToPrevios();
             }
+            combatant.stop();
         });
 
         if (inCollision(player)) {
             player.resetPoseToPrevios();
+            player.stop();
         }
 
     }

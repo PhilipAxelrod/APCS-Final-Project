@@ -1,9 +1,9 @@
 package testClasses;
 
-import architecture.CombatResult;
-import architecture.Monster;
-import architecture.Player;
-import architecture.Skeleton;
+import architecture.characters.CombatResult;
+import architecture.augmentations.Monster;
+import architecture.characters.Player;
+import architecture.characters.Skeleton;
 
 
 public class CombatSimulationTester

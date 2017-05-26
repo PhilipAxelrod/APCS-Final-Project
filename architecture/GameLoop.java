@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import architecture.augmentations.Chest;
+import architecture.augmentations.Monster;
+import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
 import proceduralGeneration.Room;
@@ -38,16 +41,11 @@ public class GameLoop
     public static void main( String[] args )
     {
         Timer timer = new Timer();
-        ArrayList<Monster> monsters = new ArrayList<Monster>();
 
         final Player player = new Player( new Point2D( 0, 0 ) );
 
-        Skeleton skeleton = new Skeleton( 1, player, new Point2D( 100, 100 ) );
-        monsters.add(skeleton);
-
-        skeleton.printStatus();
         player.printStatus();
-        System.out.println( player.getWeapon().getAccuracy() );
+//        System.out.println( player.getWeapon().getAccuracy() );
 
 
         RoomGenerator roomGenerator = new RoomGenerator();
@@ -63,28 +61,32 @@ public class GameLoop
             player.WIDTH + 50,
             player );
 
-        System.out.println( "just scheduled!" );
+//        System.out.println( "just scheduled!" );
 
         final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
         TimerTask task = new TimerTask()
         {
 
+            double startTime = System.currentTimeMillis();
+            int iter = 0;
             @Override
             public void run()
             {
-                System.out.println("player health: " + player.getHealth());
+//                System.out.println("player health: " + player.getHealth());
 
                 graphicsInterface.requestFocus();
 
                 if ( room.atPortal() )
                 {
+                    player.stop();
+
                     incrementFloor();
 
-                    player.restoreHealth(player.getStats()[0] / 2);
+                    player.restoreHealth(player.getStats().getHP() / 2);
 
                     player.setLevel(player.getLevel() + 1);
-                    System.out.println("yay, at portal!!!");
+//                    System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
                             roomGenerator.generateRoom(
                                     floorNum,
@@ -115,12 +117,17 @@ public class GameLoop
                 {
                     if ( player.canAttack )
                     {
-                        monsters.forEach( monster -> {
+                        player.getStats().setACC(101);
+                        // TODO: this doesn't actually work
+                        room.monsters.forEach( monster -> {
                             // TODO: remove second clause of if
                             if ( player.isInRange( monster ) && !monster.equals( player ) )
                             {
-                                player.attack( monster );
-                                System.out.println( monster + " health " + monster.getHealth() );
+                                player.restoreHealth(100);
+//                                System.out.println("in range");
+                                player.attack( monster )/*.getDamage()*/;
+//                                System.out.println("result " + player.attack( monster ).getDamage());
+//                                System.out.println( monster + " health " + monster.getHealth() );
                             }
 
                         } );
@@ -134,10 +141,10 @@ public class GameLoop
 
                 if ( player.isDead() )
                 {
-                    System.out.println( "player died!" );
+//                    System.out.println( "player died!" );
                     // TODO: show losing screen and restart
                 }
-                monsters.removeIf( Monster::isDead );
+                room.monsters.removeIf( Monster::isDead );
 
                 // TODO: for testing purposes
                 // player.restoreHealth(player.getStats()[0] / 2);
@@ -158,11 +165,19 @@ public class GameLoop
                                 room.getPortal()) );
 
                 graphicsInterface.doRepaint();
-
+                double currTime = System.currentTimeMillis() / 1000D;
+                double timePassed = currTime - startTime;
+//                System.out.println("tick took: " + timePassed);
+                startTime = currTime;
+                if (timePassed * 1000 >= 15 && iter > 100) {
+                    System.out.println("went over by: " + timePassed * 1000  +  "s. iter"  + iter);
+//                    throw new RuntimeException("went ove 11 ms. Iter: " + iter );
+                }
+                iter = iter + 1;
             }
         };
 
-        timer.scheduleAtFixedRate( task, 0, 100 );
+        timer.scheduleAtFixedRate( task, 0, 10 );
     }
 
 }

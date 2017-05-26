@@ -12,12 +12,11 @@ import javax.swing.JPanel;
 
 import com.sun.javafx.geom.Point2D;
 
-import architecture.Chest;
-import architecture.Combatant;
+import architecture.augmentations.Chest;
+import architecture.characters.Combatant;
 import architecture.GameState;
-import architecture.Weapon;
+import architecture.augmentations.Weapon;
 import proceduralGeneration.Cell;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 public class GraphicsInterface extends JPanel
@@ -369,7 +368,7 @@ public class GraphicsInterface extends JPanel
                 gameState.player.getWeapon(),
                 gameState.player,
                 g );
-//
+
             renderPortal(gameState.portal, gameState.cellLength, g);
 
             for (Chest chest : gameState.chests)

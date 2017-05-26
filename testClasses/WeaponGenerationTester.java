@@ -1,9 +1,5 @@
 package testClasses;
 
-import architecture.AttributeBoost;
-import architecture.Combatant;
-import architecture.Weapon;
-
 
 /**
  * TODO Write a one-sentence summary of your class here. TODO Follow it with

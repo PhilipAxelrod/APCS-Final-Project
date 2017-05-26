@@ -5,7 +5,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import architecture.*;
+import architecture.augmentations.Chest;
+import architecture.augmentations.Monster;
+import architecture.characters.Player;
+import architecture.characters.Skeleton;
 import com.sun.javafx.geom.Point2D;
 
 
@@ -89,7 +92,7 @@ public class RoomGenerator
 
 
 
-    public void spawnPlayer( Player player, int cellLength )
+    public void spawnPlayer(Player player, int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
         if (player == null) {

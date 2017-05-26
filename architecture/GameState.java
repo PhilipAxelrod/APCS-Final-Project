@@ -1,5 +1,8 @@
 package architecture;
 
+import architecture.augmentations.Chest;
+import architecture.augmentations.Monster;
+import architecture.characters.Player;
 import proceduralGeneration.Cell;
 
 import java.awt.*;
