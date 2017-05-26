@@ -148,7 +148,7 @@ public class Weapon extends Equipment
     {
         int accuracyRadius = 5;
         return (int)Math.round(
-            70 + generateVar( accuracyRadius ) + level * accuracyFactor );
+            80 + generateVar( accuracyRadius ) + level * accuracyFactor );
     }
 
 

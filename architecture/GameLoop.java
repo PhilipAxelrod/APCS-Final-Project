@@ -27,15 +27,18 @@ public class GameLoop
         return floor;
     }
 
-    public void restartGame() {
+
+    public void restartGame()
+    {
         // TODO: complete
         floor = 1;
     }
 
+
     public static void main( String[] args )
     {
-//        sun.java2d.opengl=true;
-//        sun.java2d.opengl.
+        // sun.java2d.opengl=true;
+        // sun.java2d.opengl.
         Timer timer = new Timer();
 
         ArrayList<Chest> chests = new ArrayList<Chest>();
@@ -45,11 +48,14 @@ public class GameLoop
 
         final Player player = new Player( new Point2D( 0, 0 ) );
 
-        Skeleton skeleton = new Skeleton(1, player);
+        Skeleton skeleton = new Skeleton( 1, player );
+        skeleton.printStatus();
+        player.printStatus();
+        System.out.println( player.getWeapon().getAccuracy() );
 
-        fighters.add( skeleton);
+        fighters.add( skeleton );
         fighters.add( player );
-        monsters.add(skeleton);
+        monsters.add( skeleton );
 
         RoomGenerator roomGenerator = new RoomGenerator();
 
@@ -59,12 +65,9 @@ public class GameLoop
         }
 
         // TODO: make tile width more intelligent
-        final Room room = roomGenerator.generateRoom(
-                1,
-                player.WIDTH + 50,
-                player);
-
-
+        final Room room = roomGenerator.generateRoom( 1,
+            player.WIDTH + 50,
+            player );
 
         System.out.println( "just scheduled!" );
 
@@ -79,17 +82,15 @@ public class GameLoop
 
                 graphicsInterface.requestFocus();
 
-                if (room.atPortal()) {
+                if ( room.atPortal() )
+                {
                     incrementFloor();
 
-                    player.restoreHealth(player.getStats()[0] / 2);
-                    System.out.println("yay, at portal!!!");
-                    room.assignSelfTo(
-                            roomGenerator.generateRoom(
-                                    floor,
-                                    player.WIDTH + 50,
-                                    player)
-                    );
+                    player.restoreHealth( player.getStats()[0] / 2 );
+                    System.out.println( "yay, at portal!!!" );
+                    room.assignSelfTo( roomGenerator.generateRoom( floor,
+                        player.WIDTH + 50,
+                        player ) );
                 }
                 int xToMoveBy = 0;
                 int yToMoveBy = 0;
@@ -106,19 +107,21 @@ public class GameLoop
                 {
                     xToMoveBy += -20;
                 }
-                if ( graphicsInterface.isArRight())
+                if ( graphicsInterface.isArRight() )
                 {
                     xToMoveBy += 20;
                 }
-                if ( graphicsInterface.isQPressed())
+                if ( graphicsInterface.isQPressed() )
                 {
                     if ( player.canAttack )
                     {
                         fighters.forEach( combatant -> {
-                            if ( player.isInRange( combatant ) && !combatant.equals( player ) )
+                            if ( player.isInRange( combatant )
+                                && !combatant.equals( player ) )
                             {
                                 player.attack( combatant );
-                                System.out.println( combatant + " health " + combatant.getHealth() );
+                                System.out.println( combatant + " health "
+                                    + combatant.getHealth() );
                             }
 
                         } );
@@ -136,27 +139,26 @@ public class GameLoop
                     // TODO: show losing screen and restart
                 }
 
-                monsters.removeIf(Monster::isDead);
+                monsters.removeIf( Monster::isDead );
 
                 // TODO: for testing purposes
-//                player.restoreHealth(player.getStats()[0] / 2);
+                // player.restoreHealth(player.getStats()[0] / 2);
 
                 // TODO: separate player from Monsters
-                fighters.removeIf(Combatant::isDead);
+                fighters.removeIf( Combatant::isDead );
 
                 player.accelerate( xToMoveBy, yToMoveBy );
                 player.move();
                 room.update();
 
                 // TODO: Make tile width more intelligent
-                graphicsInterface.setGameState(
-                        new GameState(
-                                roomGenerator.cells,
-                                fighters,
-                                player,
-                                chests,
-                                player.WIDTH + 50,
-                                room.getPortal()) );
+                graphicsInterface
+                    .setGameState( new GameState( roomGenerator.cells,
+                        fighters,
+                        player,
+                        chests,
+                        player.WIDTH + 50,
+                        room.getPortal() ) );
 
                 graphicsInterface.doRepaint();
 

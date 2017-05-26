@@ -160,7 +160,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         "AVO", "CRIT", "CRITAVO" };
 
     // Constants used to calculate stats from attributes.
-    private static final double healthFactor = 4, manaFactor = 3,
+    protected static final double healthFactor = 4, manaFactor = 3,
                     accuracyFactor = 5, critFactor = 5, baseCrit = 5,
                     damageFactor = .332;
 
@@ -180,7 +180,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 10000000;
+    private static final int actionLimit = 500;
 
 
     public void run()
@@ -202,6 +202,8 @@ public abstract class Combatant extends TimerTask implements Renderable
             System.out.println( "can't attack" );
             return null;
         }
+        canAttack = false;
+        actionBar = 0;
         return defender.receiveAttack( stats[2], stats[4], stats[6], this );
     }
 
@@ -260,7 +262,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
         result.setDamage( damage );
         healthLoss( damage );
-
+        printVitals();
         return result;
     }
 
