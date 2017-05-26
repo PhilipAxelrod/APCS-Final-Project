@@ -88,6 +88,7 @@ public class Room extends Rectangle
                         combatant.WIDTH,
                         combatant.HEIGHT ) )
                 {
+                    combatant.stop();
                     return true;
                 }
             }

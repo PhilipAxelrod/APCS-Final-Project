@@ -35,9 +35,12 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public Room currRoom;
 
-    private static final int ACCELERATION = 12;
+    private static final int TERMINAL_VELOCITY = 200;
 
-    private static final double FRICTION = 0.9;
+    private static final double FRICTION = 0.99;
+
+    private static final double ACCELERATION = TERMINAL_VELOCITY
+        * ( 1 / FRICTION - 1 );
 
 
     public Combatant( Point2D initPose )
@@ -108,8 +111,8 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public void accelerate( float plusX, float plusY )
     {
-        xVelocity += Math.signum(plusX) * ACCELERATION;
-        yVelocity += Math.signum(plusY) * ACCELERATION;
+        xVelocity += Math.signum( plusX ) * ACCELERATION;
+        yVelocity += Math.signum( plusY ) * ACCELERATION;
 
         xVelocity *= FRICTION;
         yVelocity *= FRICTION;
@@ -119,6 +122,13 @@ public abstract class Combatant extends TimerTask implements Renderable
     public void move()
     {
         move( xVelocity, yVelocity );
+    }
+
+
+    public void stop()
+    {
+        xVelocity = 0;
+        yVelocity = 0;
     }
 
     private int level, health, mana;
@@ -600,6 +610,5 @@ public abstract class Combatant extends TimerTask implements Renderable
     {
         currRoom = room;
     }
-
 
 }
