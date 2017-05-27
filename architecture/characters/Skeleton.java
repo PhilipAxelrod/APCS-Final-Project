@@ -47,7 +47,7 @@ public class Skeleton extends Monster
                 10,
                 g );
 
-        double fractionOfMana = (double) (getMana()) / getStats().getMana();
+        double fractionOfMana = (double) (getMana()) / getStats().getMP();
         graphicsInterface.loadSprite("manabar.png");
         // mana bar
         graphicsInterface.placeImage(

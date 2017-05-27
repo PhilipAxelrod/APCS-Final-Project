@@ -28,40 +28,38 @@ public class Player extends Combatant
     @Override
     public void render( GraphicsInterface graphicsInterface, Graphics g )
     {
-        graphicsInterface.loadSprite("ConcretePowderMagenta.png");
+        graphicsInterface.loadSprite( "ConcretePowderMagenta.png" );
 
         int thisX = (int)this.getPose().x;
         int thisY = (int)this.getPose().y;
 
-        graphicsInterface.placeImage("ConcretePowderMagenta.png",
+        graphicsInterface.placeImage( "ConcretePowderMagenta.png",
             thisX,
             thisY,
             WIDTH,
             HEIGHT,
             g );
 
-        double fractionOfHealth =  (double) (getHealth()) / getStats().getHP();
+        double fractionOfHealth = (double)( getHealth() ) / getStats().getHP();
 
-        graphicsInterface.loadSprite("healthbar.png");
+        graphicsInterface.loadSprite( "healthbar.png" );
         // health bar
-        graphicsInterface.placeImage("healthbar.png",
+        graphicsInterface.placeImage( "healthbar.png",
             thisX,
             thisY - HEIGHT / 8,
             (int)( WIDTH * fractionOfHealth ),
             10,
             g );
 
-        double fractionOfMana = (double) (getMana()) / getStats().getMana();
-        graphicsInterface.loadSprite("manabar.png");
+        double fractionOfMana = (double)( getMana() ) / getStats().getMP();
+        graphicsInterface.loadSprite( "manabar.png" );
         // mana bar
-        graphicsInterface.placeImage(
-                "manabar.png",
-                thisX,
-                thisY - HEIGHT / 4,
-                (int) (WIDTH * fractionOfMana),
-                10,
-                g
-        );
+        graphicsInterface.placeImage( "manabar.png",
+            thisX,
+            thisY - HEIGHT / 4,
+            (int)( WIDTH * fractionOfMana ),
+            10,
+            g );
 
     }
 
@@ -104,11 +102,11 @@ public class Player extends Combatant
             equippedArmor[i] = new Armor( 1, i, 1 );
 
         setBaseAttributes( startingAttributes );
+        // printStatus();
         updateAttributes();
         setExpLimit();
         setHealthFull();
         setManaFull();
-        getStats().setACC(101);
     }
 
 
@@ -164,9 +162,9 @@ public class Player extends Combatant
     public void levelUp()
     {
         setLevel( getLevel() + 1 );
-        attributePoints += 5;
+        attributePoints += 1;
         restoreHealth( getStats().getHP() / 2 );
-        restoreMana( getStats().getMana() / 2 );
+        restoreMana( getStats().getMP() / 2 );
 
         exp -= expLimit;
         setExpLimit();
@@ -204,11 +202,14 @@ public class Player extends Combatant
     {
         resetAttributes();
         // Add equippedWeapon boost
-        if ( equippedWeapon != null ) {
-            System.out.println("modify");
-            for (int i = 0; i < 7; i++)
-                getModifiedAttributes()[i] += equippedWeapon.getTotalBoosts()[i];
+
+        if ( equippedWeapon != null )
+        {
+            for ( int i = 0; i < 7; i++ )
+                getModifiedAttributes()[i] += equippedWeapon
+                    .getTotalBoosts()[i];
         }
+        // printStatus();
 
         // Add equippedArmor boosts
         for ( Armor armor : equippedArmor )
@@ -216,39 +217,51 @@ public class Player extends Combatant
                 for ( int i = 0; i < 7; i++ )
                     getModifiedAttributes()[i] += armor.getTotalBoosts()[i];
 
+        // printStatus();
+
         updateStats();
 
     }
 
+
     /**
-          * Adds all items to Player's inventory.
-          *
-          */
-     public void acquireAll( List<Item> contents )
-     {
-            for ( Item item : contents )
-                {
-                            if ( item instanceof Weapon )
-                    {
-                                equippedWeapon.addBoost( new AttributeBoost( 1, 2 ) );
-                    equippedWeapon.addBoost( new AttributeBoost( /**/4, 1 ) );
-                }
-                else if ( item instanceof Armor )
-                    {
-                                Armor armor = (Armor)( item );
-                    equippedArmor[armor.getType()].addDefense( 2 );
-                    equippedArmor[armor.getType()]
-                                .addBoost( new AttributeBoost( /* spd */4, 1 ) );
-                }
-                else if ( item instanceof Potion )
-                    {
-                                restoreHealth( getStats().getHP() / 2 );
-                }
-                printStatus();
-                updateAttributes();
+     * Adds a List of boosts to player equipment OR heals the player.
+     * 
+     * @param contents
+     *            boosts or health recovery
+     *
+     */
+    public void acquireAll( List<Item> contents )
+    {
+        for ( Item item : contents )
+        {
+            if ( item instanceof Weapon )
+            {
+                if ( Math.random() < .5 )
+                    equippedWeapon.addBoost( new AttributeBoost( 1, 1 ) );
+                if ( Math.random() < .5 )
+                    equippedWeapon.addBoost( new AttributeBoost( 5, 1 ) );
             }
-            contents.clear();
+            else if ( item instanceof Armor )
+            {
+                Armor armor = (Armor)( item );
+                equippedArmor[armor.getType()].addDefense( 1 );
+                equippedArmor[armor.getType()]
+                    .addBoost( new AttributeBoost( /* spd */3, 1 ) );
+                if ( Math.random() > 0.5 )
+                    equippedArmor[armor.getType()]
+                        .addBoost( new AttributeBoost( 4, 1 ) );
+            }
+            else if ( item instanceof Potion )
+            {
+                restoreHealth( getStats().getHP() / 2 );
+            }
+            printStatus();
+            updateAttributes();
         }
+        contents.clear();
+    }
+
 
     @Override
     protected void updateStats()
@@ -259,33 +272,34 @@ public class Player extends Combatant
         if ( equippedWeapon != null )
         {
             if ( !equippedWeapon.isMagicDamage() )
-                getStats().ATK += getModifiedAttributes()[0];
+                stats.setATK( stats.getATK() + getModifiedAttributes()[0] );
             else
-                getStats().ATK += getModifiedAttributes()[1];
+                stats.setATK( stats.getATK() + getModifiedAttributes()[1] );
 
-            getStats().ATK += equippedWeapon.getMight();
+            stats.setATK( stats.getATK() + equippedWeapon.getMight() );
         }
         else
-            getStats().ATK += getModifiedAttributes()[0];
+            stats.setATK( getModifiedAttributes()[0] );
 
         // DEF = sumOf(defense of equippedArmor)
         for ( Armor armor : equippedArmor )
             if ( armor != null )
-                getStats().DEF += armor.getDefense();
+                stats.setDEF( stats.getDEF() + armor.getDefense() );
 
         // ACC = (DEX or WIS) * accuracyFactor + ACC(equippedWeapon)
-        getStats().ACC = 0;
         if ( equippedWeapon != null )
         {
-            getStats().DEF = equippedWeapon.getAccuracy();
+            stats.setACC( equippedWeapon.getAccuracy() );
             if ( equippedWeapon.isMagicDamage() )
-                getStats().DEF += getModifiedAttributes()[2] * accuracyFactor;
+                stats.setACC( (int)Math.round( stats.getACC()
+                    + getModifiedAttributes()[2] * accuracyFactor ) );
             else
-                getStats().DEF += getModifiedAttributes()[5] * accuracyFactor;
+                stats.setACC( (int)Math.round( stats.getACC()
+                    + getModifiedAttributes()[5] * accuracyFactor ) );
         }
         else
-            getStats().DEF += 80;
-
+            stats.setACC( 80 );
+        // printStatus();
     }
 
 
@@ -362,8 +376,6 @@ public class Player extends Combatant
             updateAttributes();
         }
     }
-
-    
 
 
     /**
@@ -465,12 +477,24 @@ public class Player extends Combatant
             chest.getPose().y ) <= 100 );
     }
 
+
     /**
-          * @return Returns the equippedArmor.
-          */
-     public Armor[] getEquippedArmor()
-     {
+     * @return Returns the equippedArmor.
+     */
+    public Armor[] getEquippedArmor()
+    {
         return equippedArmor;
-     }
+    }
+
+
+    @Override
+    public void printStatus()
+    {
+        super.printStatus();
+        for ( AttributeBoost boost : equippedWeapon.getSpecialBoosts() )
+        {
+            System.out.println( boost.getValue() );
+        }
+    }
 
 }

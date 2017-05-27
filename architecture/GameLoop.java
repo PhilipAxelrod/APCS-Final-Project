@@ -85,7 +85,6 @@ public class GameLoop
 
                     player.restoreHealth(player.getStats().getHP() / 2);
 
-                    player.setLevel(player.getLevel() + 1);
 //                    System.out.println("yay, at portal!!!");
                     room.assignSelfTo(
                             roomGenerator.generateRoom(
@@ -117,7 +116,6 @@ public class GameLoop
                 {
                     if ( player.canAttack )
                     {
-                        player.getStats().setACC(101);
                         // TODO: this doesn't actually work
                         room.monsters.forEach( monster -> {
                             // TODO: remove second clause of if

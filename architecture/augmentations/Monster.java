@@ -39,7 +39,7 @@ public abstract class Monster extends Combatant
     /**
      * The probability that another item is added to the items of the Monster.
      */
-    private static final double dropVariable = 2.0 / 3.0;
+    private static final double dropVariable = .5;
 
     private int exp;
 
@@ -183,7 +183,7 @@ public abstract class Monster extends Combatant
         intelligence();
         if ( canAttack && distance <= getRange() && !player.isDead() )
         {
-//             System.out.println( "player attacked!" );
+            // System.out.println( "player attacked!" );
             attack( player );
             // canAttack = false;
         }
@@ -214,21 +214,22 @@ public abstract class Monster extends Combatant
         super.updateStats();
         // ATK = (STR or INT) + level
         if ( !isMagicDamage() )
-            getStats().setATK(getModifiedAttributes()[0] + getLevel());
+            getStats().setATK( getModifiedAttributes()[0] + getLevel() );
 
         else // (isMagicDamage())
-            getStats().setATK(getModifiedAttributes()[1] + getLevel());
+            getStats().setATK( getModifiedAttributes()[1] + getLevel() );
 
         // DEF = (level + 2) * defenseFactor
-        getStats().setDEF((int)Math
-            .round( ( getLevel() + 2 ) * defenseFactor() - 4 ));
+        getStats().setDEF(
+            (int)Math.round( ( getLevel() + 2 ) * defenseFactor() - 4 ) );
 
         // ACC = ((DEX or WIS) + level) * 4 + LUK + 75
         if ( !isMagicDamage() )
-            getStats().setACC((getModifiedAttributes()[3] + getLevel() ) * 4 + getBaseAttributes()[6] + 75);
+            getStats().setACC( ( getModifiedAttributes()[3] + getLevel() ) * 4
+                + getBaseAttributes()[6] + 75 );
         else // (isMagicDamage())
             getStats().setACC( ( getModifiedAttributes()[5] + getLevel() ) * 4
-                + getModifiedAttributes()[6] + 75);
+                + getModifiedAttributes()[6] + 75 );
     }
 
 
@@ -315,10 +316,9 @@ public abstract class Monster extends Combatant
 
     public void intelligence()
     {
-        accelerate(
-                player.getPose().x - getPose().x,
+        accelerate( player.getPose().x - getPose().x,
             player.getPose().y - getPose().y );
-//        System.out.println( xVelocity + " " + yVelocity );
+        // System.out.println( xVelocity + " " + yVelocity );
         move();
     }
 

@@ -34,11 +34,12 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public Room currRoom;
 
-    private static final int TERMINAL_VELOCITY = 125;
+    private static final int TERMINAL_VELOCITY = 50;
 
-    private static final double FRICTION = 0.90;
+    private static final double FRICTION = 0.95;
 
-    private static final double ACCELERATION = TERMINAL_VELOCITY * ( 1 / FRICTION - 1 ) / 10D;
+    private static final double ACCELERATION = TERMINAL_VELOCITY
+        * ( 1 / FRICTION - 1 ) / 10D;
 
 
     public Combatant( Point2D initPose )
@@ -119,7 +120,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public void move()
     {
-        move( (float) xVelocity, (float) yVelocity );
+        move( (float)xVelocity, (float)yVelocity );
     }
 
 
@@ -137,7 +138,7 @@ public abstract class Combatant extends TimerTask implements Renderable
     private int[] modifiedAttributes = new int[7];
 
     // [HP, mana, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
-    private Stats stats = new Stats();
+    protected Stats stats = new Stats();
 
     private int actionBar = 0;
 
@@ -154,7 +155,7 @@ public abstract class Combatant extends TimerTask implements Renderable
     /**
      * Abbreviated codes for each stat, in order of storage.
      */
-    public static final String[] statNames = { "HP", "mana", "ATK", "DEF", "ACC",
+    public static final String[] statNames = { "HP", "MP", "ATK", "DEF", "ACC",
         "AVO", "CRIT", "CRITAVO" };
 
     // Constants used to calculate stats from attributes.
@@ -184,11 +185,11 @@ public abstract class Combatant extends TimerTask implements Renderable
     public void run()
     {
 
-//        if ( /*actionBar >= actionLimit*/true )
-//            canAttack = true;
+        // if ( /*actionBar >= actionLimit*/true )
+        // canAttack = true;
 
-//        else
-//            actionBar += stats.DEF;
+        // else
+        // actionBar += stats.DEF;
 
     }
 
@@ -197,14 +198,17 @@ public abstract class Combatant extends TimerTask implements Renderable
     {
         if ( !canAttack )
         {
-//            System.out.println( "can't attack" );
+            // System.out.println( "can't attack" );
             return null;
         }
-//        canAttack = false;
+        // canAttack = false;
         actionBar = 0;
-//        System.out.println("this:" + this + " attacking: " + defender);
+        // System.out.println("this:" + this + " attacking: " + defender);
 
-        return defender.receiveAttack( stats.ATK, stats.ACC, stats.CRIT, this );
+        return defender.receiveAttack( stats.getATK(),
+            stats.getACC(),
+            stats.getCRIT(),
+            this );
     }
 
 
@@ -234,7 +238,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         CombatResult result = new CombatResult( attacker, this );
 
         // Test for miss
-        if ( Math.random() * 100 > acc - getStats().AVO )
+        if ( Math.random() * 100 > acc - stats.getAVO() )
         {
             result.setDamage( 0 );
             result.setHit( false );
@@ -244,7 +248,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         result.setHit( true );
 
         // Calculate damage
-        int diff = atk - stats.DEF;
+        int diff = atk - stats.getDEF();
 
         // Generates a random number between the reciprocal of varFactor and
         // varFactor
@@ -254,14 +258,14 @@ public abstract class Combatant extends TimerTask implements Renderable
             .round( Math.pow( damageBase, diff ) * var * atk * damageFactor );
 
         // Test for critical hit.
-        if ( Math.random() * 100 <= crit - stats.CRITAVO )
+        if ( Math.random() * 100 <= crit - stats.getCRITAVO() )
         {
             damage *= 2;
             result.setCritical( true );
         }
 
         result.setDamage( damage );
-//        System.out.println("foo this: " + this + "losing: " + damage);
+        // System.out.println("foo this: " + this + "losing: " + damage);
         healthLoss( damage );
         printVitals();
         return result;
@@ -303,7 +307,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     protected void resetAttributes()
     {
-        modifiedAttributes = baseAttributes;
+        modifiedAttributes = baseAttributes.clone();
     }
 
 
@@ -313,24 +317,25 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     protected void updateStats()
     {
-        stats.setAll(0);
+        stats.setAll( 0 );
 
         // HP = VIT * healthFactor
-        stats.HP = (int)Math.round( baseAttributes[4] * healthFactor );
+        stats.setHP( (int)Math.round( baseAttributes[4] * healthFactor ) );
 
         // mana = WIS * manaFactor
-        stats.mana = (int)Math.round( baseAttributes[5] * manaFactor );
+        stats.setMP( (int)Math.round( baseAttributes[5] * manaFactor ) );
 
         // ATK, DEF, ACC are calculated differently for monsters and players.
 
         // AVO = SPD * speedFactor
-        stats.AVO = (int)Math.round( baseAttributes[3] * accuracyFactor );
+        stats.setAVO( (int)Math.round( baseAttributes[3] * accuracyFactor ) );
 
         // CRIT = LUK * critFactor + baseCrit
-        stats.CRIT = (int)Math.round( baseAttributes[6] * critFactor + baseCrit );
+        stats.setCRIT(
+            (int)Math.round( baseAttributes[6] * critFactor + baseCrit ) );
 
         // CRITAVO = LUK * critFactor
-        stats.CRITAVO = (int)Math.round( baseAttributes[6] * critFactor );
+        stats.setCRITAVO( (int)Math.round( baseAttributes[6] * critFactor ) );
 
     }
 
@@ -345,7 +350,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public int restoreHealth( int value )
     {
-        int missingHealth = stats.HP - health;
+        int missingHealth = stats.getHP() - health;
 
         if ( value < missingHealth )
         {
@@ -367,12 +372,13 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public void setHealthFull()
     {
-        health = stats.HP;
+        health = stats.getHP();
     }
 
 
     /**
-     * Restores mana to the combatant. Mana must remain under mana stat (max mana).
+     * Restores mana to the combatant. Mana must remain under mana stat (max
+     * mana).
      * 
      * @param value
      *            mana to restore
@@ -380,7 +386,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public int restoreMana( int value )
     {
-        int missingMana = stats.mana - mana;
+        int missingMana = stats.getMP() - mana;
 
         if ( value < missingMana )
         {
@@ -402,7 +408,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public int setManaFull()
     {
-        return mana = stats.mana;
+        return mana = stats.getMP();
     }
 
 
@@ -566,31 +572,32 @@ public abstract class Combatant extends TimerTask implements Renderable
 
 
     /**
-     * Prints a summary of Monster's type, level, HP, mana, attributes, and stats.
+     * Prints a summary of Monster's type, level, HP, mana, attributes, and
+     * stats.
      */
     public void printStatus()
     {
-//        String divider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
-//
-//        System.out.println( this + " Lv. " + getLevel() );
-//        System.out.println( "HP: " + getHealth() + "/" + getStats().HP + " mana: "
-//            + getMana() + "/" + getStats().mana );
-//
-//        System.out.println( "Attributes" );
-//        for ( int j = 0; j < 7; j++ )
-//        {
-//            System.out.print( Combatant.attributeNames[j] + " "
-//                + getBaseAttributes()[j] + " " );
-//        }
-//
-//        System.out.println( "\nStats" );
-////        for ( int j = 0; j < Combatant.statNames.length; j++ )
-////        {
-////            System.out
-////                .print( Combatant.statNames[j] + " " + getStats()[j] + " " );
-////        }
-//
-//        System.out.println( "\n" + divider );
+        String divider = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+        System.out.println( this + " Lv. " + getLevel() );
+        System.out.println( "HP: " + getHealth() + "/" + stats.getHP()
+            + " mana: " + getMana() + "/" + stats.getMP() );
+
+        System.out.println( "Attributes" );
+        for ( int j = 0; j < 7; j++ )
+        {
+            System.out.print( Combatant.attributeNames[j] + " "
+                + getBaseAttributes()[j] + " (" + getModifiedAttributes()[j] + ") " );
+        }
+
+        System.out.println( "\nStats" );
+        for ( int j = 0; j < Combatant.statNames.length; j++ )
+        {
+            System.out.print(
+                Combatant.statNames[j] + " " + stats.getStats()[j] + " " );
+        }
+
+        System.out.println( "\n" + divider );
     }
 
 
@@ -601,10 +608,11 @@ public abstract class Combatant extends TimerTask implements Renderable
     {
         String divider = "~~~~~~~~~~~";
 
-//        System.out.println( this + " Lv. " + getLevel() );
-//        System.out.println( "HP: " + getHealth() + "/" + getStats().HP + " mana: "
-//            + getMana() + "/" + getStats().mana);
-//        System.out.println( divider );
+        // System.out.println( this + " Lv. " + getLevel() );
+        // System.out.println( "HP: " + getHealth() + "/" + getStats().HP + "
+        // mana: "
+        // + getMana() + "/" + getStats().mana);
+        // System.out.println( divider );
     }
 
 

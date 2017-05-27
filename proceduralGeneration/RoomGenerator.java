@@ -35,7 +35,7 @@ public class RoomGenerator
             for ( int j = 0; j < cells[0].length; j++ )
             {
                 cells[i][j] = new Cell( i, j );
-//                cells[i][j].isAlive = true;
+                // cells[i][j].isAlive = true;
             }
         }
     }
@@ -53,12 +53,13 @@ public class RoomGenerator
 
     public RoomGenerator()
     {
-        this( Arrays.<Point> asList(
-                new Point( center.x - 1, center.y ),
-                center,
-                new Point( center.x + 1, center.y ),
-                new Point( center.x + 2, center.y )/*,
-                new Point( center.x + 3, center.y )*/));
+        this( Arrays.<Point> asList( new Point( center.x - 1, center.y ),
+            center,
+            new Point( center.x + 1, center.y ),
+            new Point( center.x + 2,
+                center.y )/*
+                           * , new Point( center.x + 3, center.y )
+                           */ ) );
     }
 
 
@@ -71,11 +72,11 @@ public class RoomGenerator
      */
     private boolean simulationRule( int numAlive, Cell currCell )
     {
-        if ((numAlive == 8 ||  numAlive == 3) && !currCell.isAlive )
+        if ( ( numAlive == 8 || numAlive == 3 ) && !currCell.isAlive )
         {
             return true;
         }
-        return currCell.isAlive && numAlive <= 9/*6 */&& numAlive >= 1;
+        return currCell.isAlive && numAlive <= 9/* 6 */ && numAlive >= 1;
     }
 
 
@@ -85,72 +86,90 @@ public class RoomGenerator
         updateQueuedStates();
     }
 
-    private Cell getRandomAvailibleCell() {
+
+    private Cell getRandomAvailibleCell()
+    {
         int randomIndex = (int)( Math.random() * aliveAvailibleCells.size() );
-        return aliveAvailibleCells.get(randomIndex);
+        return aliveAvailibleCells.get( randomIndex );
     }
 
 
-
-    public void spawnPlayer(Player player, int cellLength )
+    public void spawnPlayer( Player player, int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
-        if (player == null) {
-            System.out.println("about to spawn null player");
+        if ( player == null )
+        {
+            System.out.println( "about to spawn null player" );
         }
-        player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength);
-        aliveAvailibleCells.remove(randomCell);
+        player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength );
+        aliveAvailibleCells.remove( randomCell );
 
     }
 
-    public void spawnEnemies(List<Monster> combatants, int cellLength) {
-        combatants.forEach(enemy -> {
+
+    public void spawnEnemies( List<Monster> combatants, int cellLength )
+    {
+        combatants.forEach( enemy -> {
             Cell randomCell = getRandomAvailibleCell();
-            enemy.moveTo( randomCell.x * cellLength, randomCell.y * cellLength);
+            enemy.moveTo( randomCell.x * cellLength,
+                randomCell.y * cellLength );
 
             // make sure that no 2 enemies spawn in the same place
-            aliveAvailibleCells.remove(randomCell);
-        });
+            aliveAvailibleCells.remove( randomCell );
+        } );
     }
 
-    public List<Monster> createEnemies(int floor, int cellLength, Player player) {
+
+    public List<Monster> createEnemies(
+        int floor,
+        int cellLength,
+        Player player )
+    {
         int numEnemies = floor * 2;
-        System.out.println("making " + numEnemies  + "enemies");
+        System.out.println( "making " + numEnemies + "enemies" );
         List<Monster> ret = new LinkedList<>();
-        for (int i = 0; i < numEnemies; i++) {
+        for ( int i = 0; i < numEnemies; i++ )
+        {
             // TODO: enemy distribution
-            ret.add(new Skeleton(floor, player ));
-         }
-         spawnEnemies(ret, cellLength);
-         return ret;
-    }
-
-    public List<Chest> createChests(int floor, int cellLength) {
-        int numChests = (int) (1.5 * floor);
-        List<Chest> ret = new LinkedList<>();
-        for (int i = 0; i < numChests; i++) {
-            // TODO: enemy distribution
-            Cell randomAliveCell = getRandomAvailibleCell();
-            Chest chest = new Chest(
-                    floor,
-                    new Point2D(randomAliveCell.x * cellLength, randomAliveCell.y * cellLength)
-            );
-            ret.add(chest);
-            aliveAvailibleCells.remove(randomAliveCell);
+            ret.add( new Skeleton( floor, player ) );
         }
-        System.out.println("making " + numChests + " chests at" + ret.get(0).getPose());
+        spawnEnemies( ret, cellLength );
         return ret;
     }
 
-//    public void spawn
 
-    public Rectangle getPortal(int cellLength) {
-        Cell randomCell = getRandomAvailibleCell();
-        Rectangle portal = new Rectangle(randomCell.x * cellLength, randomCell.y * cellLength, cellLength, cellLength);
-        aliveAvailibleCells.remove(randomCell);
-        return portal;
+    public List<Chest> createChests( int floor, int cellLength )
+    {
+        int numChests = (int)( 1.5 * floor );
+        List<Chest> ret = new LinkedList<>();
+        for ( int i = 0; i < numChests; i++ )
+        {
+            // TODO: enemy distribution
+            Cell randomAliveCell = getRandomAvailibleCell();
+            Chest chest = new Chest( floor,
+                new Point2D( randomAliveCell.x * cellLength,
+                    randomAliveCell.y * cellLength ) );
+            ret.add( chest );
+            aliveAvailibleCells.remove( randomAliveCell );
+        }
+        System.out.println(
+            "making " + numChests + " chests at" + ret.get( 0 ).getPose() );
+        return ret;
     }
 
+
+    // public void spawn
+
+    public Rectangle getPortal( int cellLength )
+    {
+        Cell randomCell = getRandomAvailibleCell();
+        Rectangle portal = new Rectangle( randomCell.x * cellLength,
+            randomCell.y * cellLength,
+            cellLength,
+            cellLength );
+        aliveAvailibleCells.remove( randomCell );
+        return portal;
+    }
 
 
     private void updateFutureRoomCellStates()
@@ -292,8 +311,8 @@ public class RoomGenerator
 
 
     /**
-     * split a list of forbiddenCells into a hashtable of point keys and forbiddenCells of the
-     * "tile"
+     * split a list of forbiddenCells into a hashtable of point keys and
+     * forbiddenCells of the "tile"
      * 
      * @param walls
      * @return
@@ -333,12 +352,13 @@ public class RoomGenerator
 
     private boolean alive( Optional<Cell> toCheck )
     {
-        return toCheck.map(cell -> cell.isAlive).orElse(false);
+        return toCheck.map( cell -> cell.isAlive ).orElse( false );
     }
 
 
     // length in pixels
-    public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(final int lengthOfCell )
+    public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(
+        final int lengthOfCell )
     {
         ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 
@@ -350,10 +370,9 @@ public class RoomGenerator
                 Cell cell = cells[c][r];
                 if ( !cell.isAlive )
                 {
-//                    System.out.println( "adding forbidden cell at:" );
-//                    System.out.println("cell:" + cell );
-                    walls.add( new Rectangle(
-                        cell.x * lengthOfCell,
+                    // System.out.println( "adding forbidden cell at:" );
+                    // System.out.println("cell:" + cell );
+                    walls.add( new Rectangle( cell.x * lengthOfCell,
                         cell.y * lengthOfCell,
                         lengthOfCell,
                         lengthOfCell ) );
@@ -364,42 +383,53 @@ public class RoomGenerator
         return segment( walls, /* HashTileGridLength */1, lengthOfCell );
     }
 
+
     /**
      * used when creating new room
      */
-    private void killAllCells() {
-        for (Cell[] row : cells) {
-            for (Cell cell : row) {
+    private void killAllCells()
+    {
+        for ( Cell[] row : cells )
+        {
+            for ( Cell cell : row )
+            {
                 cell.isAlive = false;
                 cell.willBeAlive = null;
             }
         }
     }
 
-    private void plantRandomSeed(int numSeeds) {
-        for (int i = 0; i < numSeeds; i++) {
+
+    private void plantRandomSeed( int numSeeds )
+    {
+        for ( int i = 0; i < numSeeds; i++ )
+        {
             getRandomAvailibleCell().isAlive = true;
         }
     }
-    public Room generateRoom(int floor, int cellLength, Player player) {
+
+
+    public Room generateRoom( int floor, int cellLength, Player player )
+    {
         killAllCells();
+        // player.printStatus();
 
         // ensure there are enough seeds so that there are no islands
-        plantRandomSeed(rows * rows / 5);
+        plantRandomSeed( rows * rows / 5 );
 
-        for (int i = 0; i < 500; i++) {
+        for ( int i = 0; i < 500; i++ )
+        {
             runSimulation();
         }
 
-        spawnPlayer(player, cellLength);
-        return new Room(
-                createEnemies(floor, cellLength, player),
-                getForbiddenRectangles(cellLength),
-                cellLength,
-                createChests(floor, cellLength),
-                getPortal(cellLength),
-                player,
-                cells);
+        spawnPlayer( player, cellLength );
+        return new Room( createEnemies( floor, cellLength, player ),
+            getForbiddenRectangles( cellLength ),
+            cellLength,
+            createChests( floor, cellLength ),
+            getPortal( cellLength ),
+            player,
+            cells );
 
     }
 }

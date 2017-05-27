@@ -88,8 +88,8 @@ public class Armor extends Equipment
         defense = generateDefense( level, type, material );
         defenseBoosts = generateDefenseBoosts( level );
 
-        setNormalBoosts( generateNormalBoosts( level, material ) );
-        setSpecialBoosts( generateSpecialBoosts( level ) );
+        setNormalBoosts( new LinkedList<AttributeBoost>() );
+        setSpecialBoosts( new LinkedList<AttributeBoost>() );
 
         initializeBoosts();
 
@@ -143,7 +143,8 @@ public class Armor extends Equipment
         List<Integer> boosts = new LinkedList<Integer>();
 
         while ( Math.random() < factor )
-            boosts.add((int) Math.round(level / 15 + generateVar(boostRadius)));
+            boosts.add(
+                (int)Math.round( level / 15 + generateVar( boostRadius ) ) );
 
         return boosts;
     }
@@ -203,10 +204,12 @@ public class Armor extends Equipment
         return boosts;
     }
 
+
     public void addDefense( int defense )
-     {
+    {
         this.defense += defense;
-     }
+    }
+
 
     @Override
     public String[][] types()

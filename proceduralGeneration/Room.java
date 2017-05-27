@@ -105,7 +105,7 @@ public class Room extends Rectangle
         if (portal.intersects(player.getBoundingBox())) {
             System.out.println("yay, reached portal");
             player.restoreHealth(player.getStats().getHP() / 2);
-            player.restoreMana(player.getStats().getMana() / 2);
+            player.restoreMana(player.getStats().getMP() / 2);
         }
 
         for ( Combatant c : monsters)
