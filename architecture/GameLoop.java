@@ -45,19 +45,19 @@ public class GameLoop
         final Player player = new Player( new Point2D( 0, 0 ) );
 
         player.printStatus();
-//        System.out.println( player.getWeapon().getAccuracy() );
 
 
         RoomGenerator roomGenerator = new RoomGenerator();
 
-        // TODO: thows index out of bounds excpetion when removed
+        // TODO: throws index out of bounds excpetion when removed
         for ( int i = 0; i < 50; i++ )
         {
             roomGenerator.runSimulation();
         }
 
         // TODO: make tile width more intelligent
-        final Room room = roomGenerator.generateRoom( 1,
+        final Room room = roomGenerator.generateRoom(
+                1,
             player.WIDTH + 50,
             player );
 

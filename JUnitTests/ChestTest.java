@@ -7,12 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import architecture.augmentations.Armor;
 import architecture.augmentations.Chest;
 import architecture.augmentations.Item;
 import architecture.augmentations.NominalPotion;
 import architecture.characters.Player;
-import architecture.augmentations.Weapon;
+import architecture.augmentations.weapons.Weapon;
 
 
 /**

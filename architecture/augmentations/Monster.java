@@ -3,6 +3,7 @@ package architecture.augmentations;
 import java.util.LinkedList;
 import java.util.List;
 
+import architecture.augmentations.weapons.Weapon;
 import architecture.characters.Combatant;
 import architecture.characters.Player;
 

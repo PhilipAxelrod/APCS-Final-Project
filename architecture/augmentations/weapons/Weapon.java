@@ -1,4 +1,7 @@
-package architecture.augmentations;
+package architecture.augmentations.weapons;
+
+import architecture.augmentations.AttributeBoost;
+import architecture.augmentations.Equipment;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;

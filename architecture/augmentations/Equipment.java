@@ -30,7 +30,7 @@ public abstract class Equipment implements Item
      */
     private List<AttributeBoost> specialBoosts = new LinkedList<AttributeBoost>();
 
-    private int[] totalBoosts;
+    protected int[] totalBoosts;
 
 
     /**

@@ -15,7 +15,7 @@ import com.sun.javafx.geom.Point2D;
 import architecture.augmentations.Chest;
 import architecture.characters.Combatant;
 import architecture.GameState;
-import architecture.augmentations.Weapon;
+import architecture.augmentations.weapons.Weapon;
 import proceduralGeneration.Cell;
 
 

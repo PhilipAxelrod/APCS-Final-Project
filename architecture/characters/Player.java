@@ -1,6 +1,8 @@
 package architecture.characters;
 
 import architecture.augmentations.*;
+import architecture.augmentations.weapons.Sword;
+import architecture.augmentations.weapons.Weapon;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
 
@@ -95,7 +97,8 @@ public class Player extends Combatant
         setLevel( 1 );
         // Set starting equipment
 
-        equippedWeapon = new Weapon();
+        // TODO: more intelligent weapons?
+        equippedWeapon = new Sword();
 
         for ( int i = 0; i < equippedArmor.length; i++ )
             equippedArmor[i] = new Armor( 1, i, 1 );
@@ -204,8 +207,7 @@ public class Player extends Combatant
         if ( equippedWeapon != null ) {
             System.out.println("modify");
             for (int i = 0; i < 7; i++)
-                getModifiedAttributes()[i] += equippedWeapon
-                        .getTotalBoosts()[i];
+                getModifiedAttributes()[i] += equippedWeapon.getTotalBoosts()[i];
         }
 
         // Add equippedArmor boosts
