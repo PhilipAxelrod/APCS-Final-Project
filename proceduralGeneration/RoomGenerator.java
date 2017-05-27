@@ -119,14 +119,9 @@ public class RoomGenerator
         } );
     }
 
-
-    public List<Monster> createEnemies(
-        int floor,
-        int cellLength,
-        Player player )
-    {
-        int numEnemies = floor * 2;
-        System.out.println( "making " + numEnemies + "enemies" );
+    public List<Monster> createEnemies(int floor, int cellLength, Player player) {
+        int numEnemies = (int) (floor * 1.5);
+        System.out.println("making " + numEnemies  + "enemies");
         List<Monster> ret = new LinkedList<>();
         for ( int i = 0; i < numEnemies; i++ )
         {
@@ -142,8 +137,7 @@ public class RoomGenerator
     {
         int numChests = (int)( 1.5 * floor );
         List<Chest> ret = new LinkedList<>();
-        for ( int i = 0; i < numChests; i++ )
-        {
+        for ( int i = 0; i < numChests; i++ ) {
             // TODO: enemy distribution
             Cell randomAliveCell = getRandomAvailibleCell();
             Chest chest = new Chest( floor,
@@ -179,8 +173,8 @@ public class RoomGenerator
             for ( int col = 0; col < cols; col++ )
             {
                 int aliveNeighbors = getNeighborsAlive( row, col );
-                cells[row][col].willBeAlive = simulationRule( aliveNeighbors,
-                    cells[row][col] );
+                cells[row][col].willBeAlive = Optional.of(
+                        simulationRule( aliveNeighbors, cells[row][col] ));
             }
         }
     }
@@ -188,14 +182,20 @@ public class RoomGenerator
 
     public void updateQueuedStates()
     {
-        LinkedList<Cell> newAliveCells = new LinkedList<Cell>();
-        for ( Cell[] row : cells )
-        {
-            for ( Cell cell : row )
-            {
-                cell.isAlive = cell.willBeAlive;
-                cell.willBeAlive = null;
+        for ( Cell[] row : cells ) {
+            for (Cell cell : row) {
+                cell.isAlive = cell.willBeAlive.orElse(cell.isAlive);
+                cell.willBeAlive = Optional.empty();
+            }
+        }
+        updateAliveAvaibleCells();
+    }
 
+    private void updateAliveAvaibleCells() {
+        LinkedList<Cell> newAliveCells = new LinkedList<Cell>();
+
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
                 if ( cell.isAlive )
                 {
                     newAliveCells.add( cell );
@@ -204,7 +204,6 @@ public class RoomGenerator
         }
         aliveAvailibleCells = newAliveCells;
     }
-
 
     private int getNeighborsAlive( int x, int y )
     {
@@ -267,41 +266,41 @@ public class RoomGenerator
     }
 
 
-    private Optional<Cell> cellAt( int r, int c )
-    {
-        if ( withinHeight( r ) && withinWidth( c ) )
-        {
-            return Optional.of( cells[r][c] );
-        }
-        else
-        {
-            return Optional.empty();
-        }
-    }
+//    private Optional<Cell> cellAt( int r, int c )
+//    {
+//        if ( withinHeight( r ) && withinWidth( c ) )
+//        {
+//            return Optional.of( cells[r][c] );
+//        }
+//        else
+//        {
+//            return Optional.empty();
+//        }
+//    }
 
 
-    public Optional<Cell> above( int r, int c )
-    {
-        return cellAt( r - 1, c );
-    }
-
-
-    public Optional<Cell> right( int r, int c )
-    {
-        return cellAt( r, c + 1 );
-    }
-
-
-    public Optional<Cell> below( int r, int c )
-    {
-        return cellAt( r + 1, c );
-    }
-
-
-    public Optional<Cell> left( int r, int c )
-    {
-        return cellAt( r, c - 1 );
-    }
+//    public Optional<Cell> above( int r, int c )
+//    {
+//        return cellAt( r - 1, c );
+//    }
+//
+//
+//    public Optional<Cell> right( int r, int c )
+//    {
+//        return cellAt( r, c + 1 );
+//    }
+//
+//
+//    public Optional<Cell> below( int r, int c )
+//    {
+//        return cellAt( r + 1, c );
+//    }
+//
+//
+//    public Optional<Cell> left( int r, int c )
+//    {
+//        return cellAt( r, c - 1 );
+//    }
 
 
     static float roundToLowestMultiple( float toRound, int nearest )
@@ -356,6 +355,26 @@ public class RoomGenerator
     }
 
 
+    /**
+     * sets all the cells at the border to be dead to ensure that the player cannot
+     * escape when a live cell is near the border
+     */
+    private void killBorders() {
+        // vertical border
+        for (int col = 0; col < cols; col++) {
+            cells[col][0].willBeAlive = Optional.of(false);
+
+            cells[col][rows - 1].willBeAlive = Optional.of(false);
+        }
+
+        // horizantal borders
+        for (int row = 0; row < rows; row++) {
+            cells[0][row].willBeAlive = Optional.of(false);
+
+            cells[cols - 1][row].willBeAlive = Optional.of(false);
+        }
+        updateQueuedStates();
+    }
     // length in pixels
     public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(
         final int lengthOfCell )
@@ -394,7 +413,7 @@ public class RoomGenerator
             for ( Cell cell : row )
             {
                 cell.isAlive = false;
-                cell.willBeAlive = null;
+                cell.willBeAlive = Optional.empty();
             }
         }
     }
@@ -422,14 +441,16 @@ public class RoomGenerator
             runSimulation();
         }
 
-        spawnPlayer( player, cellLength );
-        return new Room( createEnemies( floor, cellLength, player ),
-            getForbiddenRectangles( cellLength ),
-            cellLength,
-            createChests( floor, cellLength ),
-            getPortal( cellLength ),
-            player,
-            cells );
+        killBorders();
 
+        spawnPlayer(player, cellLength);
+        return new Room(
+                createEnemies(floor, cellLength, player),
+                getForbiddenRectangles(cellLength),
+                cellLength,
+                createChests(floor, cellLength),
+                getPortal(cellLength),
+                player,
+                cells);
     }
 }

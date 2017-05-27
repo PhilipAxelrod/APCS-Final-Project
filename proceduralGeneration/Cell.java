@@ -1,9 +1,13 @@
 package proceduralGeneration;
 
+import org.junit.Test;
+
+import java.util.Optional;
+
 public class Cell
 {
     Boolean isAlive;
-    Boolean willBeAlive = null;
+    Optional<Boolean> willBeAlive = Optional.empty();
 
     final int x;
     final int y;
@@ -18,7 +22,7 @@ public class Cell
         return isAlive;
     }
 
-    public boolean willBeAlive() {
+    public Optional<Boolean> willBeAlive() {
         return willBeAlive;
     }
 

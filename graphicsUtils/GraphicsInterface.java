@@ -2,6 +2,7 @@ package graphicsUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.*;
@@ -38,7 +39,7 @@ public class GraphicsInterface extends JPanel
     KeyEvent e;
     // KeyPress Booleans. Pressed down=True, Not Pressed=False
 
-    private boolean arUp, arRight, arLeft, arDown, qKey = false;
+    private boolean arUp, arRight, arLeft, arDown, qKey, eKey = false;
 
 
     public boolean isArUp()
@@ -206,6 +207,9 @@ public class GraphicsInterface extends JPanel
         {
             qKey = true;
         }
+        if (KeyEvent.getKeyText(keyCode).equals("E")) {
+            eKey = true;
+        }
     }
 
 
@@ -235,9 +239,15 @@ public class GraphicsInterface extends JPanel
         {
             qKey = false;
         }
+        if (KeyEvent.getKeyText(keyCode).equals("E")) {
+            eKey = false;
+        }
 
     }
 
+    public boolean eKey() {
+        return eKey;
+    }
 
     @Override
     public void keyTyped( KeyEvent arg0 )

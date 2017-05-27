@@ -42,31 +42,27 @@ public class GameLoop
     {
         Timer timer = new Timer();
 
-        final Player player = new Player( new Point2D( 0, 0 ) );
-
-        player.printStatus();
-
-
         RoomGenerator roomGenerator = new RoomGenerator();
 
-        // TODO: throws index out of bounds excpetion when removed
         for ( int i = 0; i < 50; i++ )
         {
             roomGenerator.runSimulation();
         }
 
-        // TODO: make tile width more intelligent
-        final Room room = roomGenerator.generateRoom(
-                1,
-            player.WIDTH + 50,
-            player );
-
-//        System.out.println( "just scheduled!" );
 
         final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
         TimerTask task = new TimerTask()
         {
+            // TODO: make tile width more intelligent
+            final Player player = new Player( new Point2D( 0, 0 ) );
+
+            Room room = roomGenerator.generateRoom(
+                    1,
+                    player.WIDTH + 50,
+                    player );
+
+
 
             double startTime = System.currentTimeMillis();
             int iter = 0;
@@ -86,11 +82,10 @@ public class GameLoop
                     player.restoreHealth(player.getStats().getHP() / 2);
 
 //                    System.out.println("yay, at portal!!!");
-                    room.assignSelfTo(
-                            roomGenerator.generateRoom(
-                                    floorNum,
-                                    player.WIDTH + 50,
-                                    player)
+                    room = roomGenerator.generateRoom(
+                            floorNum,
+                            player.WIDTH + 50,
+                            player
                     );
                 }
                 int xToMoveBy = 0;
@@ -121,7 +116,6 @@ public class GameLoop
                             // TODO: remove second clause of if
                             if ( player.isInRange( monster ) && !monster.equals( player ) )
                             {
-                                player.restoreHealth(100);
 //                                System.out.println("in range");
                                 player.attack( monster )/*.getDamage()*/;
 //                                System.out.println("result " + player.attack( monster ).getDamage());
@@ -135,6 +129,10 @@ public class GameLoop
                         if ( player.canOpen( chest ) )
                             chest.acquireAll( player );
                     }
+                }
+
+                if (graphicsInterface.eKey()) {
+                    player.restoreHealth(100);
                 }
 
                 if ( player.isDead() )

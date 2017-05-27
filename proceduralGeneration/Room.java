@@ -53,6 +53,7 @@ public class Room extends Rectangle
 
     // get around the fact that java doesn't allow reassigment in
     // anonymous classes
+    // TODO: remove
     public void assignSelfTo(Room room){
         this.monsters = room.monsters;
         this.forbiddenCells = room.forbiddenCells;
