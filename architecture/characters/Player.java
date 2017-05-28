@@ -30,7 +30,8 @@ import java.util.List;
 public class Player extends Combatant implements Updateable
 {
     @Override
-    public void update(GraphicsInterface graphicsInterface, Room room) {
+    public void update( GraphicsInterface graphicsInterface, Room room )
+    {
         run();
         int xToMoveBy = 0;
         int yToMoveBy = 0;
@@ -50,8 +51,9 @@ public class Player extends Combatant implements Updateable
         {
             xToMoveBy += 20;
         }
-        if (graphicsInterface.eKey()) {
-            restoreHealth(100);
+        if ( graphicsInterface.eKey() )
+        {
+            restoreHealth( 100 );
         }
         if ( graphicsInterface.isQPressed() )
         {
@@ -60,8 +62,9 @@ public class Player extends Combatant implements Updateable
             {
                 getWeapon().rotate(360);
 
+
                 room.monsters.forEach( monster -> {
-                    if ( isInRange( monster ))
+                    if ( isInRange( monster ) )
                     {
                         attack( monster );
                     }
@@ -74,16 +77,18 @@ public class Player extends Combatant implements Updateable
             }
         }
 
-
         accelerate( xToMoveBy, yToMoveBy );
         move();
         getWeapon().updateRotation();
     }
 
+
     @Override
-    public void attack(Combatant defender) {
-        super.attack(defender);
+    public void attack( Combatant defender )
+    {
+        super.attack( defender );
     }
+
 
     @Override
     public void render( GraphicsInterface graphicsInterface, Graphics g )
@@ -123,14 +128,15 @@ public class Player extends Combatant implements Updateable
             g );
 
         double fractionOfAction = (double) (getActionBar()) / actionLimit;
+
         // mana bar
         graphicsInterface.loadSprite( "actionbar.png" );
         graphicsInterface.placeImage( "actionbar.png",
-                thisX,
-                thisY - 3 * HEIGHT / 8,
-                (int)( WIDTH * fractionOfAction ),
-                10,
-                g );
+            thisX,
+            thisY - 3 * HEIGHT / 8,
+            (int)( WIDTH * fractionOfAction ),
+            10,
+            g );
 
     }
 
@@ -322,7 +328,7 @@ public class Player extends Combatant implements Updateable
                     equippedArmor[armor.getType()]
                         .addBoost( new AttributeBoost( 4, 1 ) );
             }
-            else if ( item instanceof Potion)
+            else if ( item instanceof Potion )
             {
                 restoreHealth( getStats().getHP() / 2 );
             }
