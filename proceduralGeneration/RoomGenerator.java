@@ -4,6 +4,7 @@ package proceduralGeneration;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import architecture.augmentations.equipment.Chest;
 import architecture.characters.Monster;
@@ -133,10 +134,10 @@ public class RoomGenerator
     }
 
 
-    public List<Chest> createChests( int floor, int cellLength )
+    public ConcurrentLinkedQueue<Chest> createChests( int floor, int cellLength )
     {
         int numChests = (int)( 1.5 * floor );
-        List<Chest> ret = new LinkedList<>();
+        ConcurrentLinkedQueue<Chest> ret = new ConcurrentLinkedQueue<Chest>();
         for ( int i = 0; i < numChests; i++ ) {
             // TODO: enemy distribution
             Cell randomAliveCell = getRandomAvailibleCell();
@@ -147,7 +148,7 @@ public class RoomGenerator
             aliveAvailibleCells.remove( randomAliveCell );
         }
         System.out.println(
-            "making " + numChests + " chests at" + ret.get( 0 ).getPose() );
+            "making " + numChests + " chests at" + ret.peek().getPose() );
         return ret;
     }
 

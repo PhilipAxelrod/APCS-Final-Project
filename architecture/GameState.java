@@ -8,6 +8,7 @@ import proceduralGeneration.Cell;
 
 import java.awt.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public class GameState
@@ -18,7 +19,7 @@ public class GameState
 
     public final Player player;
 
-    public final List<Chest> chests;
+    public final ConcurrentLinkedQueue<Chest> chests;
 
     // how big each tile is to generate rooms
     public final int cellLength;
@@ -32,7 +33,7 @@ public class GameState
         Cell[][] cells,
         List<Monster> monsters,
         Player player,
-        List<Chest> chests,
+        ConcurrentLinkedQueue<Chest> chests,
         int cellLength,
         Rectangle portal,
         List<Message> messages )

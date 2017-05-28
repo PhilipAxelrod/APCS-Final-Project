@@ -9,6 +9,7 @@ import graphicsUtils.GraphicsInterface;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import architecture.augmentations.Message;
 import architecture.augmentations.equipment.Chest;
@@ -22,7 +23,7 @@ public class Room extends Rectangle
     private List<Message> messages = new LinkedList<Message>();
 
     // TODO: make getters
-    public List<Chest> chests;
+    public ConcurrentLinkedQueue<Chest> chests;
 
     private int cellWidth;
 
@@ -43,7 +44,7 @@ public class Room extends Rectangle
         List<Monster> combatants,
         Hashtable<Point2D, List<Rectangle>> forbiddenCells,
         int tileWidth,
-        List<Chest> chests,
+        ConcurrentLinkedQueue<Chest> chests,
         Rectangle portal,
         Player player,
         Cell[][] cells )
