@@ -78,8 +78,13 @@ public class Chest
         Point2D loc )
     {
         List<Message> messages = new LinkedList<Message>();
-        for ( Item item : items )
-            messages.add( new Message( item, loc ) );
+        // for ( Item item : items )
+        // messages.add( new Message( item, loc ) );
+        for ( int i = 0; i < items.size(); i++ )
+        {
+            Point2D temp = new Point2D( loc.x, loc.y - 30 * i );
+            messages.add( new Message( items.get( i ), temp ) );
+        }
         return messages;
     }
 

@@ -37,19 +37,6 @@ public class Message extends TimerTask implements Renderable
     private Point2D pos;
 
 
-    /**
-     * @param message
-     *            the message
-     * @param pos
-     *            the position of the message
-     */
-    public Message( String message, Point2D pos )
-    {
-        this.message = message;
-        this.pos = pos;
-    }
-
-
     public Message( Item item, Point2D pos )
     {
         this.pos = pos;
