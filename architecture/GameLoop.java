@@ -24,10 +24,11 @@ public class GameLoop
             roomGenerator.runSimulation();
         }
 
-        final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
         TimerTask task = new TimerTask()
         {
+            GraphicsInterface graphicsInterface = new GraphicsInterface();
+
             int curentFloor = 1;
 
             int deadTicks = 0;
@@ -38,11 +39,9 @@ public class GameLoop
             Room room = roomGenerator.generateRoom(
                     curentFloor,
                 player.WIDTH + 50,
-                player );
+                    player );
 
             double startTime = System.currentTimeMillis();
-
-            double startDeadTime = System.currentTimeMillis() / 1000D;
 
             int iter = 0;
 
@@ -89,14 +88,10 @@ public class GameLoop
 
                 double currTime = System.currentTimeMillis() / 1000D;
                 double timePassed = currTime - startTime;
-                // System.out.println("tick took: " + timePassed);
                 startTime = currTime;
                 if ( timePassed * 1000 >= 15 && iter > 100 )
                 {
-                    System.out.println( "went over by: " + timePassed * 1000
-                        + "s. iter" + iter );
-                    // throw new RuntimeException("went ove 11 ms. Iter: " +
-                    // iter );
+                    System.out.println( "went over by: " + timePassed * 1000 + "s. iter" + iter );
                 }
                 iter = iter + 1;
             }

@@ -47,10 +47,9 @@ public class Chest
     private List<Message> messages;
 
 
-
     /**
-     * Creates a chest with randomly generated items.
-     * used
+     * Creates a chest with randomly generated items. used
+     * 
      * @param level
      *            relative strength and quantity of items
      * @param loc
@@ -59,16 +58,18 @@ public class Chest
      */
     public Chest( int level, Point2D loc )
     {
-        this.contents = Monster.generateItems(level);
+        this.contents = Monster.generateItems( level );
         topLeftCorner = loc;
-        messages = generateMessages(contents, loc);
+        messages = generateMessages( contents, loc );
     }
 
 
-    public Chest(Point2D loc, List<Item> contents) {
+    public Chest( Point2D loc, List<Item> contents )
+    {
         this.contents = contents;
         topLeftCorner = loc;
-        messages = generateMessages(contents, loc);
+        messages = generateMessages( contents, loc );
+
     }
 
 
@@ -77,8 +78,13 @@ public class Chest
         Point2D loc )
     {
         List<Message> messages = new LinkedList<Message>();
-        for ( Item item : items )
-            messages.add( new Message( item, loc ) );
+        // for ( Item item : items )
+        // messages.add( new Message( item, loc ) );
+        for ( int i = 0; i < items.size(); i++ )
+        {
+            Point2D temp = new Point2D( loc.x, loc.y - 30 * i );
+            messages.add( new Message( items.get( i ), temp ) );
+        }
         return messages;
     }
 

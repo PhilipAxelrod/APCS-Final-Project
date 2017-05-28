@@ -50,6 +50,8 @@ public abstract class Monster extends Combatant
 
     private Player player;
 
+    private boolean aggro = false;
+
 
     /**
      * @param level
@@ -319,10 +321,17 @@ public abstract class Monster extends Combatant
 
     public void intelligence()
     {
-        accelerate( player.getPose().x - getPose().x,
-            player.getPose().y - getPose().y );
-        // System.out.println( xVelocity + " " + yVelocity );
-        move();
+        if ( !aggro && Point2D.distance( topLeftCorner.x,
+            topLeftCorner.y,
+            player.topLeftCorner.x,
+            player.topLeftCorner.y ) < 500 )
+            aggro = true;
+        else if ( aggro )
+        {
+            accelerate( player.getPose().x - getPose().x,
+                player.getPose().y - getPose().y );
+            move();
+        }
     }
 
 }

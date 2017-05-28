@@ -36,7 +36,6 @@ public class RoomGenerator
             for ( int j = 0; j < cells[0].length; j++ )
             {
                 cells[i][j] = new Cell( i, j );
-                // cells[i][j].isAlive = true;
             }
         }
     }
@@ -77,7 +76,7 @@ public class RoomGenerator
         {
             return true;
         }
-        return currCell.isAlive && numAlive <= 9/* 6 */ && numAlive >= 1;
+        return currCell.isAlive && numAlive <= 9 && numAlive >= 1;
     }
 
 
@@ -98,10 +97,6 @@ public class RoomGenerator
     public void spawnPlayer( Player player, int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
-        if ( player == null )
-        {
-            System.out.println( "about to spawn null player" );
-        }
         player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength );
         aliveAvailibleCells.remove( randomCell );
 
@@ -139,7 +134,6 @@ public class RoomGenerator
         int numChests = (int)( 1.5 * floor );
         ConcurrentLinkedQueue<Chest> ret = new ConcurrentLinkedQueue<Chest>();
         for ( int i = 0; i < numChests; i++ ) {
-            // TODO: enemy distribution
             Cell randomAliveCell = getRandomAvailibleCell();
             Chest chest = new Chest( floor,
                                      new Point2D( randomAliveCell.x * cellLength,
@@ -147,15 +141,11 @@ public class RoomGenerator
             ret.add( chest );
             aliveAvailibleCells.remove( randomAliveCell );
         }
-        System.out.println(
-            "making " + numChests + " chests at" + ret.peek().getPose() );
         return ret;
     }
 
 
-    // public void spawn
-
-    public Rectangle getPortal( int cellLength )
+    public Rectangle createPortal(int cellLength )
     {
         Cell randomCell = getRandomAvailibleCell();
         Rectangle portal = new Rectangle( randomCell.x * cellLength,
@@ -193,7 +183,7 @@ public class RoomGenerator
     }
 
     private void updateAliveAvaibleCells() {
-        LinkedList<Cell> newAliveCells = new LinkedList<Cell>();
+        List<Cell> newAliveCells = new ArrayList<Cell>();
 
         for (Cell[] row : cells) {
             for (Cell cell : row) {
@@ -267,42 +257,6 @@ public class RoomGenerator
     }
 
 
-//    private Optional<Cell> cellAt( int r, int c )
-//    {
-//        if ( withinHeight( r ) && withinWidth( c ) )
-//        {
-//            return Optional.of( cells[r][c] );
-//        }
-//        else
-//        {
-//            return Optional.empty();
-//        }
-//    }
-
-
-//    public Optional<Cell> above( int r, int c )
-//    {
-//        return cellAt( r - 1, c );
-//    }
-//
-//
-//    public Optional<Cell> right( int r, int c )
-//    {
-//        return cellAt( r, c + 1 );
-//    }
-//
-//
-//    public Optional<Cell> below( int r, int c )
-//    {
-//        return cellAt( r + 1, c );
-//    }
-//
-//
-//    public Optional<Cell> left( int r, int c )
-//    {
-//        return cellAt( r, c - 1 );
-//    }
-
 
     static float roundToLowestMultiple( float toRound, int nearest )
     {
@@ -314,45 +268,37 @@ public class RoomGenerator
      * split a list of forbiddenCells into a hashtable of point keys and
      * forbiddenCells of the "tile"
      * 
-     * @param walls
+     * @param forbiddenAreas
      * @return
      */
     private Hashtable<Point2D, List<Rectangle>> segment(
-        ArrayList<Rectangle> walls,
+        ArrayList<Rectangle> forbiddenAreas,
         int gridLengthByTiles,
         int width )
     {
         Hashtable<Point2D, List<Rectangle>> ret = new Hashtable<>();
         int tileWidth = rows * width / gridLengthByTiles;
-        System.out.println( "tile width" + tileWidth );
-        for ( Rectangle wall : walls )
+
+        for ( Rectangle forbiddenRectangle : forbiddenAreas )
         {
-            // hella sketch rounding going on here. Bascially round down to the
-            // nearest multiple of tileWidth
-            float x = roundToLowestMultiple( wall.x, tileWidth );
-            float y = roundToLowestMultiple( wall.y, tileWidth );
+            float x = roundToLowestMultiple( forbiddenRectangle.x, tileWidth );
+            float y = roundToLowestMultiple( forbiddenRectangle.y, tileWidth );
 
-            Point2D point2D = new Point2D( x, y );
+            Point2D tileKey = new Point2D( x, y );
 
-            if ( ret.containsKey( point2D ) )
+            if ( ret.containsKey( tileKey ) )
             {
-                ret.get( point2D ).add( wall );
+                ret.get( tileKey ).add( forbiddenRectangle );
             }
             else
             {
                 ArrayList<Rectangle> initWallList = new ArrayList<>();
-                initWallList.add( wall );
-                ret.put( point2D, initWallList );
+                initWallList.add( forbiddenRectangle );
+                ret.put( tileKey, initWallList );
             }
         }
 
         return ret;
-    }
-
-
-    private boolean alive( Optional<Cell> toCheck )
-    {
-        return toCheck.map( cell -> cell.isAlive ).orElse( false );
     }
 
 
@@ -376,13 +322,13 @@ public class RoomGenerator
         }
         updateQueuedStates();
     }
+
     // length in pixels
     public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(
         final int lengthOfCell )
     {
         ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
 
-        // TODO: 1) use foreach 2) include above, below, etc into Cell
         for ( int r = 0; r < rows; r++ )
         {
             for ( int c = 0; c < cols; c++ )
@@ -390,12 +336,11 @@ public class RoomGenerator
                 Cell cell = cells[c][r];
                 if ( !cell.isAlive )
                 {
-                    // System.out.println( "adding forbidden cell at:" );
-                    // System.out.println("cell:" + cell );
-                    walls.add( new Rectangle( cell.x * lengthOfCell,
-                        cell.y * lengthOfCell,
-                        lengthOfCell,
-                        lengthOfCell ) );
+                    walls.add( 
+                            new Rectangle( cell.x * lengthOfCell,
+                                cell.y * lengthOfCell,
+                                lengthOfCell,
+                                lengthOfCell ) );
                 }
             }
         }
@@ -450,7 +395,7 @@ public class RoomGenerator
                 getForbiddenRectangles(cellLength),
                 cellLength,
                 createChests(floor, cellLength),
-                getPortal(cellLength),
+                createPortal(cellLength),
                 player,
                 cells);
     }
