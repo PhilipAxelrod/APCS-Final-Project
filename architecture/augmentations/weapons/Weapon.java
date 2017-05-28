@@ -46,7 +46,10 @@ public class Weapon extends Equipment
     private static final int[] physicalAttributes = { 0, 2, 3 },
                     magicalAttributes = { 1, 3, 5 };
 
+    // in degress
+    private double angle;
 
+    private double targetAngle;
     /**
      * Constructs the default (starter) weapon.
      */
@@ -69,9 +72,15 @@ public class Weapon extends Equipment
             range = 600;
         }
 
+        angle = 0;
+
 //        System.out.println("range is: " + range);
 
         initializeBoosts();
+    }
+
+    public void rotate(double degrees) {
+        targetAngle = angle + degrees;
     }
 
 
@@ -209,30 +218,6 @@ public class Weapon extends Equipment
     }
 
 
-    private static List<AttributeBoost> generateSpecialBoosts( int level )
-    {
-        final int boostLimit = 3, boostRadius = 1, startingLevel = 3;
-
-        double factor = generateFactor( boostLimit, level, startingLevel );
-
-        List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
-
-        if ( level < startingLevel )
-            return boosts;
-
-        while ( Math.random() < factor )
-        {
-            int value = (int)Math
-                .round( level / 4 + generateVar( boostRadius ) );
-            if ( value > 0 )
-                boosts.add(
-                    new AttributeBoost( (int)( Math.random() * 7 ), value ) );
-        }
-
-        return boosts;
-    }
-
-
     public String[][] types()
     {
         return weaponTypes;
@@ -292,4 +277,15 @@ public class Weapon extends Equipment
         return range;
     }
 
+    public void updateRotation() {
+        if (angle - targetAngle > 5) {
+            // get cool slowing down effect
+            double angleIncrement = (targetAngle - angle) / 2;
+            angle += angleIncrement;
+        }
+    }
+
+    public double getAngle() {
+        return angle;
+    }
 }

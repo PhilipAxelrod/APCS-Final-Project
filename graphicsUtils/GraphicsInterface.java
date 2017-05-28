@@ -340,18 +340,12 @@ public class GraphicsInterface extends JPanel
     {
         // if ( weapon.getType()[0] == 0 )
         {
-            try
-            {
-                globalImage = ImageUtils.loadBufferedImage( "portal.png" );
-            }
-            catch ( Exception e )
-            {
-                throw new RuntimeException( "yay, loading failed" );
-            }
 
             loadSprite( "default_sword.png" );
 
             // TODO: Remove hard coding of weapon size
+            Graphics2D graphics2D = (Graphics2D) g;
+            ((Graphics2D) g).rotate(Math.toRadians(weapon.getAngle()));
             placeImage( "default_sword.png",
                 (int)( combatant.getPose().x + 2D / 3 * combatant.WIDTH ),
                 (int)( combatant.getPose().y + 2D / 3 * combatant.HEIGHT ),

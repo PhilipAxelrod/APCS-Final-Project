@@ -76,6 +76,14 @@ public class Player extends Combatant implements Updateable
 
         accelerate( xToMoveBy, yToMoveBy );
         move();
+        getWeapon().updateRotation();
+    }
+
+    @Override
+    public void attack(Combatant defender) {
+        super.attack(defender);
+
+        getWeapon().rotate(360);
     }
 
     @Override

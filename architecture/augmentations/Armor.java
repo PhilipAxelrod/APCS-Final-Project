@@ -183,30 +183,6 @@ public class Armor extends Equipment
     }
 
 
-    private static List<AttributeBoost> generateSpecialBoosts( int level )
-    {
-        final int boostLimit = 3, boostRadius = 1, startingLevel = 3;
-
-        double factor = generateFactor( boostLimit, level, startingLevel );
-
-        List<AttributeBoost> boosts = new LinkedList<AttributeBoost>();
-
-        if ( level < startingLevel )
-            return boosts;
-
-        while ( Math.random() < factor )
-        {
-            int value = (int)Math
-                .round( level / 4 + generateVar( boostRadius ) );
-            if ( value > 0 )
-                boosts.add(
-                    new AttributeBoost( (int)( Math.random() * 7 ), value ) );
-        }
-
-        return boosts;
-    }
-
-
     public void addDefense( int defense )
     {
         this.defense += defense;
