@@ -141,8 +141,8 @@ public class RoomGenerator
             // TODO: enemy distribution
             Cell randomAliveCell = getRandomAvailibleCell();
             Chest chest = new Chest( floor,
-                new Point2D( randomAliveCell.x * cellLength,
-                    randomAliveCell.y * cellLength ) );
+                                     new Point2D( randomAliveCell.x * cellLength,
+                                    randomAliveCell.y * cellLength ) );
             ret.add( chest );
             aliveAvailibleCells.remove( randomAliveCell );
         }

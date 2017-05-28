@@ -58,7 +58,7 @@ public class Player extends Combatant implements Updateable
             // TODO: make can attack (action mare better) so that is not needed
             if ( canAttack )
             {
-                getWeapon().rotate(180);
+                getWeapon().rotate(360);
 
                 room.monsters.forEach( monster -> {
                     if ( isInRange( monster ))
@@ -122,7 +122,7 @@ public class Player extends Combatant implements Updateable
             10,
             g );
 
-        double fractionOfAction = (double) (getActionBar() / actionLimit);
+        double fractionOfAction = (double) (getActionBar()) / actionLimit;
         // mana bar
         graphicsInterface.loadSprite( "actionbar.png" );
         graphicsInterface.placeImage( "actionbar.png",

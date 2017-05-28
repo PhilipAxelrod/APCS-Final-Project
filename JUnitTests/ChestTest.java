@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sun.javafx.geom.Point2D;
 import org.junit.Test;
 
 import architecture.augmentations.equipment.Chest;
@@ -40,16 +41,17 @@ public class ChestTest
     }
 
 
-    /**
-     * Tests the no args constructor.
-     */
-    @Test
-    public void cosntructorNoArgs()
-    {
-        Chest chest = new Chest();
-        assertTrue( chest.isEmpty() );
-        assertFalse( chest.isOpened() );
-    }
+    // TODO: remove
+//    /**
+//     * Tests the no args constructor.
+//     */
+//    @Test
+//    public void cosntructorNoArgs()
+//    {
+//        Chest chest = new Chest();
+//        assertTrue( chest.isEmpty() );
+//        assertFalse( chest.isOpened() );
+//    }
 
 
     /**
@@ -59,7 +61,7 @@ public class ChestTest
     public void constructorListItem()
     {
         List<Item> items = getItems();
-        Chest chest = new Chest( items );
+        Chest chest = new Chest( new Point2D(0, 0), items);
 
         assertFalse( chest.isEmpty() );
         assertEquals( items, chest.getContents() );

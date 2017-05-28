@@ -63,9 +63,7 @@ public class GameLoop
 
                 if ( player.isDead())
                 {
-//                    startTime = System.currentTimeMillis() / 1000D;
-//                    System.out.println( "player died!" );
-                    if (/*(startDeadTime - startTime) / 1000D >= 2*/deadTicks >= 500) {
+                    if (deadTicks >= 500) {
                         reset();
                     }
 

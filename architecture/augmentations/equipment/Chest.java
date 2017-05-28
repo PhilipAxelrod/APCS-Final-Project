@@ -47,58 +47,10 @@ public class Chest
     private List<Message> messages;
 
 
-    /**
-     * Creates an empty Chest.
-     */
-    public Chest()
-    {
-        this( new LinkedList<Item>() );
-    }
-
 
     /**
      * Creates a chest with randomly generated items.
-     * 
-     * @param level
-     *            relative strength and quantity of items
-     */
-    public Chest( int level )
-    {
-        this();
-        contents = Monster.generateItems( level );
-    }
-
-
-    /**
-     * Creates a chest with a list of Items.
-     * 
-     * @param contents
-     *            Items to add
-     */
-    public Chest( List<Item> contents )
-    {
-        this.contents = contents;
-        topLeftCorner = new Point2D( 0, 0 );
-        messages = generateMessages( contents, topLeftCorner );
-    }
-
-
-    /**
-     * Creates an empty Chest.
-     * 
-     * @param loc
-     *            Pont2D location
-     * 
-     */
-    public Chest( Point2D loc )
-    {
-        this( new LinkedList<Item>(), loc );
-    }
-
-
-    /**
-     * Creates a chest with randomly generated items.
-     * 
+     * used
      * @param level
      *            relative strength and quantity of items
      * @param loc
@@ -107,23 +59,16 @@ public class Chest
      */
     public Chest( int level, Point2D loc )
     {
-        this( loc );
-        contents = Monster.generateItems( level );
+        this.contents = Monster.generateItems(level);
+        topLeftCorner = loc;
+        messages = generateMessages(contents, loc);
     }
 
 
-    /**
-     * Creates a chest with a list of Items.
-     * 
-     * @param contents
-     *            Items to add
-     * @param loc
-     *            Pont2D location
-     */
-    public Chest( List<Item> contents, Point2D loc )
-    {
+    public Chest(Point2D loc, List<Item> contents) {
         this.contents = contents;
         topLeftCorner = loc;
+        messages = generateMessages(contents, loc);
     }
 
 

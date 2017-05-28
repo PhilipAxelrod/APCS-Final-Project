@@ -127,6 +127,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public void stop()
     {
+        System.out.println("stop called!");
         xVelocity = 0;
         yVelocity = 0;
     }

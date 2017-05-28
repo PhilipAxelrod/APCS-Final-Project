@@ -19,7 +19,7 @@ public class Room extends Rectangle
 {
     public List<Monster> monsters;
 
-    private List<Message> messages;
+    private List<Message> messages = new LinkedList<Message>();
 
     // TODO: make getters
     public List<Chest> chests;
@@ -150,6 +150,7 @@ public class Room extends Rectangle
 
         if ( inCollision( player ) )
         {
+            System.out.println("in collision");
             player.resetPoseToPrevios();
             player.stop();
         }

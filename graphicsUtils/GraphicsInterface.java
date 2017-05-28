@@ -353,7 +353,7 @@ public class GraphicsInterface extends JPanel
 
             // TODO: Remove hard coding of weapon size
             Graphics2D graphics2D = (Graphics2D)g;
-            System.out.println( "weapon angle: " + weapon.getAngle() );
+//            System.out.println( "weapon angle: " + weapon.getAngle() );
             g.translate(
                 (int)( combatant.getPose().x
                     + combatant.WIDTH / 2 )/* frameWidth / 2 */,
@@ -413,8 +413,7 @@ public class GraphicsInterface extends JPanel
     {
         super.paint( g );
 
-        if ( !gameState.
-                        player.isDead() )
+        if ( !gameState.player.isDead() )
         {
             double lastTime = System.currentTimeMillis() / 1000D;
             if ( gameState != null )
