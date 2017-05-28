@@ -320,6 +320,9 @@ public class GraphicsInterface extends JPanel
         }
         else
             g.drawString( "Miss!", (int)loc.x, (int)loc.y );
+
+        loadSprite("pow.png");
+        placeImage("pow.png", (int)loc.x + 30, (int)loc.y +  30, 50, 50, g);
     }
 
 
@@ -336,7 +339,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
+    public void renderWeapon(Weapon weapon, Combatant combatant, Graphics g, int frameWidth, int framHeight)
     {
         // if ( weapon.getType()[0] == 0 )
         {
@@ -345,13 +348,22 @@ public class GraphicsInterface extends JPanel
 
             // TODO: Remove hard coding of weapon size
             Graphics2D graphics2D = (Graphics2D) g;
+            System.out.println("weapon angle: " + weapon.getAngle());
+            g.translate(
+                    (int)( combatant.getPose().x + combatant.WIDTH / 2 )/*frameWidth / 2*/,
+                    (int) ( combatant.getPose().y ) + combatant.HEIGHT / 2/*framHeight / 2*/);
             ((Graphics2D) g).rotate(Math.toRadians(weapon.getAngle()));
+
             placeImage( "default_sword.png",
-                (int)( combatant.getPose().x + 2D / 3 * combatant.WIDTH ),
-                (int)( combatant.getPose().y + 2D / 3 * combatant.HEIGHT ),
+                /*100 / 2*/0,
+                -100 /2,
                 100,
                 100,
                 g );
+
+            g.translate(
+                    -(int)( combatant.getPose().x  + combatant.WIDTH / 2)/*frameWidth / 2*/,
+                    -(int) ( combatant.getPose().y) + combatant.HEIGHT / 2/*framHeight / 2*/);
         }
         // else
         {
@@ -409,7 +421,6 @@ public class GraphicsInterface extends JPanel
                 gameState.player.render(this, g);
                 renderCombatResult(gameState.player.result, g);
 
-                renderWeapon(gameState.player.getWeapon(), gameState.player, g);
 
                 renderPortal(gameState.portal, gameState.cellLength, g);
 
@@ -420,6 +431,11 @@ public class GraphicsInterface extends JPanel
                         gameState.chests.remove(chest);
                 }
                 renderCombatResult(null, g);
+
+                // because the weapon involves rotation, we put this last to not have
+                // to unrotate stuff
+                renderWeapon(gameState.player.getWeapon(), gameState.player, g, frame.getWidth(), frame.getHeight());
+
             }
 
             double currTime = System.currentTimeMillis() / 1000D;

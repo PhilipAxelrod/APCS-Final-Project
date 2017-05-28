@@ -278,11 +278,9 @@ public class Weapon extends Equipment
     }
 
     public void updateRotation() {
-        if (angle - targetAngle > 5) {
-            // get cool slowing down effect
-            double angleIncrement = (targetAngle - angle) / 2;
-            angle += angleIncrement;
-        }
+        // get cool slowing down effect
+        double angleIncrement = (targetAngle - angle) / 15;
+        angle += angleIncrement;
     }
 
     public double getAngle() {

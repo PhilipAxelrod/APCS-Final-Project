@@ -182,7 +182,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 2500;
+    protected static final int actionLimit = 2500;
 
     private static final int resultTime = 100;
 
@@ -200,8 +200,10 @@ public abstract class Combatant extends TimerTask implements Renderable
         if ( actionBar >= actionLimit )
             canAttack = true;
 
-        else
+        else {
             actionBar += modifiedAttributes[3];
+            System.out.println("actionBar: " + actionBar);
+        }
     }
 
 
@@ -522,6 +524,9 @@ public abstract class Combatant extends TimerTask implements Renderable
         return mana;
     }
 
+    public int getActionBar() {
+        return actionBar;
+    }
 
     /**
      * @param mana

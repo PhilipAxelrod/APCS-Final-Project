@@ -55,11 +55,12 @@ public class Player extends Combatant implements Updateable
         }
         if ( graphicsInterface.isQPressed() )
         {
+            // TODO: make can attack (action mare better) so that is not needed
             if ( canAttack )
             {
-                // TODO: this doesn't actually work
+                getWeapon().rotate(180);
+
                 room.monsters.forEach( monster -> {
-                    // TODO: remove second clause of if
                     if ( isInRange( monster ))
                     {
                         attack( monster );
@@ -82,8 +83,6 @@ public class Player extends Combatant implements Updateable
     @Override
     public void attack(Combatant defender) {
         super.attack(defender);
-
-        getWeapon().rotate(360);
     }
 
     @Override
@@ -114,6 +113,7 @@ public class Player extends Combatant implements Updateable
 
         double fractionOfMana = (double)( getMana() ) / getStats().getMP();
         graphicsInterface.loadSprite( "manabar.png" );
+
         // mana bar
         graphicsInterface.placeImage( "manabar.png",
             thisX,
@@ -121,6 +121,16 @@ public class Player extends Combatant implements Updateable
             (int)( WIDTH * fractionOfMana ),
             10,
             g );
+
+        double fractionOfAction = (double) (getActionBar() / actionLimit);
+        // mana bar
+        graphicsInterface.loadSprite( "actionbar.png" );
+        graphicsInterface.placeImage( "actionbar.png",
+                thisX,
+                thisY - 3 * HEIGHT / 8,
+                (int)( WIDTH * fractionOfAction ),
+                10,
+                g );
 
     }
 
