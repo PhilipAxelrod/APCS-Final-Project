@@ -183,10 +183,19 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private static final int actionLimit = 2500;
 
+    private static final int resultTime = 100;
+
+    private int resultTimer;
+
 
     public void run()
     {
-
+        resultTimer++;
+        if ( resultTimer >= resultTime )
+        {
+            result = null;
+            resultTimer = 0;
+        }
         if ( actionBar >= actionLimit )
             canAttack = true;
 
@@ -211,6 +220,7 @@ public abstract class Combatant extends TimerTask implements Renderable
             stats.getCRIT(),
             this );
         defender.printVitals();
+        resultTimer = 0;
     }
 
 

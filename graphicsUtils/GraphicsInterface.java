@@ -309,6 +309,7 @@ public class GraphicsInterface extends JPanel
     public void renderCombatResult( CombatResult result, Graphics g )
     {
         g.setColor( Color.red );
+        g.setFont( new Font( "Arial", 0, 30 ) );
         if ( result == null )
             return;
         Point2D loc = result.getDefender().getPose();
@@ -316,7 +317,7 @@ public class GraphicsInterface extends JPanel
         if ( result.isHit() )
         {
             if ( result.isCritical() )
-                g.drawString( "Critical Hit!", (int)loc.x, (int)loc.y );
+                g.drawString( "Critical Hit!", (int)loc.x, (int)loc.y - 20 );
             g.drawString( "-" + result.getDamage(), (int)loc.x, (int)loc.y );
         }
         else
