@@ -3,7 +3,11 @@ package architecture.augmentations.equipment;
 import java.util.LinkedList;
 import java.util.List;
 
+import architecture.augmentations.Armor;
 import architecture.augmentations.Item;
+import architecture.augmentations.Message;
+import architecture.augmentations.consumables.Potion;
+import architecture.augmentations.weapons.Weapon;
 import architecture.characters.Monster;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
@@ -40,6 +44,8 @@ public class Chest
      */
     public static final int HEIGHT = WIDTH;
 
+    private List<Message> messages;
+
 
     /**
      * Creates an empty Chest.
@@ -73,6 +79,7 @@ public class Chest
     {
         this.contents = contents;
         topLeftCorner = new Point2D( 0, 0 );
+        messages = generateMessages( contents, topLeftCorner );
     }
 
 
@@ -117,6 +124,17 @@ public class Chest
     {
         this.contents = contents;
         topLeftCorner = loc;
+    }
+
+
+    private static List<Message> generateMessages(
+        List<Item> items,
+        Point2D loc )
+    {
+        List<Message> messages = new LinkedList<Message>();
+        for ( Item item : items )
+            messages.add( new Message( item, loc ) );
+        return messages;
     }
 
 
@@ -175,6 +193,15 @@ public class Chest
     protected Point2D bottomRightCorner()
     {
         return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
+    }
+
+
+    /**
+     * @return Returns the messages.
+     */
+    public List<Message> getMessages()
+    {
+        return messages;
     }
 
 }

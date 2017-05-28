@@ -321,8 +321,8 @@ public class GraphicsInterface extends JPanel
         else
             g.drawString( "Miss!", (int)loc.x, (int)loc.y );
 
-        loadSprite("pow.png");
-        placeImage("pow.png", (int)loc.x + 30, (int)loc.y +  30, 50, 50, g);
+        loadSprite( "pow.png" );
+        placeImage( "pow.png", (int)loc.x + 30, (int)loc.y + 30, 50, 50, g );
     }
 
 
@@ -339,7 +339,12 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderWeapon(Weapon weapon, Combatant combatant, Graphics g, int frameWidth, int framHeight)
+    public void renderWeapon(
+        Weapon weapon,
+        Combatant combatant,
+        Graphics g,
+        int frameWidth,
+        int framHeight )
     {
         // if ( weapon.getType()[0] == 0 )
         {
@@ -347,23 +352,27 @@ public class GraphicsInterface extends JPanel
             loadSprite( "default_sword.png" );
 
             // TODO: Remove hard coding of weapon size
-            Graphics2D graphics2D = (Graphics2D) g;
-            System.out.println("weapon angle: " + weapon.getAngle());
+            Graphics2D graphics2D = (Graphics2D)g;
+            System.out.println( "weapon angle: " + weapon.getAngle() );
             g.translate(
-                    (int)( combatant.getPose().x + combatant.WIDTH / 2 )/*frameWidth / 2*/,
-                    (int) ( combatant.getPose().y ) + combatant.HEIGHT / 2/*framHeight / 2*/);
-            ((Graphics2D) g).rotate(Math.toRadians(weapon.getAngle()));
+                (int)( combatant.getPose().x
+                    + combatant.WIDTH / 2 )/* frameWidth / 2 */,
+                (int)( combatant.getPose().y )
+                    + combatant.HEIGHT / 2/* framHeight / 2 */ );
+            ( (Graphics2D)g ).rotate( Math.toRadians( weapon.getAngle() ) );
 
             placeImage( "default_sword.png",
-                /*100 / 2*/0,
-                -100 /2,
+                /* 100 / 2 */0,
+                -100 / 2,
                 100,
                 100,
                 g );
 
             g.translate(
-                    -(int)( combatant.getPose().x  + combatant.WIDTH / 2)/*frameWidth / 2*/,
-                    -(int) ( combatant.getPose().y) + combatant.HEIGHT / 2/*framHeight / 2*/);
+                -(int)( combatant.getPose().x
+                    + combatant.WIDTH / 2 )/* frameWidth / 2 */,
+                -(int)( combatant.getPose().y )
+                    + combatant.HEIGHT / 2/* framHeight / 2 */ );
         }
         // else
         {
@@ -404,45 +413,55 @@ public class GraphicsInterface extends JPanel
     {
         super.paint( g );
 
-        if (!gameState.player.isDead()) {
+        if ( !gameState.
+                        player.isDead() )
+        {
             double lastTime = System.currentTimeMillis() / 1000D;
-            if (gameState != null) {
+            if ( gameState != null )
+            {
                 // ensure player is always in the center
                 g.translate(
-                        -(int) gameState.player.getPose().x + frame.getWidth() / 2,
-                        -(int) gameState.player.getPose().y + frame.getHeight() / 2);
+                    -(int)gameState.player.getPose().x + frame.getWidth() / 2,
+                    -(int)gameState.player.getPose().y
+                        + frame.getHeight() / 2 );
 
-                renderGrid(gameState.cells, gameState.cellLength, g);
+                renderGrid( gameState.cells, gameState.cellLength, g );
 
-                gameState.chests.forEach(chest -> renderChest(chest, g));
-                gameState.monsters.forEach(monster -> monster.render(this, g));
+                gameState.chests.forEach( chest -> renderChest( chest, g ) );
                 gameState.monsters
-                        .forEach(monster -> renderCombatResult(monster.result, g));
-                gameState.player.render(this, g);
-                renderCombatResult(gameState.player.result, g);
+                    .forEach( monster -> monster.render( this, g ) );
+                gameState.monsters.forEach(
+                    monster -> renderCombatResult( monster.result, g ) );
+                gameState.player.render( this, g );
+                renderCombatResult( gameState.player.result, g );
 
+                renderPortal( gameState.portal, gameState.cellLength, g );
 
-                renderPortal(gameState.portal, gameState.cellLength, g);
+                gameState.messages
+                    .forEach( message -> message.render( this, g ) );
 
-                for (Chest chest : gameState.chests) {
-                    if (!chest.isEmpty())
-                        renderChest(chest, g);
-                    else
-                        gameState.chests.remove(chest);
-                }
-                renderCombatResult(null, g);
+                for ( Chest chest : gameState.chests )
+                    renderChest( chest, g );
+                renderCombatResult( null, g );
 
-                // because the weapon involves rotation, we put this last to not have
+                // because the weapon involves rotation, we put this last to not
+                // have
                 // to unrotate stuff
-                renderWeapon(gameState.player.getWeapon(), gameState.player, g, frame.getWidth(), frame.getHeight());
+                renderWeapon( gameState.player.getWeapon(),
+                    gameState.player,
+                    g,
+                    frame.getWidth(),
+                    frame.getHeight() );
 
             }
 
             double currTime = System.currentTimeMillis() / 1000D;
             // System.out.println("drawing took: " + (currTime - lastTime));
             lastTime = currTime;
-        } else {
-            showDeathScreen(g);
+        }
+        else
+        {
+            showDeathScreen( g );
         }
     }
 
@@ -452,11 +471,13 @@ public class GraphicsInterface extends JPanel
         frame.requestFocus();
     }
 
-    public void showDeathScreen(Graphics g) {
-        loadSprite("black.jpg");
-        placeImage("black.jpg", 0, 0, frame.getWidth(), frame.getHeight(), g);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g.setColor(Color.GREEN);
-        g.drawString("You Died!", getWidth() / 2, getHeight() / 2);
+
+    public void showDeathScreen( Graphics g )
+    {
+        loadSprite( "black.jpg" );
+        placeImage( "black.jpg", 0, 0, frame.getWidth(), frame.getHeight(), g );
+        g.setFont( new Font( "TimesRoman", Font.PLAIN, 30 ) );
+        g.setColor( Color.GREEN );
+        g.drawString( "You Died!", getWidth() / 2, getHeight() / 2 );
     }
 }

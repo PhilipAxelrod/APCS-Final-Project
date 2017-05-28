@@ -1,5 +1,6 @@
 package architecture;
 
+import architecture.augmentations.Message;
 import architecture.augmentations.equipment.Chest;
 import architecture.characters.Monster;
 import architecture.characters.Player;
@@ -24,6 +25,8 @@ public class GameState
 
     public final Rectangle portal;
 
+    public final List<Message> messages;
+
 
     public GameState(
         Cell[][] cells,
@@ -31,7 +34,8 @@ public class GameState
         Player player,
         List<Chest> chests,
         int cellLength,
-        Rectangle portal)
+        Rectangle portal,
+        List<Message> messages )
     {
         this.cells = cells;
         this.monsters = monsters;
@@ -39,5 +43,6 @@ public class GameState
         this.chests = chests;
         this.cellLength = cellLength;
         this.portal = portal;
+        this.messages = messages;
     }
 }

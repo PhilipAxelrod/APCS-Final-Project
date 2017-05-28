@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import architecture.augmentations.Message;
 import architecture.augmentations.equipment.Chest;
 import architecture.characters.Combatant;
 
@@ -17,6 +18,8 @@ import architecture.characters.Combatant;
 public class Room extends Rectangle
 {
     public List<Monster> monsters;
+
+    private List<Message> messages;
 
     // TODO: make getters
     public List<Chest> chests;
@@ -32,16 +35,18 @@ public class Room extends Rectangle
     static GraphicsInterface graphicsInterface;
 
     Player player;
+
     Rectangle portal;
+
+
     public Room(
-            List<Monster> combatants,
-            Hashtable<Point2D,
-            List<Rectangle>> forbiddenCells,
-            int tileWidth,
-            List<Chest> chests,
-            Rectangle portal,
-            Player player,
-            Cell[][] cells)
+        List<Monster> combatants,
+        Hashtable<Point2D, List<Rectangle>> forbiddenCells,
+        int tileWidth,
+        List<Chest> chests,
+        Rectangle portal,
+        Player player,
+        Cell[][] cells )
     {
         this.monsters = combatants;
         this.forbiddenCells = forbiddenCells;
@@ -52,10 +57,12 @@ public class Room extends Rectangle
         this.cells = cells;
     }
 
+
     // get around the fact that java doesn't allow reassigment in
     // anonymous classes
     // TODO: remove
-    public void assignSelfTo(Room room){
+    public void assignSelfTo( Room room )
+    {
         this.monsters = room.monsters;
         this.forbiddenCells = room.forbiddenCells;
         this.cellWidth = room.cellWidth;
@@ -64,19 +71,27 @@ public class Room extends Rectangle
         this.player = room.player;
     }
 
-    public Rectangle getPortal() {
+
+    public Rectangle getPortal()
+    {
         return portal;
     }
 
-    public boolean atPortal() {
-        return portal.intersects(player.getBoundingBox());
+
+    public boolean atPortal()
+    {
+        return portal.intersects( player.getBoundingBox() );
     }
 
-    public boolean inCollisionAtPoint(Combatant combatant, Point2D point) {
+
+    public boolean inCollisionAtPoint( Combatant combatant, Point2D point )
+    {
 
         Point2D tileKey = new Point2D(
-                RoomGenerator.roundToLowestMultiple( point.x, cellWidth * cells.length),
-                RoomGenerator.roundToLowestMultiple( point.y, cellWidth * cells.length) );
+            RoomGenerator.roundToLowestMultiple( point.x,
+                cellWidth * cells.length ),
+            RoomGenerator.roundToLowestMultiple( point.y,
+                cellWidth * cells.length ) );
 
         List<Rectangle> tileWalls = forbiddenCells.get( tileKey );
 
@@ -84,11 +99,10 @@ public class Room extends Rectangle
         {
             for ( Rectangle forbiddenTile : tileWalls )
             {
-                if ( forbiddenTile.intersects(
-                        point.x,
-                        point.y,
-                        combatant.WIDTH,
-                        combatant.HEIGHT ) )
+                if ( forbiddenTile.intersects( point.x,
+                    point.y,
+                    combatant.WIDTH,
+                    combatant.HEIGHT ) )
                 {
                     combatant.stop();
                     return true;
@@ -98,50 +112,63 @@ public class Room extends Rectangle
         return false;
     }
 
-    public boolean inCollision(Combatant combatant) {
-        return inCollisionAtPoint(combatant, combatant.getPose());
+
+    public boolean inCollision( Combatant combatant )
+    {
+        return inCollisionAtPoint( combatant, combatant.getPose() );
     }
 
-    public void update(GraphicsInterface graphicsInterface)
+
+    public void update( GraphicsInterface graphicsInterface )
     {
-        if (portal.intersects(player.getBoundingBox())) {
-            System.out.println("yay, reached portal");
-            player.restoreHealth(player.getStats().getHP() / 2);
-            player.restoreMana(player.getStats().getMP() / 2);
+        if ( portal.intersects( player.getBoundingBox() ) )
+        {
+            // System.out.println( "yay, reached portal" );
+            player.restoreHealth( player.getStats().getHP() / 2 );
+            player.restoreMana( player.getStats().getMP() / 2 );
         }
 
         monsters.removeIf( Monster::isDead );
 
-        for ( Combatant c : monsters)
+        for ( Combatant c : monsters )
         {
             c.run();
         }
 
-        player.update(graphicsInterface, this);
+        player.update( graphicsInterface, this );
 
         monsters.removeIf( Combatant::isDead );
 
-        monsters.forEach(combatant -> {
-            if (inCollision(combatant)) {
+        monsters.forEach( combatant -> {
+            if ( inCollision( combatant ) )
+            {
 
                 combatant.resetPoseToPrevios();
             }
             combatant.stop();
-        });
+        } );
 
-        if (inCollision(player)) {
+        if ( inCollision( player ) )
+        {
             player.resetPoseToPrevios();
             player.stop();
         }
 
+        for ( Chest chest : chests )
+            if ( chest.isEmpty() )
+            {
+                chests.remove( chest );
+                messages.addAll( chest.getMessages() );
+            }
+
         // TODO: Make tile width more intelligent
-        graphicsInterface.setGameState( new GameState(
-                cells,
-                getMonsters(),
-                player,
-                chests,
-                player.WIDTH + 50,
-                getPortal() ) );
+        graphicsInterface.setGameState( new GameState( cells,
+            getMonsters(),
+            player,
+            chests,
+            player.WIDTH + 50,
+            getPortal(),
+            messages ) );
 
     }
 
@@ -216,11 +243,14 @@ public class Room extends Rectangle
         }
     }
 
-    public List<Monster> getMonsters() {
+
+    public List<Monster> getMonsters()
+    {
         return monsters;
     }
 
-    public static void main(String[] args )
+
+    public static void main( String[] args )
     {
         RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
         for ( int i = 0; i < 50; i++ )
