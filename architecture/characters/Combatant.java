@@ -142,9 +142,11 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private int actionBar = 0;
 
-    public final boolean canAttack = true;
+    public boolean canAttack = true;
 
     protected boolean isDead = false;
+
+    public CombatResult result;
 
     /**
      * Abbreviated codes for each attribute, in order of storage.
@@ -179,36 +181,36 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private static final double inverseVar = Math.pow( varFactor, -1 );
 
-    private static final int actionLimit = 500;
+    private static final int actionLimit = 2500;
 
 
     public void run()
     {
 
-        // if ( /*actionBar >= actionLimit*/true )
-        // canAttack = true;
+        if ( actionBar >= actionLimit )
+            canAttack = true;
 
-        // else
-        // actionBar += stats.DEF;
-
+        else
+            actionBar += modifiedAttributes[3];
     }
 
 
-    public CombatResult attack( Combatant defender )
+    public void attack( Combatant defender )
     {
         if ( !canAttack )
         {
             // System.out.println( "can't attack" );
-            return null;
+            return;
         }
-        // canAttack = false;
+        canAttack = false;
         actionBar = 0;
         // System.out.println("this:" + this + " attacking: " + defender);
 
-        return defender.receiveAttack( stats.getATK(),
+        defender.receiveAttack( stats.getATK(),
             stats.getACC(),
             stats.getCRIT(),
             this );
+        defender.printVitals();
     }
 
 
@@ -229,11 +231,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      *            the attacker
      * @return a CombatResult object carrying detailed information
      */
-    public CombatResult receiveAttack(
-        int atk,
-        int acc,
-        int crit,
-        Combatant attacker )
+    public void receiveAttack( int atk, int acc, int crit, Combatant attacker )
     {
         CombatResult result = new CombatResult( attacker, this );
 
@@ -243,7 +241,8 @@ public abstract class Combatant extends TimerTask implements Renderable
             result.setDamage( 0 );
             result.setHit( false );
             result.setCritical( false );
-            return result;
+            this.result = result;
+            return;
         }
         result.setHit( true );
 
@@ -268,7 +267,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         // System.out.println("foo this: " + this + "losing: " + damage);
         healthLoss( damage );
         printVitals();
-        return result;
+        this.result = result;
     }
 
 
@@ -586,8 +585,9 @@ public abstract class Combatant extends TimerTask implements Renderable
         System.out.println( "Attributes" );
         for ( int j = 0; j < 7; j++ )
         {
-            System.out.print( Combatant.attributeNames[j] + " "
-                + getBaseAttributes()[j] + " (" + getModifiedAttributes()[j] + ") " );
+            System.out.print(
+                Combatant.attributeNames[j] + " " + getBaseAttributes()[j]
+                    + " (" + getModifiedAttributes()[j] + ") " );
         }
 
         System.out.println( "\nStats" );

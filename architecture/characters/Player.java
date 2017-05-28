@@ -235,12 +235,11 @@ public class Player extends Combatant
     {
         for ( Item item : contents )
         {
+            System.out.println( item );
             if ( item instanceof Weapon )
             {
-                if ( Math.random() < .5 )
-                    equippedWeapon.addBoost( new AttributeBoost( 1, 1 ) );
-                if ( Math.random() < .5 )
-                    equippedWeapon.addBoost( new AttributeBoost( 5, 1 ) );
+                equippedWeapon.addBoost( new AttributeBoost( 1, 1 ) );
+                equippedWeapon.addBoost( new AttributeBoost( 5, 1 ) );
             }
             else if ( item instanceof Armor )
             {
@@ -256,7 +255,6 @@ public class Player extends Combatant
             {
                 restoreHealth( getStats().getHP() / 2 );
             }
-            printStatus();
             updateAttributes();
         }
         contents.clear();
@@ -484,17 +482,6 @@ public class Player extends Combatant
     public Armor[] getEquippedArmor()
     {
         return equippedArmor;
-    }
-
-
-    @Override
-    public void printStatus()
-    {
-        super.printStatus();
-        for ( AttributeBoost boost : equippedWeapon.getSpecialBoosts() )
-        {
-            System.out.println( boost.getValue() );
-        }
     }
 
 }

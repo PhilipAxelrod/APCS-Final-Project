@@ -27,7 +27,7 @@ public abstract class Monster extends Combatant
      * The portion of exp of the level-up requirement awarded to the player of
      * the same level upon Monster's death.
      */
-    private static final double expPerLevel = 1.0 / 6.0;
+    private static final double expPerLevel = 1.0 / 3.0;
 
     // [nominal potion, armor, weapon, accessory]
     /**

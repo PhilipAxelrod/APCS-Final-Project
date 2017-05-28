@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import architecture.augmentations.Chest;
 import architecture.augmentations.Monster;
+import architecture.characters.CombatResult;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
@@ -49,7 +50,6 @@ public class GameLoop
             roomGenerator.runSimulation();
         }
 
-
         final GraphicsInterface graphicsInterface = new GraphicsInterface();
 
         TimerTask task = new TimerTask()
@@ -57,19 +57,19 @@ public class GameLoop
             // TODO: make tile width more intelligent
             final Player player = new Player( new Point2D( 0, 0 ) );
 
-            Room room = roomGenerator.generateRoom(
-                    1,
-                    player.WIDTH + 50,
-                    player );
-
-
+            Room room = roomGenerator.generateRoom( 1,
+                player.WIDTH + 50,
+                player );
 
             double startTime = System.currentTimeMillis();
+
             int iter = 0;
+
+
             @Override
             public void run()
             {
-//                System.out.println("player health: " + player.getHealth());
+                // System.out.println("player health: " + player.getHealth());
 
                 graphicsInterface.requestFocus();
 
@@ -79,14 +79,12 @@ public class GameLoop
 
                     incrementFloor();
 
-                    player.restoreHealth(player.getStats().getHP() / 2);
+                    player.restoreHealth( player.getStats().getHP() / 2 );
 
-//                    System.out.println("yay, at portal!!!");
-                    room = roomGenerator.generateRoom(
-                            floorNum,
-                            player.WIDTH + 50,
-                            player
-                    );
+                    // System.out.println("yay, at portal!!!");
+                    room = roomGenerator.generateRoom( floorNum,
+                        player.WIDTH + 50,
+                        player );
                 }
                 int xToMoveBy = 0;
                 int yToMoveBy = 0;
@@ -114,12 +112,17 @@ public class GameLoop
                         // TODO: this doesn't actually work
                         room.monsters.forEach( monster -> {
                             // TODO: remove second clause of if
-                            if ( player.isInRange( monster ) && !monster.equals( player ) )
+                            if ( player.isInRange( monster )
+                                && !monster.equals( player ) )
                             {
-//                                System.out.println("in range");
-                                player.attack( monster )/*.getDamage()*/;
-//                                System.out.println("result " + player.attack( monster ).getDamage());
-//                                System.out.println( monster + " health " + monster.getHealth() );
+                                player.attack( monster );
+                                // System.out.println("in range");
+                                /* .getDamage() */
+                                // System.out.println("result " + player.attack(
+                                // monster ).getDamage());
+                                // System.out.println( monster + " health " +
+                                // monster.getHealth() );
+
                             }
 
                         } );
@@ -131,13 +134,14 @@ public class GameLoop
                     }
                 }
 
-                if (graphicsInterface.eKey()) {
-                    player.restoreHealth(100);
+                if ( graphicsInterface.eKey() )
+                {
+                    player.restoreHealth( 100 );
                 }
 
                 if ( player.isDead() )
                 {
-//                    System.out.println( "player died!" );
+                    // System.out.println( "player died!" );
                     // TODO: show losing screen and restart
                 }
                 room.monsters.removeIf( Monster::isDead );
@@ -145,29 +149,30 @@ public class GameLoop
                 // TODO: for testing purposes
                 // player.restoreHealth(player.getStats()[0] / 2);
 
-
                 player.accelerate( xToMoveBy, yToMoveBy );
                 player.move();
                 room.update();
 
                 // TODO: Make tile width more intelligent
-                graphicsInterface.setGameState(
-                        new GameState(
-                                roomGenerator.cells,
-                                room.getMonsters(),
-                                player,
-                                room.chests,
-                                player.WIDTH + 50,
-                                room.getPortal()) );
+                graphicsInterface
+                    .setGameState( new GameState( roomGenerator.cells,
+                        room.getMonsters(),
+                        player,
+                        room.chests,
+                        player.WIDTH + 50,
+                        room.getPortal() ) );
 
                 graphicsInterface.doRepaint();
                 double currTime = System.currentTimeMillis() / 1000D;
                 double timePassed = currTime - startTime;
-//                System.out.println("tick took: " + timePassed);
+                // System.out.println("tick took: " + timePassed);
                 startTime = currTime;
-                if (timePassed * 1000 >= 15 && iter > 100) {
-                    System.out.println("went over by: " + timePassed * 1000  +  "s. iter"  + iter);
-//                    throw new RuntimeException("went ove 11 ms. Iter: " + iter );
+                if ( timePassed * 1000 >= 15 && iter > 100 )
+                {
+                    System.out.println( "went over by: " + timePassed * 1000
+                        + "s. iter" + iter );
+                    // throw new RuntimeException("went ove 11 ms. Iter: " +
+                    // iter );
                 }
                 iter = iter + 1;
             }

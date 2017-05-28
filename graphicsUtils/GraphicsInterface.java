@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import com.sun.javafx.geom.Point2D;
 
 import architecture.augmentations.Chest;
+import architecture.augmentations.Monster;
+import architecture.characters.CombatResult;
 import architecture.characters.Combatant;
 import architecture.GameState;
 import architecture.augmentations.weapons.Weapon;
@@ -110,8 +112,6 @@ public class GraphicsInterface extends JPanel
                 .log( Level.SEVERE, null, ex );
         }
 
-
-
         System.out.println( "graphics interface initGraphics() finished!" );
 
     }
@@ -137,7 +137,9 @@ public class GraphicsInterface extends JPanel
         }
     }
 
-    public BufferedImage getSprite(String absolutePath) {
+
+    public BufferedImage getSprite( String absolutePath )
+    {
         try
         {
             return ImageUtils.loadBufferedImage( absolutePath );
@@ -148,8 +150,8 @@ public class GraphicsInterface extends JPanel
         }
     }
 
-
     BufferedImage globalImage;
+
 
     // draw the image onto the JFrame
     public void placeImage(
@@ -163,24 +165,24 @@ public class GraphicsInterface extends JPanel
         g.drawImage( sprite, x, y, width, height, frame );
     }
 
+
     public void placeImage(
-                            String pathToImage,
-                            int startX,
-                            int startY,
-                            int width,
-                            int height,
-                            Graphics g ) {
-//        if (globalImage.getPropertyNames())
-        placeImage(
-                    /*getSprite(pathToImage)*/globalImage,
-                    startX,
-                    startY,
-                    width,
-                    height,
-                    g
-        );
+        String pathToImage,
+        int startX,
+        int startY,
+        int width,
+        int height,
+        Graphics g )
+    {
+        // if (globalImage.getPropertyNames())
+        placeImage( /* getSprite(pathToImage) */globalImage,
+            startX,
+            startY,
+            width,
+            height,
+            g );
     }
-    
+
 
     // change the booleans based on KeyEvents
     @Override
@@ -207,7 +209,8 @@ public class GraphicsInterface extends JPanel
         {
             qKey = true;
         }
-        if (KeyEvent.getKeyText(keyCode).equals("E")) {
+        if ( KeyEvent.getKeyText( keyCode ).equals( "E" ) )
+        {
             eKey = true;
         }
     }
@@ -239,15 +242,19 @@ public class GraphicsInterface extends JPanel
         {
             qKey = false;
         }
-        if (KeyEvent.getKeyText(keyCode).equals("E")) {
+        if ( KeyEvent.getKeyText( keyCode ).equals( "E" ) )
+        {
             eKey = false;
         }
 
     }
 
-    public boolean eKey() {
+
+    public boolean eKey()
+    {
         return eKey;
     }
+
 
     @Override
     public void keyTyped( KeyEvent arg0 )
@@ -267,31 +274,29 @@ public class GraphicsInterface extends JPanel
     public void renderGrid( Cell[][] cells, int cellLength, Graphics graphics )
     {
 
-        loadSprite("Dirt_Floor.png");
+        loadSprite( "Dirt_Floor.png" );
         for ( int i = 0; i < cells.length; i++ )
         {
             for ( int j = 0; j < cells[0].length; j++ )
             {
                 if ( cells[i][j].isAlive() )
                 {
-                    placeImage(
-                            "Dirt_Floor.png",
-                            i * cellLength,
-                            j * cellLength,
-                            cellLength,
-                            cellLength,
-                            graphics );
+                    placeImage( "Dirt_Floor.png",
+                        i * cellLength,
+                        j * cellLength,
+                        cellLength,
+                        cellLength,
+                        graphics );
                 }
             }
         }
     }
 
 
-    public void renderCharacter(Combatant combatant, Graphics g)
+    public void renderCharacter( Combatant combatant, Graphics g )
     {
-        loadSprite("ConcretePowderMagenta.png");
-        placeImage(
-                "ConcretePowderMagenta.png",
+        loadSprite( "ConcretePowderMagenta.png" );
+        placeImage( "ConcretePowderMagenta.png",
             (int)combatant.getPose().x,
             (int)combatant.getPose().y,
             combatant.WIDTH,
@@ -300,36 +305,63 @@ public class GraphicsInterface extends JPanel
 
     }
 
-    public void renderPortal(Rectangle portal, int cellLength, Graphics g) {
-        loadSprite("portal.png");
 
-        placeImage("portal.png", portal.x, portal.y,  portal.width, portal.height, g );
+    public void renderCombatResult( CombatResult result, Graphics g )
+    {
+        if ( result == null )
+            return;
+        Point2D loc = result.getDefender().getPose();
+
+        if ( result.isHit() )
+        {
+            if ( result.isCritical() )
+                g.drawString( "Critical Hit!", (int)loc.x, (int)loc.y );
+            g.drawString( "-" + result.getDamage(), (int)loc.x, (int)loc.y );
+        }
+        else
+            g.drawString( "Miss!", (int)loc.x, (int)loc.y );
     }
+
+
+    public void renderPortal( Rectangle portal, int cellLength, Graphics g )
+    {
+        loadSprite( "portal.png" );
+
+        placeImage( "portal.png",
+            portal.x,
+            portal.y,
+            portal.width,
+            portal.height,
+            g );
+    }
+
 
     public void renderWeapon( Weapon weapon, Combatant combatant, Graphics g )
     {
-        //if ( weapon.getType()[0] == 0 )
+        // if ( weapon.getType()[0] == 0 )
         {
-            try {
-                globalImage = ImageUtils.loadBufferedImage("portal.png");
-            } catch (Exception e) {
-                throw new RuntimeException("yay, loading failed");
+            try
+            {
+                globalImage = ImageUtils.loadBufferedImage( "portal.png" );
+            }
+            catch ( Exception e )
+            {
+                throw new RuntimeException( "yay, loading failed" );
             }
 
             loadSprite( "default_sword.png" );
 
             // TODO: Remove hard coding of weapon size
-            placeImage(
-                "default_sword.png",
+            placeImage( "default_sword.png",
                 (int)( combatant.getPose().x + 2D / 3 * combatant.WIDTH ),
                 (int)( combatant.getPose().y + 2D / 3 * combatant.HEIGHT ),
                 100,
                 100,
                 g );
         }
-        //else
+        // else
         {
-            //throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
     }
 
@@ -337,8 +369,13 @@ public class GraphicsInterface extends JPanel
     public void renderChest( Chest chest, Graphics g )
     {
         Point2D loc = chest.getPose();
-        loadSprite("Chest.png");
-        placeImage("Chest.png", (int) loc.x, (int)loc.y, chest.WIDTH, chest.HEIGHT, g );
+        loadSprite( "Chest.png" );
+        placeImage( "Chest.png",
+            (int)loc.x,
+            (int)loc.y,
+            chest.WIDTH,
+            chest.HEIGHT,
+            g );
     }
 
 
@@ -354,7 +391,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-//    double lastTranslationTime = System.currentTimeMillis() / 1000D;
+    // double lastTranslationTime = System.currentTimeMillis() / 1000D;
     @Override
     public void paint( Graphics g )
     {
@@ -365,35 +402,38 @@ public class GraphicsInterface extends JPanel
         {
             // ensure player is always in the center
             g.translate(
-                    -(int) gameState.player.getPose().x + frame.getWidth() / 2,
-                    -(int) gameState.player.getPose().y + frame.getHeight() / 2);
+                -(int)gameState.player.getPose().x + frame.getWidth() / 2,
+                -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
 
             renderGrid( gameState.cells, gameState.cellLength, g );
 
             gameState.chests.forEach( chest -> renderChest( chest, g ) );
-            gameState.monsters.forEach(monster -> monster.render(this, g));
-            gameState.player.render(this, g);
+            gameState.monsters.forEach( monster -> monster.render( this, g ) );
+            gameState.monsters
+                .forEach( monster -> renderCombatResult( monster.result, g ) );
+            gameState.player.render( this, g );
+            renderCombatResult( gameState.player.result, g );
 
-            renderWeapon(
-                gameState.player.getWeapon(),
-                gameState.player,
-                g );
+            renderWeapon( gameState.player.getWeapon(), gameState.player, g );
 
-            renderPortal(gameState.portal, gameState.cellLength, g);
+            renderPortal( gameState.portal, gameState.cellLength, g );
 
-            for (Chest chest : gameState.chests)
+            for ( Chest chest : gameState.chests )
             {
-                if (!chest.isEmpty())
-                    renderChest(chest, g);
+                if ( !chest.isEmpty() )
+                    renderChest( chest, g );
                 else
                     gameState.chests.remove( chest );
             }
+            renderCombatResult( null, g );
         }
 
         double currTime = System.currentTimeMillis() / 1000D;
         // System.out.println("drawing took: " + (currTime - lastTime));
         lastTime = currTime;
     }
+
+
     public void requestFocus()
     {
         frame.requestFocus();
