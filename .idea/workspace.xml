@@ -7,11 +7,7 @@
     <bookmark url="file://$PROJECT_DIR$/graphicsUtils/GraphicsInterface.java" line="163" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0955b21-f206-4559-b9e5-4ca7b56e93fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/GameState.java" afterPath="$PROJECT_DIR$/architecture/GameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/Room.java" afterPath="$PROJECT_DIR$/proceduralGeneration/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" afterPath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
-    </list>
+    <list default="true" id="e0955b21-f206-4559-b9e5-4ca7b56e93fe" name="Default" comment="" />
     <ignored path="APCS-Final-Project.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -1152,12 +1148,12 @@
       <workItem from="1495845753274" duration="9513000" />
       <workItem from="1495933325923" duration="1529000" />
       <workItem from="1495939190735" duration="5738000" />
-      <workItem from="1496011644039" duration="1998000" />
+      <workItem from="1496011644039" duration="2366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113786000" />
+    <option name="totallyTimeSpent" value="114154000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
