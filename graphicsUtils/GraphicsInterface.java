@@ -308,6 +308,7 @@ public class GraphicsInterface extends JPanel
 
     public void renderCombatResult( CombatResult result, Graphics g )
     {
+        g.setColor( Color.red );
         if ( result == null )
             return;
         Point2D loc = result.getDefender().getPose();
