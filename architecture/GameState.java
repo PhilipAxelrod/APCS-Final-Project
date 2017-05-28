@@ -1,7 +1,7 @@
 package architecture;
 
-import architecture.augmentations.Chest;
-import architecture.augmentations.Monster;
+import architecture.augmentations.equipment.Chest;
+import architecture.characters.Monster;
 import architecture.characters.Player;
 import proceduralGeneration.Cell;
 

@@ -2,7 +2,6 @@ package graphicsUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.security.Key;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.*;
@@ -13,9 +12,8 @@ import javax.swing.JPanel;
 
 import com.sun.javafx.geom.Point2D;
 
-import architecture.augmentations.Chest;
-import architecture.augmentations.Monster;
 import architecture.characters.CombatResult;
+import architecture.augmentations.equipment.Chest;
 import architecture.characters.Combatant;
 import architecture.GameState;
 import architecture.augmentations.weapons.Weapon;
@@ -394,50 +392,61 @@ public class GraphicsInterface extends JPanel
 
 
     // double lastTranslationTime = System.currentTimeMillis() / 1000D;
+
     @Override
     public void paint( Graphics g )
     {
         super.paint( g );
 
-        double lastTime = System.currentTimeMillis() / 1000D;
-        if ( gameState != null )
-        {
-            // ensure player is always in the center
-            g.translate(
-                -(int)gameState.player.getPose().x + frame.getWidth() / 2,
-                -(int)gameState.player.getPose().y + frame.getHeight() / 2 );
+        if (!gameState.player.isDead()) {
+            double lastTime = System.currentTimeMillis() / 1000D;
+            if (gameState != null) {
+                // ensure player is always in the center
+                g.translate(
+                        -(int) gameState.player.getPose().x + frame.getWidth() / 2,
+                        -(int) gameState.player.getPose().y + frame.getHeight() / 2);
 
-            renderGrid( gameState.cells, gameState.cellLength, g );
+                renderGrid(gameState.cells, gameState.cellLength, g);
 
-            gameState.chests.forEach( chest -> renderChest( chest, g ) );
-            gameState.monsters.forEach( monster -> monster.render( this, g ) );
-            gameState.monsters
-                .forEach( monster -> renderCombatResult( monster.result, g ) );
-            gameState.player.render( this, g );
-            renderCombatResult( gameState.player.result, g );
+                gameState.chests.forEach(chest -> renderChest(chest, g));
+                gameState.monsters.forEach(monster -> monster.render(this, g));
+                gameState.monsters
+                        .forEach(monster -> renderCombatResult(monster.result, g));
+                gameState.player.render(this, g);
+                renderCombatResult(gameState.player.result, g);
 
-            renderWeapon( gameState.player.getWeapon(), gameState.player, g );
+                renderWeapon(gameState.player.getWeapon(), gameState.player, g);
 
-            renderPortal( gameState.portal, gameState.cellLength, g );
+                renderPortal(gameState.portal, gameState.cellLength, g);
 
-            for ( Chest chest : gameState.chests )
-            {
-                if ( !chest.isEmpty() )
-                    renderChest( chest, g );
-                else
-                    gameState.chests.remove( chest );
+                for (Chest chest : gameState.chests) {
+                    if (!chest.isEmpty())
+                        renderChest(chest, g);
+                    else
+                        gameState.chests.remove(chest);
+                }
+                renderCombatResult(null, g);
             }
-            renderCombatResult( null, g );
-        }
 
-        double currTime = System.currentTimeMillis() / 1000D;
-        // System.out.println("drawing took: " + (currTime - lastTime));
-        lastTime = currTime;
+            double currTime = System.currentTimeMillis() / 1000D;
+            // System.out.println("drawing took: " + (currTime - lastTime));
+            lastTime = currTime;
+        } else {
+            showDeathScreen(g);
+        }
     }
 
 
     public void requestFocus()
     {
         frame.requestFocus();
+    }
+
+    public void showDeathScreen(Graphics g) {
+        loadSprite("black.jpg");
+        placeImage("black.jpg", 0, 0, frame.getWidth(), frame.getHeight(), g);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g.setColor(Color.GREEN);
+        g.drawString("You Died!", getWidth() / 2, getHeight() / 2);
     }
 }

@@ -1,4 +1,4 @@
-package architecture.augmentations;
+package architecture.augmentations.consumables;
 
 import architecture.characters.Player;
 

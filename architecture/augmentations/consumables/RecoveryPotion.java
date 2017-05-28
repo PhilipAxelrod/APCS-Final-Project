@@ -1,4 +1,4 @@
-package architecture.augmentations;
+package architecture.augmentations.consumables;
 
 /**
  * Represents the subset of Potions which recover health and/or mana. Specific

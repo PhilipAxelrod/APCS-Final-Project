@@ -1,4 +1,7 @@
-package architecture.augmentations;
+package architecture.augmentations.equipment;
+
+import architecture.augmentations.AttributeBoost;
+import architecture.augmentations.Item;
 
 import java.util.LinkedList;
 import java.util.List;

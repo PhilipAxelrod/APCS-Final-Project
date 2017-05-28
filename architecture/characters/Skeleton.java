@@ -1,6 +1,5 @@
 package architecture.characters;
 
-import architecture.augmentations.Monster;
 import graphicsUtils.GraphicsInterface;
 
 import java.awt.*;

@@ -1,6 +1,6 @@
 package testClasses;
 
-import architecture.augmentations.NominalPotion;
+import architecture.augmentations.consumables.NominalPotion;
 
 /**
  * TODO Write a one-sentence summary of your class here. TODO Follow it with

@@ -1,10 +1,14 @@
 package architecture.characters;
 
 import architecture.augmentations.*;
+import architecture.augmentations.consumables.Consumable;
+import architecture.augmentations.consumables.Potion;
+import architecture.augmentations.equipment.Chest;
 import architecture.augmentations.weapons.Sword;
 import architecture.augmentations.weapons.Weapon;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
+import proceduralGeneration.Room;
 
 import java.awt.*;
 import java.security.InvalidParameterException;
@@ -23,8 +27,57 @@ import java.util.List;
  *
  * @author Sources: none
  */
-public class Player extends Combatant
+public class Player extends Combatant implements Updateable
 {
+    @Override
+    public void update(GraphicsInterface graphicsInterface, Room room) {
+        run();
+        int xToMoveBy = 0;
+        int yToMoveBy = 0;
+        if ( graphicsInterface.isArDown() )
+        {
+            yToMoveBy += 20;
+        }
+        if ( graphicsInterface.isArUp() )
+        {
+            yToMoveBy += -20;
+        }
+        if ( graphicsInterface.isArLeft() )
+        {
+            xToMoveBy += -20;
+        }
+        if ( graphicsInterface.isArRight() )
+        {
+            xToMoveBy += 20;
+        }
+        if (graphicsInterface.eKey()) {
+            restoreHealth(100);
+        }
+        if ( graphicsInterface.isQPressed() )
+        {
+            if ( canAttack )
+            {
+                // TODO: this doesn't actually work
+                room.monsters.forEach( monster -> {
+                    // TODO: remove second clause of if
+                    if ( isInRange( monster ))
+                    {
+                        attack( monster );
+                    }
+                } );
+            }
+            for ( Chest chest : room.chests )
+            {
+                if ( canOpen( chest ) )
+                    chest.acquireAll( this );
+            }
+        }
+
+
+        accelerate( xToMoveBy, yToMoveBy );
+        move();
+    }
+
     @Override
     public void render( GraphicsInterface graphicsInterface, Graphics g )
     {
@@ -251,7 +304,7 @@ public class Player extends Combatant
                     equippedArmor[armor.getType()]
                         .addBoost( new AttributeBoost( 4, 1 ) );
             }
-            else if ( item instanceof Potion )
+            else if ( item instanceof Potion)
             {
                 restoreHealth( getStats().getHP() / 2 );
             }
@@ -437,7 +490,6 @@ public class Player extends Combatant
     @Override
     public void run()
     {
-        // TODO Auto-generated method stub
         super.run();
     }
 

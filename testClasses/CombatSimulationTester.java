@@ -1,7 +1,7 @@
 package testClasses;
 
 import architecture.characters.CombatResult;
-import architecture.augmentations.Monster;
+import architecture.characters.Monster;
 import architecture.characters.Player;
 import architecture.characters.Skeleton;
 
@@ -20,19 +20,20 @@ public class CombatSimulationTester
         target.printStatus();
         for ( int attempts = 0; attempts < attacks; attempts++ )
         {
-            CombatResult result = target.receiveAttack( atk, acc, crit, null );
-
-            if ( result.isHit() )
-                System.out.println( result.getDamage() + "!" );
-            else
-                System.out.println( "Miss!" );
-
-            if ( result.isCritical() )
-                System.out.println( "Critical Hit!" );
-
-            System.out.println();
-
-            target.printVitals();
+            // TODO: make compile
+//            CombatResult result = target.receiveAttack( atk, acc, crit, null );
+//
+//            if ( result.isHit() )
+//                System.out.println( result.getDamage() + "!" );
+//            else
+//                System.out.println( "Miss!" );
+//
+//            if ( result.isCritical() )
+//                System.out.println( "Critical Hit!" );
+//
+//            System.out.println();
+//
+//            target.printVitals();
             System.out.println();
         }
 

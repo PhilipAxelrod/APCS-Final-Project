@@ -1,6 +1,7 @@
 package proceduralGeneration;
 
-import architecture.augmentations.Monster;
+import architecture.GameState;
+import architecture.characters.Monster;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import architecture.augmentations.Chest;
+import architecture.augmentations.equipment.Chest;
 import architecture.characters.Combatant;
 
 
@@ -101,7 +102,7 @@ public class Room extends Rectangle
         return inCollisionAtPoint(combatant, combatant.getPose());
     }
 
-    public void update()
+    public void update(GraphicsInterface graphicsInterface)
     {
         if (portal.intersects(player.getBoundingBox())) {
             System.out.println("yay, reached portal");
@@ -109,11 +110,14 @@ public class Room extends Rectangle
             player.restoreMana(player.getStats().getMP() / 2);
         }
 
+        monsters.removeIf( Monster::isDead );
+
         for ( Combatant c : monsters)
         {
             c.run();
         }
-        player.run();
+
+        player.update(graphicsInterface, this);
 
         monsters.removeIf( Combatant::isDead );
 
@@ -129,6 +133,15 @@ public class Room extends Rectangle
             player.resetPoseToPrevios();
             player.stop();
         }
+
+        // TODO: Make tile width more intelligent
+        graphicsInterface.setGameState( new GameState(
+                cells,
+                getMonsters(),
+                player,
+                chests,
+                player.WIDTH + 50,
+                getPortal() ) );
 
     }
 

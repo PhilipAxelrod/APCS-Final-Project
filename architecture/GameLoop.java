@@ -1,12 +1,9 @@
 package architecture;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import architecture.augmentations.Chest;
-import architecture.augmentations.Monster;
-import architecture.characters.CombatResult;
+
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
@@ -16,29 +13,6 @@ import proceduralGeneration.RoomGenerator;
 
 public class GameLoop
 {
-
-    static int floorNum = 1;
-
-
-    public static void incrementFloor()
-    {
-        floorNum++;
-    }
-
-
-    public static int getFloorNum()
-    {
-        return floorNum;
-    }
-
-
-    public void restartGame()
-    {
-        // TODO: complete
-        floorNum = 1;
-    }
-
-
     public static void main( String[] args )
     {
         Timer timer = new Timer();
@@ -54,115 +28,67 @@ public class GameLoop
 
         TimerTask task = new TimerTask()
         {
-            // TODO: make tile width more intelligent
+            int curentFloor = 1;
+
+            int deadTicks = 0;
+
             final Player player = new Player( new Point2D( 0, 0 ) );
 
-            Room room = roomGenerator.generateRoom( 1,
+            // TODO: make tile width more intelligent
+            Room room = roomGenerator.generateRoom(
+                    curentFloor,
                 player.WIDTH + 50,
                 player );
 
             double startTime = System.currentTimeMillis();
 
+            double startDeadTime = System.currentTimeMillis() / 1000D;
+
             int iter = 0;
 
+            private void reset() {
+                player.restoreHealth(100);
+                curentFloor = 1;
+                room = roomGenerator.generateRoom(
+                        curentFloor,
+                        player.WIDTH + 50,
+                        player
+                );
+            }
 
             @Override
             public void run()
             {
-                // System.out.println("player health: " + player.getHealth());
-
                 graphicsInterface.requestFocus();
+
+                if ( player.isDead())
+                {
+//                    startTime = System.currentTimeMillis() / 1000D;
+//                    System.out.println( "player died!" );
+                    if (/*(startDeadTime - startTime) / 1000D >= 2*/deadTicks >= 500) {
+                        reset();
+                    }
+
+                    deadTicks++;
+                } else {
+                    room.update(graphicsInterface);
+                }
 
                 if ( room.atPortal() )
                 {
                     player.stop();
-
-                    incrementFloor();
-
                     player.restoreHealth( player.getStats().getHP() / 2 );
-
-                    // System.out.println("yay, at portal!!!");
-                    room = roomGenerator.generateRoom( floorNum,
-                        player.WIDTH + 50,
-                        player );
-                }
-                int xToMoveBy = 0;
-                int yToMoveBy = 0;
-
-                if ( graphicsInterface.isArDown() )
-                {
-                    yToMoveBy += 20;
-                }
-                if ( graphicsInterface.isArUp() )
-                {
-                    yToMoveBy += -20;
-                }
-                if ( graphicsInterface.isArLeft() )
-                {
-                    xToMoveBy += -20;
-                }
-                if ( graphicsInterface.isArRight() )
-                {
-                    xToMoveBy += 20;
-                }
-                if ( graphicsInterface.isQPressed() )
-                {
-                    if ( player.canAttack )
-                    {
-                        // TODO: this doesn't actually work
-                        room.monsters.forEach( monster -> {
-                            // TODO: remove second clause of if
-                            if ( player.isInRange( monster )
-                                && !monster.equals( player ) )
-                            {
-                                player.attack( monster );
-                                // System.out.println("in range");
-                                /* .getDamage() */
-                                // System.out.println("result " + player.attack(
-                                // monster ).getDamage());
-                                // System.out.println( monster + " health " +
-                                // monster.getHealth() );
-
-                            }
-
-                        } );
-                    }
-                    for ( Chest chest : room.chests )
-                    {
-                        if ( player.canOpen( chest ) )
-                            chest.acquireAll( player );
-                    }
+                    curentFloor++;
+                    room = roomGenerator.generateRoom(
+                            curentFloor,
+                            player.WIDTH + 50,
+                            player );
                 }
 
-                if ( graphicsInterface.eKey() )
-                {
-                    player.restoreHealth( 100 );
-                }
-
-                if ( player.isDead() )
-                {
-                    // System.out.println( "player died!" );
-                    // TODO: show losing screen and restart
-                }
-                room.monsters.removeIf( Monster::isDead );
-
-                // TODO: for testing purposes
-                // player.restoreHealth(player.getStats()[0] / 2);
-
-                player.accelerate( xToMoveBy, yToMoveBy );
-                player.move();
-                room.update();
-
-                // TODO: Make tile width more intelligent
-                graphicsInterface
-                    .setGameState( new GameState( roomGenerator.cells,
-                        room.getMonsters(),
-                        player,
-                        room.chests,
-                        player.WIDTH + 50,
-                        room.getPortal() ) );
 
                 graphicsInterface.doRepaint();
+
+
                 double currTime = System.currentTimeMillis() / 1000D;
                 double timePassed = currTime - startTime;
                 // System.out.println("tick took: " + timePassed);

@@ -1,8 +1,11 @@
-package architecture.augmentations;
+package architecture.characters;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import architecture.augmentations.Armor;
+import architecture.augmentations.Item;
+import architecture.augmentations.consumables.NominalPotion;
 import architecture.augmentations.weapons.Weapon;
 import architecture.characters.Combatant;
 import architecture.characters.Player;

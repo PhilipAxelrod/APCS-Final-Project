@@ -34,10 +34,11 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public Room currRoom;
 
-    private static final int TERMINAL_VELOCITY = 50;
+    private static final int TERMINAL_VELOCITY = 100;
 
-    private static final double FRICTION = 0.95;
+    private static final double FRICTION = 0.90;
 
+    // TODO: remove arbitrary 10D
     private static final double ACCELERATION = TERMINAL_VELOCITY
         * ( 1 / FRICTION - 1 ) / 10D;
 

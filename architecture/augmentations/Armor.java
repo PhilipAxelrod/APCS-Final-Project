@@ -1,5 +1,7 @@
 package architecture.augmentations;
 
+import architecture.augmentations.equipment.Equipment;
+
 import java.util.LinkedList;
 import java.util.List;
 

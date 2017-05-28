@@ -1,4 +1,4 @@
-package architecture.augmentations;
+package architecture.augmentations.consumables;
 
 /**
  * Represents all potions (recover, buffing, etc.). This class only handles

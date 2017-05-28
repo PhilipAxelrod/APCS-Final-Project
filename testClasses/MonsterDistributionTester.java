@@ -1,6 +1,6 @@
 package testClasses;
 
-import architecture.augmentations.Monster;
+import architecture.characters.Monster;
 import architecture.characters.Skeleton;
 
 public class MonsterDistributionTester

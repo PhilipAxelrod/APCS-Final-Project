@@ -1,8 +1,10 @@
-package architecture.augmentations;
+package architecture.augmentations.equipment;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import architecture.augmentations.Item;
+import architecture.characters.Monster;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 

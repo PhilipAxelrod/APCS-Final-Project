@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import architecture.augmentations.Chest;
+import architecture.augmentations.equipment.Chest;
 import architecture.augmentations.Item;
-import architecture.augmentations.NominalPotion;
+import architecture.augmentations.consumables.NominalPotion;
 import architecture.characters.Player;
 import architecture.augmentations.weapons.Weapon;
 

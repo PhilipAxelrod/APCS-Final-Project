@@ -1,5 +1,6 @@
-package architecture.augmentations;
+package architecture.augmentations.consumables;
 
+import architecture.augmentations.Item;
 import architecture.characters.Player;
 
 /**
