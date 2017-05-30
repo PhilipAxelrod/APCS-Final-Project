@@ -98,18 +98,36 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * Generate a type of armor
+     * @return an int that grabs from the 2Darray.
+     */
     private static int generateType()
     {
         return (int)( Math.random() * ARMORTYPES[0].length );
     }
 
 
+    /**
+     * Generate the material it's made of
+     * @return an int that determines the material of the armor, based on the 2Darray.
+     */
     private static int generateMaterial()
     {
         return (int)( Math.random() * armorMaterials.length );
     }
 
 
+    /**
+     * Generate the defense of the player.
+     * @param level
+     *          The current level of the player.
+     * @param type
+     *          The Type of armor.
+     * @param material
+     *          The material the armor piece is made of.
+     * @return The defence in total of the player, rounded to an int.
+     */
     private static int generateDefense( int level, int type, int material )
     {
         double def = ( defenseScaling * level + 20 ) * defenseRatios[type]
@@ -136,6 +154,12 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * List all possible sources of bonus defense of the player
+     * @param level
+     *          The current level of the player
+     * @return A list holding all the sources of bonus defense.
+     */
     private static List<Integer> generateDefenseBoosts( int level )
     {
         final int boostLimit = 3, boostRadius = 2, startingLevel = 1;
@@ -152,6 +176,12 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * TODO Write your method description here.
+     * @param level
+     * @param material
+     * @return
+     */
     private static List<AttributeBoost> generateNormalBoosts(
         int level,
         int material )
@@ -183,6 +213,11 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * Add all possible sources of defense
+     * @param defense 
+     *              The base defense of the player, before any additional sources.
+     */
     public void addDefense( int defense )
     {
         this.defense += defense;
@@ -232,6 +267,11 @@ public class Armor extends Equipment
     }
 
 
+    /**
+     * Add the elements of the array together.
+     * @param array An array containing doubles.
+     * @return A double, which is the sum of the array.
+     */
     private static double sumOf( double[] array )
     {
         double sum = 0;
