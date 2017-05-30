@@ -89,10 +89,11 @@ public class Room extends Rectangle
     {
 
         Point2D tileKey = new Point2D(
-            RoomGenerator.roundToLowestMultiple( point.x,
-                cellWidth * cells.length ),
+                RoomGenerator.roundToLowestMultiple(
+                        point.x,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
             RoomGenerator.roundToLowestMultiple( point.y,
-                cellWidth * cells.length ) );
+                cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
 
         List<Rectangle> tileWalls = forbiddenCells.get( tileKey );
 

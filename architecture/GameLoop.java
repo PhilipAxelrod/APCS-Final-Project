@@ -69,6 +69,7 @@ public class GameLoop
                     deadTicks++;
                 } else {
                     room.update(graphicsInterface);
+                    deadTicks = 0;
                 }
 
                 if ( room.atPortal() )

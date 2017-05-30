@@ -15,7 +15,7 @@ import com.sun.javafx.geom.Point2D;
 
 public class RoomGenerator
 {
-    private final static int HashTileGridLength = 4;
+    final static int HashTileGridLength = 1;
 
     final public Cell[][] cells = new Cell[rows][cols];
 
@@ -272,12 +272,11 @@ public class RoomGenerator
      * @return
      */
     private Hashtable<Point2D, List<Rectangle>> segment(
-        ArrayList<Rectangle> forbiddenAreas,
-        int gridLengthByTiles,
-        int width )
+            ArrayList<Rectangle> forbiddenAreas,
+            int width)
     {
         Hashtable<Point2D, List<Rectangle>> ret = new Hashtable<>();
-        int tileWidth = rows * width / gridLengthByTiles;
+        int tileWidth = rows * width / HashTileGridLength;
 
         for ( Rectangle forbiddenRectangle : forbiddenAreas )
         {
@@ -336,7 +335,7 @@ public class RoomGenerator
                 Cell cell = cells[c][r];
                 if ( !cell.isAlive )
                 {
-                    walls.add( 
+                    walls.add(
                             new Rectangle( cell.x * lengthOfCell,
                                 cell.y * lengthOfCell,
                                 lengthOfCell,
@@ -345,7 +344,7 @@ public class RoomGenerator
             }
         }
 
-        return segment( walls, /* HashTileGridLength */1, lengthOfCell );
+        return segment( walls,   /*1*/ lengthOfCell );
     }
 
 
