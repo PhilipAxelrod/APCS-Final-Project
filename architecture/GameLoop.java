@@ -36,7 +36,7 @@ public class GameLoop
             final Player player = new Player( new Point2D( 0, 0 ) );
 
             // TODO: make tile width more intelligent
-            Room room = roomGenerator.generateRoom(
+            Room room = roomGenerator.generateNewRoom(
                     curentFloor,
                 player.WIDTH + 50,
                     player );
@@ -48,7 +48,7 @@ public class GameLoop
             private void reset() {
                 player.restoreHealth(100);
                 curentFloor = 1;
-                room = roomGenerator.generateRoom(
+                room = roomGenerator.generateNewRoom(
                         curentFloor,
                         player.WIDTH + 50,
                         player
@@ -77,7 +77,7 @@ public class GameLoop
                     player.stop();
                     player.restoreHealth( player.getStats().getHP() / 2 );
                     curentFloor++;
-                    room = roomGenerator.generateRoom(
+                    room = roomGenerator.generateNewRoom(
                             curentFloor,
                             player.WIDTH + 50,
                             player );
@@ -92,7 +92,7 @@ public class GameLoop
                 startTime = currTime;
                 if ( timePassed * 1000 >= 15 && iter > 100 )
                 {
-                    System.out.println( "went over by: " + timePassed * 1000 + "s. iter" + iter );
+//                    System.out.println( "went over by: " + timePassed * 1000 + "s. iter" + iter );
                 }
                 iter = iter + 1;
             }

@@ -15,11 +15,20 @@ import architecture.augmentations.Message;
 import architecture.augmentations.equipment.Chest;
 import architecture.characters.Combatant;
 
-
+/**
+ * Handles updating Monsters, Player, Chests, and collision detection
+ *
+ * @author Philip Axelrod
+ * @version May 8, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class Room extends Rectangle
 {
     public List<Monster> monsters;
-
+    
     private List<Message> messages = new LinkedList<Message>();
 
     // TODO: make getters
@@ -27,13 +36,9 @@ public class Room extends Rectangle
 
     private int cellWidth;
 
-    Hashtable<Point2D, List<Rectangle>> forbiddenCells;
+    Hashtable<Point2D, List<Rectangle>> forbiddenAreas;
 
-    public Cell[][] cells;
-    // static final int rows = 1000;
-    // static final int cols = rows;
-
-    static GraphicsInterface graphicsInterface;
+    public final Cell[][] cells;
 
     Player player;
 
@@ -42,7 +47,7 @@ public class Room extends Rectangle
 
     public Room(
         List<Monster> combatants,
-        Hashtable<Point2D, List<Rectangle>> forbiddenCells,
+        Hashtable<Point2D, List<Rectangle>> forbiddenAreas,
         int tileWidth,
         ConcurrentLinkedQueue<Chest> chests,
         Rectangle portal,
@@ -50,32 +55,12 @@ public class Room extends Rectangle
         Cell[][] cells )
     {
         this.monsters = combatants;
-        this.forbiddenCells = forbiddenCells;
+        this.forbiddenAreas = forbiddenAreas;
         this.cellWidth = tileWidth;
         this.chests = chests;
         this.portal = portal;
         this.player = player;
         this.cells = cells;
-    }
-
-
-    // get around the fact that java doesn't allow reassigment in
-    // anonymous classes
-    // TODO: remove
-    public void assignSelfTo( Room room )
-    {
-        this.monsters = room.monsters;
-        this.forbiddenCells = room.forbiddenCells;
-        this.cellWidth = room.cellWidth;
-        this.chests = room.chests;
-        this.portal = room.portal;
-        this.player = room.player;
-    }
-
-
-    public Rectangle getPortal()
-    {
-        return portal;
     }
 
 
@@ -88,29 +73,54 @@ public class Room extends Rectangle
     public boolean inCollisionAtPoint( Combatant combatant, Point2D point )
     {
 
-        Point2D tileKey = new Point2D(
+        Point2D topLeftTileKey = new Point2D(
                 RoomGenerator.roundToLowestMultiple(
                         point.x,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
-            RoomGenerator.roundToLowestMultiple( point.y,
-                cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
+                RoomGenerator.roundToLowestMultiple(
+                        point.y,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
 
-        List<Rectangle> tileWalls = forbiddenCells.get( tileKey );
+        Point2D topRightTileKey = new Point2D(
+                RoomGenerator.roundToLowestMultiple(
+                        point.x + combatant.WIDTH,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
+                RoomGenerator.roundToLowestMultiple(
+                        point.y,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
 
-        if ( tileWalls != null )
+        Point2D bottomLeftTileKey = new Point2D(
+                RoomGenerator.roundToLowestMultiple(
+                        point.x,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
+                RoomGenerator.roundToLowestMultiple(
+                        point.y + combatant.HEIGHT,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
+
+        Point2D bottomRightTileKey = new Point2D(
+                RoomGenerator.roundToLowestMultiple(
+                        point.x + combatant.HEIGHT,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
+                RoomGenerator.roundToLowestMultiple(
+                        point.y + combatant.WIDTH,
+                        cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
+
+        List<Rectangle> emptyList = new LinkedList<>();
+
+        List<Rectangle> forbidenRectangles = (forbiddenAreas.getOrDefault( topLeftTileKey, emptyList ));
+        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(topRightTileKey, emptyList));
+        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(bottomLeftTileKey, emptyList));
+        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(bottomRightTileKey, emptyList));
+
+
+        for ( Rectangle forbiddenRectangle : forbidenRectangles )
         {
-            for ( Rectangle forbiddenTile : tileWalls )
+            if ( forbiddenRectangle.intersects(combatant.getBoundingBox()) )
             {
-                if ( forbiddenTile.intersects( point.x,
-                    point.y,
-                    combatant.WIDTH,
-                    combatant.HEIGHT ) )
-                {
-                    combatant.stop();
-                    return true;
-                }
+                return true;
             }
         }
+
         return false;
     }
 
@@ -129,6 +139,15 @@ public class Room extends Rectangle
             player.restoreMana( player.getStats().getMP() / 2 );
         }
 
+        player.update( graphicsInterface, this );
+
+        for ( Chest chest : chests ) {
+            if (chest.isEmpty()) {
+                chests.remove(chest);
+                messages.addAll(chest.getMessages());
+            }
+        }
+
         monsters.removeIf( Monster::isDead );
 
         for ( Combatant c : monsters )
@@ -136,135 +155,30 @@ public class Room extends Rectangle
             c.run();
         }
 
-        player.update( graphicsInterface, this );
-
-        monsters.removeIf( Combatant::isDead );
-
         monsters.forEach( combatant -> {
-            if ( inCollision( combatant ) )
-            {
-
+            if ( inCollision( combatant ) ) {
+                combatant.stop();
                 combatant.resetPoseToPrevios();
             }
-            combatant.stop();
         } );
 
         if ( inCollision( player ) )
         {
-            System.out.println("in collision");
-            player.resetPoseToPrevios();
             player.stop();
+            player.resetPoseToPrevios();
         }
 
-        for ( Chest chest : chests )
-            if ( chest.isEmpty() )
-            {
-                chests.remove( chest );
-                messages.addAll( chest.getMessages() );
-            }
-
-        // TODO: Make tile width more intelligent
-        graphicsInterface.setGameState( new GameState( cells,
-            getMonsters(),
-            player,
-            chests,
-            player.WIDTH + 50,
-            getPortal(),
-            messages ) );
-
+        graphicsInterface.setGameState( new GameState(
+                cells,
+                monsters,
+                player,
+                chests,
+                player.WIDTH + 50,
+                portal,
+                messages ) );
     }
 
-
-    private static int randomInt( int min, int max )
-    {
-        int range = max - min + 1;
-        return min + (int)( range * Math.random() );
-    }
-
-
-    public static void initGraphics()
-    {
-        if ( graphicsInterface == null )
-        {
-            graphicsInterface = new GraphicsInterface();
-        }
-    }
-
-
-    @Deprecated
-    public void render( GraphicsInterface graphicsInterface )
-    {
-        graphicsInterface.loadSprite( "Dirt_Floor.png" );
-
-        int side = 100;
-
-        int x = randomInt( 1, 500 );
-        int y = randomInt( 1, 500 );
-
-        for ( int i = 0; i < 10; i++ )
-        {
-            int leftRightTopDown = randomInt( 1, 4 );
-
-            switch ( leftRightTopDown )
-            {
-                case 1:
-                    y = y - side;
-                    break;
-                case 2:
-                    x = x + side;
-                    break;
-                case 3:
-                    y = y + side;
-                    break;
-                case 4:
-                    x = x - side;
-            }
-
-            // graphicsInterface.drawImage(1, 1, side, x, y, );
-        }
-    }
-
-
-    @Deprecated
-    public static void render( Cell[][] cell )
-    {
-        graphicsInterface.loadSprite( "Dirt_Floor.png" );
-
-        int side = 100;
-
-        for ( int i = 0; i < cell.length; i++ )
-        {
-            for ( int j = 0; j < cell[0].length; j++ )
-            {
-                if ( cell[i][j].isAlive() )
-                {
-                    // graphicsInterface.drawImage( 1, 1, side, i * side, j *
-                    // side, );
-                }
-            }
-        }
-    }
-
-
-    public List<Monster> getMonsters()
-    {
-        return monsters;
-    }
-
-
-    public static void main( String[] args )
-    {
-        RoomGenerator room = new RoomGenerator( new ArrayList<Point>() );
-        for ( int i = 0; i < 50; i++ )
-        {
-            room.runSimulation();
-        }
-
-        initGraphics();
-        render( room.cells );
-        //
-        // while (true) {
-        // if (graphicsInterface.)
-        // }
+    public Hashtable<Point2D, List<Rectangle>> getForbiddenAreas() {
+        return forbiddenAreas;
     }
 }

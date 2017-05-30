@@ -26,6 +26,15 @@ import com.sun.javafx.geom.Point2D;
  */
 public abstract class Monster extends Combatant
 {
+    // TODO: make these override stuff in Combatabt
+    protected final int TERMINAL_VELOCITY = 0;
+
+    private final double FRICTION = 0.99;
+
+    // TODO: remove arbitrary 10D
+    private double ACCELERATION = TERMINAL_VELOCITY
+            * ( 1 / FRICTION - 1 ) / 10D;
+
     /**
      * The portion of exp of the level-up requirement awarded to the player of
      * the same level upon Monster's death.

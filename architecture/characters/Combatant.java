@@ -34,12 +34,12 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public Room currRoom;
 
-    private static final int TERMINAL_VELOCITY = 100;
+    protected final int TERMINAL_VELOCITY = 100;
 
-    private static final double FRICTION = 0.90;
+    private final double FRICTION = 0.90;
 
     // TODO: remove arbitrary 10D
-    private static final double ACCELERATION = TERMINAL_VELOCITY
+    private final double ACCELERATION = TERMINAL_VELOCITY
         * ( 1 / FRICTION - 1 ) / 10D;
 
 
@@ -75,6 +75,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public void resetPoseToPrevios()
     {
+        System.out.println("reset called!");
         topLeftCorner = previousTopLeftCorner;
         previousTopLeftCorner = null;
     }

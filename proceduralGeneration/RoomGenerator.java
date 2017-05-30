@@ -1,6 +1,5 @@
 package proceduralGeneration;
 
-// import java.awt.Point;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -12,25 +11,36 @@ import architecture.characters.Player;
 import architecture.characters.Skeleton;
 import com.sun.javafx.geom.Point2D;
 
-
+/**
+ * Handles creating a room with Monsters, Chests, floor layout, and the Player
+ * randomly spawned. Uses a modified Conway's game of Life simulation to
+ * generate a random floor layout
+ *
+ * @author Philip Axelrod
+ * @version May 8, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class RoomGenerator
 {
-    final static int HashTileGridLength = 1;
+    // TODO: making this 4 breaks unit tests for generating walls
+    public static final int HashTileGridLength = 10;
 
-    final public Cell[][] cells = new Cell[rows][cols];
+    final public Cell[][] cells;
 
     List<Cell> aliveAvailibleCells = new ArrayList<>();
 
-    // TODO: Hardcoded value
-    public static final int rows = 10;
+    public final int rows;
+    public final int cols;
 
-    static final int cols = rows;
-
-    private static final Point center = new Point( rows / 2, cols / 2 );
+    private final Point center;
 
 
-    private void initCells()
+    private void initCells(int rows)
     {
+
         for ( int i = 0; i < cells.length; i++ )
         {
             for ( int j = 0; j < cells[0].length; j++ )
@@ -41,9 +51,14 @@ public class RoomGenerator
     }
 
 
-    public RoomGenerator( List<Point> initAlive )
+    public RoomGenerator( List<Point> initAlive, int rows )
     {
-        initCells();
+        this.rows = rows;
+        this.cols = rows;
+
+        cells = new Cell[rows][rows];
+        center = new Point(rows / 2, rows / 2);
+        initCells(rows);
         for ( Point point : initAlive )
         {
             cells[point.x][point.y].isAlive = true;
@@ -53,13 +68,14 @@ public class RoomGenerator
 
     public RoomGenerator()
     {
-        this( Arrays.<Point> asList( new Point( center.x - 1, center.y ),
-            center,
-            new Point( center.x + 1, center.y ),
-            new Point( center.x + 2,
-                center.y )/*
-                           * , new Point( center.x + 3, center.y )
-                           */ ) );
+        // TODO: hackish!
+        this( Arrays.<Point> asList(
+                new Point( 5 - 1, 5),
+                new Point(5, 5),
+                new Point( 5 + 1, 5),
+                new Point( 5 + 2, 5 ),
+                new Point( 5 + 3, 5 )),
+                10);
     }
 
 
@@ -99,7 +115,6 @@ public class RoomGenerator
         Cell randomCell = getRandomAvailibleCell();
         player.moveTo( randomCell.x * cellLength, randomCell.y * cellLength );
         aliveAvailibleCells.remove( randomCell );
-
     }
 
 
@@ -117,7 +132,6 @@ public class RoomGenerator
 
     public List<Monster> createEnemies(int floor, int cellLength, Player player) {
         int numEnemies = (int) (floor * 1.5);
-        System.out.println("making " + numEnemies  + "enemies");
         List<Monster> ret = new LinkedList<>();
         for ( int i = 0; i < numEnemies; i++ )
         {
@@ -265,14 +279,14 @@ public class RoomGenerator
 
 
     /**
-     * split a list of forbiddenCells into a hashtable of point keys and
-     * forbiddenCells of the "tile"
+     * split a list of forbiddenAreas into a hashtable of point keys and
+     * forbiddenAreas of the "tile"
      * 
      * @param forbiddenAreas
      * @return
      */
     private Hashtable<Point2D, List<Rectangle>> segment(
-            ArrayList<Rectangle> forbiddenAreas,
+            List<Rectangle> forbiddenAreas,
             int width)
     {
         Hashtable<Point2D, List<Rectangle>> ret = new Hashtable<>();
@@ -326,7 +340,7 @@ public class RoomGenerator
     public Hashtable<Point2D, List<Rectangle>> getForbiddenRectangles(
         final int lengthOfCell )
     {
-        ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+        List<Rectangle> walls = new LinkedList<>();
 
         for ( int r = 0; r < rows; r++ )
         {
@@ -336,7 +350,8 @@ public class RoomGenerator
                 if ( !cell.isAlive )
                 {
                     walls.add(
-                            new Rectangle( cell.x * lengthOfCell,
+                            new Rectangle(
+                                    cell.x * lengthOfCell,
                                 cell.y * lengthOfCell,
                                 lengthOfCell,
                                 lengthOfCell ) );
@@ -344,7 +359,7 @@ public class RoomGenerator
             }
         }
 
-        return segment( walls,   /*1*/ lengthOfCell );
+        return segment( walls, lengthOfCell );
     }
 
 
@@ -368,25 +383,29 @@ public class RoomGenerator
     {
         for ( int i = 0; i < numSeeds; i++ )
         {
-            getRandomAvailibleCell().isAlive = true;
+            int randomX = (int) (rows * Math.random());
+            int randomY = (int) (rows * Math.random());
+
+            cells[randomX][randomY].isAlive = true;
         }
     }
 
-
-    public Room generateRoom( int floor, int cellLength, Player player )
-    {
+    private void randomizeCells(int simulationRuns) {
         killAllCells();
-        // player.printStatus();
 
         // ensure there are enough seeds so that there are no islands
         plantRandomSeed( rows * rows / 5 );
 
-        for ( int i = 0; i < 500; i++ )
+        for ( int i = 0; i < simulationRuns; i++ )
         {
             runSimulation();
         }
 
         killBorders();
+    }
+
+    public Room generateRoom(int floor, int cellLength, Player player) {
+        updateAliveAvaibleCells();
 
         spawnPlayer(player, cellLength);
         return new Room(
@@ -397,5 +416,14 @@ public class RoomGenerator
                 createPortal(cellLength),
                 player,
                 cells);
+    }
+
+    public Room generateNewRoom(int floor, int cellLength, Player player, int simulationRuns) {
+        randomizeCells(simulationRuns);
+        return generateRoom(floor, cellLength, player);
+    }
+
+    public Room generateNewRoom(int floor, int cellLength, Player player ) {
+        return generateNewRoom(floor, cellLength, player, 500);
     }
 }
