@@ -64,6 +64,11 @@ public class Chest
     }
 
 
+    /**
+     * Creates a chest with randomly generated items. used
+     * @param loc  Pont2D location
+     * @param contents A list of Items in the chest
+     */
     public Chest( Point2D loc, List<Item> contents )
     {
         this.contents = contents;
@@ -73,6 +78,12 @@ public class Chest
     }
 
 
+    /**
+     * Generate a list of messages to send to the player
+     * @param items A list of items to send as messages.
+     * @param loc location of these messages.
+     * @return A list of messages.
+     */
     private static List<Message> generateMessages(
         List<Item> items,
         Point2D loc )
@@ -135,12 +146,20 @@ public class Chest
     }
 
 
+    /**
+     * Return the position of the chest
+     * @return The position of the chest as a Point2D
+     */
     public Point2D getPose()
     {
         return topLeftCorner;
     }
 
 
+    /**
+     * Get the bottomRightCorner of the chest
+     * @return The bottom Right Corner of the chest, as a 2D point.
+     */
     protected Point2D bottomRightCorner()
     {
         return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );

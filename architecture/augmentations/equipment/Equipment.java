@@ -68,6 +68,11 @@ public abstract class Equipment implements Item
     }
 
 
+    /**
+     * TODO Add a boost to the player's attributes
+     * @param level Current level of the player.
+     * @return A list of boosts the player gets from various sources.
+     */
     protected static List<AttributeBoost> generateSpecialBoosts( int level )
     {
         final int boostLimit = 3, boostRadius = 1, startingLevel = 3;

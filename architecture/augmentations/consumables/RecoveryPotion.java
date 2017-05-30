@@ -117,6 +117,11 @@ public abstract class RecoveryPotion extends Potion
     }
 
 
+    /**
+     * Sums all of the elements of an array.
+     * @param array an array of doubles.
+     * @return a sum of array, given as a double.
+     */
     private static double sumOf( double[] array )
     {
         double sum = 0;
