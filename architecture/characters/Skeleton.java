@@ -3,8 +3,11 @@ package architecture.characters;
 import graphicsUtils.GraphicsInterface;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import com.sun.javafx.geom.Point2D;
+import graphicsUtils.ImageUtils;
 
 
 /**
@@ -20,15 +23,20 @@ import com.sun.javafx.geom.Point2D;
  */
 public class Skeleton extends Monster
 {
+    BufferedImage skeletonImage;
+    BufferedImage healthBarImage;
+    BufferedImage manaBarImage;
+    BufferedImage actionBarImage;
     @Override
     public void render( GraphicsInterface graphicsInterface, Graphics g )
     {
-        graphicsInterface.loadSprite("skeleton.PNG");
+//        graphicsInterface.loadSprite("skeletonImage.PNG");
 
         int thisX = (int)this.getPose().x;
         int thisY = (int)this.getPose().y;
 
-        graphicsInterface.placeImage("skeleton.PNG",
+        graphicsInterface.placeImage(
+            skeletonImage,
             thisX,
             thisY,
             WIDTH,
@@ -37,9 +45,10 @@ public class Skeleton extends Monster
 
         double fractionOfHealth =  (double) (getHealth()) / getStats().getHP();
 
-        graphicsInterface.loadSprite("healthbar.png");
+//        graphicsInterface.loadSprite("healthbar.png");
         // health bar
-        graphicsInterface.placeImage("healthbar.png",
+        graphicsInterface.placeImage(
+                healthBarImage,
                 thisX,
                 thisY - HEIGHT / 8,
                 (int)( WIDTH * fractionOfHealth ),
@@ -47,10 +56,10 @@ public class Skeleton extends Monster
                 g );
 
         double fractionOfMana = (double) (getMana()) / getStats().getMP();
-        graphicsInterface.loadSprite("manabar.png");
+//        graphicsInterface.loadSprite("manabar.png");
         // mana bar
         graphicsInterface.placeImage(
-                "manabar.png",
+                manaBarImage,
                 thisX,
                 thisY - HEIGHT / 4,
                 (int) (WIDTH * fractionOfMana),
@@ -69,12 +78,28 @@ public class Skeleton extends Monster
     public Skeleton( int level, Player player )
     {
         super( level, player );
+        try {
+            skeletonImage = ImageUtils.loadBufferedImage("skeleton.PNG");
+            healthBarImage = ImageUtils.loadBufferedImage("healthbar.png");
+            manaBarImage = ImageUtils.loadBufferedImage("manabar.png");
+            actionBarImage = ImageUtils.loadBufferedImage("actionbar.png");
+        } catch (IOException e) {
+            throw new RuntimeException("Image failed to load");
+        }
     }
 
 
     public Skeleton( int level, Player player, Point2D loc )
     {
         super( level, player, loc );
+        try {
+            skeletonImage = ImageUtils.loadBufferedImage("skeleton.PNG");
+            healthBarImage = ImageUtils.loadBufferedImage("healthbar.png");
+            manaBarImage = ImageUtils.loadBufferedImage("manabar.png");
+            actionBarImage = ImageUtils.loadBufferedImage("actionbar.png");
+        } catch (IOException e) {
+            throw new RuntimeException("Image failed to load");
+        }
     }
 
 

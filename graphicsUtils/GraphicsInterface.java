@@ -165,12 +165,11 @@ public class GraphicsInterface extends JPanel
 
 
     public void placeImage(
-        String pathToImage,
-        int startX,
-        int startY,
-        int width,
-        int height,
-        Graphics g )
+            int startX,
+            int startY,
+            int width,
+            int height,
+            Graphics g)
     {
         // if (globalImage.getPropertyNames())
         placeImage( /* getSprite(pathToImage) */globalImage,
@@ -279,8 +278,8 @@ public class GraphicsInterface extends JPanel
             {
                 if ( cells[i][j].isAlive() )
                 {
-                    placeImage( "Dirt_Floor.png",
-                        i * cellLength,
+                    placeImage(
+                            i * cellLength,
                         j * cellLength,
                         cellLength,
                         cellLength,
@@ -294,8 +293,8 @@ public class GraphicsInterface extends JPanel
     public void renderCharacter( Combatant combatant, Graphics g )
     {
         loadSprite( "ConcretePowderMagenta.png" );
-        placeImage( "ConcretePowderMagenta.png",
-            (int)combatant.getPose().x,
+        placeImage(
+                (int)combatant.getPose().x,
             (int)combatant.getPose().y,
             combatant.WIDTH,
             combatant.HEIGHT,
@@ -322,7 +321,7 @@ public class GraphicsInterface extends JPanel
             g.drawString( "Miss!", (int)loc.x, (int)loc.y );
 
         loadSprite( "pow.png" );
-        placeImage( "pow.png", (int)loc.x + 30, (int)loc.y + 30, 50, 50, g );
+        placeImage((int)loc.x + 30, (int)loc.y + 30, 50, 50, g );
     }
 
 
@@ -330,8 +329,8 @@ public class GraphicsInterface extends JPanel
     {
         loadSprite( "portal.png" );
 
-        placeImage( "portal.png",
-            portal.x,
+        placeImage(
+                portal.x,
             portal.y,
             portal.width,
             portal.height,
@@ -361,7 +360,7 @@ public class GraphicsInterface extends JPanel
                     + combatant.HEIGHT / 2/* framHeight / 2 */ );
             ( (Graphics2D)g ).rotate( Math.toRadians( weapon.getAngle() ) );
 
-            placeImage( "default_sword.png",
+            placeImage(
                 /* 100 / 2 */0,
                 -100 / 2,
                 100,
@@ -385,8 +384,8 @@ public class GraphicsInterface extends JPanel
     {
         Point2D loc = chest.getPose();
         loadSprite( "Chest.png" );
-        placeImage( "Chest.png",
-            (int)loc.x,
+        placeImage(
+                (int)loc.x,
             (int)loc.y,
             chest.WIDTH,
             chest.HEIGHT,
@@ -474,7 +473,7 @@ public class GraphicsInterface extends JPanel
     public void showDeathScreen( Graphics g )
     {
         loadSprite( "black.jpg" );
-        placeImage( "black.jpg", 0, 0, frame.getWidth(), frame.getHeight(), g );
+        placeImage(0, 0, frame.getWidth(), frame.getHeight(), g );
         g.setFont( new Font( "TimesRoman", Font.PLAIN, 30 ) );
         g.setColor( Color.GREEN );
         g.drawString( "You Died!", getWidth() / 2, getHeight() / 2 );

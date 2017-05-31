@@ -21,16 +21,12 @@ public class GameLoop
     {
         Timer timer = new Timer();
 
-        RoomGenerator roomGenerator = new RoomGenerator();
-
-//        for ( int i = 0; i < 50; i++ )
-//        {
-//            roomGenerator.runSimulation();
-//        }
 
 
         TimerTask task = new TimerTask()
         {
+            RoomGenerator roomGenerator = new RoomGenerator();
+
             GraphicsInterface graphicsInterface = new GraphicsInterface();
 
             int curentFloor = 1;

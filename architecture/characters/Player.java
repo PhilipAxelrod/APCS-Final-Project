@@ -53,7 +53,7 @@ public class Player extends Combatant implements Updateable
         }
         if ( graphicsInterface.eKey() )
         {
-            restoreHealth( 100 );
+            restoreHealth( 100000 );
         }
         if ( graphicsInterface.isQPressed() )
         {
@@ -98,8 +98,8 @@ public class Player extends Combatant implements Updateable
         int thisX = (int)this.getPose().x;
         int thisY = (int)this.getPose().y;
 
-        graphicsInterface.placeImage( "ConcretePowderMagenta.png",
-            thisX,
+        graphicsInterface.placeImage(
+                thisX,
             thisY,
             WIDTH,
             HEIGHT,
@@ -109,8 +109,8 @@ public class Player extends Combatant implements Updateable
 
         graphicsInterface.loadSprite( "healthbar.png" );
         // health bar
-        graphicsInterface.placeImage( "healthbar.png",
-            thisX,
+        graphicsInterface.placeImage(
+                thisX,
             thisY - HEIGHT / 8,
             (int)( WIDTH * fractionOfHealth ),
             10,
@@ -120,8 +120,8 @@ public class Player extends Combatant implements Updateable
         graphicsInterface.loadSprite( "manabar.png" );
 
         // mana bar
-        graphicsInterface.placeImage( "manabar.png",
-            thisX,
+        graphicsInterface.placeImage(
+                thisX,
             thisY - HEIGHT / 4,
             (int)( WIDTH * fractionOfMana ),
             10,
@@ -131,8 +131,8 @@ public class Player extends Combatant implements Updateable
 
         // mana bar
         graphicsInterface.loadSprite( "actionbar.png" );
-        graphicsInterface.placeImage( "actionbar.png",
-            thisX,
+        graphicsInterface.placeImage(
+                thisX,
             thisY - 3 * HEIGHT / 8,
             (int)( WIDTH * fractionOfAction ),
             10,
