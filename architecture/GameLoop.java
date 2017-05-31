@@ -3,7 +3,7 @@ package architecture;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+import architecture.characters.Combatant;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
@@ -11,17 +11,22 @@ import proceduralGeneration.Room;
 import proceduralGeneration.RoomGenerator;
 
 
+/**
+ * This class starts and runs the program, instantiating the game clock which
+ * controls all simultaneous processes.
+ *
+ * @author Philip Axelrod
+ * @version May 31, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class GameLoop
 {
-    /**
-     * Instantiates a timer that
-     * @param args
-     */
     public static void main( String[] args )
     {
         Timer timer = new Timer();
-
-
 
         TimerTask task = new TimerTask()
         {
@@ -35,42 +40,44 @@ public class GameLoop
 
             final Player player = new Player( new Point2D( 0, 0 ) );
 
-            // TODO: make tile width more intelligent
-            Room room = roomGenerator.generateNewRoom(
-                    curentFloor,
-                player.WIDTH + 50,
-                    player );
+            Room room = roomGenerator.generateNewRoom( curentFloor,
+                Player.WIDTH + 50,
+                player );
 
             double startTime = System.currentTimeMillis();
 
             int iter = 0;
 
-            private void reset() {
-                player.restoreHealth(100);
-                player.setLevel(1);
+
+            private void reset()
+            {
+                player.restoreHealth( 100 );
+                player.setLevel( 1 );
 
                 curentFloor = 1;
-                room = roomGenerator.generateNewRoom(
-                        curentFloor,
-                        player.WIDTH + 50,
-                        player
-                );
+                room = roomGenerator.generateNewRoom( curentFloor,
+                    Player.WIDTH + 50,
+                    player );
             }
+
 
             @Override
             public void run()
             {
                 graphicsInterface.requestFocus();
 
-                if ( player.isDead())
+                if ( player.isDead() )
                 {
-                    if (deadTicks >= 500) {
+                    if ( deadTicks >= 500 )
+                    {
                         reset();
                     }
 
                     deadTicks++;
-                } else {
-                    room.update(graphicsInterface);
+                }
+                else
+                {
+                    room.update( graphicsInterface );
                     deadTicks = 0;
                 }
 
@@ -79,22 +86,20 @@ public class GameLoop
                     player.stop();
                     player.restoreHealth( player.getStats().getHP() / 2 );
                     curentFloor++;
-                    room = roomGenerator.generateNewRoom(
-                            curentFloor,
-                            player.WIDTH + 50,
-                            player );
+                    room = roomGenerator.generateNewRoom( curentFloor,
+                        Player.WIDTH + 50,
+                        player );
                 }
 
-
                 graphicsInterface.doRepaint();
-
 
                 double currTime = System.currentTimeMillis() / 1000D;
                 double timePassed = currTime - startTime;
                 startTime = currTime;
                 if ( timePassed * 1000 >= 15 && iter > 100 )
                 {
-//                    System.out.println( "went over by: " + timePassed * 1000 + "s. iter" + iter );
+                    // System.out.println( "went over by: " + timePassed * 1000
+                    // + "s. iter" + iter );
                 }
                 iter = iter + 1;
             }

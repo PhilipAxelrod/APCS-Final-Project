@@ -27,18 +27,23 @@ import com.sun.javafx.geom.Point2D;
 public abstract class Monster extends Combatant
 {
     @Override
-    protected double getFriction() {
+    protected double getFriction()
+    {
         return super.getFriction() * 0.2;
     }
 
+
     @Override
-    protected double getAcceleration() {
+    protected double getAcceleration()
+    {
         return super.getAcceleration() * 0.2;
     }
 
+
     @Override
-    protected int getTerminalVelocity() {
-        return (int) (super.getTerminalVelocity() * 2.5);
+    protected int getTerminalVelocity()
+    {
+        return (int)( super.getTerminalVelocity() * 2.5 );
     }
 
     /**
@@ -65,7 +70,7 @@ public abstract class Monster extends Combatant
 
     private Player player;
 
-    private boolean aggro = false;
+    private boolean aggroed = false;
 
 
     /**
@@ -215,7 +220,7 @@ public abstract class Monster extends Combatant
     public void death()
     {
         // Awards exp to the player equal to 100 / 6 * (1.5 ^ level)
-        player.acquire( items );
+        player.acquireAll( items );
         player.gainExp( exp );
     }
 
@@ -334,14 +339,15 @@ public abstract class Monster extends Combatant
     public abstract String type();
 
 
+    /**
+     * Movement AI. The Monster moves toward the player if the player has/had
+     * moved into a certain range.
+     */
     public void intelligence()
     {
-        if ( !aggro && Point2D.distance( topLeftCorner.x,
-            topLeftCorner.y,
-            player.topLeftCorner.x,
-            player.topLeftCorner.y ) < 500 )
-            aggro = true;
-        else if ( aggro )
+        if ( !aggroed && topLeftCorner.distance( player.topLeftCorner ) < 500 )
+            aggroed = true;
+        else if ( aggroed )
         {
             accelerate( player.getPose().x - getPose().x,
                 player.getPose().y - getPose().y );

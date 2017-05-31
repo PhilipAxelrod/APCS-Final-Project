@@ -11,7 +11,8 @@ import java.util.TimerTask;
 /**
  * The abstract class for all objects which engage in battle. Combatant handles
  * attribute and stats (numerical values relevant to calculating various aspects
- * of battle), storage of volatile effects, changes in health and mana, etc.
+ * of battle), storage of volatile effects, changes in health and mana, location
+ * and movement etc.
  *
  * @author Kevin Liu
  * @version May 8, 2017
@@ -22,135 +23,32 @@ import java.util.TimerTask;
  */
 public abstract class Combatant extends TimerTask implements Renderable
 {
-    protected Point2D previousTopLeftCorner;
+    private Point2D previousTopLeftCorner;
 
     protected Point2D topLeftCorner;
 
-    public int WIDTH = 100;
+    public static final int WIDTH = 100;
 
-    public int HEIGHT = WIDTH;
+    public static final int HEIGHT = WIDTH;
 
-    public double xVelocity = 0, yVelocity = 0;
+    private double xVelocity = 0, yVelocity = 0;
 
-    public Room currRoom;
+    protected Room currRoom;
 
-    protected final int TERMINAL_VELOCITY = 100;
+    protected static final int TERMINAL_VELOCITY = 100;
 
-    protected int getTerminalVelocity() {
-        return 100;
-    }
-
-    protected double getFriction() {
-        return 0.50;
-    }
-
-    protected double getAcceleration() {
-        return getTerminalVelocity() * ( 1 / getFriction() - 1 )  / 10D ;
-    }
-
-    private final double FRICTION = 0.10;
+    private static final double FRICTION = 0.10;
 
     // TODO: remove arbitrary 10D
-    private final double ACCELERATION = TERMINAL_VELOCITY
+    private static final double ACCELERATION = TERMINAL_VELOCITY
         * ( 1 / FRICTION - 1 ) / 10D;
 
-
-    public Combatant( Point2D initPose )
-    {
-        this.topLeftCorner = initPose;
-    }
-
-
-    public Combatant()
-    {
-        this( new Point2D( 0, 0 ) );
-    }
-
-
-    public Point2D getPose()
-    {
-        return topLeftCorner;
-    }
-
-
-    public Point2D getPreviousPose()
-    {
-        return previousTopLeftCorner;
-    }
-
-
-    protected Point2D bottomRightCorner()
-    {
-        return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
-    }
-
-
-    public void resetPoseToPrevios()
-    {
-        System.out.println("reset called!");
-        topLeftCorner = previousTopLeftCorner;
-        previousTopLeftCorner = null;
-    }
-
-
-    public void move( float x, float y )
-    {
-        previousTopLeftCorner = topLeftCorner;
-        topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
-    }
-
-
-    public void moveTo( float x, float y )
-    {
-        previousTopLeftCorner = topLeftCorner;
-        topLeftCorner = new Point2D( x, y );
-    }
-
-
-    public Rectangle getBoundingBox()
-    {
-        return new Rectangle( (int)getPose().x,
-            (int)getPose().y,
-            WIDTH,
-            HEIGHT );
-    }
-
-
-    public void moveTo( Point2D point2D )
-    {
-        moveTo( point2D.x, point2D.y );
-    }
-
-
-    public void accelerate( float plusX, float plusY )
-    {
-        xVelocity += Math.signum( plusX ) * getAcceleration();
-        yVelocity += Math.signum( plusY ) * getAcceleration();
-
-        xVelocity *= getFriction();
-        yVelocity *= getFriction();
-    }
-
-
-    public void move()
-    {
-        move( (float)xVelocity, (float)yVelocity );
-    }
-
-
-    public void stop()
-    {
-//        System.out.println("stop called!");
-        xVelocity = 0;
-        yVelocity = 0;
-    }
-
-    private int level, health, mana;
+    protected int level, health, mana;
 
     // [STR, INT, DEX, SPD, VIT, WIS, LUK]
-    private int[] baseAttributes = new int[7];
+    protected int[] baseAttributes = new int[7];
 
-    private int[] modifiedAttributes = new int[7];
+    protected int[] modifiedAttributes = new int[7];
 
     // [HP, mana, ATK, DEF, ACC, AVO, CRIT, CRITAVO]
     protected Stats stats = new Stats();
@@ -203,6 +101,171 @@ public abstract class Combatant extends TimerTask implements Renderable
     private int resultTimer;
 
 
+    protected Combatant( Point2D initPose )
+    {
+        this.topLeftCorner = initPose;
+    }
+
+
+    protected Combatant()
+    {
+        this( new Point2D( 0, 0 ) );
+    }
+
+
+    /**
+     * @return terminal velocity
+     */
+    protected int getTerminalVelocity()
+    {
+        return TERMINAL_VELOCITY;
+    }
+
+
+    /**
+     * @return friction
+     */
+    protected double getFriction()
+    {
+        return FRICTION;
+    }
+
+
+    /**
+     * @return acceleration given friction and terminal velocity
+     */
+    protected double getAcceleration()
+    {
+        return getTerminalVelocity() * ( 1 / getFriction() - 1 ) / 10D;
+    }
+
+
+    /**
+     * @return the current location
+     */
+    public Point2D getPose()
+    {
+        return topLeftCorner;
+    }
+
+
+    /**
+     * @return the previous location
+     */
+    public Point2D getPreviousPose()
+    {
+        return previousTopLeftCorner;
+    }
+
+
+    /**
+     * @return the bottom right corner of the combatant
+     */
+    protected Point2D bottomRightCorner()
+    {
+        return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
+    }
+
+
+    /**
+     * Moves the Combatant back to the previous location.
+     */
+    public void resetPoseToPrevios()
+    {
+        System.out.println( "reset called!" );
+        topLeftCorner = previousTopLeftCorner;
+        previousTopLeftCorner = null;
+    }
+
+
+    /**
+     * Moves the Combatant by x units left and y units down.
+     * 
+     * @param x
+     *            net leftward change
+     * @param y
+     *            net downward change
+     */
+    public void move( float x, float y )
+    {
+        previousTopLeftCorner = topLeftCorner;
+        topLeftCorner = new Point2D( topLeftCorner.x + x, topLeftCorner.y + y );
+    }
+
+
+    /**
+     * Moves (teleports) the Combatant to a new location
+     * 
+     * @param x
+     *            x-coordinate
+     * @param y
+     *            y-coordinate
+     */
+    public void moveTo( float x, float y )
+    {
+        previousTopLeftCorner = topLeftCorner;
+        topLeftCorner = new Point2D( x, y );
+    }
+
+
+    public Rectangle getBoundingBox()
+    {
+        return new Rectangle( (int)getPose().x,
+            (int)getPose().y,
+            WIDTH,
+            HEIGHT );
+    }
+
+
+    /**
+     * Moves (teleports) the Combatant to a new location
+     * 
+     * @param point2D
+     *            new location
+     */
+    public void moveTo( Point2D point2D )
+    {
+        moveTo( point2D.x, point2D.y );
+    }
+
+
+    /**
+     * Accelerates left if x is positive, right if negative. Accelerates down if
+     * y is positive, up if negative.
+     * 
+     * @param x
+     * @param y
+     */
+    public void accelerate( float x, float y )
+    {
+        xVelocity += Math.signum( x ) * getAcceleration();
+        yVelocity += Math.signum( y ) * getAcceleration();
+
+        xVelocity *= getFriction();
+        yVelocity *= getFriction();
+    }
+
+
+    /**
+     * Moves the Combatant based on current velocity.
+     */
+    public void move()
+    {
+        move( (float)xVelocity, (float)yVelocity );
+    }
+
+
+    /**
+     * Stops the Combatant, setting velocities to zero.
+     */
+    public void stop()
+    {
+        // System.out.println("stop called!");
+        xVelocity = 0;
+        yVelocity = 0;
+    }
+
+
     public void run()
     {
         resultTimer++;
@@ -214,16 +277,24 @@ public abstract class Combatant extends TimerTask implements Renderable
         if ( actionBar >= actionLimit )
             canAttack = true;
 
-        else {
+        else
+        {
             actionBar += modifiedAttributes[3];
-//            System.out.println("actionBar: " + actionBar);
+            // System.out.println("actionBar: " + actionBar);
         }
     }
 
 
+    /**
+     * Attacks another Combatant. The Attack is only carried out if the Attacker
+     * is read (bar is full). Attacking resets the bar.
+     * 
+     * @param defender
+     *            the other Combatant
+     */
     public void attack( Combatant defender )
     {
-        if ( !canAttack )
+        if ( !canAttack || !isInRange( defender ) )
         {
             // System.out.println( "can't attack" );
             return;
@@ -236,17 +307,16 @@ public abstract class Combatant extends TimerTask implements Renderable
             stats.getACC(),
             stats.getCRIT(),
             this );
-        defender.printVitals();
+        // defender.printVitals();
         resultTimer = 0;
     }
 
 
     /**
-     * ONLY FOR TESTING
-     * 
      * This method is called when the Combatant receives a normal attack. Damage
      * is calculated using passed stats from the attacker and defensive stats of
-     * the defender (this object).
+     * the defender (this object). This method also sets the last combatResult
+     * as the result of this combat.
      * 
      * @param atk
      *            nominal attack value of attacker
@@ -256,9 +326,8 @@ public abstract class Combatant extends TimerTask implements Renderable
      *            critical value of attacker
      * @param attacker
      *            the attacker
-     * @return a CombatResult object carrying detailed information
      */
-    public void receiveAttack( int atk, int acc, int crit, Combatant attacker )
+    private void receiveAttack( int atk, int acc, int crit, Combatant attacker )
     {
         CombatResult result = new CombatResult( attacker, this );
 
@@ -293,7 +362,6 @@ public abstract class Combatant extends TimerTask implements Renderable
         result.setDamage( damage );
         // System.out.println("foo this: " + this + "losing: " + damage);
         healthLoss( damage );
-        printVitals();
         this.result = result;
     }
 
@@ -307,6 +375,14 @@ public abstract class Combatant extends TimerTask implements Renderable
     }
 
 
+    /**
+     * Tests if the Combatant is "in range" of another Combatant, which is a
+     * prerequisite to attacking.
+     * 
+     * @param other
+     *            the other Combatant
+     * @return if this is in range of another Combatant
+     */
     public boolean isInRange( Combatant other )
     {
         double distance = getPose().distance( other.getPose() );
@@ -372,29 +448,24 @@ public abstract class Combatant extends TimerTask implements Renderable
      * 
      * @param value
      *            health to restore
-     * @return actual health restored
      */
-    public int restoreHealth( int value )
+    public void restoreHealth( int value )
     {
         int missingHealth = stats.getHP() - health;
 
         if ( value < missingHealth )
         {
             health += value;
-            return value;
         }
         else
         {
             setHealthFull();
-            return missingHealth;
         }
     }
 
 
     /**
      * Restores combatant health to full (HP stat).
-     * 
-     * @return health restored
      */
     public void setHealthFull()
     {
@@ -408,21 +479,18 @@ public abstract class Combatant extends TimerTask implements Renderable
      * 
      * @param value
      *            mana to restore
-     * @return actual mana restored
      */
-    public int restoreMana( int value )
+    public void restoreMana( int value )
     {
         int missingMana = stats.getMP() - mana;
 
         if ( value < missingMana )
         {
             mana += value;
-            return value;
         }
         else
         {
             setManaFull();
-            return missingMana;
         }
     }
 
@@ -430,11 +498,10 @@ public abstract class Combatant extends TimerTask implements Renderable
     /**
      * Restores combatant mana to full (mana stat).
      * 
-     * @return mana restored
      */
-    public int setManaFull()
+    public void setManaFull()
     {
-        return mana = stats.getMP();
+        mana = stats.getMP();
     }
 
 
@@ -444,40 +511,18 @@ public abstract class Combatant extends TimerTask implements Renderable
      * 
      * @param value
      *            health to deduct
-     * @return actual health deducted
      */
-    public int healthLoss( int value )
+    public void healthLoss( int value )
     {
-        int originalHealth = health;
         if ( health <= value )
         {
             health = 0;
             death();
-            return originalHealth;
         }
         else
         {
             health -= value;
-            return value;
         }
-    }
-
-
-    /**
-     * Deducts mana from combatant. New mana cannot be less than 0, else throws
-     * IllegalArgumentException.
-     * 
-     * @param value
-     *            mana to deduct
-     * @return actual mana deducted
-     */
-    public int manaLoss( int value )
-    {
-        mana -= value;
-        if ( mana <= 0 )
-            throw new IllegalArgumentException(
-                "Mana cannot be reduced below zero." );
-        return value;
     }
 
 
@@ -538,9 +583,17 @@ public abstract class Combatant extends TimerTask implements Renderable
         return mana;
     }
 
-    public int getActionBar() {
+
+    /**
+     * Returns the amount of action preparedness.
+     * 
+     * @return actionBar
+     */
+    public int getActionBar()
+    {
         return actionBar;
     }
+
 
     /**
      * @param mana
@@ -602,7 +655,7 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     /**
      * Prints a summary of Monster's type, level, HP, mana, attributes, and
-     * stats.
+     * stats. For testing only.
      */
     public void printStatus()
     {
@@ -632,21 +685,12 @@ public abstract class Combatant extends TimerTask implements Renderable
 
 
     /**
-     * For testing. Prints out the current type, level, health, and mana.
+     * Sets the room.
+     * 
+     * @param room
+     *            new room
      */
-    public void printVitals()
-    {
-        String divider = "~~~~~~~~~~~";
-
-        // System.out.println( this + " Lv. " + getLevel() );
-        // System.out.println( "HP: " + getHealth() + "/" + getStats().HP + "
-        // mana: "
-        // + getMana() + "/" + getStats().mana);
-        // System.out.println( divider );
-    }
-
-
-    public void getCurrRoom( Room room )
+    public void setCurrRoom( Room room )
     {
         currRoom = room;
     }
