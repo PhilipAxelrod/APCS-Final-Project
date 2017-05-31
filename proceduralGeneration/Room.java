@@ -16,7 +16,7 @@ import architecture.augmentations.equipment.Chest;
 import architecture.characters.Combatant;
 
 /**
- * Handles updating Monsters, Player, Chests, and collision detection
+ * Handles updating Monsters, Player, Chests, and collision detection.
  *
  * @author Philip Axelrod
  * @version May 8, 2017
@@ -31,8 +31,7 @@ public class Room extends Rectangle
     
     private List<Message> messages = new LinkedList<Message>();
 
-    // TODO: make getters
-    public ConcurrentLinkedQueue<Chest> chests;
+    private ConcurrentLinkedQueue<Chest> chests;
 
     private int cellWidth;
 
@@ -64,12 +63,30 @@ public class Room extends Rectangle
     }
 
 
+    /**
+     *
+     * @return whether the player has reached the portal to the next level
+     */
     public boolean atPortal()
     {
         return portal.intersects( player.getBoundingBox() );
     }
 
 
+    /**
+     * tells if the combatant would be in a collision at the given point.
+     * It uses a hashing scheme where it looks in a Hashtable of forbidden
+     * areas. They key represents the top left corner of a subdivision of the
+     * map, and the value is a list of all forbidden Areas in that subdivision.
+     * A list of forbidden areas near the combatant is retrieved by looking in this
+     * table with the top left corner the combatant is currently in. This way
+     * collision detection only occurs for forbidden areas near the player, and
+     * not all of them, saving computation time.
+     *
+     * @param combatant the {@link Combatant} to check if currently in collision
+     * @param point the point he'd be at
+     * @return if combatant is in a collision at point
+     */
     public boolean inCollisionAtPoint( Combatant combatant, Point2D point )
     {
 
@@ -124,13 +141,27 @@ public class Room extends Rectangle
         return false;
     }
 
-
+    /**
+     *
+     * @param combatant
+     * @return
+     */
     public boolean inCollision( Combatant combatant )
     {
         return inCollisionAtPoint( combatant, combatant.getPose() );
     }
 
 
+    /**
+     * updates the list of Monsters, Chests, and Player  by calling their
+     * respective update methods. If a Combatant or a Player is in a collision
+     * their velocity is set to 0 and position reset to their previous,
+     * none colliding position. It removes all Chests and Monsters if they
+     * have been opened are have died.
+     *
+     * @param graphicsInterface GraphicsInterface needed by Player to get
+     *                          information about the keyboard
+     */
     public void update( GraphicsInterface graphicsInterface )
     {
         if ( portal.intersects( player.getBoundingBox() ) )
@@ -180,5 +211,9 @@ public class Room extends Rectangle
 
     public Hashtable<Point2D, List<Rectangle>> getForbiddenAreas() {
         return forbiddenAreas;
+    }
+
+    public ConcurrentLinkedQueue<Chest> getChests() {
+        return chests;
     }
 }

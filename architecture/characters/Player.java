@@ -70,7 +70,7 @@ public class Player extends Combatant implements Updateable
                     }
                 } );
             }
-            for ( Chest chest : room.chests )
+            for ( Chest chest : room.getChests() )
             {
                 if ( canOpen( chest ) )
                     chest.acquireAll( this );

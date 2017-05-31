@@ -77,7 +77,7 @@ public class RoomGeneratorJunit {
             Room room = roomGenerator.generateNewRoom(1, 100, player);
 
             assertTrue(room.monsters.size() == 1);
-            assertTrue(room.chests.size() == 1);
+            assertTrue(room.getChests().size() == 1);
 
             Point2D playerLoc = player.getPose();
             for (Monster monster : room.monsters) {
