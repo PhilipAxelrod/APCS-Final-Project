@@ -187,8 +187,8 @@ public class Room extends Rectangle
      * updates the list of Monsters, Chests, and Player  by calling their
      * respective update methods. If a Combatant or a Player is in a collision
      * their velocity is set to 0 and position reset to their previous,
-     * none colliding position. It removes all Chests and Monsters if they
-     * have been opened are have died.
+     * none colliding position. It removes all Chests and Monsters that
+     * have been opened or have died.
      *
      * @param graphicsInterface GraphicsInterface needed by Player to get
      *                          information about the keyboard
@@ -212,7 +212,7 @@ public class Room extends Rectangle
 
         monsters.removeIf( Monster::isDead );
 
-        for ( Combatant c : monsters )
+        for ( Monster c : monsters )
         {
             c.run();
         }

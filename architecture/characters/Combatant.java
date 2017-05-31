@@ -36,7 +36,19 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     protected final int TERMINAL_VELOCITY = 100;
 
-    private final double FRICTION = 0.90;
+    protected int getTerminalVelocity() {
+        return 100;
+    }
+
+    protected double getFriction() {
+        return 0.50;
+    }
+
+    protected double getAcceleration() {
+        return getTerminalVelocity() * ( 1 / getFriction() - 1 )  / 10D ;
+    }
+
+    private final double FRICTION = 0.10;
 
     // TODO: remove arbitrary 10D
     private final double ACCELERATION = TERMINAL_VELOCITY
@@ -112,11 +124,11 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     public void accelerate( float plusX, float plusY )
     {
-        xVelocity += Math.signum( plusX ) * ACCELERATION;
-        yVelocity += Math.signum( plusY ) * ACCELERATION;
+        xVelocity += Math.signum( plusX ) * getAcceleration();
+        yVelocity += Math.signum( plusY ) * getAcceleration();
 
-        xVelocity *= FRICTION;
-        yVelocity *= FRICTION;
+        xVelocity *= getFriction();
+        yVelocity *= getFriction();
     }
 
 
