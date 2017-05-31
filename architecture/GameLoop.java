@@ -13,16 +13,20 @@ import proceduralGeneration.RoomGenerator;
 
 public class GameLoop
 {
+    /**
+     * Instantiates a timer that
+     * @param args
+     */
     public static void main( String[] args )
     {
         Timer timer = new Timer();
 
         RoomGenerator roomGenerator = new RoomGenerator();
 
-        for ( int i = 0; i < 50; i++ )
-        {
-            roomGenerator.runSimulation();
-        }
+//        for ( int i = 0; i < 50; i++ )
+//        {
+//            roomGenerator.runSimulation();
+//        }
 
 
         TimerTask task = new TimerTask()
@@ -47,6 +51,8 @@ public class GameLoop
 
             private void reset() {
                 player.restoreHealth(100);
+                player.setLevel(1);
+
                 curentFloor = 1;
                 room = roomGenerator.generateNewRoom(
                         curentFloor,

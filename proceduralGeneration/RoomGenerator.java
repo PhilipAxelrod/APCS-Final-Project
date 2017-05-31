@@ -305,7 +305,7 @@ public class RoomGenerator
             }
             else
             {
-                ArrayList<Rectangle> initWallList = new ArrayList<>();
+                LinkedList<Rectangle> initWallList = new LinkedList<>();
                 initWallList.add( forbiddenRectangle );
                 ret.put( tileKey, initWallList );
             }

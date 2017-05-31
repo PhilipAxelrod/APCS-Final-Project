@@ -124,13 +124,44 @@ public class Room extends Rectangle
 
         List<Rectangle> emptyList = new LinkedList<>();
 
-        List<Rectangle> forbidenRectangles = (forbiddenAreas.getOrDefault( topLeftTileKey, emptyList ));
-        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(topRightTileKey, emptyList));
-        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(bottomLeftTileKey, emptyList));
-        forbidenRectangles.addAll(forbiddenAreas.getOrDefault(bottomRightTileKey, emptyList));
+        List<Rectangle> forbiddenRectangles = (forbiddenAreas.getOrDefault( topLeftTileKey, emptyList ));
+//        if (!bottomLeftTileKey.equals(topLeftTileKey)) {
+//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(topRightTileKey, emptyList));
+//        }
+//        if (!bottomLeftTileKey.equals(topLeftTileKey) && !bottomLeftTileKey.equals(topRightTileKey)) {
+//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(bottomLeftTileKey, emptyList));
+//        }
+//        if (!bottomRightTileKey.equals(topLeftTileKey) &&
+//                !bottomRightTileKey.equals(topRightTileKey) &&
+//                !bottomRightTileKey.equals(bottomLeftTileKey)) {
+//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(bottomRightTileKey, emptyList));
+//        }
 
+        for ( Rectangle forbiddenRectangle : forbiddenRectangles )
+        {
+            if ( forbiddenRectangle.intersects(combatant.getBoundingBox()) )
+            {
+                return true;
+            }
+        }
 
-        for ( Rectangle forbiddenRectangle : forbidenRectangles )
+        for ( Rectangle forbiddenRectangle : forbiddenAreas.getOrDefault(topRightTileKey, emptyList ))
+        {
+            if ( forbiddenRectangle.intersects(combatant.getBoundingBox()) )
+            {
+                return true;
+            }
+        }
+
+        for ( Rectangle forbiddenRectangle : forbiddenAreas.getOrDefault(bottomLeftTileKey, emptyList ))
+        {
+            if ( forbiddenRectangle.intersects(combatant.getBoundingBox()) )
+            {
+                return true;
+            }
+        }
+
+        for ( Rectangle forbiddenRectangle : forbiddenAreas.getOrDefault(bottomRightTileKey, emptyList ))
         {
             if ( forbiddenRectangle.intersects(combatant.getBoundingBox()) )
             {
