@@ -2,29 +2,55 @@ package JUnitTests;
 
 import static org.junit.Assert.*;
 
+import architecture.augmentations.Item;
+import architecture.characters.Player;
 import org.junit.Test;
 
 import architecture.augmentations.equipment.Weapon;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ * Test Weapon class.
  *
- *  @author  Kevin Liu
- *  @version May 31, 2017
- *  @author  Period: 5
- *  @author  Assignment: APCS Final
- *
- *  @author  Sources: TODO
+ * @author Kevin Liu
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ * @author Sources: none
+ * @version May 31, 2017
  */
-public class WeaponTest
-{
+public class WeaponTest {
 
     @Test
-    public void constructorDefault()
-    {
+    public void constructorDefault() {
         Weapon wep = new Weapon();
-        assertTrue(false);
+        assertTrue(wep.isMagicDamage());
+        assertEquals(81, wep.getAccuracy());
+        assertEquals(2, wep.getMight());
+        assertEquals(0.0, wep.getAngle(), 0.01);
+        assertTrue(wep.getMightBoosts().isEmpty());
+    }
+
+    @Test
+    public void rotation() {
+        Weapon wep = new Weapon();
+        wep.rotate(180);
+        wep.updateRotation();
+        assertNotEquals(0.0, wep.getAngle());
+    }
+
+    @Test
+    public void powerUp() {
+        Player player = new Player(null);
+        List<Item> items = new LinkedList<>();
+
+        items.add(new Weapon());
+
+        int atk = player.getStats().getATK();
+
+        player.acquireAll(items);
+
+        assertTrue(player.getStats().getATK() == atk + 1);
     }
 }

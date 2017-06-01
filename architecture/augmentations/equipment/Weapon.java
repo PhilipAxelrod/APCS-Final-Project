@@ -59,8 +59,8 @@ public class Weapon extends Equipment
         type[0] = 1;
         type[1] = 1;
         isMagicDamage = ( type[0] == 1 );
-        might = generateMight( 1, type );
-        accuracy = generateAccuracy( 1 );
+        might = 2;
+        accuracy = 81;
         mightBoosts = new LinkedList<Integer>();
 
         setNormalBoosts( new LinkedList<AttributeBoost>() );

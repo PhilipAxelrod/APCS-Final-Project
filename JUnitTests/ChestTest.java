@@ -16,36 +16,26 @@ import architecture.characters.Player;
 
 
 /**
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * Test chests.
  *
  * @author Kevin Liu
- * @version May 19, 2017
  * @author Period: 5
  * @author Assignment: APCS Final
- *
- * @author Sources: TODO
+ * @author Sources: none
+ * @version May 19, 2017
  */
-public class ChestTest
-{
+public class ChestTest {
     private Player player = new Player(null);
     private static final int LEVEL = 1;
-    private static final Point2D loc = new Point2D( 0, 0 );
+    private static final Point2D loc = new Point2D(0, 0);
 
-
-    private static List<Item> getItems()
-    {
-        List<Item> items = new LinkedList<Item>();
-        items.add( new Weapon( 1 ) );
-        items.add( new NominalPotion( 1 ) );
-        return items;
-    }
 
     @Test
-    public void constructor()
-    {
+    public void constructor() {
         Chest chest = new Chest(LEVEL, loc);
+        assertNotNull(chest.getContents());
+        assertNotNull(chest.getMessages());
+        assertNotNull(chest.getPose());
     }
 
 }

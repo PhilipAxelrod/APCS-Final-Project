@@ -11,14 +11,12 @@ import architecture.augmentations.equipment.Armor;
  * JUnit testing for Armor
  *
  * @author Kevin Liu
- * @version May 18, 2017
  * @author Period: 5
  * @author Assignment: APCS Final
- *
  * @author Sources: none
+ * @version May 18, 2017
  */
-public class ArmorTest
-{
+public class ArmorTest {
     private static final int LEVEL = 1, TYPE = 0, MATERIAL = 0;
 
 
@@ -27,24 +25,23 @@ public class ArmorTest
      * and material.
      */
     @Test
-    public void constructorBasic()
-    {
-        Armor armor = new Armor( LEVEL );
+    public void constructorBasic() {
+        Armor armor = new Armor(LEVEL);
 
         // Check if type and material are within acceptable bounds
-        assertTrue( ( armor.getType() >= 0 && armor.getType() <= 4 ) );
-        assertTrue( ( armor.getMaterial() >= 0 && armor.getMaterial() <= 2 ) );
+        assertTrue((armor.getType() >= 0 && armor.getType() <= 4));
+        assertTrue((armor.getMaterial() >= 0 && armor.getMaterial() <= 2));
 
         // Test defense value
-        assertTrue( armor.getDefense() >= 0 );
+        assertTrue(armor.getDefense() >= 0);
 
         // Test boost initialization
-        assertNotNull( armor.getDefenseBoosts() );
-        assertNotNull( armor.getNormalBoosts() );
-        assertNotNull( armor.getSpecialBoosts() );
+        assertNotNull(armor.getDefenseBoosts());
+        assertNotNull(armor.getNormalBoosts());
+        assertNotNull(armor.getSpecialBoosts());
 
         // Test total boosts
-        assertEquals( 7, armor.getTotalBoosts().length );
+        assertEquals(7, armor.getTotalBoosts().length);
     }
 
 
@@ -53,22 +50,19 @@ public class ArmorTest
      * in other test).
      */
     @Test
-    public void constructorTypeMaterial()
-    {
-        Armor armor = new Armor( LEVEL, TYPE, MATERIAL );
-        assertTrue( armor.getMaterial() == MATERIAL );
-        assertTrue( armor.getType() == TYPE );
-        assertTrue(false);
+    public void constructorTypeMaterial() {
+        Armor armor = new Armor(LEVEL, TYPE, MATERIAL);
+        assertTrue(armor.getMaterial() == MATERIAL);
+        assertTrue(armor.getType() == TYPE);
     }
-    
+
     /**
      * Tests the defense value generation.
      */
     @Test
-    public void defValue()
-    {
+    public void defValue() {
         Armor armor = new Armor(LEVEL, TYPE, MATERIAL);
-        assertEquals(5, armor.getDefense());
+        assertEquals(3, armor.getDefense());
     }
 
 }
