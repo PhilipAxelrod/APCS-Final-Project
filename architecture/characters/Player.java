@@ -260,7 +260,6 @@ public class Player extends Combatant implements Updateable
     {
         for ( Item item : contents )
         {
-            System.out.println( item );
             if ( item instanceof Weapon )
             {
                 equippedWeapon.addBoost( new AttributeBoost( 1, 1 ) );

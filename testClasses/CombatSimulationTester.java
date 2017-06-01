@@ -24,14 +24,14 @@ public class CombatSimulationTester
 //            CombatResult result = target.receiveAttack( atk, acc, crit, null );
 //
 //            if ( result.isHit() )
-//                System.out.println( result.getDamage() + "!" );
+
 //            else
-//                System.out.println( "Miss!" );
+
 //
 //            if ( result.isCritical() )
-//                System.out.println( "Critical Hit!" );
+
 //
-//            System.out.println();
+
 //
 //            target.printVitals();
             System.out.println();

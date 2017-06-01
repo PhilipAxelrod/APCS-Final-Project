@@ -110,8 +110,6 @@ public class GraphicsInterface extends JPanel
                 .log( Level.SEVERE, null, ex );
         }
 
-        System.out.println( "graphics interface initGraphics() finished!" );
-
     }
 
 

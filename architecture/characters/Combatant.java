@@ -233,7 +233,6 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public void stop()
     {
-        // System.out.println("stop called!");
         xVelocity = 0;
         yVelocity = 0;
     }
@@ -253,7 +252,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         else
         {
             actionBar += modifiedAttributes[3];
-            // System.out.println("actionBar: " + actionBar);
+
         }
     }
 
@@ -269,12 +268,12 @@ public abstract class Combatant extends TimerTask implements Renderable
     {
         if ( !canAttack || !isInRange( defender ) )
         {
-            // System.out.println( "can't attack" );
+
             return;
         }
         canAttack = false;
         actionBar = 0;
-        // System.out.println("this:" + this + " attacking: " + defender);
+
 
         defender.receiveAttack( stats.getATK(),
             stats.getACC(),
@@ -333,7 +332,7 @@ public abstract class Combatant extends TimerTask implements Renderable
         }
 
         result.setDamage( damage );
-        // System.out.println("foo this: " + this + "losing: " + damage);
+
         healthLoss( damage );
         this.result = result;
     }

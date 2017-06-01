@@ -67,9 +67,7 @@ public class Weapon extends Equipment
         setSpecialBoosts( new LinkedList<AttributeBoost>() );
 
         angle = 0;
-
-        // System.out.println("range is: " + range);
-
+        
         initializeBoosts();
     }
 

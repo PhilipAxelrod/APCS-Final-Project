@@ -395,7 +395,6 @@ public class RoomGenerator
         // occupy them
         updateAliveAvaibleCells();
         do {
-//            System.out.println("going!");
             killAllCells();
 
             // ensure there are enough seeds so that there are no islands
