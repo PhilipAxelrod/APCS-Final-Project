@@ -11,6 +11,18 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
+/**
+ * The current state of the game. The GameState class contains all active
+ * elements of the game: all Chests, Monsters, Messages, the Room, the PLayer,
+ * etc.
+ *
+ * @author Philip Axelrod
+ * @version May 31, 2017
+ * @author Period: 5
+ * @author Assignment: APCS Final
+ *
+ * @author Sources: none
+ */
 public class GameState
 {
     public final Cell[][] cells;

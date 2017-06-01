@@ -14,7 +14,8 @@ import graphicsUtils.GraphicsInterface;
 
 
 /**
- * A Message is a temporary sign, generally used after things die/are deleted.
+ * A Message is a temporary sign, used to inform the user of the acquisition of
+ * power ups.
  *
  * @author Kevin Liu
  * @version May 27, 2017
@@ -49,12 +50,6 @@ public class Message extends TimerTask implements Renderable
     }
 
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see architecture.characters.Renderable#render(graphicsUtils.
-     * GraphicsInterface, java.awt.Graphics)
-     */
     @Override
     public void render( GraphicsInterface graphicsInterface, Graphics g )
     {
@@ -64,11 +59,6 @@ public class Message extends TimerTask implements Renderable
     }
 
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.TimerTask#run()
-     */
     @Override
     public void run()
     {

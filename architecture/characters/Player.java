@@ -1,7 +1,6 @@
 package architecture.characters;
 
 import architecture.augmentations.*;
-import architecture.augmentations.consumables.Consumable;
 import architecture.augmentations.consumables.Potion;
 import architecture.augmentations.equipment.Chest;
 import architecture.augmentations.weapons.Sword;
@@ -11,8 +10,6 @@ import graphicsUtils.GraphicsInterface;
 import proceduralGeneration.Room;
 
 import java.awt.*;
-import java.security.InvalidParameterException;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -58,16 +55,15 @@ public class Player extends Combatant implements Updateable
         super();
         // Set starting level and attributes
         setLevel( 1 );
+        setBaseAttributes( startingAttributes );
+
         // Set starting equipment
-
         equippedWeapon = new Sword();
-
         for ( int i = 0; i < equippedArmor.length; i++ )
             equippedArmor[i] = new Armor( 1, i, 1 );
 
-        setBaseAttributes( startingAttributes );
-        // printStatus();
         updateAttributes();
+
         setExpLimit();
         setHealthFull();
         setManaFull();
