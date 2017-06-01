@@ -29,7 +29,9 @@ import architecture.characters.Player;
  */
 public class ChestTest
 {
-    Player player = new Player();
+    private Player player = new Player(null);
+    private static final int LEVEL = 1;
+    private static final Point2D loc = new Point2D( 0, 0 );
 
 
     private static List<Item> getItems()
@@ -40,40 +42,10 @@ public class ChestTest
         return items;
     }
 
-
-    // TODO: remove
-//    /**
-//     * Tests the no args constructor.
-//     */
-//    @Test
-//    public void cosntructorNoArgs()
-//    {
-//        Chest chest = new Chest();
-//        assertTrue( chest.isEmpty() );
-//        assertFalse( chest.isOpened() );
-//    }
-
-
-    /**
-     * Tests the List of Item constructor.
-     */
     @Test
-    public void constructorListItem()
+    public void constructor()
     {
-        List<Item> items = getItems();
-        Chest chest = new Chest( new Point2D(0, 0), items);
-
-        assertFalse( chest.isEmpty() );
-        assertEquals( items, chest.getContents() );
-        assertTrue( chest.isOpened() );
-        // TODO: uncomment
-//        assertFalse( chest.acquireAll( new Armor( 1 ), player ); );
-//        assertTrue( chest.acquireAll( items.get( 0 ), player ); );
-//
-//        assertTrue( chest.acquireAll( items.get( 1 ), player ); );
-        assertTrue( chest.isEmpty() );
-        
-        // test acquire and get contents seperately and acquireall
+        Chest chest = new Chest(LEVEL, Point2D loc);
     }
 
 }

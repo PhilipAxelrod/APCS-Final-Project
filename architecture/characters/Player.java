@@ -48,11 +48,15 @@ public class Player extends Combatant implements Updateable
     private static final int[] startingAttributes = { 14, 14, 9, 9, 7, 9, 4 };
 
 
-
+    public Player()
+    {
+        this( new Point2D( 0, 0 ) );
+    }
 
 
     /**
-     * @param startPose the starting location
+     * @param startPose
+     *            the starting location
      */
     public Player( Point2D startPose )
     {

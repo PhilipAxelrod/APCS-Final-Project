@@ -65,6 +65,12 @@ public class Armor extends Equipment
     }
 
 
+    public Armor( int level, int type )
+    {
+        this( level, type, generateMaterial() );
+    }
+
+
     /**
      * @param level
      *            relative strength

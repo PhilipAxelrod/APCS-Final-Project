@@ -49,17 +49,6 @@ public class ArmorTest
 
 
     /**
-     * Tests the explicitly stated type constructor.
-     */
-    @Test
-    public void constructorType()
-    {
-        Armor armor = new Armor( LEVEL, TYPE );
-        assertTrue( armor.getType() == TYPE );
-    }
-
-
-    /**
      * Tests the explicitly stated constructor's material aspect (type is tested
      * in other test).
      */
@@ -68,6 +57,17 @@ public class ArmorTest
     {
         Armor armor = new Armor( LEVEL, TYPE, MATERIAL );
         assertTrue( armor.getMaterial() == MATERIAL );
+        assertTrue( armor.getType() == TYPE );
+    }
+    
+    /**
+     * Tests the defense value generation.
+     */
+    @Test
+    public void defValue()
+    {
+        Armor armor = new Armor(LEVEL, TYPE, MATERIAL);
+        assertEquals(5, armor.getDefense());
     }
 
 }
