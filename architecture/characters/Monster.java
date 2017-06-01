@@ -106,7 +106,7 @@ public abstract class Monster extends Combatant
     }
 
 
-    public Monster( int level, List<Item> Items, Player player, Point2D loc )
+    public Monster( int level, List<Item> items, Player player, Point2D loc )
     {
         super( loc );
         if ( level < 1 )

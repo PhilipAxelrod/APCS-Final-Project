@@ -13,7 +13,8 @@ import proceduralGeneration.RoomGenerator;
 
 /**
  * This class starts and runs the program, instantiating the game clock which
- * controls all simultaneous processes.
+ * controls updates the game and game graphics. It resets the player when he dies,
+ * handles generating new levels when the player reaches the portal,
  *
  * @author Philip Axelrod
  * @version May 31, 2017
@@ -86,22 +87,13 @@ public class GameLoop
                     player.stop();
                     player.restoreHealth( player.getStats().getHP() / 2 );
                     curentFloor++;
-                    room = roomGenerator.generateNewRoom( curentFloor,
-                        Player.WIDTH + 50,
-                        player );
+                    room = roomGenerator.generateNewRoom(
+                            curentFloor,
+                            Player.WIDTH + 50,
+                            player );
                 }
 
                 graphicsInterface.doRepaint();
-
-                double currTime = System.currentTimeMillis() / 1000D;
-                double timePassed = currTime - startTime;
-                startTime = currTime;
-                if ( timePassed * 1000 >= 15 && iter > 100 )
-                {
-                    // System.out.println( "went over by: " + timePassed * 1000
-                    // + "s. iter" + iter );
-                }
-                iter = iter + 1;
             }
         };
 
