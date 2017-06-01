@@ -10,10 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0955b21-f206-4559-b9e5-4ca7b56e93fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/characters/Combatant.java" afterPath="$PROJECT_DIR$/architecture/characters/Combatant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/architecture/characters/Monster.java" afterPath="$PROJECT_DIR$/architecture/characters/Monster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/Room.java" afterPath="$PROJECT_DIR$/proceduralGeneration/Room.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" afterPath="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
     </list>
     <ignored path="APCS-Final-Project.iws" />
@@ -71,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/architecture/characters/Monster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="40" column="55" lean-forward="false" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
+            <state relative-caret-position="413">
+              <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
               <folding>
                 <element signature="e#797#798#0" expanded="true" />
                 <element signature="e#845#846#0" expanded="true" />
@@ -93,7 +89,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,17 +102,36 @@
             <state relative-caret-position="3810">
               <caret line="162" column="24" lean-forward="false" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1114#1115#0" expanded="false" />
+                <element signature="e#1141#1142#0" expanded="false" />
+                <element signature="e#1180#1181#0" expanded="false" />
+                <element signature="e#1210#1211#0" expanded="false" />
+                <element signature="e#1248#1249#0" expanded="false" />
+                <element signature="e#1277#1278#0" expanded="false" />
+                <element signature="e#1315#1316#0" expanded="false" />
+                <element signature="e#1344#1345#0" expanded="false" />
+                <element signature="e#1384#1385#0" expanded="false" />
+                <element signature="e#1411#1412#0" expanded="false" />
+                <element signature="e#2871#2872#0" expanded="false" />
+                <element signature="e#2910#2911#0" expanded="false" />
+                <element signature="e#5834#5835#0" expanded="false" />
+                <element signature="e#5861#5862#0" expanded="false" />
+                <element signature="e#9570#9571#0" expanded="false" />
+                <element signature="e#9612#9613#0" expanded="false" />
+                <element signature="e#9648#9649#0" expanded="false" />
+                <element signature="e#9696#9697#0" expanded="false" />
+                <element signature="e#11774#11775#0" expanded="false" />
+                <element signature="e#11810#11811#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoomGenerator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RoomGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="353">
-              <caret line="94" column="73" lean-forward="false" selection-start-line="94" selection-start-column="73" selection-end-line="94" selection-end-column="73" />
+              <caret line="94" column="21" lean-forward="false" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -148,7 +165,17 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="960">
               <caret line="39" column="18" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#3026#3027#0" expanded="false" />
+                <element signature="e#3054#3055#0" expanded="false" />
+                <element signature="e#3110#3111#0" expanded="false" />
+                <element signature="e#3136#3137#0" expanded="false" />
+                <element signature="e#3353#3354#0" expanded="false" />
+                <element signature="e#3386#3387#0" expanded="false" />
+                <element signature="e#3434#3435#0" expanded="false" />
+                <element signature="e#3460#3461#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,7 +185,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="11" column="53" lean-forward="false" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="53" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -283,9 +312,9 @@
         <option value="$PROJECT_DIR$/architecture/characters/Skeleton.java" />
         <option value="$PROJECT_DIR$/architecture/characters/Player.java" />
         <option value="$PROJECT_DIR$/architecture/characters/Combatant.java" />
-        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
         <option value="$PROJECT_DIR$/proceduralGeneration/Room.java" />
         <option value="$PROJECT_DIR$/architecture/characters/Monster.java" />
+        <option value="$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java" />
       </list>
     </option>
   </component>
@@ -543,7 +572,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20592593" />
-    <property name="SearchEverywhereHistoryKey" value="Mons&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Mon&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Roomg&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;Play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;C&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Skele&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Skeleton.java&#10;Comba&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Monst&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Gam&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;Pla&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;resetTo&#9;PSI&#9;JAVA://architecture.characters.Combatant#resetPoseToPrevios&#10;roomg&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator&#10;Hashtil&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#HashTileGridLength&#10;Cell&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Cell.java&#10;Comb&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;combata&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Entry&#9;PSI&#9;JAVA://java.beans.WeakIdentityMap.Entry&#10;Point&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/geom/Point2D.java&#10;Ga&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Chest&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/augmentations/equipment/Chest.java&#10;player&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;graphics&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;Gra&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;gam&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;AttributedCha&#9;PSI&#9;JAVA://java.text.AttributedCharacterIterator&#10;game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;GAme&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;updateQ&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#updateQueuedStates&#10;spawn&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#spawnEnemies&#10;GameL&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;wea&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/augmentations/Weapon.java&#10;Skel&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Skeleton.java&#10;monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;ske&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java&#10;Ske&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java&#10;re&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Renderable.java&#10;render&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Renderable.java&#10;ArrayList&#9;PSI&#9;JAVA://java.util.ArrayList&#10;Monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;Spr&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/SpriteSheet.java&#10;pLAY&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;mon&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;skele&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java&#10;roomG&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator" />
+    <property name="SearchEverywhereHistoryKey" value="roomG&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;Mons&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Mon&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Roomg&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/RoomGenerator.java&#10;Play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;C&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Skele&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Skeleton.java&#10;Comba&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Monst&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Monster.java&#10;Gam&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;Pla&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;room&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Room.java&#10;resetTo&#9;PSI&#9;JAVA://architecture.characters.Combatant#resetPoseToPrevios&#10;roomg&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator&#10;Hashtil&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#HashTileGridLength&#10;Cell&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/proceduralGeneration/Cell.java&#10;Comb&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;combata&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Combatant.java&#10;Entry&#9;PSI&#9;JAVA://java.beans.WeakIdentityMap.Entry&#10;Point&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/geom/Point2D.java&#10;Ga&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;Chest&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/augmentations/equipment/Chest.java&#10;player&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;graphics&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;play&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Player.java&#10;Gra&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/GraphicsInterface.java&#10;gam&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;AttributedCha&#9;PSI&#9;JAVA://java.text.AttributedCharacterIterator&#10;game&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;GAme&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;updateQ&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#updateQueuedStates&#10;spawn&#9;PSI&#9;JAVA://proceduralGeneration.RoomGenerator#spawnEnemies&#10;GameL&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/GameLoop.java&#10;wea&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/augmentations/Weapon.java&#10;Skel&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/characters/Skeleton.java&#10;monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;com&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Combatant.java&#10;ske&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java&#10;Ske&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java&#10;re&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Renderable.java&#10;render&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Renderable.java&#10;ArrayList&#9;PSI&#9;JAVA://java.util.ArrayList&#10;Monster&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;Spr&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/graphicsUtils/SpriteSheet.java&#10;pLAY&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Player.java&#10;mon&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Monster.java&#10;skele&#9;FILE&#9;file://C:/Users/Philip/Documents/GitHub/APCS-finl/APCS-Final-Project/architecture/Skeleton.java" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -1204,7 +1233,7 @@
       <workItem from="1495939190735" duration="5738000" />
       <workItem from="1496011644039" duration="3280000" />
       <workItem from="1496118739125" duration="20973000" />
-      <workItem from="1496255317026" duration="2154000" />
+      <workItem from="1496255317026" duration="3657000" />
     </task>
     <servers />
   </component>
@@ -1241,7 +1270,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138195000" />
+    <option name="totallyTimeSpent" value="139698000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1729,7 +1758,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1738,7 +1769,26 @@
         <state relative-caret-position="3810">
           <caret line="162" column="24" lean-forward="false" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1114#1115#0" expanded="false" />
+            <element signature="e#1141#1142#0" expanded="false" />
+            <element signature="e#1180#1181#0" expanded="false" />
+            <element signature="e#1210#1211#0" expanded="false" />
+            <element signature="e#1248#1249#0" expanded="false" />
+            <element signature="e#1277#1278#0" expanded="false" />
+            <element signature="e#1315#1316#0" expanded="false" />
+            <element signature="e#1344#1345#0" expanded="false" />
+            <element signature="e#1384#1385#0" expanded="false" />
+            <element signature="e#1411#1412#0" expanded="false" />
+            <element signature="e#2871#2872#0" expanded="false" />
+            <element signature="e#2910#2911#0" expanded="false" />
+            <element signature="e#5834#5835#0" expanded="false" />
+            <element signature="e#5861#5862#0" expanded="false" />
+            <element signature="e#9570#9571#0" expanded="false" />
+            <element signature="e#9612#9613#0" expanded="false" />
+            <element signature="e#9648#9649#0" expanded="false" />
+            <element signature="e#9696#9697#0" expanded="false" />
+            <element signature="e#11774#11775#0" expanded="false" />
+            <element signature="e#11810#11811#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1747,7 +1797,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="11" column="53" lean-forward="false" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="53" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1755,7 +1807,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
           <caret line="39" column="18" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3026#3027#0" expanded="false" />
+            <element signature="e#3054#3055#0" expanded="false" />
+            <element signature="e#3110#3111#0" expanded="false" />
+            <element signature="e#3136#3137#0" expanded="false" />
+            <element signature="e#3353#3354#0" expanded="false" />
+            <element signature="e#3386#3387#0" expanded="false" />
+            <element signature="e#3434#3435#0" expanded="false" />
+            <element signature="e#3460#3461#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1799,16 +1861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="94" column="73" lean-forward="false" selection-start-line="94" selection-start-column="73" selection-end-line="94" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proceduralGeneration/Room.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1821,8 +1873,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/architecture/characters/Monster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="40" column="55" lean-forward="false" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
+        <state relative-caret-position="413">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
           <folding>
             <element signature="e#797#798#0" expanded="true" />
             <element signature="e#845#846#0" expanded="true" />
@@ -1830,6 +1882,16 @@
             <element signature="e#953#954#0" expanded="true" />
             <element signature="e#1010#1011#0" expanded="true" />
             <element signature="e#1074#1075#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proceduralGeneration/RoomGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="94" column="21" lean-forward="false" selection-start-line="94" selection-start-column="21" selection-end-line="94" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -92,7 +92,7 @@ public class RoomGenerator
         {
             return true;
         }
-        return currCell.isAlive && numAlive <= 9 && numAlive >= 1 || true;
+        return currCell.isAlive && numAlive <= 9 && numAlive >= 1;
     }
 
 
