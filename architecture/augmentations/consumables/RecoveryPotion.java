@@ -18,8 +18,6 @@ public abstract class RecoveryPotion extends Potion
 
     private static final double[] typeDistribution = { 40, 40, 20 };
 
-    private static final String[] types = { "Health", "Mana", "Dual" };
-
 
     /**
      * Instantiates a recovery potion of random type (health, mana, dual) and
@@ -41,35 +39,6 @@ public abstract class RecoveryPotion extends Potion
     public RecoveryPotion( int type )
     {
         super();
-        this.type = type;
-    }
-
-
-    /**
-     * Instantiates a recovery potion of random type (health, mana, dual) and
-     * given variability factor.
-     * 
-     * @param var
-     *            variability factor
-     */
-    public RecoveryPotion( double var )
-    {
-        this( randomType(), var );
-    }
-
-
-    /**
-     * Instantiates a recovery potion of given type (health, mana, dual) and
-     * given variability factor.
-     * 
-     * @param type
-     *            potion type
-     * @param var
-     *            variability factor
-     */
-    public RecoveryPotion( int type, double var )
-    {
-        super( var );
         this.type = type;
     }
 
@@ -107,19 +76,10 @@ public abstract class RecoveryPotion extends Potion
 
 
     /**
-     * Returns a string array of potion types.
-     * 
-     * @return types of potions
-     */
-    public String[] getTypes()
-    {
-        return types;
-    }
-
-
-    /**
      * Sums all of the elements of an array.
-     * @param array an array of doubles.
+     * 
+     * @param array
+     *            an array of doubles.
      * @return a sum of array, given as a double.
      */
     private static double sumOf( double[] array )
@@ -130,11 +90,5 @@ public abstract class RecoveryPotion extends Potion
         return sum;
 
     }
-
-
-    /**
-     * For testing only. Prints information regarding the potion.
-     */
-    public abstract void printDetails();
 
 }

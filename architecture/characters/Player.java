@@ -2,9 +2,10 @@ package architecture.characters;
 
 import architecture.augmentations.*;
 import architecture.augmentations.consumables.Potion;
+import architecture.augmentations.equipment.Armor;
 import architecture.augmentations.equipment.Chest;
-import architecture.augmentations.weapons.Sword;
-import architecture.augmentations.weapons.Weapon;
+import architecture.augmentations.equipment.Weapon;
+
 import com.sun.javafx.geom.Point2D;
 import graphicsUtils.GraphicsInterface;
 import proceduralGeneration.Room;
@@ -47,10 +48,13 @@ public class Player extends Combatant implements Updateable
     private static final int[] startingAttributes = { 14, 14, 9, 9, 7, 9, 4 };
 
 
+
+
+
     /**
-     * Creates a default starting player.
+     * @param startPose the starting location
      */
-    public Player()
+    public Player( Point2D startPose )
     {
         super();
         // Set starting level and attributes
@@ -58,7 +62,7 @@ public class Player extends Combatant implements Updateable
         setBaseAttributes( startingAttributes );
 
         // Set starting equipment
-        equippedWeapon = new Sword();
+        equippedWeapon = new Weapon();
         for ( int i = 0; i < equippedArmor.length; i++ )
             equippedArmor[i] = new Armor( 1, i, 1 );
 
@@ -67,12 +71,6 @@ public class Player extends Combatant implements Updateable
         setExpLimit();
         setHealthFull();
         setManaFull();
-    }
-
-
-    public Player( Point2D startPose )
-    {
-        this();
         this.topLeftCorner = startPose;
     }
 
@@ -359,15 +357,6 @@ public class Player extends Combatant implements Updateable
             topLeftCorner.y,
             chest.getPose().x,
             chest.getPose().y ) <= 100 );
-    }
-
-
-    /**
-     * @return Returns the equippedArmor.
-     */
-    public Armor[] getEquippedArmor()
-    {
-        return equippedArmor;
     }
 
 }

@@ -3,11 +3,8 @@ package architecture.augmentations.equipment;
 import java.util.LinkedList;
 import java.util.List;
 
-import architecture.augmentations.Armor;
 import architecture.augmentations.Item;
 import architecture.augmentations.Message;
-import architecture.augmentations.consumables.Potion;
-import architecture.augmentations.weapons.Weapon;
 import architecture.characters.Monster;
 import architecture.characters.Player;
 import com.sun.javafx.geom.Point2D;
@@ -65,23 +62,12 @@ public class Chest
 
 
     /**
-     * Creates a chest with randomly generated items. used
-     * @param loc  Pont2D location
-     * @param contents A list of Items in the chest
-     */
-    public Chest( Point2D loc, List<Item> contents )
-    {
-        this.contents = contents;
-        topLeftCorner = loc;
-        messages = generateMessages( contents, loc );
-
-    }
-
-
-    /**
      * Generate a list of messages to send to the player
-     * @param items A list of items to send as messages.
-     * @param loc location of these messages.
+     * 
+     * @param items
+     *            A list of items to send as messages.
+     * @param loc
+     *            location of these messages.
      * @return A list of messages.
      */
     private static List<Message> generateMessages(
@@ -148,6 +134,7 @@ public class Chest
 
     /**
      * Return the position of the chest
+     * 
      * @return The position of the chest as a Point2D
      */
     public Point2D getPose()
@@ -158,6 +145,7 @@ public class Chest
 
     /**
      * Get the bottomRightCorner of the chest
+     * 
      * @return The bottom Right Corner of the chest, as a 2D point.
      */
     protected Point2D bottomRightCorner()

@@ -30,16 +30,6 @@ public abstract class Potion implements Consumable
     }
 
 
-    /**
-     * Instantiates a Potion with given variability factor.
-     * 
-     * @param var
-     *            variability factor
-     */
-    protected Potion( double var )
-    {
-        this.var = var;
-    }
 
 
     /**

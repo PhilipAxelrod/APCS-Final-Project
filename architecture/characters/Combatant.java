@@ -64,13 +64,6 @@ public abstract class Combatant extends TimerTask implements Renderable
                     accuracyFactor = 5, critFactor = 5, baseCrit = 5,
                     damageFactor = .332;
 
-    /**
-     * Expected raise in each attribute per level for a generic monster
-     * (Skeleton).
-     */
-    @SuppressWarnings("unused")
-    private static final double[] attributePerLevel = { 2.0, 0.2, 1.5, 1.5, 1.0,
-        0.3, 0.5 };
 
     // Constants used to calculate damage.
     private static final double damageBase = Math.pow( 3, 1 / 10 );
@@ -623,13 +616,6 @@ public abstract class Combatant extends TimerTask implements Renderable
     }
 
 
-    /**
-     * @return Returns the canAttack.
-     */
-    public boolean isCanAttack()
-    {
-        return canAttack;
-    }
 
 
     /**

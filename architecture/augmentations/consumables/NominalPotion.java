@@ -39,56 +39,6 @@ public class NominalPotion extends RecoveryPotion
 
 
     /**
-     * Instantiates a nominal recovery potion of given type and random
-     * variability factor.
-     * 
-     * @param level
-     *            relative strength of potion
-     * @param type
-     *            recovery type (health, mana, both)
-     */
-    public NominalPotion( int level, int type )
-    {
-        super( type );
-        assignValue( level );
-    }
-
-
-    /**
-     * Instantiates a nominal recovery potion of random type and given
-     * variability factor.
-     * 
-     * @param level
-     *            relative strength of potion
-     * @param var
-     *            variability factor
-     */
-    public NominalPotion( int level, double var )
-    {
-        super( var );
-        assignValue( level );
-    }
-
-
-    /**
-     * Instantiates a nominal recovery potion of given type and given
-     * variability factor.
-     * 
-     * @param level
-     *            relative strength of potion
-     * @param type
-     *            recovery type (health, mana, both)
-     * @param var
-     *            variability factor
-     */
-    public NominalPotion( int level, int type, double var )
-    {
-        super( type, var );
-        assignValue( level );
-    }
-
-
-    /**
      * Sets the recovery value of the potion based on its type and level.
      * 
      * @param level
@@ -120,12 +70,6 @@ public class NominalPotion extends RecoveryPotion
                 break;
         }
         return true;
-    }
-
-
-    public void printDetails()
-    {
-        System.out.println( value + " " + getTypes()[getType()] + " Potion" );
     }
 
 }

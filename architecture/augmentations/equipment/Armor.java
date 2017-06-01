@@ -1,13 +1,15 @@
-package architecture.augmentations;
-
-import architecture.augmentations.equipment.Equipment;
+package architecture.augmentations.equipment;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import architecture.augmentations.AttributeBoost;
+
 
 /**
- * Represents armors
+ * Represents armor worn by the Player. Each Armor has a material and type. From
+ * these (and level), the Armor's various normal AttributeBoosts are determined.
+ * Defense is similarly calculated.
  *
  * @author Kevin Liu
  * @version May 11, 2017
@@ -68,18 +70,6 @@ public class Armor extends Equipment
      *            relative strength
      * @param type
      *            helmet, chestpiece, etc.
-     */
-    public Armor( int level, int type )
-    {
-        this( level, type, generateMaterial() );
-    }
-
-
-    /**
-     * @param level
-     *            relative strength
-     * @param type
-     *            helmet, chestpiece, etc.
      * @param material
      *            the material with which the armor is made
      */
@@ -90,16 +80,16 @@ public class Armor extends Equipment
         defense = generateDefense( level, type, material );
         defenseBoosts = generateDefenseBoosts( level );
 
-        setNormalBoosts( new LinkedList<AttributeBoost>() );
-        setSpecialBoosts( new LinkedList<AttributeBoost>() );
+        setNormalBoosts( generateNormalBoosts( level, material ) );
+        setSpecialBoosts( generateSpecialBoosts( level ) );
 
         initializeBoosts();
-
     }
 
 
     /**
      * Generate a type of armor
+     * 
      * @return an int that grabs from the 2Darray.
      */
     private static int generateType()
@@ -110,7 +100,9 @@ public class Armor extends Equipment
 
     /**
      * Generate the material it's made of
-     * @return an int that determines the material of the armor, based on the 2Darray.
+     * 
+     * @return an int that determines the material of the armor, based on the
+     *         2Darray.
      */
     private static int generateMaterial()
     {
@@ -120,12 +112,13 @@ public class Armor extends Equipment
 
     /**
      * Generate the defense of the player.
+     * 
      * @param level
-     *          The current level of the player.
+     *            The current level of the player.
      * @param type
-     *          The Type of armor.
+     *            The Type of armor.
      * @param material
-     *          The material the armor piece is made of.
+     *            The material the armor piece is made of.
      * @return The defence in total of the player, rounded to an int.
      */
     private static int generateDefense( int level, int type, int material )
@@ -156,8 +149,9 @@ public class Armor extends Equipment
 
     /**
      * List all possible sources of bonus defense of the player
+     * 
      * @param level
-     *          The current level of the player
+     *            The current level of the player
      * @return A list holding all the sources of bonus defense.
      */
     private static List<Integer> generateDefenseBoosts( int level )
@@ -177,10 +171,13 @@ public class Armor extends Equipment
 
 
     /**
-     * TODO Write your method description here.
+     * Generates a List of AttributeBoost based on the type of armor
+     * 
      * @param level
+     *            relative strength and number of boosts
      * @param material
-     * @return
+     *            type of boosts
+     * @return a List of AttributeBoost which are dependent on the type
      */
     private static List<AttributeBoost> generateNormalBoosts(
         int level,
@@ -215,8 +212,9 @@ public class Armor extends Equipment
 
     /**
      * Add all possible sources of defense
-     * @param defense 
-     *              The base defense of the player, before any additional sources.
+     * 
+     * @param defense
+     *            The base defense of the player, before any additional sources.
      */
     public void addDefense( int defense )
     {
@@ -267,11 +265,6 @@ public class Armor extends Equipment
     }
 
 
-    /**
-     * Add the elements of the array together.
-     * @param array An array containing doubles.
-     * @return A double, which is the sum of the array.
-     */
     private static double sumOf( double[] array )
     {
         double sum = 0;

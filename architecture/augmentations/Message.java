@@ -8,7 +8,8 @@ import java.util.TimerTask;
 import com.sun.javafx.geom.Point2D;
 
 import architecture.augmentations.consumables.Potion;
-import architecture.augmentations.weapons.Weapon;
+import architecture.augmentations.equipment.Armor;
+import architecture.augmentations.equipment.Weapon;
 import architecture.characters.Renderable;
 import graphicsUtils.GraphicsInterface;
 

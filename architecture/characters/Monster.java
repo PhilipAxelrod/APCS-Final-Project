@@ -3,10 +3,10 @@ package architecture.characters;
 import java.util.LinkedList;
 import java.util.List;
 
-import architecture.augmentations.Armor;
 import architecture.augmentations.Item;
 import architecture.augmentations.consumables.NominalPotion;
-import architecture.augmentations.weapons.Weapon;
+import architecture.augmentations.equipment.Armor;
+import architecture.augmentations.equipment.Weapon;
 import architecture.characters.Combatant;
 import architecture.characters.Player;
 
@@ -71,33 +71,6 @@ public abstract class Monster extends Combatant
     private Player player;
 
     private boolean aggroed = false;
-
-
-    /**
-     * @param level
-     *            level of monster
-     * @param player
-     *            the Player
-     */
-    public Monster( int level, Player player )
-    {
-        this( level, generateItems( level ), player, new Point2D( 0, 0 ) );
-    }
-
-
-    /**
-     * @param level
-     *            level of monster
-     * @param items
-     *            items dropped upon death
-     * @param player
-     *            the Player
-     */
-    public Monster( int level, List<Item> items, Player player )
-    {
-        this( level, items, player, new Point2D( 0, 0 ) );
-
-    }
 
 
     public Monster( int level, Player player, Point2D loc )
@@ -258,13 +231,6 @@ public abstract class Monster extends Combatant
     }
 
 
-    /**
-     * Calculates the sum of a double[].
-     * 
-     * @param array
-     *            double[] in question
-     * @return the sum of elements of array
-     */
     protected static double sumOf( double[] array )
     {
         double sum = 0;

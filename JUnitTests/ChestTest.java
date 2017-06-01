@@ -9,10 +9,10 @@ import com.sun.javafx.geom.Point2D;
 import org.junit.Test;
 
 import architecture.augmentations.equipment.Chest;
+import architecture.augmentations.equipment.Weapon;
 import architecture.augmentations.Item;
 import architecture.augmentations.consumables.NominalPotion;
 import architecture.characters.Player;
-import architecture.augmentations.weapons.Weapon;
 
 
 /**

@@ -14,9 +14,9 @@ import com.sun.javafx.geom.Point2D;
 
 import architecture.characters.CombatResult;
 import architecture.augmentations.equipment.Chest;
+import architecture.augmentations.equipment.Weapon;
 import architecture.characters.Combatant;
 import architecture.GameState;
-import architecture.augmentations.weapons.Weapon;
 import proceduralGeneration.Cell;
 
 
@@ -115,11 +115,6 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    // Set the sprite to the BufferedImage
-    public void setSprite( BufferedImage newSprite )
-    {
-        this.sprite = newSprite;
-    }
 
 
     // Load the Sprite into the sprite sheet
@@ -291,17 +286,7 @@ public class GraphicsInterface extends JPanel
     }
 
 
-    public void renderCharacter( Combatant combatant, Graphics g )
-    {
-        loadSprite( "ConcretePowderMagenta.png" );
-        placeImage(
-                (int)combatant.getPose().x,
-            (int)combatant.getPose().y,
-            combatant.WIDTH,
-            combatant.HEIGHT,
-            g );
 
-    }
 
 
     public void renderCombatResult( CombatResult result, Graphics g )
