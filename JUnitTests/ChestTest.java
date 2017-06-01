@@ -45,7 +45,7 @@ public class ChestTest
     @Test
     public void constructor()
     {
-        Chest chest = new Chest(LEVEL, Point2D loc);
+        Chest chest = new Chest(LEVEL, loc);
     }
 
 }
