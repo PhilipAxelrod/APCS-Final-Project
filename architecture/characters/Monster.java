@@ -123,6 +123,12 @@ public abstract class Monster extends Combatant
     }
 
 
+    public Monster( int level, Player player )
+    {
+        this( level, player, new Point2D( 0, 0 ) );
+    }
+
+
     /**
      * Generates the list of items Monster drops upon dying.
      * 

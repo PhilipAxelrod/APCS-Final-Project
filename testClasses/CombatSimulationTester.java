@@ -9,7 +9,7 @@ import architecture.characters.Skeleton;
 public class CombatSimulationTester
 {
     // Defender information
-    private static final Monster target = new Skeleton( 20, new Player() );
+    private static final Monster target = new Skeleton( 20, new Player(null) );
 
     // Attacker information
     private static final int atk = 70, acc = 300, crit = 75, attacks = 10;
