@@ -60,7 +60,6 @@ public class Player extends Combatant implements Updateable
         setLevel( 1 );
         // Set starting equipment
 
-        // TODO: more intelligent weapons?
         equippedWeapon = new Sword();
 
         for ( int i = 0; i < equippedArmor.length; i++ )

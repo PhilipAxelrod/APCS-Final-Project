@@ -256,15 +256,16 @@ public class GraphicsInterface extends JPanel
     @Override
     public void keyTyped( KeyEvent arg0 )
     {
-        // TODO Auto-generated method stub
-
+        // Intentionally empty. We don't use this, but needed because this
+        // method is abstract in KeyListener
     }
 
 
     @Override
     public void actionPerformed( ActionEvent arg0 )
     {
-        // TODO Auto-generated method stub
+        // Intentionally empty. We don't use this, but needed because this
+        // method is abstract in KeyListener
     }
 
 
@@ -338,45 +339,41 @@ public class GraphicsInterface extends JPanel
     }
 
 
+    private BufferedImage weaponImage;
     public void renderWeapon(
-        Weapon weapon,
-        Combatant combatant,
-        Graphics g,
-        int frameWidth,
-        int framHeight )
+            Weapon weapon,
+            Combatant combatant,
+            Graphics g)
     {
-        // if ( weapon.getType()[0] == 0 )
-        {
-
-            loadSprite( "default_sword.png" );
-
-            // TODO: Remove hard coding of weapon size
-            Graphics2D graphics2D = (Graphics2D)g;
-//            System.out.println( "weapon angle: " + weapon.getAngle() );
-            g.translate(
-                (int)( combatant.getPose().x
-                    + combatant.WIDTH / 2 )/* frameWidth / 2 */,
-                (int)( combatant.getPose().y )
-                    + combatant.HEIGHT / 2/* framHeight / 2 */ );
-            ( (Graphics2D)g ).rotate( Math.toRadians( weapon.getAngle() ) );
-
-            placeImage(
-                /* 100 / 2 */0,
-                -100 / 2,
-                100,
-                100,
-                g );
-
-            g.translate(
-                -(int)( combatant.getPose().x
-                    + combatant.WIDTH / 2 )/* frameWidth / 2 */,
-                -(int)( combatant.getPose().y )
-                    + combatant.HEIGHT / 2/* framHeight / 2 */ );
+        if (weaponImage == null) {
+            try {
+                weaponImage = ImageUtils.loadBufferedImage("default_sword.png");
+            } catch (IOException e1) {
+                throw new RuntimeException("failed to load image");
+            }
         }
-        // else
-        {
-            // throw new NotImplementedException();
-        }
+
+        g.translate(
+            (int)( combatant.getPose().x
+                + Combatant.WIDTH / 2 ),
+            (int)( combatant.getPose().y )
+                + Combatant.HEIGHT / 2);
+
+        ( (Graphics2D)g ).rotate( Math.toRadians( weapon.getAngle() ) );
+
+        placeImage(
+            weaponImage,
+            0,
+            -100 / 2,
+            100,
+            100,
+            g );
+
+        g.translate(
+            -(int)( combatant.getPose().x
+                + Combatant.WIDTH / 2 ),
+            -(int)( combatant.getPose().y )
+                + Combatant.HEIGHT / 2);
     }
 
 
@@ -442,20 +439,14 @@ public class GraphicsInterface extends JPanel
                     renderChest( chest, g );
                 renderCombatResult( null, g );
 
+                // TODO: really true?
                 // because the weapon involves rotation, we put this last to not
-                // have
-                // to unrotate stuff
+                // have to unrotate stuff
                 renderWeapon( gameState.player.getWeapon(),
                     gameState.player,
-                    g,
-                    frame.getWidth(),
-                    frame.getHeight() );
+                    g);
 
             }
-
-            double currTime = System.currentTimeMillis() / 1000D;
-            // System.out.println("drawing took: " + (currTime - lastTime));
-            lastTime = currTime;
         }
         else
         {

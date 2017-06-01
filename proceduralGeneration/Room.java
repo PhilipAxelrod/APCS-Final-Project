@@ -100,7 +100,7 @@ public class Room extends Rectangle
 
         Point2D topRightTileKey = new Point2D(
                 RoomGenerator.roundToLowestMultiple(
-                        point.x + combatant.WIDTH,
+                        point.x + Combatant.WIDTH,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
                 RoomGenerator.roundToLowestMultiple(
                         point.y,
@@ -111,15 +111,15 @@ public class Room extends Rectangle
                         point.x,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
                 RoomGenerator.roundToLowestMultiple(
-                        point.y + combatant.HEIGHT,
+                        point.y + Combatant.HEIGHT,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
 
         Point2D bottomRightTileKey = new Point2D(
                 RoomGenerator.roundToLowestMultiple(
-                        point.x + combatant.HEIGHT,
+                        point.x + Combatant.HEIGHT,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ),
                 RoomGenerator.roundToLowestMultiple(
-                        point.y + combatant.WIDTH,
+                        point.y + Combatant.WIDTH,
                         cellWidth * cells.length / RoomGenerator.HashTileGridLength ) );
 
         List<Rectangle> emptyList = new LinkedList<>();
@@ -235,7 +235,7 @@ public class Room extends Rectangle
                 monsters,
                 player,
                 chests,
-                player.WIDTH + 50,
+                Combatant.WIDTH + 50,
                 portal,
                 messages ) );
     }

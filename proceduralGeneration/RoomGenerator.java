@@ -25,7 +25,6 @@ import com.sun.javafx.geom.Point2D;
  */
 public class RoomGenerator
 {
-    // TODO: making this 4 breaks unit tests for generating walls
     public static final int HashTileGridLength = 10;
 
     final public Cell[][] cells;
@@ -34,8 +33,6 @@ public class RoomGenerator
 
     public final int rows;
     public final int cols;
-
-    private final Point center;
 
 
     private void initCells(int rows)
@@ -57,7 +54,6 @@ public class RoomGenerator
         this.cols = rows;
 
         cells = new Cell[rows][rows];
-        center = new Point(rows / 2, rows / 2);
         initCells(rows);
         for ( Point point : initAlive )
         {
@@ -65,17 +61,21 @@ public class RoomGenerator
         }
     }
 
+    private static List<Point> getDefaultSeeds() {
+        int defaultNumRows = 10;
+        int defaultCenter = defaultNumRows / 2;
+
+        return Arrays.<Point> asList(
+                new Point( defaultCenter - 1, defaultCenter),
+                new Point(defaultCenter, defaultCenter),
+                new Point( defaultCenter + 1, defaultCenter),
+                new Point( defaultCenter + 2, defaultCenter ),
+                new Point( defaultCenter + 3, defaultCenter ));
+    }
 
     public RoomGenerator()
     {
-        // TODO: hackish!
-        this( Arrays.<Point> asList(
-                new Point( 5 - 1, 5),
-                new Point(5, 5),
-                new Point( 5 + 1, 5),
-                new Point( 5 + 2, 5 ),
-                new Point( 5 + 3, 5 )),
-                10);
+        this(getDefaultSeeds(), 10);
     }
 
 
@@ -135,7 +135,6 @@ public class RoomGenerator
         List<Monster> ret = new LinkedList<>();
         for ( int i = 0; i < numEnemies; i++ )
         {
-            // TODO: enemy distribution
             ret.add( new Skeleton( floor, player ) );
         }
         spawnEnemies( ret, cellLength );
@@ -390,18 +389,26 @@ public class RoomGenerator
         }
     }
 
-    private void randomizeCells(int simulationRuns) {
-        killAllCells();
+    private void randomizeCells(int simulationRuns, int numEntities) {
+        // test for case where there are fewer alive cells than
+        // the number of Chests, Monsters, and the player that will
+        // occupy them
+        updateAliveAvaibleCells();
+        do {
+//            System.out.println("going!");
+            killAllCells();
 
-        // ensure there are enough seeds so that there are no islands
-        plantRandomSeed( rows * rows / 5 );
+            // ensure there are enough seeds so that there are no islands
+            plantRandomSeed( rows * rows / 5 );
 
-        for ( int i = 0; i < simulationRuns; i++ )
-        {
-            runSimulation();
-        }
+            for ( int i = 0; i < simulationRuns; i++ )
+            {
+                runSimulation();
+            }
 
-        killBorders();
+            killBorders();
+            updateAliveAvaibleCells();
+        } while (!(aliveAvailibleCells.size() >= numEntities));
     }
 
     public Room generateRoom(int floor, int cellLength, Player player) {
@@ -419,7 +426,11 @@ public class RoomGenerator
     }
 
     public Room generateNewRoom(int floor, int cellLength, Player player, int simulationRuns) {
-        randomizeCells(simulationRuns);
+
+        randomizeCells(
+                simulationRuns,
+                // num chests + num enemies + 1 player
+                (int) (1.5 * floor) + (int) (floor * 1.5) + 1 );
         return generateRoom(floor, cellLength, player);
     }
 

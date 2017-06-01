@@ -2,8 +2,6 @@ package architecture.characters;
 
 import com.sun.javafx.geom.Point2D;
 
-import proceduralGeneration.Room;
-
 import java.awt.*;
 import java.util.TimerTask;
 
@@ -33,16 +31,6 @@ public abstract class Combatant extends TimerTask implements Renderable
 
     private double xVelocity = 0, yVelocity = 0;
 
-    protected Room currRoom;
-
-    protected static final int TERMINAL_VELOCITY = 100;
-
-    private static final double FRICTION = 0.10;
-
-    // TODO: remove arbitrary 10D
-    private static final double ACCELERATION = TERMINAL_VELOCITY
-        * ( 1 / FRICTION - 1 ) / 10D;
-
     protected int level, health, mana;
 
     // [STR, INT, DEX, SPD, VIT, WIS, LUK]
@@ -56,8 +44,6 @@ public abstract class Combatant extends TimerTask implements Renderable
     private int actionBar = 0;
 
     public boolean canAttack = true;
-
-    protected boolean isDead = false;
 
     public CombatResult result;
 
@@ -118,7 +104,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     protected int getTerminalVelocity()
     {
-        return TERMINAL_VELOCITY;
+        return 100;
     }
 
 
@@ -127,7 +113,7 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     protected double getFriction()
     {
-        return FRICTION;
+        return 0.10;
     }
 
 
@@ -159,20 +145,10 @@ public abstract class Combatant extends TimerTask implements Renderable
 
 
     /**
-     * @return the bottom right corner of the combatant
-     */
-    protected Point2D bottomRightCorner()
-    {
-        return new Point2D( topLeftCorner.x + WIDTH, topLeftCorner.y + HEIGHT );
-    }
-
-
-    /**
      * Moves the Combatant back to the previous location.
      */
     public void resetPoseToPrevios()
     {
-        System.out.println( "reset called!" );
         topLeftCorner = previousTopLeftCorner;
         previousTopLeftCorner = null;
     }
@@ -533,7 +509,6 @@ public abstract class Combatant extends TimerTask implements Renderable
      */
     public void death()
     {
-        isDead = true;
     }
 
 
@@ -683,16 +658,5 @@ public abstract class Combatant extends TimerTask implements Renderable
         System.out.println( "\n" + divider );
     }
 
-
-    /**
-     * Sets the room.
-     * 
-     * @param room
-     *            new room
-     */
-    public void setCurrRoom( Room room )
-    {
-        currRoom = room;
-    }
 
 }

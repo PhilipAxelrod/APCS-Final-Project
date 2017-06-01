@@ -43,7 +43,8 @@ public class GameLoop
 
             Room room = roomGenerator.generateNewRoom( curentFloor,
                 Player.WIDTH + 50,
-                player );
+                player ,
+                500);
 
             double startTime = System.currentTimeMillis();
 
