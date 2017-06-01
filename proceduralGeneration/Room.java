@@ -25,7 +25,7 @@ import architecture.characters.Combatant;
  *
  * @author Sources: none
  */
-public class Room extends Rectangle
+public class Room
 {
     public List<Monster> monsters;
     
@@ -74,7 +74,7 @@ public class Room extends Rectangle
 
 
     /**
-     * tells if the combatant would be in a collision at the given point.
+     * Tells if the combatant would be in a collision at the given point.
      * It uses a hashing scheme where it looks in a Hashtable of forbidden
      * areas. They key represents the top left corner of a subdivision of the
      * map, and the value is a list of all forbidden Areas in that subdivision.
@@ -125,17 +125,6 @@ public class Room extends Rectangle
         List<Rectangle> emptyList = new LinkedList<>();
 
         List<Rectangle> forbiddenRectangles = (forbiddenAreas.getOrDefault( topLeftTileKey, emptyList ));
-//        if (!bottomLeftTileKey.equals(topLeftTileKey)) {
-//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(topRightTileKey, emptyList));
-//        }
-//        if (!bottomLeftTileKey.equals(topLeftTileKey) && !bottomLeftTileKey.equals(topRightTileKey)) {
-//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(bottomLeftTileKey, emptyList));
-//        }
-//        if (!bottomRightTileKey.equals(topLeftTileKey) &&
-//                !bottomRightTileKey.equals(topRightTileKey) &&
-//                !bottomRightTileKey.equals(bottomLeftTileKey)) {
-//            forbiddenRectangles.addAll(forbiddenAreas.getOrDefault(bottomRightTileKey, emptyList));
-//        }
 
         for ( Rectangle forbiddenRectangle : forbiddenRectangles )
         {

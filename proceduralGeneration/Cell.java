@@ -2,6 +2,10 @@ package proceduralGeneration;
 
 import java.util.Optional;
 
+/**
+ * Represents a Cell in conways game of life. Has a dead and alive state
+ * a queued, future dead and alive state, and an x,y position
+ */
 public class Cell
 {
     boolean isAlive;

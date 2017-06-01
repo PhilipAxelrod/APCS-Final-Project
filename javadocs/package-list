@@ -1,0 +1,9 @@
+JUnitTests
+JUnitTests.rooms
+architecture
+architecture.augmentations
+architecture.augmentations.consumables
+architecture.augmentations.equipment
+architecture.characters
+graphicsUtils
+proceduralGeneration

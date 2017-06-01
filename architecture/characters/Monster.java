@@ -134,7 +134,7 @@ public abstract class Monster extends Combatant
      * 
      * @param level
      *            relative strength of items
-     * @return List<Item> of items
+     * @return {@code {@link List<Item>}} of items
      */
     public static List<Item> generateItems( int level )
     {

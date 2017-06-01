@@ -89,7 +89,7 @@ public class Chest
     /**
      * Gets the contents of the chest.
      * 
-     * @return a List<Item> of the chests's contents
+     * @return a {@code {@link List<Item>}} of the chests's contents
      */
     public List<Item> getContents()
     {
