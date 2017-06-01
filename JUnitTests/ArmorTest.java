@@ -58,6 +58,7 @@ public class ArmorTest
         Armor armor = new Armor( LEVEL, TYPE, MATERIAL );
         assertTrue( armor.getMaterial() == MATERIAL );
         assertTrue( armor.getType() == TYPE );
+        assertTrue(false);
     }
     
     /**

@@ -31,6 +31,7 @@ public class AttributeBoostTest
         AttributeBoost boost = new AttributeBoost( ATTRIBUTE, VALUE );
         assertEquals( ATTRIBUTE, boost.getAttribute() );
         assertEquals( VALUE, boost.getValue() );
+        assertFalse(true);
     }
 
 }
