@@ -376,7 +376,6 @@ public class GraphicsInterface extends JPanel
                 + Combatant.HEIGHT / 2);
     }
 
-
     public void renderChest( Chest chest, Graphics g )
     {
         Point2D loc = chest.getPose();

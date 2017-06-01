@@ -184,9 +184,13 @@ public abstract class Combatant extends TimerTask implements Renderable
     }
 
 
+    /**
+     * @return a Rectangle occupying the same space as the combatant
+     */
     public Rectangle getBoundingBox()
     {
-        return new Rectangle( (int)getPose().x,
+        return new Rectangle(
+            (int)getPose().x,
             (int)getPose().y,
             WIDTH,
             HEIGHT );

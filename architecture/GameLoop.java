@@ -46,10 +46,6 @@ public class GameLoop
                 player ,
                 500);
 
-            double startTime = System.currentTimeMillis();
-
-            int iter = 0;
-
 
             private void reset()
             {

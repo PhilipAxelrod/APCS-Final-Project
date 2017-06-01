@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 
 
 public class RoomJunit {
-    final List<Point> emptyPoints = new LinkedList<>();
     final List<Point> cornersAlive = Arrays.asList(
             new Point(2, 2),
             new Point(0, 0));
